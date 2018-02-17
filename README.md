@@ -4,11 +4,12 @@ Oficial RedPillStudios GitHub account
 
 # Team Members:
 
-Roger LeÛn, 
+Roger Le√≥n, 
 Luciano Suaya,
-Adri·n Font i
-Jaume AvinyÛ
+Adri√°n Font and
+Jaume Aviny√≥
 
 # Contact:
 
 jaumavi1999@hotmail.com
+adrifont99@hotmail.es
