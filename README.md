@@ -4,9 +4,9 @@ Oficial RedPillStudios GitHub account
 
 # Team Members:
 
-Roger León 
-Luciano Suaya
-Adrián Font
+Roger León, 
+Luciano Suaya,
+Adrián Font i
 Jaume Avinyó
 
 # Contact:
