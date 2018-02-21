@@ -1,6 +1,5 @@
 #             RedPill Studios
 ###          Project Last Resort
-####  [The Team](docs/The_Team.md), [Contact us!](docs/Contact.md)
 
 Welcome to the official webpage of Project Last Resort from RedPill Studios!
 
@@ -15,4 +14,42 @@ Here you can see a Gameplay video of the game:
 
 To see the complete walkthrough click [here](https://www.youtube.com/watch?v=qehxGizRcM8&t=205s)
 
-<img src="Web Files/James.png" alt="hi" class="inline"/>
+###          The Team
+
+The team is formed by 4 students from [CITM-UPC](https://www.citm.upc.edu/) of the degree in Videogames design and developement. We are:
+
+Lucho Suaya - Management role
+<img src="Web Files/github.png.png" alt="hi" class="inline"/> @lucho1
+<img src="Web Files/Lucho_CV.png.png" alt="hi" class="inline"/>
+Roger Leon - Art Director
+
+	![github logo]({{site.url}}/assets/image.png @rleonborras
+	![img]({{site.url}}/assets/image.png
+
+Jaume Avinyo - Code Master
+
+	![github logo]({{site.url}}/assets/image.png @Jaumeavinyo
+	![img]({{site.url}}/assets/image.png
+
+
+Adri Font - QA Role
+	
+	![github logo]({{site.url}}/assets/image.png @AdrianFR99
+ 	![img]({{https://raw.githubusercontent.com/RedPillStudios/Last-Resort-Project/gh-pages/Web%20Files/James.png}}/Web Files/James.png
+	
+	
+
+And here we are all together :)
+
+			![img]({{site.url}}/assets/image.png
+
+
+###          Contact Us!
+
+You can contact us by sending an e-mail to luchosuaya@hotmail.com or to any of those:
+
+rleonborras@gmail.com
+
+adrifont99@hotmail.es
+
+jaumavi1999@hotmail.com
