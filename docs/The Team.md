@@ -2,7 +2,7 @@
 ###          Project Last Resort
 #### [Welcome](link to welcome) , [Contact Us!](link to contact)
 
-<img src="Web Files/James.png" alt="hi" class="inline"/>
+<img src="Last-Resort-Project/Web Files/James.png" alt="hi" class="inline"/>
 
 The team is formed by 4 students from [CITM-UPC](https://www.citm.upc.edu/) of the degree in Videogames design and developement. We are:
 
