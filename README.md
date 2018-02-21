@@ -9,7 +9,7 @@ The player's objective is to survive through five stages destroying the boss of 
 
 Here you can see a Gameplay video of the game:
 
-<video src=https://github.com/RedPillStudios/Last-Resort-Project/blob/gh-pages/Web%20Files/"LastResortVideo.mp4" poster="Poster.jpg" width="650" height="520" controls preload></video>
+<video src=/Web_Files/"LastResortVideo.mp4" poster="Poster.jpg" width="650" height="520" controls preload></video>
 
 "LastResortVideo.mp4"
 To see the complete walkthrough click [here](https://www.youtube.com/watch?v=qehxGizRcM8&t=205s)
