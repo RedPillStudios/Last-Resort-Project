@@ -18,30 +18,29 @@ To see the complete walkthrough click [here](https://www.youtube.com/watch?v=qeh
 
 The team is formed by 4 students from [CITM-UPC](https://www.citm.upc.edu/) of the degree in Videogames design and developement. We are:
 
-Lucho Suaya - Management role
-<img src="Web Files/github.png.png" alt="hi" class="inline"/> @lucho1
-<img src="Web Files/Lucho_CV.png.png" alt="hi" class="inline"/>
-Roger Leon - Art Director
+Lucho Suaya - Management role (@lucho1)
 
-	![github logo]({{site.url}}/assets/image.png @rleonborras
-	![img]({{site.url}}/assets/image.png
-
-Jaume Avinyo - Code Master
-
-	![github logo]({{site.url}}/assets/image.png @Jaumeavinyo
-	![img]({{site.url}}/assets/image.png
+<img src="Web Files/Lucho.png" alt="hi" class="inline"/>
 
 
-Adri Font - QA Role
+Roger Leon - Art Director (@rleonborras)
+
+<img src="Web Files/Ruier.png" alt="hi" class="inline"/>
 	
-	![github logo]({{site.url}}/assets/image.png @AdrianFR99
- 	![img]({{https://raw.githubusercontent.com/RedPillStudios/Last-Resort-Project/gh-pages/Web%20Files/James.png}}/Web Files/James.png
-	
+
+Jaume Avinyo - Code Master (@Jaumeavinyo)
+
+<img src="Web Files/James.png" alt="hi" class="inline"/>
+
+
+Adri Font - QA Role (@AdrianFR99)
+
+<img src="Web Files/andriang.png" alt="hi" class="inline"/>
 	
 
 And here we are all together :)
 
-			![img]({{site.url}}/assets/image.png
+<img src="Wiki Files/b16f35d8-8ca2-4e00-bf74-b592587ac36d.jpg" alt="hi" class="inline"/>
 
 
 ###          Contact Us!
