@@ -14,3 +14,5 @@ Here you can see a Gameplay video of the game:
 
 
 To see the complete walkthrough click [here](https://www.youtube.com/watch?v=qehxGizRcM8&t=205s)
+
+<img src="Web Files/James.png" alt="hi" class="inline"/>
