@@ -18,7 +18,7 @@ To see the complete walkthrough click [here](https://www.youtube.com/watch?v=qeh
 
 The team is formed by 4 students from [CITM-UPC](https://www.citm.upc.edu/) of the degree in Videogames design and developement. We are:
 
-Lucho Suaya - Management role (<@lucho1>)
+Lucho Suaya - Management role (@lucho1)
 
 <img src="Web Files/Lucho.png" alt="hi" class="inline"/>
 
