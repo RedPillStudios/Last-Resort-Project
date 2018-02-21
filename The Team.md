@@ -26,8 +26,9 @@ Jaume Avinyo - Code Master
 Adri Font - QA Role
 	
 	![github logo]({{site.url}}/assets/image.png @AdrianFR99
- 	![img]({{site.url}}/assets/image.png
-
+ 	![img]({{https://raw.githubusercontent.com/RedPillStudios/Last-Resort-Project/gh-pages/Web%20Files/James.png}}/Web Files/James.png
+	
+	<img src="Web Files/James.png" alt="hi" class="inline"/>
 
 And here we are all together :)
 
