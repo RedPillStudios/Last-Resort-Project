@@ -1,6 +1,6 @@
 #             RedPill Studios
 ###          Project Last Resort
-####  [The Team](/The_Team.md), [Contact us!](/Contact.md)
+####  [The Team](docs/The_Team.md), [Contact us!](docs/Contact.md)
 
 Welcome to the official webpage of Project Last Resort from RedPill Studios!
 
