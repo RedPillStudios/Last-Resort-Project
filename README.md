@@ -1,6 +1,6 @@
 #             RedPill Studios
 ###          Project Last Resort
-####  [The Team](The Team.md), [Contact us!](link to contact)
+####  [The Team](/The Team.md), [Contact us!](link to contact)user/repo/blob/branch/other_file.md
 
 Welcome to the official webpage of Project Last Resort from RedPill Studios!
 
