@@ -7,16 +7,7 @@ During this quadrimester we are going to develop the Last Resort game, an arcade
 
 The player's objective is to survive through five stages destroying the boss of each one. In order to do that, it controls a cyber jet with different guns and an indestructible robot useful to protect your ship from the different kind of enemies and also to attack them. This robot can be toggled to a stop track position or to rotate around the cyber jet. The ship also can be "upraded" by pick ups with three levels of three types of firepower and faster speed. You can play with a friend cooperatively.
 
-<!DOCTYPE html>
 
-<html>
-<body>
-
-<iframe width="420" height="345" src="https://www.youtube.com/watch?v=Vhbd9G1W3Kg">
-</iframe>
-
-</body>
-</html>
 
 ###          The Team
 
