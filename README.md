@@ -13,8 +13,8 @@ Here you have a gameplay:
 <html>
 <body>
 
-<iframe width="420" height="345"
-src="https://www.youtube.com/watch?v=g1keTEfqhkE">
+<iframe width="645" height="520"
+src="https://www.youtube.com/watch?v=g1keTEfqhkE" frameborder="0" allowfullscreen>
 
 </iframe>
 </body>
