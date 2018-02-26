@@ -14,7 +14,7 @@ Here you have a gameplay:
 <body>
 
 <iframe width="645" height="520"
-src="https://www.youtube.com/watch?v=g1keTEfqhkE" frameborder="0" allowfullscreen>
+src="https://www.youtube.com/embed/g1keTEfqhkE" frameborder="0" allowfullscreen>
 
 </iframe>
 </body>
