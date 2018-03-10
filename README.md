@@ -12,8 +12,12 @@ Jaume Avinyó
 
 ## Contact:
 
-jaumavi1999@hotmail.com
+rleonborras@gmail.com
+
+luchosuaya@gmail.com
 
 adrifont99@hotmail.es
+
+jaumavi1999@hotmail.com
 
 ## Updates
