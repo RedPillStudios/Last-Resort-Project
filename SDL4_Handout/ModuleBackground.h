@@ -18,12 +18,20 @@ public:
 
 public:
 	
-	SDL_Texture* graphics = nullptr;
-	SDL_Rect ground;
-	SDL_Rect background;
-	Animation flag;
-	SDL_Rect FirstPlaneShip;
-	Animation AnimatedGirl;
+	SDL_Texture* graphics_Boss_Static_Background = nullptr;
+	SDL_Texture* graphics_ThirdPlaneBackground = nullptr;
+	SDL_Texture* graphics_SecondPlaneBackground = nullptr;
+	SDL_Texture* graphics_FirstPlaneBackGround = nullptr;
+	
+	SDL_Rect ThirdPlaneBackground;
+	SDL_Rect SecondPlaneBackground;
+	SDL_Rect FirstPlaneBackGround;
+	SDL_Rect IdlSpaceship;
+public: //movement of the firstplanebackground
+	float FirstPlaneBackGround_movement_X = 0;
+	float SecondPlaneGround_movement_X = 0;
+	float ThirdPlaneBackground_movement_X = 0;
+
 };
 
 #endif

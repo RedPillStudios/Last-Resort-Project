@@ -8,35 +8,22 @@
 
 ModuleBackground::ModuleBackground()
 {
-	// ground
-	ground.x = 8;
-	ground.y = 391;
-	ground.w = 896;
-	ground.h = 72;
-
-	// Background / sky
-	background.x = 72;
-	background.y = 208;
-	background.w = 768;
-	background.h = 176;
-
-	// flag animation
-	flag.PushBack({848, 208, 40, 40});
-	flag.PushBack({848, 256, 40, 40});
-	flag.PushBack({848, 304, 40, 40});
-	flag.speed =0.08f;
-
-	// AnimatedGirl
-	AnimatedGirl.PushBack({624,16,40,40});
-	AnimatedGirl.PushBack({624,80,40,40});
-	AnimatedGirl.PushBack({624,144,40,40});
-	AnimatedGirl.speed = 0.08f;
+	// background1 
+	FirstPlaneBackGround.x = 0;
+	FirstPlaneBackGround.y = 0;
+	FirstPlaneBackGround.w = 4407; //esto esta dpm
+	FirstPlaneBackGround.h = 238; //this also dpm
+	//background2
+	SecondPlaneBackground.x = 0;
+	SecondPlaneBackground.y = 0;
+	SecondPlaneBackground.w = 1302;
+	SecondPlaneBackground.h = 159;
+	//background3
+	ThirdPlaneBackground.x = 0;
+	ThirdPlaneBackground.y = 0;
+	ThirdPlaneBackground.w = 802;
+	ThirdPlaneBackground.h = 159;
 	
-	//FirstPlaneShip
-	FirstPlaneShip.x = 0;
-	FirstPlaneShip.y = 0;
-	FirstPlaneShip.h = 181;
-	FirstPlaneShip.w = 531;
 }
 
 ModuleBackground::~ModuleBackground()
@@ -47,26 +34,34 @@ bool ModuleBackground::Start()
 {
 	LOG("Loading background assets");
 	bool ret = true;
-	graphics = App->textures->Load("ken_stage.png");
+	//order of position in the game
+	graphics_Boss_Static_Background = App->textures->Load("Boss_Static_Background.png");
+	graphics_ThirdPlaneBackground = App->textures->Load("ThirdPlaneBackground.png");
+	graphics_SecondPlaneBackground = App->textures->Load("SecondPlaneBackground.png");
+	graphics_FirstPlaneBackGround = App->textures->Load("FirstPlaneBackGround.png");
 	return ret;
 }
 
 // Update: draw background
 update_status ModuleBackground::Update()
 {
+	//background movements!!! HERE---> The images are the ones who move, not the camera.
+	if (FirstPlaneBackGround_movement_X < 4077) {
+		FirstPlaneBackGround_movement_X -=0.5;
+	}
+	if (SecondPlaneGround_movement_X < 972) {
+		SecondPlaneGround_movement_X = FirstPlaneBackGround_movement_X / 2;
+	}
+	if (ThirdPlaneBackground_movement_X < 472) {
+		ThirdPlaneBackground_movement_X = FirstPlaneBackGround_movement_X / 3;
+	}
+	
+
 	// Draw everything --------------------------------------
-	App->render->Blit(graphics, 0, 0, &background, 0.75f); // sea and sky
-	App->render->Blit(graphics, 560, 8, &(flag.GetCurrentFrame()), 0.75f); // flag animation
-
-	// TODO 2: Draw the ship from the sprite sheet with some parallax effect
-	App->render->Blit(graphics, -10, 0, &FirstPlaneShip, 0.90f);
-
-	// TODO 3: Animate the girl on the ship (see the sprite sheet)
-
-	App->render->Blit(graphics, 191, 128, &(AnimatedGirl.GetCurrentFrame()), 0.90f);
-	//App->render->Blit(graphics, 192, 128, &(AnimatedGirl.GetCurrentFrame()), 0.90f); other people anim
-	//App->render->Blit(graphics, 192, 128, &(AnimatedGirl.GetCurrentFrame()), 0.90f); other people anim
-	App->render->Blit(graphics, 0, 170, &ground);
+	App->render->Blit(graphics_ThirdPlaneBackground, ThirdPlaneBackground_movement_X, 0, &ThirdPlaneBackground, 1.0f);
+	App->render->Blit(graphics_SecondPlaneBackground, SecondPlaneGround_movement_X, 30, &SecondPlaneBackground, 1.0f); //SECOND PLANE BACKGROUND
+	App->render->Blit(graphics_FirstPlaneBackGround, FirstPlaneBackGround_movement_X, 0, &FirstPlaneBackGround, 1.0f); // FIRST PLANE BACKGROUND
+	
 
 	return UPDATE_CONTINUE;
 }
