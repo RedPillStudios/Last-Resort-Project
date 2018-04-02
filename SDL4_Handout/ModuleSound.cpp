@@ -59,6 +59,7 @@ bool ModuleSound::CleanUp()
 		}
 
 	Mix_Quit();
+	return true;
 
 }
 
