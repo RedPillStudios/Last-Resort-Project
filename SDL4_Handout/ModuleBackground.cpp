@@ -45,7 +45,7 @@ bool ModuleBackground::Start()
 	graphics_SecondPlaneBackground = App->textures->Load("SecondPlaneBackground.png");
 	graphics_FirstPlaneBackGround = App->textures->Load("FirstPlaneBackGround.png");
 
-	Stage1 = Mix_LoadMUS("Jack to the Metro [STAGE 1]");
+	/*Stage1 = Mix_LoadMUS("Jack to the Metro [STAGE 1]");*/
 
 	return ret;
 }
@@ -54,21 +54,21 @@ bool ModuleBackground::Start()
 update_status ModuleBackground::Update()
 {
 	//background movements!!! HERE---> The images are the ones which move, not the camera.
-	if (FirstPlaneBackGround_movement_X < 4077) {
-		FirstPlaneBackGround_movement_X -=0.5;
+	if (FirstPlaneBackGround_position_X < 4077) {
+		FirstPlaneBackGround_position_X -=0.5;
 	}
-	if (SecondPlaneGround_movement_X < 972) {
-		SecondPlaneGround_movement_X = FirstPlaneBackGround_movement_X / 2;
+	if (SecondPlaneGround_position_X < 972) {
+		SecondPlaneGround_position_X = FirstPlaneBackGround_position_X / 2;
 	}
-	if (ThirdPlaneBackground_movement_X < 472) {
-		ThirdPlaneBackground_movement_X = FirstPlaneBackGround_movement_X / 3;
+	if (ThirdPlaneBackground_position_X < 472) {
+		ThirdPlaneBackground_position_X = FirstPlaneBackGround_position_X / 3;
 	}
 	
 
 	// Draw everything --------------------------------------
-	App->render->Blit(graphics_ThirdPlaneBackground, ThirdPlaneBackground_movement_X, 0, &ThirdPlaneBackground, 1.0f);
-	App->render->Blit(graphics_SecondPlaneBackground, SecondPlaneGround_movement_X, 30, &SecondPlaneBackground, 1.0f); //SECOND PLANE BACKGROUND
-	App->render->Blit(graphics_FirstPlaneBackGround, FirstPlaneBackGround_movement_X, 0, &FirstPlaneBackGround, 1.0f); // FIRST PLANE BACKGROUND
+	App->render->Blit(graphics_ThirdPlaneBackground, ThirdPlaneBackground_position_X, 0, &ThirdPlaneBackground, 1.0f);
+	App->render->Blit(graphics_SecondPlaneBackground, SecondPlaneGround_position_X, 30, &SecondPlaneBackground, 1.0f); //SECOND PLANE BACKGROUND
+	App->render->Blit(graphics_FirstPlaneBackGround, FirstPlaneBackGround_position_X, 0, &FirstPlaneBackGround, 1.0f); // FIRST PLANE BACKGROUND
 	
 
 	return UPDATE_CONTINUE;

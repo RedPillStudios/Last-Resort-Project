@@ -30,13 +30,14 @@ public:
 	SDL_Rect IdlSpaceship;
 	
 	//Music
-	Mix_Music*Stage1 = nullptr;
+	/*Mix_Music*Stage1 = nullptr;*/
 
 
 public: //movement of the firstplanebackground
-	float FirstPlaneBackGround_movement_X = 0;
-	float SecondPlaneGround_movement_X = 0;
-	float ThirdPlaneBackground_movement_X = 0;
+	
+	float FirstPlaneBackGround_position_X = 0;
+	float SecondPlaneGround_position_X = 0;
+	float ThirdPlaneBackground_position_X = 0;
 
 };
 
