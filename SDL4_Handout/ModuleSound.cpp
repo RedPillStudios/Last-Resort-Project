@@ -21,10 +21,7 @@ ModuleSound::ModuleSound() :Module()
 
 
  ModuleSound::~ModuleSound()
-{
-
-
-}
+{ }
 
 bool ModuleSound::Init()
 {
@@ -95,7 +92,7 @@ Mix_Chunk*const ModuleSound::LoadChunk(const char*path)
 
 	//To load sound effect we call Mix_LoadWAV
 
-	chunks = Mix_LoadWAV("21_sound_effects_and_music/scratch.wav");
+	chunks = Mix_LoadWAV(path);
 	
 	if (chunks == nullptr)
 	{

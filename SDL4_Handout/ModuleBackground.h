@@ -35,9 +35,9 @@ public:
 
 public: //movement of the firstplanebackground
 	
-	float FirstPlaneBackGround_position_X = 0;
-	float SecondPlaneGround_position_X = 0;
-	float ThirdPlaneBackground_position_X = 0;
+	int FirstPlaneBackGround_position_X = 0;
+	int SecondPlaneGround_position_X = 0;
+	int ThirdPlaneBackground_position_X = 0;
 
 };
 
