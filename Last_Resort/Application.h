@@ -12,7 +12,7 @@ class ModuleRender;
 class ModuleBackground;
 class ModulePlayer;
 class Module;
-
+class ModuleSound;
 class Application
 {
 public:
@@ -24,6 +24,7 @@ public:
 	ModuleTextures* textures = nullptr;
 	ModuleBackground* background = nullptr;
 	ModulePlayer* player = nullptr;
+	ModuleSound* sound = nullptr;
 
 public:
 
