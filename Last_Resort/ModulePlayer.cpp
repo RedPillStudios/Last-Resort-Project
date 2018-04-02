@@ -29,7 +29,10 @@ ModulePlayer::ModulePlayer()
 	//forward.PushBack({432, 131, 50, 89});
 	//forward.speed = 0.1f;
 
-	
+	Ship.x=100;
+	Ship.y=200;
+	Ship.w=100;
+	Ship.h=50;
 
 
 	
@@ -67,7 +70,11 @@ update_status ModulePlayer::Update()
 		position.x -= speed;
 	}
 
+
+
 	// Draw everything --------------------------------------
+
+	App->render->Blit(graphics,0,0,&Ship,1.0f);
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
 	App->render->Blit(graphics, position.x, position.y - r.h, &r);

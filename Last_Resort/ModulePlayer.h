@@ -18,7 +18,7 @@ public:
 	update_status Update();
 
 public:
-
+	SDL_Rect Ship;
 	SDL_Texture* graphics = nullptr;
 	Animation idle;
 	Animation forward;
