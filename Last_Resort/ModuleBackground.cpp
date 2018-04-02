@@ -41,12 +41,12 @@ bool ModuleBackground::Start()
 	bool ret = true;
 	//order of position in the game
 	
+
 	graphics_Boss_Static_Background = App->textures->Load("Images/Background_Lvl1/Boss_Static_Background.png");
 	graphics_ThirdPlaneBackground = App->textures->Load("Images/Background_Lvl1/ThirdPlaneBackground.png");
 	graphics_SecondPlaneBackground = App->textures->Load("Images/Background_Lvl1/SecondPlaneBackground.png");
 	graphics_FirstPlaneBackGround = App->textures->Load("Images/Background_Lvl1/FirstPlaneBackGround.png");
 
-	//Stage1 =App->-> LoadMusic("Jack to the Metro [STAGE 1]");
 
 
 	return ret;
@@ -75,15 +75,15 @@ update_status ModuleBackground::Update()
 
 	// Draw everything --------------------------------------
 
+
+
 	App->render->Blit(graphics_ThirdPlaneBackground, (ThirdPlaneBackground_position_X)/3.5, 0, &ThirdPlaneBackground, 1.0f);
 	App->render->Blit(graphics_SecondPlaneBackground, (SecondPlaneGround_position_X)/3, 30, &SecondPlaneBackground, 1.0f); //SECOND PLANE BACKGROUND
 	App->render->Blit(graphics_FirstPlaneBackGround, (FirstPlaneBackGround_position_X)/2, 0, &FirstPlaneBackGround, 1.0f); // FIRST PLANE BACKGROUND
-
 	
-	//
-	//(ThirdPlaneBackground_position_X--);
-	//(SecondPlaneGround_position_X--);
-	//(FirstPlaneBackGround_position_X--);
+
+
+
 
 	return UPDATE_CONTINUE;
 }

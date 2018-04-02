@@ -29,6 +29,7 @@ public:
 
 		return frames[(int)current_frame];
 	}
+	int getCurrentFrame() const { return current_frame;}
 };
 
 #endif

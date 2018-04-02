@@ -33,7 +33,7 @@ public:
 	SDL_Rect IdlSpaceship;
 	
 	//Music
-	Mix_Music*Stage1 = nullptr;
+	Mix_Music*Stage1 = { nullptr };
 
 
 public: //movement of the firstplanebackground
