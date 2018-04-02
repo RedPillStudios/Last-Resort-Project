@@ -7,7 +7,7 @@
 #define MAX_MUSIC 2
 #define MAX_CHUNKS 50
 
-struct Mix_Music;
+typedef struct _Mix_Music Mix_Music;
 struct Mix_Chunk;
 
 class ModuleSound :public Module

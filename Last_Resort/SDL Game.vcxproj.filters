@@ -83,7 +83,7 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleSound.cpp">
-      <Filter>Core</Filter>
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
