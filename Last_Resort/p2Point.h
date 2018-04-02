@@ -9,6 +9,7 @@
 #include <math.h>
 
 template<class TYPE>
+
 class p2Point
 {
 public:

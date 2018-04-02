@@ -20,9 +20,12 @@ public:
 public:
 	SDL_Rect Ship;
 	SDL_Texture* graphics = nullptr;
+	Animation Up;
+	Animation Down;
+	Animation Standard;
 	Animation idle;
-	Animation forward;
-	Animation backward;
+	
+	
 	iPoint position;
 
 };
