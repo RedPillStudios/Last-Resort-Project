@@ -50,6 +50,9 @@
     <ClInclude Include="Animation.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleSound.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -78,6 +81,9 @@
     </ClCompile>
     <ClCompile Include="ModulePlayer.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleSound.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

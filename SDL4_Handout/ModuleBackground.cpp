@@ -3,6 +3,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleBackground.h"
+#include "ModuleSound.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -11,8 +12,8 @@ ModuleBackground::ModuleBackground()
 	// background1 
 	FirstPlaneBackGround.x = 0;
 	FirstPlaneBackGround.y = 0;
-	FirstPlaneBackGround.w = 4407; //esto esta dpm
-	FirstPlaneBackGround.h = 238; //this also dpm
+	FirstPlaneBackGround.w = 4407; //works
+	FirstPlaneBackGround.h = 238; //also works
 	//background2
 	SecondPlaneBackground.x = 0;
 	SecondPlaneBackground.y = 0;
@@ -23,11 +24,15 @@ ModuleBackground::ModuleBackground()
 	ThirdPlaneBackground.y = 0;
 	ThirdPlaneBackground.w = 802;
 	ThirdPlaneBackground.h = 159;
+
+
+
 	
 }
 
 ModuleBackground::~ModuleBackground()
-{}
+{
+}
 
 // Load assets
 bool ModuleBackground::Start()
@@ -39,13 +44,16 @@ bool ModuleBackground::Start()
 	graphics_ThirdPlaneBackground = App->textures->Load("ThirdPlaneBackground.png");
 	graphics_SecondPlaneBackground = App->textures->Load("SecondPlaneBackground.png");
 	graphics_FirstPlaneBackGround = App->textures->Load("FirstPlaneBackGround.png");
+
+	Stage1 = Mix_LoadMUS("Jack to the Metro [STAGE 1]");
+
 	return ret;
 }
 
 // Update: draw background
 update_status ModuleBackground::Update()
 {
-	//background movements!!! HERE---> The images are the ones who move, not the camera.
+	//background movements!!! HERE---> The images are the ones which move, not the camera.
 	if (FirstPlaneBackGround_movement_X < 4077) {
 		FirstPlaneBackGround_movement_X -=0.5;
 	}

@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "Globals.h"
 
+
 struct SDL_Texture;
 
 class ModuleBackground : public Module
@@ -27,6 +28,11 @@ public:
 	SDL_Rect SecondPlaneBackground;
 	SDL_Rect FirstPlaneBackGround;
 	SDL_Rect IdlSpaceship;
+	
+	//Music
+	Mix_Music*Stage1 = nullptr;
+
+
 public: //movement of the firstplanebackground
 	float FirstPlaneBackGround_movement_X = 0;
 	float SecondPlaneGround_movement_X = 0;
