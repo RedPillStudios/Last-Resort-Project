@@ -40,12 +40,14 @@ bool ModuleBackground::Start()
 	LOG("Loading background assets");
 	bool ret = true;
 	//order of position in the game
+	
 	graphics_Boss_Static_Background = App->textures->Load("Boss_Static_Background.png");
 	graphics_ThirdPlaneBackground = App->textures->Load("ThirdPlaneBackground.png");
 	graphics_SecondPlaneBackground = App->textures->Load("SecondPlaneBackground.png");
 	graphics_FirstPlaneBackGround = App->textures->Load("FirstPlaneBackGround.png");
 
 	/*Stage1 = Mix_LoadMUS("Jack to the Metro [STAGE 1]");*/
+
 
 	return ret;
 }
