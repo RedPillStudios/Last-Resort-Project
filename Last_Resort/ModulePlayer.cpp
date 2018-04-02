@@ -50,21 +50,26 @@ update_status ModulePlayer::Update()
 
 	if(App->input->keyboard[SDL_SCANCODE_W] == 1)
 	{
+<<<<<<< HEAD
 		if ((current_animation->getCurrentFrame() / 2) == 0) {
 			current_animation = &Up;
 		}
 		position.y -= speed;
+=======
+		current_animation = &Up;
+		position.y -= (speed + 1);
+>>>>>>> fd6641bc031be5e514b104e4aaa2d40f19925526
 	}
 	if (App->input->keyboard[SDL_SCANCODE_S] == 1)
 	{
 		current_animation = &Down;
-		position.y += speed;
+		position.y += (speed + 1);
 	}
 	if (App->input->keyboard[SDL_SCANCODE_D] == 1) {
-		position.x += speed;
+		position.x += (speed + 1);
 	}
 	if (App->input->keyboard[SDL_SCANCODE_A] == 1) {
-		position.x -= speed;
+		position.x -= (speed+1);
 	}
 	
 
@@ -74,7 +79,7 @@ update_status ModulePlayer::Update()
 	//App->render->Blit(graphics,0,0,&Ship,1.0f);
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
-	App->render->Blit(graphics, position.x, position.y, &r);
+	App->render->Blit(graphics, position.x, position.y, &r,1);
 	
 	return UPDATE_CONTINUE;
 }
