@@ -14,6 +14,7 @@ Application::Application()
 	modules[3] = textures = new ModuleTextures();
 	modules[4] = background = new ModuleBackground();
 	modules[5] = player = new ModulePlayer();
+	/*modules[6] = sound = new ModuleSound();*/
 }	
 
 Application::~Application()

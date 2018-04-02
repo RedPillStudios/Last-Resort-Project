@@ -76,7 +76,7 @@ Mix_Music*const ModuleSound::LoadMusic(const char*path)
 	music = Mix_LoadMUS(path);
 	if (music ==nullptr)
 	{
-		LOG("Failed to load beat music! SDL_mixer Error: %s\n", Mix_GetError());
+		LOG("Failed to load music! SDL_mixer Error: %s\n", Mix_GetError());
 		ret = false;
 	}
 
@@ -98,7 +98,7 @@ Mix_Chunk*const ModuleSound::LoadChunk(const char*path)
 	
 	if (chunks == nullptr)
 	{
-		LOG("Failed to load scratch sound effect! SDL_mixer Error: %s\n", Mix_GetError());
+		LOG("Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError());
 		ret = false;
 	}
 
