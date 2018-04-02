@@ -9,8 +9,8 @@
 
 ModulePlayer::ModulePlayer()
 {
-	position.x = 0;
-	position.y = 0;
+	position.x = 20;
+	position.y = SCREEN_HEIGHT/2;
 	//position.x = 100;
 	//position.y = 220;
 
