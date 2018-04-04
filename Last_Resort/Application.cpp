@@ -3,9 +3,14 @@
 #include "ModuleRender.h"
 #include "ModuleInput.h"
 #include "ModuleTextures.h"
-#include "ModuleBackground.h"
+#include "ModuleSceneLvl1.h"
 #include "ModulePlayer.h"
 #include "ModuleSound.h"
+#include "ModuleFadeToBlack.h"
+#include "ModuleSceneLvl2.h"
+#include "ModuleMainMenu.h"
+#include "ModuleGameOver.h"
+
 
 Application::Application()
 {
@@ -13,9 +18,13 @@ Application::Application()
 	modules[1] = render = new ModuleRender();
 	modules[2] = input = new ModuleInput();
 	modules[3] = textures = new ModuleTextures();
-	modules[4] = background = new ModuleBackground();
-	modules[5] = player = new ModulePlayer();
-	modules[6] = sound = new ModuleSound();
+	modules[4] = menu = new ModuleMainMenu();
+	modules[5] = scene1background = new ModuleSceneLvl1();
+	modules[6] = player = new ModulePlayer();
+	modules[7] = sound = new ModuleSound();
+	modules[8] = fade = new ModuleFadeToBlack();
+	modules[9] = scene2background = new ModuleSceneLvl2;
+	modules[10] = gameover = new ModuleGameOver();
 }	
 
 Application::~Application()
@@ -27,6 +36,10 @@ Application::~Application()
 bool Application::Init()
 {
 	bool ret = true;
+
+	player->Disable(); //Enabled on the 1st update of new scene
+
+	//Disable the map that you do not start with
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();

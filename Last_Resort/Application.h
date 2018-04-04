@@ -3,28 +3,38 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 7
+#define NUM_MODULES 11
 
 class ModuleWindow;
 class ModuleInput;
 class ModuleTextures;
 class ModuleRender;
-class ModuleBackground;
+class ModuleSceneLvl1;
 class ModulePlayer;
-class Module;
 class ModuleSound;
+class ModuleFadeToBlack;
+class Module;
+class ModuleSceneLvl1;
+class ModuleSceneLvl2;
+class ModuleMainMenu;
+class ModuleGameOver;
+
 class Application
 {
 public:
 
-	Module * modules[NUM_MODULES] = { nullptr };
+	Module* modules[NUM_MODULES] = { nullptr };
 	ModuleWindow* window = nullptr;
+	ModuleMainMenu *menu = nullptr;
 	ModuleRender* render = nullptr;
 	ModuleInput* input = nullptr;
 	ModuleTextures* textures = nullptr;
-	ModuleBackground* background = nullptr;
+	ModuleSceneLvl1* scene1background = nullptr;
 	ModulePlayer* player = nullptr;
 	ModuleSound* sound = nullptr;
+	ModuleFadeToBlack *fade = nullptr;
+	ModuleSceneLvl2 *scene2background = nullptr;
+	ModuleGameOver *gameover = nullptr;
 
 public:
 

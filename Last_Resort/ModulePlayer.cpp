@@ -11,8 +11,6 @@ ModulePlayer::ModulePlayer()
 {
 	position.x = 20;
 	position.y = SCREEN_HEIGHT/2;
-	//position.x = 100;
-	//position.y = 220;
 
 	Standard.PushBack({64,0,32,12});
 
@@ -22,10 +20,6 @@ ModulePlayer::ModulePlayer()
 	Down.PushBack({96,0,32,12});
 	Down.PushBack({128,1,32,11});
 	
-
-	
-	// TODO 4: Make ryu walk backwards with the correct animations
-	//App->render->Blit(graphics, 0, 0, &(backward.GetCurrentFrame()), 0.90f);
 }
 
 ModulePlayer::~ModulePlayer()
@@ -44,7 +38,6 @@ bool ModulePlayer::Start()
 update_status ModulePlayer::Update()
 {
 	Animation* current_animation=&Standard;
-
 
 	int speed = 2;
 

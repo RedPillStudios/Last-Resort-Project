@@ -1,5 +1,5 @@
-#ifndef __ModuleBackground_H__
-#define __ModuleBackground_H__
+#ifndef __MODULESCENELVL1_H__
+#define __MODULESCENELVL1_H__
 
 #include "Module.h"
 #include "Animation.h"
@@ -11,14 +11,15 @@
 
 struct SDL_Texture;
 
-class ModuleBackground : public Module
+class ModuleSceneLvl1 : public Module
 {
 public:
-	ModuleBackground();
-	~ModuleBackground();
+	ModuleSceneLvl1();
+	~ModuleSceneLvl1();
 
 	bool Start();
 	update_status Update();
+	bool CleanUp();
 
 public:
 	
@@ -30,7 +31,6 @@ public:
 	SDL_Rect ThirdPlaneBackground;
 	SDL_Rect SecondPlaneBackground;
 	SDL_Rect FirstPlaneBackGround;
-	SDL_Rect IdlSpaceship;
 	
 	//Music
 	Mix_Music*Stage1 =  nullptr;

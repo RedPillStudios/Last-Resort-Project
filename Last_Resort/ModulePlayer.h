@@ -25,7 +25,6 @@ public:
 	Animation Standard;
 	Animation idle;
 	
-	
 	iPoint position;
 
 };
