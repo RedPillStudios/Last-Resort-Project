@@ -26,12 +26,16 @@ public:
 	Mix_Chunk*const LoadChunk(const char*path);
 
 public:
-
+	
+	bool isPlaying;
 	//Mix_Music*music[MAX_MUSIC];
 	//Mix_Chunk*chunks[MAX_CHUNKS];
+	
 	Mix_Music*music[MAX_MUSIC];
-	Mix_Chunk*chunks;
+	uint last_soundMusic = 0;
 
+	Mix_Chunk*chunks;
+	
 };
 
 

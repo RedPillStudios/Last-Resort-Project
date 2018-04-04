@@ -11,8 +11,8 @@ ModuleSound::ModuleSound() :Module()
 	for (uint i = 0; i < MAX_MUSIC; ++i)
 		music[i] = nullptr;
 
-	//for (uint i = 0; i < MAX_CHUNKS; ++i)
-	//	chunks[i] = nullptr;
+	for (uint i = 0; i < MAX_CHUNKS; ++i)
+		chunks[i] = nullptr;
 
 	
 
@@ -28,23 +28,27 @@ bool ModuleSound::Init()
 	bool ret=true;
 	
 	//Initialize SDL_mixer 
-
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+	int flags = Mix_Init(MIX_INIT_OGG);
+	
+	if (!flags)
 	{
 	LOG("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
 		ret = false;
 	}
+	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
+
 	return ret;
 
 }
 
 update_status ModuleSound::Update() {
 
-	music[0] = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
+	if (!isPlaying)
+	{
+		Mix_PlayMusic(music[0],-1);//not sure about this line
+		isPlaying = true;
 
-
-	Mix_PlayMusic(music[0], -1);
-
+	}
 
 	return UPDATE_CONTINUE;
 };
@@ -61,12 +65,13 @@ bool ModuleSound::CleanUp()
 		music[i] = nullptr;
 		}
 
-	//for (uint i = 0; i < MAX_CHUNKS; ++i)
-	//	if (chunks[i] != nullptr) {
-	//		Mix_FreeChunk(chunks[i]);
-	//		chunks[i] = nullptr;
-	//	}
+	for (uint i = 0; i < MAX_CHUNKS; ++i)
+		if (chunks[i] != nullptr) {
+			Mix_FreeChunk(chunks[i]);
+			chunks[i] = nullptr;
+		}
 
+	Mix_CloseAudio();
 	Mix_Quit();
 	return true;
 
@@ -75,22 +80,26 @@ bool ModuleSound::CleanUp()
 
 Mix_Music*const ModuleSound::LoadMusic(const char*path)
 {
-	Mix_Music*music=nullptr;
+	Mix_Music*musicSound=nullptr;
 
-	bool ret =true;
+	
 
 	//To load music we call Mix_LoadMUS
+	bool ret = true;
 	
-	music = Mix_LoadMUS(path);
-
-	if (music ==nullptr)
+	musicSound = Mix_LoadMUS(path);
+	if (!musicSound)
 	{
-		LOG("Failed to load music! SDL_mixer Error: %s\n", Mix_GetError());
+
+		LOG("Unable to create music from path! SDL Error: %s\n",SDL_GetError());
 		ret = false;
 	}
+	else
+	{
+		music[last_soundMusic++] = musicSound;
+	}
 
-
-	return music;
+	return musicSound;
 
 }
 
