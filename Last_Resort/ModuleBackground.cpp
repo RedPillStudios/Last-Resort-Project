@@ -47,6 +47,12 @@ bool ModuleBackground::Start()
 	graphics_SecondPlaneBackground = App->textures->Load("Images/Background_Lvl1/SecondPlaneBackground.png");
 	graphics_FirstPlaneBackGround = App->textures->Load("Images/Background_Lvl1/FirstPlaneBackGround.png");
 
+	Stage1=App->sound->LoadMusic("Game/Audio/Stage1/Jack_to_Metro_Stage1.ogg");
+
+	Mix_PlayMusic(Stage1,-1);
+	
+	Mix_Volume(-1, MIX_MAX_VOLUME / 2);
+	
 
 
 	return ret;
@@ -80,6 +86,7 @@ update_status ModuleBackground::Update()
 	App->render->Blit(graphics_ThirdPlaneBackground, (ThirdPlaneBackground_position_X)/3.5, 0, &ThirdPlaneBackground, 1.0f);
 	App->render->Blit(graphics_SecondPlaneBackground, (SecondPlaneGround_position_X)/3, 30, &SecondPlaneBackground, 1.0f); //SECOND PLANE BACKGROUND
 	App->render->Blit(graphics_FirstPlaneBackGround, (FirstPlaneBackGround_position_X)/2, 0, &FirstPlaneBackGround, 1.0f); // FIRST PLANE BACKGROUND
+	
 	
 
 

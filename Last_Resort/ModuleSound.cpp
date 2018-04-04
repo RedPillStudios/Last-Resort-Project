@@ -37,16 +37,17 @@ bool ModuleSound::Init()
 	}
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 
+
 	return ret;
 
 }
 
 update_status ModuleSound::Update() {
 
-	if (!isPlaying)
+	if (!Playing)
 	{
 		Mix_PlayMusic(music[0],-1);//not sure about this line
-		isPlaying = true;
+		Playing = true;
 
 	}
 
