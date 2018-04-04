@@ -1,0 +1,47 @@
+#ifndef __ModuleBackground_H__
+#define __ModuleBackground_H__
+
+#include "Module.h"
+#include "Animation.h"
+#include "Globals.h"
+
+#include "SDL_mixer/include/SDL_mixer.h"
+#pragma comment(lib,"SDL_mixer/libx86/SDL2_mixer.lib")
+
+
+struct SDL_Texture;
+
+class ModuleBackground : public Module
+{
+public:
+	ModuleBackground();
+	~ModuleBackground();
+
+	bool Start();
+	update_status Update();
+
+public:
+	
+	SDL_Texture* graphics_Boss_Static_Background = nullptr;
+	SDL_Texture* graphics_ThirdPlaneBackground = nullptr;
+	SDL_Texture* graphics_SecondPlaneBackground = nullptr;
+	SDL_Texture* graphics_FirstPlaneBackGround = nullptr;
+	
+	SDL_Rect ThirdPlaneBackground;
+	SDL_Rect SecondPlaneBackground;
+	SDL_Rect FirstPlaneBackGround;
+	SDL_Rect IdlSpaceship;
+	
+	//Music
+	Mix_Music*Stage1 =  nullptr;
+
+
+public: //movement of the firstplanebackground
+	
+	int FirstPlaneBackGround_position_X = 0;
+	int SecondPlaneGround_position_X = 0;
+	int ThirdPlaneBackground_position_X = 0;
+
+};
+
+#endif
