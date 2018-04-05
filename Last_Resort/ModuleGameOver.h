@@ -11,9 +11,9 @@
 class ModuleGameOver : public Module
 {
 public:
+	
 	ModuleGameOver();
 	~ModuleGameOver();
-
 	bool Start();
 	update_status Update();
 	bool CleanUp();

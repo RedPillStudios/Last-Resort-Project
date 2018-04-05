@@ -4,7 +4,7 @@
 #include "Module.h"
 #include "Globals.h"
 
-#define MAX_MUSIC 2
+#define MAX_MUSIC 5
 #define MAX_CHUNKS 50
 
 typedef struct _Mix_Music Mix_Music;

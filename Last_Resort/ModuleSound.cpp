@@ -35,9 +35,9 @@ bool ModuleSound::Init()
 	LOG("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
 		ret = false;
 	}
+
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
-
-
+	
 	return ret;
 
 }

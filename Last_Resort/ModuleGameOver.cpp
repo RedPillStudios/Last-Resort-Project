@@ -13,6 +13,7 @@
 
 ModuleGameOver::ModuleGameOver()
 {
+	
 	Background.x = 0;
 	Background.y = 0;
 	Background.w = SCREEN_WIDTH;
@@ -32,13 +33,12 @@ ModuleGameOver::~ModuleGameOver()
 
 bool ModuleGameOver::Start() {
 
-	LOG("Loading Game Over Screen");
-
-	graphics_GameOverImage = App->textures->Load("Image/Congrats/GameOver_Sprite.png");
-
-	GameOver = App->sound->LoadMusic("Audio/Congrats/GameOver.ogg");
-	Mix_PlayMusic(GameOver, -1);
-	Mix_Volume(-1, MIX_MAX_VOLUME / 9);
+		LOG("Loading Game Over Screen");
+		graphics_GameOverImage = App->textures->Load("Images/Congrats/GameOver.png");
+		GameOver = App->sound->LoadMusic("Audio/Congrats/GameOver.ogg");
+		Mix_PlayMusic(GameOver, -1);
+		Mix_Volume(-1, MIX_MAX_VOLUME / 9);
+	
 	return true;
 }
 
@@ -52,7 +52,7 @@ bool ModuleGameOver::CleanUp() {
 
 update_status ModuleGameOver::Update() {
 
-	App->render->Blit(graphics_GameOverImage, 0, 0, &GameOverImage, 0);
+	App->render->Blit(graphics_GameOverImage, 0, 0, &Background, 0);
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE]) {
 

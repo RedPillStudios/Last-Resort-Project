@@ -8,7 +8,7 @@
 #include "ModuleSound.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneLvl2.h"
-
+#include "ModuleGameOver.h"
 
 
 ModuleSceneLvl2::ModuleSceneLvl2() {
@@ -33,11 +33,11 @@ ModuleSceneLvl2::~ModuleSceneLvl2()
 
 
 bool ModuleSceneLvl2::Start() {
-
+	
 	LOG("Loading Background Assets");
 
-	graphics_Background = App->textures->Load("Images/Background_Lvl2/First_Level_Background.png");
-	graphics_Mid = App->textures->Load("Images/Background_Lvl2/Mid_Level_Background.png");
+	//graphics_Background = App->textures->Load("Images/Background_Lvl2/First_Level_Background.png");
+	//graphics_Mid = App->textures->Load("Images/Background_Lvl2/Mid_Level_Background.png");
 
 	//Music
 	Stage2 = App->sound->LoadMusic("Audio/Stage2/The_Ruins_Of_The_Metro.ogg");
@@ -82,9 +82,9 @@ update_status ModuleSceneLvl2::Update() {
 	App->render->Blit(graphics_Background, (Background_position_X) / 3.5, 0, &Background, 1.0f);
 	App->render->Blit(graphics_Mid, (Background_position_X) / 3, 30, &MidBackground);
 
-	if (App->input->keyboard[SDL_SCANCODE_1]) {
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
 
-		App->fade->FadeToBlack(App->scene2background, App->scene1background);
+		App->fade->FadeToBlack(App->scene2background, App->gameover, 2.0f);
 	}
 
 	return UPDATE_CONTINUE;

@@ -6,6 +6,7 @@
 class Module {
 
 private:
+
 	bool enabled = true;
 
 public:
@@ -23,7 +24,6 @@ public:
 	void Enable() {
 
 		if (enabled == false) {
-
 			enabled = true;
 			Start();
 		}
@@ -32,7 +32,6 @@ public:
 	void Disable() {
 
 		if (enabled == true) {
-
 			enabled = false;
 			CleanUp();
 		}

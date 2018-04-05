@@ -15,8 +15,8 @@ ModuleMainMenu::ModuleMainMenu()
 {
 	Background.x = 0;
 	Background.y = 0;
-	Background.w = 4407; //works
-	Background.h = 238;
+	Background.w = SCREEN_WIDTH;
+	Background.h = SCREEN_HEIGHT;
 }
 
 
@@ -26,13 +26,18 @@ ModuleMainMenu::~ModuleMainMenu()
 
 bool ModuleMainMenu::Start() {
 
+	if (IsEnabled()) {
+		App->player->Disable();
+	}
 	LOG("Loading Main Menu");
 
-	graphics_Background = App->textures->Load("Images/Main_Menu/ScreenMenu.png");
+	graphics_Background = App->textures->Load("Images/Main_Menu/Last_Resort_Intro.png");
 
 	Main_Menu = App->sound->LoadMusic("Audio/Main_Menu/Title.ogg");
 	Mix_PlayMusic(Main_Menu, -1);
-	Mix_Volume(-1, MIX_MAX_VOLUME / 9);
+	//Mix_Volume(-1, MIX_MAX_VOLUME);
+
+
 	
 	return true;
 }
@@ -48,9 +53,9 @@ update_status ModuleMainMenu::Update() {
 
 	App->render->Blit(graphics_Background, 0, 0, &Background, 0);
 	
-	if (App->input->keyboard[SDL_SCANCODE_SPACE]) {
+	if (App->input->keyboard[SDL_SCANCODE_SPACE]==1) {
+		App->fade->FadeToBlack(App->menu, (Module*)App->scene1background,2.0f);
 
-		App->fade->FadeToBlack(App->menu, App->scene1background);
 	}
 
 	return UPDATE_CONTINUE;

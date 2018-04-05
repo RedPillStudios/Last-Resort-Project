@@ -16,6 +16,7 @@ public:
 
 	bool Start();
 	update_status Update();
+	bool CleanUp();
 
 public:
 	SDL_Rect Ship;
@@ -24,7 +25,6 @@ public:
 	Animation Down;
 	Animation Standard;
 	Animation idle;
-	
 	iPoint position;
 
 };

@@ -23,18 +23,18 @@ class Application
 {
 public:
 
-	Module* modules[NUM_MODULES] = { nullptr };
-	ModuleWindow* window = nullptr;
-	ModuleMainMenu *menu = nullptr;
-	ModuleRender* render = nullptr;
-	ModuleInput* input = nullptr;
-	ModuleTextures* textures = nullptr;
-	ModuleSceneLvl1* scene1background = nullptr;
-	ModulePlayer* player = nullptr;
-	ModuleSound* sound = nullptr;
-	ModuleFadeToBlack *fade = nullptr;
-	ModuleSceneLvl2 *scene2background = nullptr;
-	ModuleGameOver *gameover = nullptr;
+	Module* modules[NUM_MODULES];
+	ModuleWindow* window;
+	ModuleMainMenu *menu;
+	ModuleRender* render;
+	ModuleInput* input;
+	ModuleTextures* textures;
+	ModuleSceneLvl1* scene1background;
+	ModulePlayer* player;
+	ModuleSound* sound;
+	ModuleFadeToBlack *fade;
+	ModuleSceneLvl2 *scene2background;
+	ModuleGameOver *gameover;
 
 public:
 

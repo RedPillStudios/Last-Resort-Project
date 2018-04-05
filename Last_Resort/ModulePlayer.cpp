@@ -34,6 +34,16 @@ bool ModulePlayer::Start()
 	return ret;
 }
 
+bool ModulePlayer::CleanUp() {
+
+	LOG("Unloading Game Over Screen");
+	App->textures->Unload(graphics);
+
+	return true;
+
+}
+
+
 // Update: draw background
 update_status ModulePlayer::Update()
 {
@@ -60,7 +70,7 @@ update_status ModulePlayer::Update()
 		position.x -= (speed+1);
 	}
 	
-
+	
 
 	// Draw everything --------------------------------------
 

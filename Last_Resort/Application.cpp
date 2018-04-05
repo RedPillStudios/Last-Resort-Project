@@ -18,13 +18,13 @@ Application::Application()
 	modules[1] = render = new ModuleRender();
 	modules[2] = input = new ModuleInput();
 	modules[3] = textures = new ModuleTextures();
-	modules[4] = menu = new ModuleMainMenu();
-	modules[5] = scene1background = new ModuleSceneLvl1();
-	modules[6] = player = new ModulePlayer();
-	modules[7] = sound = new ModuleSound();
-	modules[8] = fade = new ModuleFadeToBlack();
-	modules[9] = scene2background = new ModuleSceneLvl2;
-	modules[10] = gameover = new ModuleGameOver();
+	modules[4] = sound = new ModuleSound();
+	modules[5] = gameover = new ModuleGameOver();
+	modules[6] = scene2background = new ModuleSceneLvl2;
+	modules[7] = scene1background = new ModuleSceneLvl1();
+	modules[8] = player = new ModulePlayer();
+	modules[9] = menu = new ModuleMainMenu();
+	modules[10] = fade = new ModuleFadeToBlack();
 }	
 
 Application::~Application()
@@ -37,9 +37,15 @@ bool Application::Init()
 {
 	bool ret = true;
 
-	player->Disable(); //Enabled on the 1st update of new scene
-
+	 //Enabled on the 1st update of new scene
+	menu->Enable();
 	//Disable the map that you do not start with
+
+	player->Disable();
+	scene1background->Disable();
+	scene2background->Disable();
+	gameover->Disable();
+	
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();
