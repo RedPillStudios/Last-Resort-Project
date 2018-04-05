@@ -77,7 +77,7 @@ update_status ModulePlayer::Update()
 	//App->render->Blit(graphics,0,0,&Ship,1.0f);
 	SDL_Rect r = current_animation->GetCurrentFrame();
 
-	App->render->Blit(graphics, position.x, position.y, &r,1);
+	App->render->Blit(graphics, position.x, position.y, &r,10.0f);
 	
 	return UPDATE_CONTINUE;
 }

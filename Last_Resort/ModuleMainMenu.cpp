@@ -32,8 +32,8 @@ bool ModuleMainMenu::Start() {
 	LOG("Loading Main Menu");
 
 	graphics_Background = App->textures->Load("Images/Main_Menu/Last_Resort_Intro.png");
-
 	Main_Menu = App->sound->LoadMusic("Audio/Main_Menu/Title.ogg");
+
 	Mix_PlayMusic(Main_Menu, -1);
 	//Mix_Volume(-1, MIX_MAX_VOLUME);
 

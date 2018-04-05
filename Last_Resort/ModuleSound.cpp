@@ -95,10 +95,7 @@ Mix_Music*const ModuleSound::LoadMusic(const char*path)
 		LOG("Unable to create music from path! SDL Error: %s\n",SDL_GetError());
 		ret = false;
 	}
-	else
-	{
-		music[last_soundMusic++] = musicSound;
-	}
+
 
 	return musicSound;
 

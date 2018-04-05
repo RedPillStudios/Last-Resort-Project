@@ -38,6 +38,11 @@ bool ModuleGameOver::Start() {
 		GameOver = App->sound->LoadMusic("Audio/Congrats/GameOver.ogg");
 		Mix_PlayMusic(GameOver, -1);
 		Mix_Volume(-1, MIX_MAX_VOLUME / 9);
+		if (IsEnabled()) {
+			if (App->player->IsEnabled()) {
+				App->player->Disable();
+			}
+		}
 	
 	return true;
 }
@@ -55,8 +60,7 @@ update_status ModuleGameOver::Update() {
 	App->render->Blit(graphics_GameOverImage, 0, 0, &Background, 0);
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE]) {
-
-		App->fade->FadeToBlack(App->gameover, App->menu);
+		App->fade->FadeToBlack(App->gameover, App->menu,3.0f);
 	}
 
 	return UPDATE_CONTINUE;

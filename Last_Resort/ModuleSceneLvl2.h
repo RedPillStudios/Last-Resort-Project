@@ -28,14 +28,14 @@ public:
 	SDL_Texture *graphics_Mid = nullptr;
 
 	SDL_Rect Background;
-	SDL_Rect MidBackground;
+	SDL_Rect Foreground;
 
 	Mix_Music *Stage2 = nullptr;
 
 public:
 
 	int Background_position_X = 0;
-	int MidBackground_position_X = 0;
+	int Foreground_position_X = SCREEN_WIDTH*3;
 
 };
 

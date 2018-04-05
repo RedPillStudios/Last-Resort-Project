@@ -50,19 +50,21 @@ bool ModuleSceneLvl1::Start()
 	graphics_FirstPlaneBackGround = App->textures->Load("Images/Background_Lvl1/FirstPlaneBackGround.png");
 
 	//Music
-	Stage1=App->sound->LoadMusic("Audio/Stage1/Jack_to_Metro_Stage1.ogg");
-	Mix_PlayMusic(Stage1,-1);
+	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
+	Mix_PlayMusic(Stage1, -1);
 	Mix_Volume(-1, MIX_MAX_VOLUME / 9);
 
 	
-	if (App->player->IsEnabled() == false) {
-
-		App->player->Enable();
+	if (IsEnabled()) {
+		if (App->player->IsEnabled() == false) {
+			App->player->Enable();
+		}
+		App->player->resetPosition();
 	}
-
-	if (App->scene1background->IsEnabled() == false) {
-		
-		App->player->Disable();
+	if (IsEnabled() == false) {
+		if (App->player->IsEnabled() == true) {
+			App->player->Disable();
+		}
 	}
 
 	return true;
@@ -76,9 +78,13 @@ bool ModuleSceneLvl1::CleanUp() {
 	LOG("Unloading Lvl 1 Scene");
 	
 	App->textures->Unload(graphics_Boss_Static_Background);
-	App->textures->Unload(graphics_Boss_Static_Background);
-	App->textures->Unload(graphics_Boss_Static_Background);
-	App->textures->Unload(graphics_Boss_Static_Background);
+	App->textures->Unload(graphics_ThirdPlaneBackground);
+	App->textures->Unload(graphics_FirstPlaneBackGround);
+	App->textures->Unload(graphics_SecondPlaneBackground);
+
+	FirstPlaneBackGround_position_X = 0;
+	SecondPlaneGround_position_X = 0;
+	ThirdPlaneBackground_position_X = 0;
 
 	return true;
 }
@@ -91,7 +97,7 @@ update_status ModuleSceneLvl1::Update()
 	float Speed_Midground=2;
 
 	//background movements!!! HERE---> The images are the ones which move, not the camera.
-
+	
 		FirstPlaneBackGround_position_X -= Speed_Foreground;
 	
 		SecondPlaneGround_position_X -= Speed_Midground;

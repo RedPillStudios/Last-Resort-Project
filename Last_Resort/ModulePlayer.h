@@ -26,6 +26,12 @@ public:
 	Animation Standard;
 	Animation idle;
 	iPoint position;
+	
+	void resetPosition() {
+		position.x = 20;
+		position.y = SCREEN_HEIGHT / 2;
+
+	};
 
 };
 
