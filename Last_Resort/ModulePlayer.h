@@ -23,10 +23,14 @@ public:
 	SDL_Texture* graphics = nullptr;
 	Animation Up;
 	Animation Down;
+	Animation Appear;
 	Animation Standard;
 	Animation idle;
 	iPoint position;
-	
+	bool startAnim = true;
+
+
+
 	void resetPosition() {
 		position.x = 20;
 		position.y = SCREEN_HEIGHT / 2;

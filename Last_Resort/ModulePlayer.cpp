@@ -16,10 +16,29 @@ ModulePlayer::ModulePlayer()
 
 	Up.PushBack({ 32,0,32,13 });
 	Up.PushBack({ 0,0,32,13 });
-
+	Up.speed = 0.10f;
 	Down.PushBack({96,0,32,12});
 	Down.PushBack({128,1,32,11});
-	
+	Down.speed = 0.10f;
+	Appear.PushBack({ 0,117,111,1 });
+	Appear.PushBack({ 6,117,111,1 });
+
+	Appear.PushBack({ 1,120,76,7 });
+	Appear.PushBack({ 0,123,74,3 });
+
+	Appear.PushBack({ 2,137,64,14 });
+	Appear.PushBack({ 2,167,64,14 });
+	Appear.PushBack({ 0,189,51,15 });
+	Appear.PushBack({ 0,215,51,15 });
+
+	Appear.PushBack({ 64,139,64,16 });
+	Appear.PushBack({ 64,160,64,24 });
+	Appear.PushBack({ 71,185,57,26 });
+	Appear.PushBack({ 72,56,111,24 });
+
+	Appear.PushBack({ 155,138, 111,1 });
+	Appear.PushBack({ 159,160,31,14 });
+
 }
 
 ModulePlayer::~ModulePlayer()
@@ -51,6 +70,14 @@ update_status ModulePlayer::Update()
 
 	int speed = 2;
 
+	if (startAnim) {
+		current_animation = &Appear;
+		if(current_animation->getCurrentFrame()==13){
+			startAnim = false;
+		}
+
+	}
+
 	if(App->input->keyboard[SDL_SCANCODE_W] == 1)
 	{
 
@@ -76,8 +103,8 @@ update_status ModulePlayer::Update()
 
 	//App->render->Blit(graphics,0,0,&Ship,1.0f);
 	SDL_Rect r = current_animation->GetCurrentFrame();
-
-	App->render->Blit(graphics, position.x, position.y, &r,10.0f);
+	
+	App->render->Blit(graphics, position.x, position.y, &r,0.0f);
 	
 	return UPDATE_CONTINUE;
 }
