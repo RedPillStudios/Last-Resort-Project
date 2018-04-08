@@ -2,12 +2,20 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
-#include "ModuleBackground.h"
+#include "ModulePlayer.h"
+#include "ModuleInput.h"
+#include "ModuleSceneLvl1.h"
 #include "ModuleSound.h"
+#include "ModuleFadeToBlack.h"
+#include "ModuleSceneLvl2.h"
+#include "ModuleMainMenu.h"
+#include "ModuleMainMenu.h"
+#include "ModuleGameOver.h"
+
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
-ModuleBackground::ModuleBackground()
+ModuleSceneLvl1::ModuleSceneLvl1()
 {
 	// background1 
 	FirstPlaneBackGround.x = 0;
@@ -24,42 +32,66 @@ ModuleBackground::ModuleBackground()
 	ThirdPlaneBackground.y = 0;
 	ThirdPlaneBackground.w = 802;
 	ThirdPlaneBackground.h = 159;
-
-
-
-	
 }
 
-ModuleBackground::~ModuleBackground()
+ModuleSceneLvl1::~ModuleSceneLvl1()
 {
+	
 }
 
 // Load assets
-bool ModuleBackground::Start()
+bool ModuleSceneLvl1::Start()
 {
-	LOG("Loading background assets");
-	bool ret = true;
-	//order of position in the game
 	
+	LOG("Loading background assets");
 
+	//order of position in the game
 	graphics_Boss_Static_Background = App->textures->Load("Images/Background_Lvl1/Boss_Static_Background.png");
 	graphics_ThirdPlaneBackground = App->textures->Load("Images/Background_Lvl1/ThirdPlaneBackground.png");
 	graphics_SecondPlaneBackground = App->textures->Load("Images/Background_Lvl1/SecondPlaneBackground.png");
 	graphics_FirstPlaneBackGround = App->textures->Load("Images/Background_Lvl1/FirstPlaneBackGround.png");
 
-	Stage1=App->sound->LoadMusic("Game/Audio/Stage1/Jack_to_Metro_Stage1.ogg");
+	//Music
+	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
+	Mix_PlayMusic(Stage1, -1);
+	Mix_Volume(-1, MIX_MAX_VOLUME / 9);
 
-	Mix_PlayMusic(Stage1,-1);
 	
-	Mix_Volume(-1, MIX_MAX_VOLUME / 2);
-	
+	if (IsEnabled()) {
+		if (App->player->IsEnabled() == false) {
+			App->player->Enable();
+		}
+		App->player->resetPosition();
+	}
+	if (IsEnabled() == false) {
+		if (App->player->IsEnabled() == true) {
+			App->player->Disable();
+		}
+	}
 
+	return true;
 
-	return ret;
 }
 
+//Unload Assets
+
+bool ModuleSceneLvl1::CleanUp() {
+
+	LOG("Unloading Lvl 1 Scene");
+	
+	App->textures->Unload(graphics_Boss_Static_Background);
+	App->textures->Unload(graphics_ThirdPlaneBackground);
+	App->textures->Unload(graphics_FirstPlaneBackGround);
+	App->textures->Unload(graphics_SecondPlaneBackground);
+
+	FirstPlaneBackGround_position_X = 0;
+	SecondPlaneGround_position_X = 0;
+	ThirdPlaneBackground_position_X = 0;
+
+	return true;
+}
 // Update: draw background
-update_status ModuleBackground::Update()
+update_status ModuleSceneLvl1::Update()
 {
 
 	float Speed_Foreground=3;
@@ -67,30 +99,29 @@ update_status ModuleBackground::Update()
 	float Speed_Midground=2;
 
 	//background movements!!! HERE---> The images are the ones which move, not the camera.
-	if (FirstPlaneBackGround_position_X < 4077) {
+	
 		FirstPlaneBackGround_position_X -= Speed_Foreground;
-	}
-	if (SecondPlaneGround_position_X < 972) {
+	
 		SecondPlaneGround_position_X -= Speed_Midground;
-	}
-	if (ThirdPlaneBackground_position_X < 472) {
+	
 		ThirdPlaneBackground_position_X -= Speed_Background;
-	}
 	
 	
-
 	// Draw everything --------------------------------------
-
-
-
 	App->render->Blit(graphics_ThirdPlaneBackground, (ThirdPlaneBackground_position_X)/3.5, 0, &ThirdPlaneBackground, 1.0f);
 	App->render->Blit(graphics_SecondPlaneBackground, (SecondPlaneGround_position_X)/3, 30, &SecondPlaneBackground, 1.0f); //SECOND PLANE BACKGROUND
 	App->render->Blit(graphics_FirstPlaneBackGround, (FirstPlaneBackGround_position_X)/2, 0, &FirstPlaneBackGround, 1.0f); // FIRST PLANE BACKGROUND
-	
-	
 
 
-
+	if (App->input->keyboard[SDL_SCANCODE_1]) {
+		App->fade->FadeToBlack(App->scene1background, App->menu, 3.0f);
+	}
+	if (App->input->keyboard[SDL_SCANCODE_4]) {
+		App->fade->FadeToBlack(App->scene1background, App->gameover, 3.0f);
+	}
+	if (App->input->keyboard[SDL_SCANCODE_3]) {
+		App->fade->FadeToBlack(App->scene1background, App->scene2background, 3.0f);
+	}
 
 	return UPDATE_CONTINUE;
 }
