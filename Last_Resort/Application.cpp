@@ -10,6 +10,7 @@
 #include "ModuleSceneLvl2.h"
 #include "ModuleMainMenu.h"
 #include "ModuleGameOver.h"
+#include "ModuleParticles.h"
 
 
 Application::Application()
@@ -25,6 +26,7 @@ Application::Application()
 	modules[8] = player = new ModulePlayer();
 	modules[9] = menu = new ModuleMainMenu();
 	modules[10] = fade = new ModuleFadeToBlack();
+	modules[11] = particles = new ModuleParticles();
 }	
 
 Application::~Application()

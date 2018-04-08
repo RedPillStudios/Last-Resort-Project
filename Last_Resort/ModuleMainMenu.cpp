@@ -8,6 +8,8 @@
 #include "ModuleSound.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleMainMenu.h"
+#include "ModuleSceneLvl2.h"
+#include "ModuleGameOver.h"
 
 
 
@@ -53,9 +55,14 @@ update_status ModuleMainMenu::Update() {
 
 	App->render->Blit(graphics_Background, 0, 0, &Background, 0);
 	
-	if (App->input->keyboard[SDL_SCANCODE_SPACE]==1) {
-		App->fade->FadeToBlack(App->menu, (Module*)App->scene1background,2.0f);
-
+	if (App->input->keyboard[SDL_SCANCODE_4]) {
+		App->fade->FadeToBlack(App->menu, App->gameover, 3.0f);
+	}
+	if (App->input->keyboard[SDL_SCANCODE_2]) {
+		App->fade->FadeToBlack(App->menu, App->scene1background, 3.0f);
+	}
+	if (App->input->keyboard[SDL_SCANCODE_3]) {
+		App->fade->FadeToBlack(App->menu, App->scene2background, 3.0f);
 	}
 
 	return UPDATE_CONTINUE;

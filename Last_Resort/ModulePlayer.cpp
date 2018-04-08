@@ -2,8 +2,10 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
+#include "ModuleParticles.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
+#include "ModuleSound.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -78,25 +80,31 @@ update_status ModulePlayer::Update()
 
 	}
 
-	if(App->input->keyboard[SDL_SCANCODE_W] == 1)
+	if(App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT)
 	{
 
 		current_animation = &Up;
 		position.y -= (speed + 1);
 
 	}
-	if (App->input->keyboard[SDL_SCANCODE_S] == 1)
+	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
 	{
 		current_animation = &Down;
 		position.y += (speed + 1);
 	}
-	if (App->input->keyboard[SDL_SCANCODE_D] == 1) {
+	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
 		position.x += (speed + 1);
 	}
-	if (App->input->keyboard[SDL_SCANCODE_A] == 1) {
+	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) {
 		position.x -= (speed+1);
 	}
-	
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN) {
+
+		App->particles->AddParticle(App->particles->Laser, position.x + 35, position.y);
+		//Mix_PlayChannel(-1, App->particles->LaserSound, 0);
+		App->particles->AddParticle(App->particles->ShootExplosion, position.x + 30, position.y);
+		App->particles->AddParticle(App->particles->ShootExplosion, position.x + 30, position.y, 25);
+	}
 	
 
 	// Draw everything --------------------------------------

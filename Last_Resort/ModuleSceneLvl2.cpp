@@ -10,6 +10,7 @@
 #include "ModuleSceneLvl2.h"
 #include "ModuleGameOver.h"
 #include "ModuleRender.h"
+#include "ModuleMainMenu.h"
 
 ModuleSceneLvl2::ModuleSceneLvl2() {
 
@@ -82,9 +83,14 @@ update_status ModuleSceneLvl2::Update() {
 	App->render->Blit(graphics_Background, (Background_position_X) / 3.5, 0, &Background, 1.0f);
 	App->render->Blit(graphics_Mid, (Foreground_position_X) / 3, 0, &Foreground,1.0f);
 
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == 1) {
-
-		App->fade->FadeToBlack(App->scene2background, App->gameover, 2.0f);
+	if (App->input->keyboard[SDL_SCANCODE_1]) {
+		App->fade->FadeToBlack(App->scene2background, App->menu, 3.0f);
+	}
+	if (App->input->keyboard[SDL_SCANCODE_2]) {
+		App->fade->FadeToBlack(App->scene2background, App->scene1background, 3.0f);
+	}
+	if (App->input->keyboard[SDL_SCANCODE_4]) {
+		App->fade->FadeToBlack(App->scene2background, App->gameover, 3.0f);
 	}
 
 	return UPDATE_CONTINUE;
