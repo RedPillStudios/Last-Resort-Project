@@ -33,7 +33,7 @@ public:
 		}
 		return frames[(int)current_frame];
 	}
-	const float getCurrentFrame() const { return current_frame;}
+	const int getCurrentFrame() const { return current_frame;}
 
 	bool Finished() const {
 
