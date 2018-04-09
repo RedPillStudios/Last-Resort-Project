@@ -114,6 +114,7 @@ update_status ModuleSceneLvl1::Update()
 	
 		ThirdPlaneBackground_position_X -= Speed_Background;
 	
+
 	
 	// Draw everything --------------------------------------
     App->render->Blit(graphics_Boss_Static_Background, 0, 0, &CraterBossZone, 0.0f); // CRATER ZONE FIRST BOSS

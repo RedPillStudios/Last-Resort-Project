@@ -11,7 +11,7 @@
 #include "ModuleSceneLvl2.h"
 #include "ModuleGameOver.h"
 #include "ModuleStageClear.h"
-
+#include "ModuleParticles.h"
 
 ModuleMainMenu::ModuleMainMenu()
 {
@@ -28,16 +28,21 @@ ModuleMainMenu::~ModuleMainMenu()
 
 bool ModuleMainMenu::Start() {
 
-	if (IsEnabled()) {
-		App->player->Disable();
+	if (App->menu->IsEnabled()) {
+			App->player->Disable();
+			//App->particles->Disable();
 	}
+
 	LOG("Loading Main Menu");
 
 	graphics_Background = App->textures->Load("Images/Main_Menu/Last_Resort_Intro.png");
 	Main_Menu = App->sound->LoadMusic("Audio/Main_Menu/Title.ogg");
+	Insert_Coin = App->sound->LoadChunk("Audio/Main_Menu/Insert_Coin.wav");
 
-	Mix_PlayMusic(Main_Menu, -1);
-	//Mix_Volume(-1, MIX_MAX_VOLUME);
+
+	//play music here beach
+	Mix_PlayMusic(Main_Menu, 1);
+	
 
 
 	
@@ -49,11 +54,12 @@ bool ModuleMainMenu::CleanUp() {
 	LOG("Unloading Main Menu");
 	App->textures->Unload(graphics_Background);
 	return true;
+
 }
 
 update_status ModuleMainMenu::Update() {
 
-	App->render->Blit(graphics_Background, 0, 0, &Background, 0);
+	App->render->Blit(graphics_Background, 0, 0, &Background, 0); // game menu
 	
 	if (App->input->keyboard[SDL_SCANCODE_4]) {
 		App->fade->FadeToBlack(App->menu, App->gameover, 3.0f);
@@ -65,9 +71,12 @@ update_status ModuleMainMenu::Update() {
 		App->fade->FadeToBlack(App->menu, App->scene2background, 3.0f);
 	}
 	if (App->input->keyboard[SDL_SCANCODE_5]) {
-		App->fade->FadeToBlack(App->menu, App->StageClear
-			, 3.0f);
+		App->fade->FadeToBlack(App->menu, App->StageClear, 3.0f);
 	}
+	/*if (App->input->keyboard[SDL_SCANCODE_SPACE]) {
+		Mix_PlayChannel(-1,Insert_Coin,0);
+	}*/
+
 
 	return UPDATE_CONTINUE;
 }
