@@ -37,7 +37,7 @@ bool ModuleMainMenu::Start() {
 	Main_Menu = App->sound->LoadMusic("Audio/Main_Menu/Title.ogg");
 
 	Mix_PlayMusic(Main_Menu, -1);
-	//Mix_Volume(-1, MIX_MAX_VOLUME);
+	Mix_Volume(-1, VOLUME_MUSIC);
 
 
 	

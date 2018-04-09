@@ -54,7 +54,7 @@ bool ModuleSceneLvl1::Start()
 	//Music
 	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
 	Mix_PlayMusic(Stage1, -1);
-	Mix_Volume(-1, MIX_MAX_VOLUME / 9);
+	Mix_Volume(-1, VOLUME_MUSIC);
 
 	
 	if (IsEnabled()) {

@@ -8,6 +8,8 @@
 
 struct SDL_Texture;
 
+struct Mix_Chunk;
+
 class ModulePlayer : public Module
 {
 public:
@@ -28,6 +30,8 @@ public:
 	Animation idle;
 	iPoint position;
 	bool startAnim = true;
+
+	Mix_Chunk*Shot_Sound=nullptr;
 
 
 

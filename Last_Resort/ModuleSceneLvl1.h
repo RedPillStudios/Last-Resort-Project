@@ -28,6 +28,7 @@ public:
 	SDL_Texture* graphics_SecondPlaneBackground = nullptr;
 	SDL_Texture* graphics_FirstPlaneBackGround = nullptr;
 	
+	
 	SDL_Rect ThirdPlaneBackground;
 	SDL_Rect SecondPlaneBackground;
 	SDL_Rect FirstPlaneBackGround;

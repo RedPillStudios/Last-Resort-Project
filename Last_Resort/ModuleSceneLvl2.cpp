@@ -42,7 +42,7 @@ bool ModuleSceneLvl2::Start() {
 	//Music
 	Stage2 = App->sound->LoadMusic("Audio/Stage2/The_Ruins_Of_The_Metro.ogg");
 	Mix_PlayMusic(Stage2, -1);
-	Mix_Volume(-1, MIX_MAX_VOLUME / 9);
+	Mix_Volume(-1, VOLUME_MUSIC);
 
 	if (IsEnabled()) {
 		if (App->player->IsEnabled() == false) {

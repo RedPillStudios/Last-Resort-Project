@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "Globals.h"
 
+#define VOLUME_MUSIC 60
+#define VOLUME_FX 100
 #define MAX_MUSIC 5
 #define MAX_CHUNKS 50
 

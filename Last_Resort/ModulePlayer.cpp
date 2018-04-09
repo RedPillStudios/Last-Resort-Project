@@ -52,6 +52,8 @@ bool ModulePlayer::Start()
 	LOG("Loading player textures");
 	bool ret = true;
 	graphics = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
+	
+	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
 	return ret;
 }
 
@@ -101,9 +103,12 @@ update_status ModulePlayer::Update()
 	if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN) {
 
 		App->particles->AddParticle(App->particles->Laser, position.x + 35, position.y);
-		//Mix_PlayChannel(-1, App->particles->LaserSound, 0);
+	
 		App->particles->AddParticle(App->particles->ShootExplosion, position.x + 30, position.y);
 		App->particles->AddParticle(App->particles->ShootExplosion, position.x + 30, position.y, 25);
+
+		Mix_PlayChannel(-1, Shot_Sound, 0);
+			
 	}
 	
 
