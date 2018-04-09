@@ -30,12 +30,21 @@ public:
 	Animation idle;
 	iPoint position;
 	bool startAnim = true;
+	bool shooted = false;
 
 	Mix_Chunk*Shot_Sound=nullptr;
 
+	SDL_Rect setFirePos() {
 
+		SDL_Rect FirePos;
+		
+		FirePos.x = position.x + 31;
+		FirePos.y = position.y + 1;
 
-	void resetPosition() {
+		return FirePos;
+	}
+
+		void resetPosition() {
 		position.x = 20;
 		position.y = SCREEN_HEIGHT / 2;
 

@@ -11,6 +11,7 @@
 #include "ModuleMainMenu.h"
 #include "ModuleMainMenu.h"
 #include "ModuleGameOver.h"
+#include "ModuleStageClear.h"
 
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
@@ -32,12 +33,11 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	ThirdPlaneBackground.y = 0;
 	ThirdPlaneBackground.w = 802;
 	ThirdPlaneBackground.h = 159;	
-
+  //Crater (boss part)
 	crater_Rect.x = 0;
 	crater_Rect.y = 0;
 	crater_Rect.w = SCREEN_WIDTH; 
 	crater_Rect.h = SCREEN_HEIGHT;
-
 }	
 
 ModuleSceneLvl1::~ModuleSceneLvl1()
@@ -111,7 +111,7 @@ update_status ModuleSceneLvl1::Update()
 		FirstPlaneBackGround_position_X -= Speed_Foreground;
 	
 		SecondPlaneGround_position_X -= Speed_Midground;
-	
+
 		ThirdPlaneBackground_position_X -= Speed_Background;
 	
 	
@@ -125,7 +125,6 @@ update_status ModuleSceneLvl1::Update()
 	if (FirstPlaneBackGround_position_X == -100)
 		ScrollingSpeed_Foreground = 0;
 
-
 	if (App->input->keyboard[SDL_SCANCODE_1]) {
 		App->fade->FadeToBlack(App->scene1background, App->menu, 3.0f);
 	}
@@ -135,6 +134,9 @@ update_status ModuleSceneLvl1::Update()
 	if (App->input->keyboard[SDL_SCANCODE_3]) {
 		App->fade->FadeToBlack(App->scene1background, App->scene2background, 3.0f);
 	}
+	/*if (App->input->keyboard[SDL_SCANCODE_5]) {
+		App->fade->FadeToBlack(App->menu, App->stageclear);
+	}*/
 
 	return UPDATE_CONTINUE;
 }

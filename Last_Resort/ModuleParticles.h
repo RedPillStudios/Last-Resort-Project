@@ -52,6 +52,7 @@ public:
 
 	Particle ShootExplosion;
 	Particle Laser;
+	Particle Label1;
 	//Mix_Chunk *LaserSound;
 };
 

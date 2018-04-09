@@ -24,7 +24,7 @@ ModulePlayer::ModulePlayer()
 	Down.speed = 0.10f;
 	Appear.PushBack({ 0,117,111,1 });
 	Appear.PushBack({ 6,117,111,1 });
-
+	Appear.speed = 0.15f;
 	Appear.PushBack({ 1,120,76,7 });
 	Appear.PushBack({ 0,123,74,3 });
 
@@ -66,17 +66,18 @@ bool ModulePlayer::CleanUp() {
 
 }
 
-
 // Update: draw background
 update_status ModulePlayer::Update()
 {
 	Animation* current_animation=&Standard;
+	int passedframes;
+	int speed = 3;
 
-	int speed = 2;
+
 
 	if (startAnim) {
 		current_animation = &Appear;
-		if(current_animation->getCurrentFrame()==13){
+		if(current_animation->getCurrentFrame()>=13){
 			startAnim = false;
 		}
 
@@ -86,38 +87,50 @@ update_status ModulePlayer::Update()
 	{
 
 		current_animation = &Up;
-		position.y -= (speed + 1);
+		position.y -= speed;
+		while (position.y <= 2) {
+			position.y = 2;
+			break;
+		}
+	}
+		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
+		{
+			current_animation = &Down;
+			position.y += speed;
+			while (position.y >= SCREEN_HEIGHT - 15) {
+				position.y = SCREEN_HEIGHT - 15;
+				break;
+			}
+		}
+		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
+			position.x += speed;
+			while (position.x >= SCREEN_WIDTH - 30) {
+				position.x = SCREEN_WIDTH - 30;
+				break;
+			}
+		}
+		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) {
+			position.x -= speed;
+			while (position.x <= 2) {
+				position.x = 2;
+				break;
+			}
+		}
+		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN) {
 
-	}
-	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
-	{
-		current_animation = &Down;
-		position.y += (speed + 1);
-	}
-	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
-		position.x += (speed + 1);
-	}
-	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) {
-		position.x -= (speed+1);
-	}
-	if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN) {
-
-		App->particles->AddParticle(App->particles->Laser, position.x + 35, position.y);
+			App->particles->AddParticle(App->particles->Laser, setFirePos().x,setFirePos().y);
+			App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
+			Mix_PlayChannel(-1, Shot_Sound, 0);
+		}
 	
-		App->particles->AddParticle(App->particles->ShootExplosion, position.x + 30, position.y);
-		App->particles->AddParticle(App->particles->ShootExplosion, position.x + 30, position.y, 25);
-
-		Mix_PlayChannel(-1, Shot_Sound, 0);
-			
-	}
 	
-
+	
 	// Draw everything --------------------------------------
 
-	//App->render->Blit(graphics,0,0,&Ship,1.0f);
-	SDL_Rect r = current_animation->GetCurrentFrame();
+		Ship = current_animation->GetCurrentFrame();
+
 	
-	App->render->Blit(graphics, position.x, position.y, &r,0.0f);
+	App->render->Blit(graphics, position.x, position.y,&Ship,0.0f);
 	
 	return UPDATE_CONTINUE;
 }
