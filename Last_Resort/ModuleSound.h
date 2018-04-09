@@ -33,7 +33,7 @@ public:
 	bool Playing=false;
 	
 	Mix_Music*music[MAX_MUSIC];
-	uint last_soundMusic = 0;
+	/*uint last_soundMusic = 0;*/
 
 	Mix_Chunk*chunks[MAX_CHUNKS];
 	

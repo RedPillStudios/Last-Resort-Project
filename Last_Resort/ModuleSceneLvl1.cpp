@@ -31,8 +31,14 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	ThirdPlaneBackground.x = 0;
 	ThirdPlaneBackground.y = 0;
 	ThirdPlaneBackground.w = 802;
-	ThirdPlaneBackground.h = 159;
-}
+	ThirdPlaneBackground.h = 159;	
+
+	crater_Rect.x = 0;
+	crater_Rect.y = 0;
+	crater_Rect.w = 304; 
+	crater_Rect.h = 324;
+
+}	
 
 ModuleSceneLvl1::~ModuleSceneLvl1()
 {
@@ -50,6 +56,7 @@ bool ModuleSceneLvl1::Start()
 	graphics_ThirdPlaneBackground = App->textures->Load("Images/Background_Lvl1/ThirdPlaneBackground.png");
 	graphics_SecondPlaneBackground = App->textures->Load("Images/Background_Lvl1/SecondPlaneBackground.png");
 	graphics_FirstPlaneBackGround = App->textures->Load("Images/Background_Lvl1/FirstPlaneBackGround.png");
+	Crater_BackGround = App->textures->Load("Images/Background_Lvl1/Boss_Static_Background.png");	
 
 	//Music
 	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
@@ -83,6 +90,7 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->textures->Unload(graphics_ThirdPlaneBackground);
 	App->textures->Unload(graphics_FirstPlaneBackGround);
 	App->textures->Unload(graphics_SecondPlaneBackground);
+	App->textures->Unload(Crater_BackGround);
 
 	FirstPlaneBackGround_position_X = 0;
 	SecondPlaneGround_position_X = 0;
@@ -108,9 +116,14 @@ update_status ModuleSceneLvl1::Update()
 	
 	
 	// Draw everything --------------------------------------
-	App->render->Blit(graphics_ThirdPlaneBackground, (ThirdPlaneBackground_position_X)/3.5, 0, &ThirdPlaneBackground, 1.0f);
+	App->render->Blit(Crater_BackGround,10, 0, &crater_Rect, 0.0f);
+	App->render->Blit(graphics_ThirdPlaneBackground, (ThirdPlaneBackground_position_X)/3.3, 0, &ThirdPlaneBackground, 1.0f);
 	App->render->Blit(graphics_SecondPlaneBackground, (SecondPlaneGround_position_X)/3, 30, &SecondPlaneBackground, 1.0f); //SECOND PLANE BACKGROUND
-	App->render->Blit(graphics_FirstPlaneBackGround, (FirstPlaneBackGround_position_X)/2, 0, &FirstPlaneBackGround, 1.0f); // FIRST PLANE BACKGROUND
+	App->render->Blit(graphics_FirstPlaneBackGround, (FirstPlaneBackGround_position_X)/2, 0, &FirstPlaneBackGround, ScrollingSpeed_Foreground); // FIRST PLANE BACKGROUND
+	
+
+	if (FirstPlaneBackGround_position_X == 4407)
+		ScrollingSpeed_Foreground = 0;
 
 
 	if (App->input->keyboard[SDL_SCANCODE_1]) {
