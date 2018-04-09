@@ -35,8 +35,8 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 
 	crater_Rect.x = 0;
 	crater_Rect.y = 0;
-	crater_Rect.w = 304; 
-	crater_Rect.h = 324;
+	crater_Rect.w = SCREEN_WIDTH; 
+	crater_Rect.h = SCREEN_HEIGHT;
 
 }	
 
@@ -122,7 +122,7 @@ update_status ModuleSceneLvl1::Update()
 	App->render->Blit(graphics_FirstPlaneBackGround, (FirstPlaneBackGround_position_X)/2, 0, &FirstPlaneBackGround, ScrollingSpeed_Foreground); // FIRST PLANE BACKGROUND
 	
 
-	if (FirstPlaneBackGround_position_X == 4407)
+	if (FirstPlaneBackGround_position_X == -100)
 		ScrollingSpeed_Foreground = 0;
 
 
