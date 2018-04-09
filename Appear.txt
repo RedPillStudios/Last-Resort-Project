@@ -1,0 +1,26 @@
+Appear.PushBack({ 0,118,111,1 });
+	
+Appear.PushBack({ 6,121,105,2 });
+
+	
+Appear.PushBack({ 1,124,76,4 });
+	
+Appear.PushBack({ 0,128,74,7 });
+Appear.PushBack({ 0,135,64,25 });
+Appear.PushBack({ 0,160,64,25 });
+
+Appear.PushBack({ 0,185,64,25 });
+
+Appear.PushBack({ 0,210,64,25 });
+Appear.PushBack({ 64,135,64,25 });
+	
+Appear.PushBack({ 64,160,64,25 });
+	
+Appear.PushBack({ 64,185,64,25 });
+	
+Appear.PushBack({ 64,210,64,25 });
+Appear.PushBack({ 156,139, 36,19 });
+Appear.PushBack({ 160,158,36,19 });
+
+
+Appear.speed = 0.20f
