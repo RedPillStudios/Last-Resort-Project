@@ -86,14 +86,14 @@ Mix_Music*const ModuleSound::LoadMusic(const char*path)
 	
 
 	//To load music we call Mix_LoadMUS
-	
+	bool ret = true;
 	
 	musicSound = Mix_LoadMUS(path);
 	if (!musicSound)
 	{
 
 		LOG("Unable to create music from path! SDL Error: %s\n",SDL_GetError());
-		
+		ret = false;
 	}
 
 
@@ -107,7 +107,7 @@ Mix_Chunk*const ModuleSound::LoadChunk(const char*path)
 	
 	Mix_Chunk*chunks=nullptr;
 
-	
+	bool ret=true;
 
 	//To load sound effect we call Mix_LoadWAV
 
@@ -116,7 +116,7 @@ Mix_Chunk*const ModuleSound::LoadChunk(const char*path)
 	if (chunks == nullptr)
 	{
 		LOG("Failed to load sound effect! SDL_mixer Error: %s\n", Mix_GetError());
-		
+		ret = false;
 	}
 
 

@@ -68,12 +68,6 @@
     <ClInclude Include="ModuleParticles.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleStageClear.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleEnemies.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -119,12 +113,6 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleParticles.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleStageClear.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleEnemies.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>

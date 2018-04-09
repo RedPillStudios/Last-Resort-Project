@@ -8,8 +8,6 @@
 
 struct SDL_Texture;
 
-struct Mix_Chunk;
-
 class ModulePlayer : public Module
 {
 public:
@@ -30,13 +28,7 @@ public:
 	Animation idle;
 	iPoint position;
 	bool startAnim = true;
-	bool shooted = false;
 
-	Mix_Chunk*Shot_Sound=nullptr;
-
-	SDL_Rect setFirePos() {
-
-<<<<<<< HEAD
 	SDL_Rect setFirePos() {
 
 		SDL_Rect FirePos;
@@ -44,17 +36,10 @@ public:
 		FirePos.x = position.x + 31;
 		FirePos.y = position.y + 1;
 
-=======
-		SDL_Rect FirePos;
-		
-		FirePos.x = position.x + 31;
-		FirePos.y = position.y + 1;
-
->>>>>>> 1c86c53941fb8c09e988835da4c7a9f88d188c2a
 		return FirePos;
 	}
 
-		void resetPosition() {
+	void resetPosition() {
 		position.x = 20;
 		position.y = SCREEN_HEIGHT / 2;
 

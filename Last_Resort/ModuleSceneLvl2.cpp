@@ -11,7 +11,6 @@
 #include "ModuleGameOver.h"
 #include "ModuleRender.h"
 #include "ModuleMainMenu.h"
-#include "ModuleStageClear.h"
 
 ModuleSceneLvl2::ModuleSceneLvl2() {
 
@@ -43,7 +42,7 @@ bool ModuleSceneLvl2::Start() {
 	//Music
 	Stage2 = App->sound->LoadMusic("Audio/Stage2/The_Ruins_Of_The_Metro.ogg");
 	Mix_PlayMusic(Stage2, -1);
-	Mix_Volume(-1, VOLUME_MUSIC);
+	Mix_Volume(-1, MIX_MAX_VOLUME / 9);
 
 	if (IsEnabled()) {
 		if (App->player->IsEnabled() == false) {
@@ -93,9 +92,6 @@ update_status ModuleSceneLvl2::Update() {
 	if (App->input->keyboard[SDL_SCANCODE_4]) {
 		App->fade->FadeToBlack(App->scene2background, App->gameover, 3.0f);
 	}
-	//if (App->input->keyboard[SDL_SCANCODE_5]) {
-	//	App->fade->FadeToBlack(App->scene2background, App->stageclear);
-	//}
 
 	return UPDATE_CONTINUE;
 }

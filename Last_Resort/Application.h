@@ -19,7 +19,6 @@ class ModuleSceneLvl2;
 class ModuleMainMenu;
 class ModuleGameOver;
 class ModuleParticles;
-class ModuleStageClear;
 
 class Application
 {
@@ -32,14 +31,12 @@ public:
 	ModuleInput* input;
 	ModuleTextures* textures;
 	ModuleSceneLvl1* scene1background;
-	ModuleStageClear *stageclear;
 	ModulePlayer* player;
 	ModuleSound* sound;
 	ModuleFadeToBlack *fade;
 	ModuleSceneLvl2 *scene2background;
 	ModuleGameOver *gameover;
 	ModuleParticles *particles;
-	
 
 public:
 

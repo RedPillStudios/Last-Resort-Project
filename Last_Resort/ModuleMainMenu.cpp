@@ -10,7 +10,6 @@
 #include "ModuleMainMenu.h"
 #include "ModuleSceneLvl2.h"
 #include "ModuleGameOver.h"
-#include "ModuleStageClear.h"
 
 
 
@@ -36,9 +35,11 @@ bool ModuleMainMenu::Start() {
 
 	graphics_Background = App->textures->Load("Images/Main_Menu/Last_Resort_Intro.png");
 	Main_Menu = App->sound->LoadMusic("Audio/Main_Menu/Title.ogg");
-	
-	Mix_Volume(-1, VOLUME_MUSIC);
-	Mix_PlayMusic(Main_Menu, 0);
+
+	Mix_PlayMusic(Main_Menu, -1);
+	//Mix_Volume(-1, MIX_MAX_VOLUME);
+
+
 	
 	return true;
 }
@@ -63,9 +64,6 @@ update_status ModuleMainMenu::Update() {
 	if (App->input->keyboard[SDL_SCANCODE_3]) {
 		App->fade->FadeToBlack(App->menu, App->scene2background, 3.0f);
 	}
-	//if (App->input->keyboard[SDL_SCANCODE_5]) {
-	//	App->fade->FadeToBlack(App->menu, App->stageclear);
-	//}
 
 	return UPDATE_CONTINUE;
 }
