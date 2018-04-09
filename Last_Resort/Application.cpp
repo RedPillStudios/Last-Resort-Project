@@ -11,6 +11,7 @@
 #include "ModuleMainMenu.h"
 #include "ModuleGameOver.h"
 #include "ModuleParticles.h"
+#include "ModuleStageClear.h"
 
 
 Application::Application()
@@ -23,6 +24,7 @@ Application::Application()
 	modules[5] = gameover = new ModuleGameOver();
 	modules[6] = scene2background = new ModuleSceneLvl2;
 	modules[7] = scene1background = new ModuleSceneLvl1();
+	//modules[8] = stageclear = new ModuleStageClear();
 	modules[8] = player = new ModulePlayer();
 	modules[9] = menu = new ModuleMainMenu();
 	modules[10] = fade = new ModuleFadeToBlack();
@@ -47,6 +49,7 @@ bool Application::Init()
 	scene1background->Disable();
 	scene2background->Disable();
 	gameover->Disable();
+	//stageclear->Disable();
 	
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)

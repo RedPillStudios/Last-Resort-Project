@@ -86,18 +86,33 @@ update_status ModulePlayer::Update()
 
 		current_animation = &Up;
 		position.y -= speed;
-
+		while (position.y <= 2) {
+			position.y = 2;
+			break;
+		}
 	}
 		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
 		{
 			current_animation = &Down;
 			position.y += speed;
+			while (position.y >= SCREEN_HEIGHT - 15) {
+				position.y = SCREEN_HEIGHT - 15;
+				break;
+			}
 		}
 		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
 			position.x += speed;
+			while (position.x >= SCREEN_WIDTH - 30) {
+				position.x = SCREEN_WIDTH - 30;
+				break;
+			}
 		}
 		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) {
 			position.x -= speed;
+			while (position.x <= 2) {
+				position.x = 2;
+				break;
+			}
 		}
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN) {
 
