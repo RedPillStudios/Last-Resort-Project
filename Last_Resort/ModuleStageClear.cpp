@@ -20,7 +20,7 @@ ModuleStageClear::ModuleStageClear() {
 	FirstPlaneImage.x = 0;
 	FirstPlaneImage.y = 32;
 	FirstPlaneImage.w = 212;
-	FirstPlaneImage.h = 47;
+	FirstPlaneImage.h = 16;
 }
 
 ModuleStageClear::~ModuleStageClear() {
@@ -28,10 +28,11 @@ ModuleStageClear::~ModuleStageClear() {
 }
 
 bool ModuleStageClear::Start() {
+
 	LOG("Loading <stage clear> images");
 
 	//here the asing of the images with paths
-	graphics_StageClearImage = App->textures->Load("Images/Stage_Clear/All_Stage_Clears");
+	graphics_StageClearImage = App->textures->Load("Images/Stage_Clear/All_Stage_Clears.png");  //name of the image changed (review othe branches to see if it gives other errors)
 
 	//Music Here
 	if (IsEnabled()) {
@@ -44,6 +45,7 @@ bool ModuleStageClear::Start() {
 			App->player->Enable();
 		}
 	}
+	return true;
 }
 
 bool ModuleStageClear::CleanUp() {
@@ -58,7 +60,8 @@ bool ModuleStageClear::CleanUp() {
 update_status ModuleStageClear::Update() {
 
 	//Draw everything
-	App->render->Blit(graphics_StageClearImage, 0, 0, &FirstPlaneImage);
+	App->render->Blit(graphics_StageClearImage, SCREEN_WIDTH/4,SCREEN_HEIGHT/3 , &FirstPlaneImage);
+
 
 
 
@@ -68,6 +71,7 @@ update_status ModuleStageClear::Update() {
 		App->fade->FadeToBlack(App->StageClear, App->menu, 3.0f);
 	}
 	if (App->input->keyboard[SDL_SCANCODE_4]) {
+
 		App->fade->FadeToBlack(App->StageClear, App->gameover, 3.0f);
 	}
 	if (App->input->keyboard[SDL_SCANCODE_3]) {

@@ -65,7 +65,8 @@ update_status ModuleMainMenu::Update() {
 		App->fade->FadeToBlack(App->menu, App->scene2background, 3.0f);
 	}
 	if (App->input->keyboard[SDL_SCANCODE_5]) {
-		App->fade->FadeToBlack(App->menu, App->scene1background, 3.0f);
+		App->fade->FadeToBlack(App->menu, App->StageClear
+			, 3.0f);
 	}
 
 	return UPDATE_CONTINUE;

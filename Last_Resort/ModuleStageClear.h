@@ -5,6 +5,7 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
+#include "SDL_image\include\SDL_image.h"
 
 class ModuleStageClear : public Module {
 public:
@@ -17,7 +18,7 @@ public:
 public:
 	
 
-	SDL_Texture * graphics_StageClearImage = nullptr;
+	SDL_Texture* graphics_StageClearImage = nullptr;
 
 	SDL_Rect FirstPlaneImage;
 
