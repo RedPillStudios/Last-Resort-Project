@@ -11,6 +11,7 @@
 #include "ModuleMainMenu.h"
 #include "ModuleMainMenu.h"
 #include "ModuleGameOver.h"
+#include "ModuleStageClear.h"
 
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
@@ -32,6 +33,7 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	ThirdPlaneBackground.y = 0;
 	ThirdPlaneBackground.w = 802;
 	ThirdPlaneBackground.h = 159;
+
 }
 
 ModuleSceneLvl1::~ModuleSceneLvl1()
@@ -103,7 +105,7 @@ update_status ModuleSceneLvl1::Update()
 		FirstPlaneBackGround_position_X -= Speed_Foreground;
 	
 		SecondPlaneGround_position_X -= Speed_Midground;
-	
+
 		ThirdPlaneBackground_position_X -= Speed_Background;
 	
 	
@@ -111,7 +113,6 @@ update_status ModuleSceneLvl1::Update()
 	App->render->Blit(graphics_ThirdPlaneBackground, (ThirdPlaneBackground_position_X)/3.5, 0, &ThirdPlaneBackground, 1.0f);
 	App->render->Blit(graphics_SecondPlaneBackground, (SecondPlaneGround_position_X)/3, 30, &SecondPlaneBackground, 1.0f); //SECOND PLANE BACKGROUND
 	App->render->Blit(graphics_FirstPlaneBackGround, (FirstPlaneBackGround_position_X)/2, 0, &FirstPlaneBackGround, 1.0f); // FIRST PLANE BACKGROUND
-
 
 	if (App->input->keyboard[SDL_SCANCODE_1]) {
 		App->fade->FadeToBlack(App->scene1background, App->menu, 3.0f);
@@ -122,6 +123,9 @@ update_status ModuleSceneLvl1::Update()
 	if (App->input->keyboard[SDL_SCANCODE_3]) {
 		App->fade->FadeToBlack(App->scene1background, App->scene2background, 3.0f);
 	}
+	/*if (App->input->keyboard[SDL_SCANCODE_5]) {
+		App->fade->FadeToBlack(App->menu, App->stageclear);
+	}*/
 
 	return UPDATE_CONTINUE;
 }

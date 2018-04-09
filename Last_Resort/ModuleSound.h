@@ -23,7 +23,8 @@ public:
 	update_status Update();
 
 	Mix_Music*const LoadMusic(const char*path);
-	/*Mix_Music*const ReproduceMusic();*/
+
+
 	Mix_Chunk*const LoadChunk(const char*path);
 
 public:
@@ -32,7 +33,6 @@ public:
 	
 	Mix_Music*music[MAX_MUSIC];
 	uint last_soundMusic = 0;
-
 	Mix_Chunk*chunks[MAX_CHUNKS];
 	
 };

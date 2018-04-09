@@ -10,6 +10,7 @@
 #include "ModuleMainMenu.h"
 #include "ModuleSceneLvl1.h"
 #include "ModuleSceneLvl2.h"
+#include "ModuleStageClear.h"
 
 
 
@@ -38,7 +39,7 @@ bool ModuleGameOver::Start() {
 		LOG("Loading Game Over Screen");
 		graphics_GameOverImage = App->textures->Load("Images/Congrats/GameOver.png");
 		GameOver = App->sound->LoadMusic("Audio/Congrats/GameOver.ogg");
-		Mix_PlayMusic(GameOver, -1);
+		Mix_PlayMusic(GameOver, 0);
 		Mix_Volume(-1, MIX_MAX_VOLUME / 9);
 		if (IsEnabled()) {
 			if (App->player->IsEnabled()) {
@@ -70,6 +71,9 @@ update_status ModuleGameOver::Update() {
 	if (App->input->keyboard[SDL_SCANCODE_3]) {
 		App->fade->FadeToBlack(App->gameover, App->scene2background, 3.0f);
 	}
+	//if (App->input->keyboard[SDL_SCANCODE_5]) {
+	//	App->fade->FadeToBlack(App->gameover, App->stageclear);
+	//}
 
 	return UPDATE_CONTINUE;
 }
