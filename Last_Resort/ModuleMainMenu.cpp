@@ -10,7 +10,7 @@
 #include "ModuleMainMenu.h"
 #include "ModuleSceneLvl2.h"
 #include "ModuleGameOver.h"
-
+#include "ModuleStageClear.h"
 
 
 ModuleMainMenu::ModuleMainMenu()
@@ -63,6 +63,9 @@ update_status ModuleMainMenu::Update() {
 	}
 	if (App->input->keyboard[SDL_SCANCODE_3]) {
 		App->fade->FadeToBlack(App->menu, App->scene2background, 3.0f);
+	}
+	if (App->input->keyboard[SDL_SCANCODE_5]) {
+		App->fade->FadeToBlack(App->menu, App->scene1background, 3.0f);
 	}
 
 	return UPDATE_CONTINUE;

@@ -11,7 +11,7 @@
 #include "ModuleMainMenu.h"
 #include "ModuleMainMenu.h"
 #include "ModuleGameOver.h"
-
+#include "ModuleStageClear.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -112,6 +112,7 @@ update_status ModuleSceneLvl1::Update()
 	App->render->Blit(graphics_SecondPlaneBackground, (SecondPlaneGround_position_X)/3, 30, &SecondPlaneBackground, 1.0f); //SECOND PLANE BACKGROUND
 	App->render->Blit(graphics_FirstPlaneBackGround, (FirstPlaneBackGround_position_X)/2, 0, &FirstPlaneBackGround, 1.0f); // FIRST PLANE BACKGROUND
 
+	//Change of module
 
 	if (App->input->keyboard[SDL_SCANCODE_1]) {
 		App->fade->FadeToBlack(App->scene1background, App->menu, 3.0f);
@@ -121,6 +122,9 @@ update_status ModuleSceneLvl1::Update()
 	}
 	if (App->input->keyboard[SDL_SCANCODE_3]) {
 		App->fade->FadeToBlack(App->scene1background, App->scene2background, 3.0f);
+	}
+	if (App->input->keyboard[SDL_SCANCODE_5]) {
+		App->fade->FadeToBlack(App->scene1background, App->scene1background, 3.0f);
 	}
 
 	return UPDATE_CONTINUE;
