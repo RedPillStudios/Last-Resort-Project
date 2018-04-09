@@ -36,7 +36,7 @@ bool ModuleParticles::Start() {
 	Laser.Anim.speed = 0.0f;
 	Laser.fx = 1;
 	Laser.Life = 2000;
-	Laser.Speed.x = 3;
+	Laser.Speed.x = 5;
 
 	return true;
 
