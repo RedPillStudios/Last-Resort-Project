@@ -6,15 +6,19 @@
 #include "Globals.h"
 #include "p2Point.h"
 #include "ModuleSound.h"
+#include "ModuleCollision.h"
 
 #include "SDL_mixer/include/SDL_mixer.h"
 
 #define MAX_ACTIVE_PARTICLES 5000
 
 struct SDL_Texture;
+struct Collider;
+enum COLLIDER_TYPE;
 
 struct Particle {
 
+	Collider* collider = nullptr;
 	Animation Anim;
 	uint fx = 0;
 	iPoint Position;
@@ -25,6 +29,7 @@ struct Particle {
 
 	Particle();
 	Particle(const Particle &p);
+	~Particle();
 	bool Update();
 };
 
@@ -40,20 +45,18 @@ public:
 	update_status Update();
 	bool CleanUp();
 
-	void AddParticle(const Particle &p, int x, int y, Uint32 delay = 0);
-	
+	void OnCollision(Collider* c1, Collider* c2);
+	void AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type = COLLIDER_NONE, Uint32 delay = 0);
+
 private:
 
 	SDL_Texture *Sprites = nullptr;
 	Particle *active[MAX_ACTIVE_PARTICLES];
-	uint LastParticle = 0;
 
 public:
 
 	Particle ShootExplosion;
 	Particle Laser;
-	Particle Label1;
-	//Mix_Chunk *LaserSound;
 };
 
 #endif

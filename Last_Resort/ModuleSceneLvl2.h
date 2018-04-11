@@ -34,8 +34,8 @@ public:
 
 public:
 
-	int Background_position_X = 0;
-	int Foreground_position_X = SCREEN_WIDTH*3;
+	float Background_position_X = 0;
+	float Foreground_position_X = SCREEN_WIDTH*3;
 
 };
 

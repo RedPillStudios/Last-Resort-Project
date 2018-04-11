@@ -29,8 +29,9 @@ ModuleMainMenu::~ModuleMainMenu()
 bool ModuleMainMenu::Start() {
 
 	if (App->menu->IsEnabled()) {
+
 			App->player->Disable();
-			//App->particles->Disable();
+			App->particles->Disable();
 	}
 
 	LOG("Loading Main Menu");
@@ -56,22 +57,10 @@ update_status ModuleMainMenu::Update() {
 
 	App->render->Blit(graphics_Background, 0, 0, &Background, 0); // game menu
 	
-	if (App->input->keyboard[SDL_SCANCODE_4]) {
-		App->fade->FadeToBlack(App->menu, App->gameover, 3.0f);
-	}
-	if (App->input->keyboard[SDL_SCANCODE_2]) {
+	if (App->input->keyboard[SDL_SCANCODE_SPACE]) {
 		App->fade->FadeToBlack(App->menu, App->scene1background, 3.0f);
+		Mix_PlayChannel(-1, Insert_Coin, 0);
 	}
-	if (App->input->keyboard[SDL_SCANCODE_3]) {
-		App->fade->FadeToBlack(App->menu, App->scene2background, 3.0f);
-	}
-
-	if (App->input->keyboard[SDL_SCANCODE_5]) {
-		App->fade->FadeToBlack(App->menu, App->StageClear, 3.0f);
-	}
-	/*if (App->input->keyboard[SDL_SCANCODE_SPACE]) {
-		Mix_PlayChannel(-1,Insert_Coin,0);
-	}*/
   
 	return UPDATE_CONTINUE;
 }

@@ -6,6 +6,7 @@
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
 #include "ModuleSound.h"
+#include "ModuleFadeToBlack.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -14,12 +15,20 @@ ModulePlayer::ModulePlayer()
 	position.x = 20;
 	position.y = SCREEN_HEIGHT/2;
 
+	positionp2.x = 20;
+	positionp2.y = SCREEN_HEIGHT / 4;
+
 	Standard.PushBack({64,0,32,12});
 
 	Up.PushBack({ 32,0,32,13 });
 	Up.PushBack({ 0,0,32,13 });
 	Up.speed = 0.10f;
 	Up.loop = false;
+
+	Down.PushBack({ 96,0,32,12 });
+	Down.PushBack({ 128,1,32,11 });
+	Down.speed = 0.10f;
+	Down.loop = false;
 
 	Appear.PushBack({ 0,118,111,1 });
 	Appear.PushBack({ 6,121,105,2 });
@@ -38,53 +47,60 @@ ModulePlayer::ModulePlayer()
 	Appear.speed = 0.20f;
 	Appear.loop = true;
 
-	Down.PushBack({ 96,0,32,12 });
-	Down.PushBack({ 128,1,32,11 });
-	Down.speed = 0.10f;
-	Down.loop = false;
-
 }
 
-ModulePlayer::~ModulePlayer()
-{}
+ModulePlayer::~ModulePlayer() {}
 
 // Load assets
-bool ModulePlayer::Start()
-{
+bool ModulePlayer::Start() {
+
 	LOG("Loading player textures");
-	bool ret = true;
-	graphics = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
 	
+	if (App->particles->IsEnabled() == false)
+		App->particles->Enable();
+
+	if (IsEnabled())
+		App->collision->Enable();
+	
+	graphics = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
-	return ret;
+
+	Ship1Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
+	Ship2Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
+
+
+	
+	return true;
 }
 
 bool ModulePlayer::CleanUp() {
 
-	LOG("Unloading Game Over Screen");
+	LOG("Cleaning Up Player Module");
 	App->textures->Unload(graphics);
-
 	return true;
 }
 
 // Update: draw background
-update_status ModulePlayer::Update()
-{
+update_status ModulePlayer::Update() {
+
 	Animation* current_animation=&Standard;
+	Animation* current_animation2 = &Standard;
 	int passedframes;
 	int speed = 3;
 
 	if (startAnim) {
 		current_animation = &Appear;
+		current_animation2 = &Appear;
 		if(current_animation->getCurrentFrame()>=13){
 			startAnim = false;
 		}
-
+		if (current_animation2->getCurrentFrame() >= 13) {
+			startAnim = false;
+		}
 	}
 
-	if(App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT)
-	{
-
+	//Movement Up
+	if(App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
 		current_animation = &Up;
 		position.y -= speed;
 		while (position.y <= 2) {
@@ -92,44 +108,91 @@ update_status ModulePlayer::Update()
 			break;
 		}
 	}
-		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT)
-		{
-			current_animation = &Down;
-			position.y += speed;
-			while (position.y >= SCREEN_HEIGHT - 15) {
-				position.y = SCREEN_HEIGHT - 15;
-				break;
-			}
+	if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT) {
+		current_animation2 = &Up;
+		positionp2.y -= speed;
+		while (positionp2.y <= 2) {
+			positionp2.y = 2;
+			break;
 		}
-		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
-			position.x += speed;
-			while (position.x >= SCREEN_WIDTH - 30) {
-				position.x = SCREEN_WIDTH - 30;
-				break;
-			}
+	}
+	//Movement Down
+	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) {
+		current_animation = &Down;
+		position.y += speed;
+		while (position.y >= SCREEN_HEIGHT - 15) {
+			position.y = SCREEN_HEIGHT - 15;
+			break;
 		}
-		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) {
-			position.x -= speed;
-			while (position.x <= 2) {
-				position.x = 2;
-				break;
-			}
+	}
+	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT) {
+		current_animation2 = &Down;
+		positionp2.y += speed;
+		while (positionp2.y >= SCREEN_HEIGHT - 15) {
+			positionp2.y = SCREEN_HEIGHT - 15;
+			break;
 		}
-		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_DOWN) {
+	}
+	//Movement Right
+	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
+		position.x += speed;
+		while (position.x >= SCREEN_WIDTH - 30) {
+			position.x = SCREEN_WIDTH - 30;
+			break;
+		}
+	}
+	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT) {
+		positionp2.x += speed;
+		while (positionp2.x >= SCREEN_WIDTH - 30) {
+			positionp2.x = SCREEN_WIDTH - 30;
+			break;
+		}
+	}
+		//Movement left
+	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) {
+		position.x -= speed;
+		while (position.x <= 2) {
+			position.x = 2;
+			break;
+		}
+	}
+	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT) {
+		positionp2.x -= speed;
+		while (positionp2.x <= 2) {
+			positionp2.x = 2;
+			break;
+		}
+	}
+	//Shoot
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
 
-			App->particles->AddParticle(App->particles->Laser, setFirePos().x,setFirePos().y);
-			App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
-			Mix_PlayChannel(-1, Shot_Sound, 0);
-		}
-	
-	
+		App->particles->AddParticle(App->particles->Laser, setFirePos().x, setFirePos().y);
+		App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
+		Mix_PlayChannel(-1, Shot_Sound, 0);
+	}
+	if (App->input->keyboard[SDL_SCANCODE_RCTRL] == KEY_STATE::KEY_DOWN) {
+
+		App->particles->AddParticle(App->particles->Laser, setFirePos2().x, setFirePos2().y);
+		App->particles->AddParticle(App->particles->ShootExplosion, setFirePos2().x, setFirePos2().y);
+		Mix_PlayChannel(-1, Shot_Sound, 0);
+	}
 	
 	// Draw everything --------------------------------------
+	Ship2 = current_animation2->GetCurrentFrame();
+	Ship = current_animation->GetCurrentFrame();
 
-		Ship = current_animation->GetCurrentFrame();
+	Ship1Collider->SetPos(position.x, position.y);
+	Ship2Collider->SetPos(positionp2.x, positionp2.y);
 
-	
 	App->render->Blit(graphics, position.x, position.y,&Ship,0.0f);
+	App->render->Blit(graphics, positionp2.x, positionp2.y, &Ship2, 0.0f);
 	
+
 	return UPDATE_CONTINUE;
+}
+
+void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
+	
+	App->player->Disable();
+	App->fade->FadeToBlack(this, (Module*)App->gameover); //Put this to try... Else, put this (Module*)App->scene1background
 }

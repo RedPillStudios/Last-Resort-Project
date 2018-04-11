@@ -62,17 +62,9 @@ update_status ModuleGameOver::Update() {
 
 	App->render->Blit(graphics_GameOverImage, 0, 0, &Background, 0);
 
-	if (App->input->keyboard[SDL_SCANCODE_1]) {
+	if (App->input->keyboard[SDL_SCANCODE_SPACE]) {
 		App->fade->FadeToBlack(App->gameover, App->menu,3.0f);
 	}
-	if (App->input->keyboard[SDL_SCANCODE_2]) {
-		App->fade->FadeToBlack(App->gameover,App->scene1background, 3.0f);
-	}
-	if (App->input->keyboard[SDL_SCANCODE_3]) {
-		App->fade->FadeToBlack(App->gameover, App->scene2background, 3.0f);
-	}
-	if (App->input->keyboard[SDL_SCANCODE_5]) {
-		App->fade->FadeToBlack(App->gameover, App->StageClear, 3.0f);
-	}
+	
 	return UPDATE_CONTINUE;
 }

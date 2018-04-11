@@ -5,6 +5,8 @@
 
 #define NUM_MODULES 13
 
+//Scene 2 is not here!!
+
 class ModuleWindow;
 class ModuleInput;
 class ModuleTextures;
@@ -20,6 +22,7 @@ class ModuleMainMenu;
 class ModuleGameOver;
 class ModuleParticles;
 class ModuleStageClear;
+class ModuleCollision;
 
 class Application
 {
@@ -39,8 +42,7 @@ public:
 	ModuleSceneLvl2 *scene2background;
 	ModuleGameOver *gameover;
 	ModuleParticles *particles;
-	ModuleStageClear *StageClear;
-
+	ModuleCollision *collision;
 
 public:
 

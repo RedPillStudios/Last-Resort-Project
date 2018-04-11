@@ -81,8 +81,8 @@ update_status ModuleSceneLvl2::Update() {
 	
 	
 
-	App->render->Blit(graphics_Background, (Background_position_X) / 3.5, 0, &Background, 1.0f);
-	App->render->Blit(graphics_Mid, (Foreground_position_X) / 3, 0, &Foreground,1.0f);
+	App->render->Blit(graphics_Background, (int)(Background_position_X / 3.5), 0, &Background, 1.0f);
+	App->render->Blit(graphics_Mid, (int)(Foreground_position_X / 3), 0, &Foreground,1.0f);
 
 	if (App->input->keyboard[SDL_SCANCODE_1]) {
 		App->fade->FadeToBlack(App->scene2background, App->menu, 3.0f);

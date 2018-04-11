@@ -12,6 +12,7 @@
 #include "ModuleGameOver.h"
 #include "ModuleParticles.h"
 #include "ModuleStageClear.h"
+#include "ModuleCollision.h"
 
 
 Application::Application()
@@ -21,15 +22,16 @@ Application::Application()
 	modules[2] = input = new ModuleInput();
 	modules[3] = textures = new ModuleTextures();
 	modules[4] = sound = new ModuleSound();
-	modules[5] = gameover = new ModuleGameOver();
-	modules[6] = scene2background = new ModuleSceneLvl2;
-	modules[7] = scene1background = new ModuleSceneLvl1();
-	//modules[8] = stageclear = new ModuleStageClear();
-	modules[8] = player = new ModulePlayer();
-	modules[9] = menu = new ModuleMainMenu();
+	modules[5] = menu = new ModuleMainMenu();
+	modules[6] = scene1background = new ModuleSceneLvl1();
+	modules[7] = gameover = new ModuleGameOver();
+	modules[8] = stageclear = new ModuleStageClear();
+	modules[9] = player = new ModulePlayer();
 	modules[10] = fade = new ModuleFadeToBlack();
 	modules[11] = particles = new ModuleParticles();
-	modules[12] = StageClear = new ModuleStageClear();
+	modules[12] = collision = new ModuleCollision();
+	
+
 }	
 
 Application::~Application()
@@ -42,24 +44,20 @@ bool Application::Init()
 {
 	bool ret = true;
 
-	 //Enabled on the 1st update of new scene
-
-	menu->Enable();
-
 	//Disable the map that you do not start with
 
 	player->Disable();
 	scene1background->Disable();
-	scene2background->Disable();
 	gameover->Disable();
-	StageClear->Disable();
-	
+	stageclear->Disable();
+	collision->Disable();
+	particles->Disable();
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
-		ret = modules[i]->Start();
+		ret = modules[i]->IsEnabled() ? modules[i]->Start() : true;
 
 	return ret;
 }

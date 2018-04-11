@@ -11,8 +11,7 @@
 #include "ModuleSceneLvl2.h"
 #include "ModuleMainMenu.h"
 #include "ModuleGameOver.h"
-
-
+#include "ModuleParticles.h"
 
 ModuleStageClear::ModuleStageClear() {
 
@@ -23,64 +22,43 @@ ModuleStageClear::ModuleStageClear() {
 	FirstPlaneImage.h = 16;
 }
 
-ModuleStageClear::~ModuleStageClear() {
-
-}
+ModuleStageClear::~ModuleStageClear() {}
 
 bool ModuleStageClear::Start() {
 
-	LOG("Loading <stage clear> images");
-
-	//here the asing of the images with paths
-	graphics_StageClearImage = App->textures->Load("Images/Stage_Clear/All_Stage_Clears.png");  //name of the image changed (review othe branches to see if it gives other errors)
-
+	LOG("Loading Stage Clear images");
+	
 	//Music Here
 	if (IsEnabled()) {
 		if (App->player->IsEnabled() == true) {
 			App->player->Disable();
+			App->particles->Disable();
+			
 		}
 	}
-	if (IsEnabled() == false) {
-		if (App->player->IsEnabled() == false) {
-			App->player->Enable();
-		}
-	}
+
+	graphics_StageClearImage = App->textures->Load("Images/Stage_Clear/All_Stage_Clears.png"); 
+	StageClear = App->sound->LoadMusic("Audio/Stage_Clear/Stage_Clear.ogg");
+
+	Mix_PlayMusic(StageClear, 0);
 	return true;
 }
 
 bool ModuleStageClear::CleanUp() {
 	
 	LOG("Unloading Stage Clear images");
-
 	App->textures->Unload(graphics_StageClearImage);
-
 	return true;
 }
 
 update_status ModuleStageClear::Update() {
 
 	//Draw everything
-	App->render->Blit(graphics_StageClearImage, SCREEN_WIDTH/4,SCREEN_HEIGHT/3 , &FirstPlaneImage);
+	App->render->Blit(graphics_StageClearImage, (SCREEN_WIDTH/2) - 106,(SCREEN_HEIGHT/2) - 8 , &FirstPlaneImage);
 
-
-
-
-	//change between modules
-
-	if (App->input->keyboard[SDL_SCANCODE_1]) {
-		App->fade->FadeToBlack(App->StageClear, App->menu, 3.0f);
+	if (App->input->keyboard[SDL_SCANCODE_SPACE]) {
+		App->fade->FadeToBlack(App->stageclear, App->menu, 3.0f);
 	}
-	if (App->input->keyboard[SDL_SCANCODE_4]) {
-
-		App->fade->FadeToBlack(App->StageClear, App->gameover, 3.0f);
-	}
-	if (App->input->keyboard[SDL_SCANCODE_3]) {
-		App->fade->FadeToBlack(App->StageClear, App->scene2background, 3.0f);
-	}
-	if (App->input->keyboard[SDL_SCANCODE_2]) {
-		App->fade->FadeToBlack(App->StageClear, App->scene1background, 3.0f);
-	}
-
 
 	return UPDATE_CONTINUE;
 }

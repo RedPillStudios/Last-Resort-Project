@@ -41,9 +41,9 @@ public:
 
 public: //movement of the firstplanebackground
 	
-	int FirstPlaneBackGround_position_X = 0;
-	int SecondPlaneGround_position_X = 0;
-	int ThirdPlaneBackground_position_X = 0;
+	float FirstPlaneBackGround_position_X = 0;
+	float SecondPlaneGround_position_X = 0;
+	float ThirdPlaneBackground_position_X = 0;
 
 	float ScrollingSpeed_Foreground=1.0f;
 };
