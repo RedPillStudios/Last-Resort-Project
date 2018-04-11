@@ -13,14 +13,10 @@ ModuleSound::ModuleSound() :Module()
 
 	for (uint i = 0; i < MAX_CHUNKS; ++i)
 		chunks[i] = nullptr;
-
-	
-
 }
 
-
- ModuleSound::~ModuleSound()
-{ }
+ ModuleSound::~ModuleSound(){
+}
 
 bool ModuleSound::Init()
 {

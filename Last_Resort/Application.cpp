@@ -29,6 +29,7 @@ Application::Application()
 	modules[9] = menu = new ModuleMainMenu();
 	modules[10] = fade = new ModuleFadeToBlack();
 	modules[11] = particles = new ModuleParticles();
+	modules[12] = StageClear = new ModuleStageClear();
 }	
 
 Application::~Application()
@@ -42,14 +43,16 @@ bool Application::Init()
 	bool ret = true;
 
 	 //Enabled on the 1st update of new scene
+
 	menu->Enable();
+
 	//Disable the map that you do not start with
 
 	player->Disable();
 	scene1background->Disable();
 	scene2background->Disable();
 	gameover->Disable();
-	//stageclear->Disable();
+	StageClear->Disable();
 	
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
@@ -85,4 +88,4 @@ bool Application::CleanUp()
 		ret = modules[i]->CleanUp();
 
 	return ret;
-}
+}// 138

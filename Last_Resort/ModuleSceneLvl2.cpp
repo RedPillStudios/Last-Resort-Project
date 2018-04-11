@@ -93,9 +93,9 @@ update_status ModuleSceneLvl2::Update() {
 	if (App->input->keyboard[SDL_SCANCODE_4]) {
 		App->fade->FadeToBlack(App->scene2background, App->gameover, 3.0f);
 	}
-	//if (App->input->keyboard[SDL_SCANCODE_5]) {
-	//	App->fade->FadeToBlack(App->scene2background, App->stageclear);
-	//}
+	if (App->input->keyboard[SDL_SCANCODE_5]) {
+		App->fade->FadeToBlack(App->scene2background, App->scene1background, 3.0f);
+	}
 
 	return UPDATE_CONTINUE;
 }
