@@ -37,9 +37,10 @@ bool ModuleMainMenu::Start() {
 
 	graphics_Background = App->textures->Load("Images/Main_Menu/Last_Resort_Intro.png");
 	Main_Menu = App->sound->LoadMusic("Audio/Main_Menu/Title.ogg");
-	Insert_Coin = App->sound->LoadChunk("Audio/Main_Menu/Insert_Coin.wav");
 
+	Insert_Coin = App->sound->LoadChunk("Audio/Main_Menu/Insert_Coin.wav");
 	Mix_PlayMusic(Main_Menu, 0);
+  
 	return true;
 }
 

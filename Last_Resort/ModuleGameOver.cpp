@@ -37,8 +37,10 @@ bool ModuleGameOver::Start() {
 		LOG("Loading Game Over Screen");
 		graphics_GameOverImage = App->textures->Load("Images/Congrats/GameOver.png");
 		GameOver = App->sound->LoadMusic("Audio/Congrats/GameOver.ogg");
+  
+		Mix_Volume(-1,VOLUME_MUSIC);
 		Mix_PlayMusic(GameOver, 0);
-		Mix_Volume(-1, MIX_MAX_VOLUME / 9);
+
 		if (IsEnabled()) {
 			if (App->player->IsEnabled()) {
 				App->player->Disable();

@@ -21,6 +21,7 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+
 public:
 	
 	SDL_Texture* graphics_Boss_Static_Background = nullptr;
@@ -29,11 +30,11 @@ public:
 	SDL_Texture* graphics_FirstPlaneBackGround = nullptr;
 	SDL_Texture* graphics_Crater_Boss_Zone = nullptr;
 
-
 	SDL_Rect ThirdPlaneBackground;
 	SDL_Rect SecondPlaneBackground;
 	SDL_Rect FirstPlaneBackGround;
 	SDL_Rect CraterBossZone;
+
 	//Music
 	Mix_Music*Stage1 =  nullptr;
 
@@ -44,6 +45,7 @@ public: //movement of the firstplanebackground
 	int SecondPlaneGround_position_X = 0;
 	int ThirdPlaneBackground_position_X = 0;
 
+	float ScrollingSpeed_Foreground=1.0f;
 };
 
 #endif
