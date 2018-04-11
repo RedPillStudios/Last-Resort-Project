@@ -12,8 +12,6 @@
 #include "ModuleSceneLvl2.h"
 #include "ModuleStageClear.h"
 
-
-
 ModuleGameOver::ModuleGameOver()
 {
 	
@@ -71,9 +69,8 @@ update_status ModuleGameOver::Update() {
 	if (App->input->keyboard[SDL_SCANCODE_3]) {
 		App->fade->FadeToBlack(App->gameover, App->scene2background, 3.0f);
 	}
-	//if (App->input->keyboard[SDL_SCANCODE_5]) {
-	//	App->fade->FadeToBlack(App->gameover, App->stageclear);
-	//}
-
+	if (App->input->keyboard[SDL_SCANCODE_5]) {
+		App->fade->FadeToBlack(App->gameover, App->StageClear, 3.0f);
+	}
 	return UPDATE_CONTINUE;
 }

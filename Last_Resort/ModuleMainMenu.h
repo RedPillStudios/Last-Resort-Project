@@ -24,7 +24,11 @@ public:
 
 	SDL_Rect Background;
 
+	Mix_Chunk *Insert_Coin = nullptr;
+
 	Mix_Music *Main_Menu = nullptr;
+	
+
 
 };
 
