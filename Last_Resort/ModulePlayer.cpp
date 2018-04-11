@@ -19,27 +19,29 @@ ModulePlayer::ModulePlayer()
 	Up.PushBack({ 32,0,32,13 });
 	Up.PushBack({ 0,0,32,13 });
 	Up.speed = 0.10f;
-	Down.PushBack({96,0,32,12});
-	Down.PushBack({128,1,32,11});
+	Up.loop = false;
+
+	Appear.PushBack({ 0,118,111,1 });
+	Appear.PushBack({ 6,121,105,2 });
+	Appear.PushBack({ 1,124,76,4 });
+	Appear.PushBack({ 0,128,74,7 });
+	Appear.PushBack({ 0,135,64,25 });
+	Appear.PushBack({ 0,160,64,25 });
+	Appear.PushBack({ 0,185,64,25 });
+	Appear.PushBack({ 0,210,64,25 });
+	Appear.PushBack({ 64,135,64,25 });
+	Appear.PushBack({ 64,160,64,25 });
+	Appear.PushBack({ 64,185,64,25 });
+	Appear.PushBack({ 64,210,64,25 });
+	Appear.PushBack({ 156,139, 36,19 });
+	Appear.PushBack({ 160,158,36,19 });
+	Appear.speed = 0.20f;
+	Appear.loop = false;
+
+	Down.PushBack({ 96,0,32,12 });
+	Down.PushBack({ 128,1,32,11 });
 	Down.speed = 0.10f;
-	Appear.PushBack({ 0,117,111,1 });
-	Appear.PushBack({ 6,117,111,1 });
-	Appear.speed = 0.15f;
-	Appear.PushBack({ 1,120,76,7 });
-	Appear.PushBack({ 0,123,74,3 });
-
-	Appear.PushBack({ 2,137,64,14 });
-	Appear.PushBack({ 2,167,64,14 });
-	Appear.PushBack({ 0,189,51,15 });
-	Appear.PushBack({ 0,215,51,15 });
-
-	Appear.PushBack({ 64,139,64,16 });
-	Appear.PushBack({ 64,160,64,24 });
-	Appear.PushBack({ 71,185,57,26 });
-	Appear.PushBack({ 72,56,111,24 });
-
-	Appear.PushBack({ 155,138, 111,1 });
-	Appear.PushBack({ 159,160,31,14 });
+	Down.loop = false;
 
 }
 
@@ -61,7 +63,6 @@ bool ModulePlayer::CleanUp() {
 	App->textures->Unload(graphics);
 
 	return true;
-
 }
 
 // Update: draw background
@@ -70,8 +71,6 @@ update_status ModulePlayer::Update()
 	Animation* current_animation=&Standard;
 	int passedframes;
 	int speed = 3;
-
-
 
 	if (startAnim) {
 		current_animation = &Appear;
