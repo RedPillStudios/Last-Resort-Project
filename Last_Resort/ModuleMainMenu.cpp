@@ -58,7 +58,7 @@ update_status ModuleMainMenu::Update() {
 	App->render->Blit(graphics_Background, 0, 0, &Background, 0); // game menu
 	
 	if (App->input->keyboard[SDL_SCANCODE_SPACE]) {
-		App->fade->FadeToBlack(App->menu, App->scene1background, 3.0f);
+		App->fade->FadeToBlack(App->menu, App->scene1background, 1.0f);
 		Mix_PlayChannel(-1, Insert_Coin, 0);
 	}
   

@@ -10,6 +10,8 @@
 
 
 struct SDL_Texture;
+struct Collider;
+struct Mix_Chunk;
 
 class ModuleSceneLvl1 : public Module
 {
@@ -24,6 +26,7 @@ public:
 
 public:
 	
+	SDL_Texture* graphics = nullptr;
 	SDL_Texture* graphics_Boss_Static_Background = nullptr;
 	SDL_Texture* graphics_ThirdPlaneBackground = nullptr;
 	SDL_Texture* graphics_SecondPlaneBackground = nullptr;
@@ -34,10 +37,11 @@ public:
 	SDL_Rect SecondPlaneBackground;
 	SDL_Rect FirstPlaneBackGround;
 	SDL_Rect CraterBossZone;
+	SDL_Rect Ball;
 
+	Collider *BallCollider;
 	//Music
 	Mix_Music*Stage1 =  nullptr;
-
 
 public: //movement of the firstplanebackground
 	

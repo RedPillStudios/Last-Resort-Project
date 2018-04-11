@@ -12,6 +12,7 @@
 
 ModulePlayer::ModulePlayer()
 {
+
 	position.x = 20;
 	position.y = SCREEN_HEIGHT/2;
 
@@ -47,6 +48,15 @@ ModulePlayer::ModulePlayer()
 	Appear.speed = 0.20f;
 	Appear.loop = true;
 
+	int a = 110, b = 101;
+	for (int i = 18; i >= 0; --i) {
+		DestroyShip.PushBack({ a,b,55,16 });
+		b -= 16;
+		if (b <= 17) {
+			b = 101;
+			a = -55;
+		}
+	}
 }
 
 ModulePlayer::~ModulePlayer() {}
@@ -67,8 +77,6 @@ bool ModulePlayer::Start() {
 
 	Ship1Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
 	Ship2Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
-
-
 	
 	return true;
 }
@@ -76,6 +84,7 @@ bool ModulePlayer::Start() {
 bool ModulePlayer::CleanUp() {
 
 	LOG("Cleaning Up Player Module");
+	App->collision->Disable();
 	App->textures->Unload(graphics);
 	return true;
 }
@@ -83,8 +92,8 @@ bool ModulePlayer::CleanUp() {
 // Update: draw background
 update_status ModulePlayer::Update() {
 
-	Animation* current_animation=&Standard;
-	Animation* current_animation2 = &Standard;
+	current_animation=&Standard;
+	current_animation2 = &Standard;
 	int passedframes;
 	int speed = 3;
 
@@ -183,16 +192,15 @@ update_status ModulePlayer::Update() {
 
 	Ship1Collider->SetPos(position.x, position.y);
 	Ship2Collider->SetPos(positionp2.x, positionp2.y);
-
+	
 	App->render->Blit(graphics, position.x, position.y,&Ship,0.0f);
 	App->render->Blit(graphics, positionp2.x, positionp2.y, &Ship2, 0.0f);
 	
-
 	return UPDATE_CONTINUE;
 }
 
 void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 	
 	App->player->Disable();
-	App->fade->FadeToBlack(this, (Module*)App->gameover); //Put this to try... Else, put this (Module*)App->scene1background
+	App->fade->FadeToBlack((Module*)App->scene1background, (Module*)App->gameover, 1.0f); //scene1 must be changed!!
 }
