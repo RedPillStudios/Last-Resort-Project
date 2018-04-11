@@ -36,7 +36,7 @@ ModulePlayer::ModulePlayer()
 	Appear.PushBack({ 156,139, 36,19 });
 	Appear.PushBack({ 160,158,36,19 });
 	Appear.speed = 0.20f;
-	Appear.loop = false;
+	Appear.loop = true;
 
 	Down.PushBack({ 96,0,32,12 });
 	Down.PushBack({ 128,1,32,11 });
