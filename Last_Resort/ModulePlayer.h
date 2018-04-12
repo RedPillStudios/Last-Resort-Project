@@ -24,6 +24,7 @@ public:
 public:
 	SDL_Rect Ship;
 	SDL_Rect Ship2;
+
 	SDL_Texture* graphics = nullptr;
 
 	Animation Up;
@@ -31,13 +32,17 @@ public:
 	Animation Appear;
 	Animation Standard;
 	Animation idle;
+	Animation DestroyShip;
+
+	Animation* current_animation = nullptr;
+	Animation* current_animation2 = nullptr;
 
 	iPoint position;
 	iPoint positionp2;
 
 	Collider *Ship1Collider;
 	Collider *Ship2Collider;
-	//Collider *PowerUp1;
+	
 
 public:
 
