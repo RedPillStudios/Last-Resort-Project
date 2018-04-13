@@ -46,7 +46,7 @@ ModulePlayer::ModulePlayer()
 	Appear.PushBack({ 156,139, 36,19 });
 	Appear.PushBack({ 160,158,36,19 });
 	Appear.speed = 0.20f;
-	Appear.loop = true;
+	Appear.loop = false;
 
 	int a = 110, b = 101;
 	for (int i = 18; i >= 0; --i) {
@@ -78,6 +78,10 @@ bool ModulePlayer::Start() {
 	Ship1Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
 	Ship2Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
 	
+	
+	AppearAnim = true;
+
+
 	return true;
 }
 
@@ -92,14 +96,23 @@ bool ModulePlayer::CleanUp() {
 // Update: draw background
 update_status ModulePlayer::Update() {
 
-	current_animation=&Standard;
-	current_animation2 = &Standard;
+	
+	if (AppearAnim) {
+		current_animation = &Appear;
+		current_animation2 = &Appear;
+		AppearAnim = false;
+	}
+	if (!AppearAnim && current_animation->Finished() && current_animation2->Finished()) {
+
+		current_animation = &Standard;
+		current_animation2 = &Standard;
+	}
+
 	int passedframes;
 	int speed = 3;
 
 	if (startAnim) {
-		current_animation = &Appear;
-		current_animation2 = &Appear;
+		
 		if(current_animation->getCurrentFrame()>=13){
 			startAnim = false;
 		}
@@ -201,6 +214,9 @@ update_status ModulePlayer::Update() {
 
 void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 	
-	App->player->Disable();
-	App->fade->FadeToBlack((Module*)App->scene1background, (Module*)App->gameover, 1.0f); //scene1 must be changed!!
+	current_animation = &DestroyShip;
+	if (current_animation->Finished()) {
+		App->player->Disable();
+		App->fade->FadeToBlack((Module*)App->scene1background, (Module*)App->gameover, 1.0f); //scene1 must be changed!!
+	}
 }
