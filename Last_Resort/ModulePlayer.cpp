@@ -17,9 +17,6 @@ ModulePlayer::ModulePlayer()
 	position.x = 20;
 	position.y = SCREEN_HEIGHT/2;
 
-	positionp2.x = 20;
-	positionp2.y = SCREEN_HEIGHT / 4;
-
 	Standard.PushBack({64,0,32,12});
 
 	Up.PushBack({ 32,0,32,13 });
@@ -47,7 +44,7 @@ ModulePlayer::ModulePlayer()
 	Appear.PushBack({ 156,139, 36,19 });
 	Appear.PushBack({ 160,158,36,19 });
 	Appear.speed = 0.20f;
-	Appear.loop = true;
+	Appear.loop = false;
 
 	int a = 110, b = 101;
 	for (int i = 18; i >= 0; --i) {
@@ -79,8 +76,8 @@ bool ModulePlayer::Start() {
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
 
 	Ship1Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
-	Ship2Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
-	
+	AppearAnim = true;
+
 	return true;
 }
 
@@ -96,21 +93,35 @@ bool ModulePlayer::CleanUp() {
 // Update: draw background
 update_status ModulePlayer::Update() {
 
-	current_animation=&Standard;
-	current_animation2 = &Standard;
-	int passedframes;
-	int speed = 3;
+	//Appear player 2
+	if (App->input->keyboard[SDL_SCANCODE_6]) {
 
-	if (startAnim) {
-		current_animation = &Appear;
-		current_animation2 = &Appear;
-		if(current_animation->getCurrentFrame()>=13){
-			startAnim = false;
-		}
-		if (current_animation2->getCurrentFrame() >= 13) {
-			startAnim = false;
-		}
+		pressed = true;
 	}
+	if (pressed == true) {
+
+		App->player2->Enable();
+	}
+
+	if (AppearAnim) {
+
+		current_animation = &Appear;
+		AppearAnim = false;
+	}
+
+		if (!AppearAnim && current_animation->Finished()) {
+			current_animation = &Standard;
+		}
+
+		int passedframes;
+		int speed = 3;
+
+		if (startAnim) {
+
+			if (current_animation->getCurrentFrame() >= 13) {
+				startAnim = false;
+			}
+		}
 
 	//Movement Up
 	if(App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
@@ -118,14 +129,6 @@ update_status ModulePlayer::Update() {
 		position.y -= speed;
 		while (position.y <= 2) {
 			position.y = 2;
-			break;
-		}
-	}
-	if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT) {
-		current_animation2 = &Up;
-		positionp2.y -= speed;
-		while (positionp2.y <= 2) {
-			positionp2.y = 2;
 			break;
 		}
 	}
@@ -138,14 +141,6 @@ update_status ModulePlayer::Update() {
 			break;
 		}
 	}
-	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT) {
-		current_animation2 = &Down;
-		positionp2.y += speed;
-		while (positionp2.y >= SCREEN_HEIGHT - 15) {
-			positionp2.y = SCREEN_HEIGHT - 15;
-			break;
-		}
-	}
 	//Movement Right
 	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
 		position.x += speed;
@@ -154,25 +149,11 @@ update_status ModulePlayer::Update() {
 			break;
 		}
 	}
-	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT) {
-		positionp2.x += speed;
-		while (positionp2.x >= SCREEN_WIDTH - 30) {
-			positionp2.x = SCREEN_WIDTH - 30;
-			break;
-		}
-	}
-		//Movement left
+	//Movement left
 	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) {
 		position.x -= speed;
 		while (position.x <= 2) {
 			position.x = 2;
-			break;
-		}
-	}
-	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT) {
-		positionp2.x -= speed;
-		while (positionp2.x <= 2) {
-			positionp2.x = 2;
 			break;
 		}
 	}
@@ -183,28 +164,25 @@ update_status ModulePlayer::Update() {
 		App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
 		Mix_PlayChannel(-1, Shot_Sound, 0);
 	}
-	if (App->input->keyboard[SDL_SCANCODE_RCTRL] == KEY_STATE::KEY_DOWN) {
 
-		App->particles->AddParticle(App->particles->Laser, setFirePos2().x, setFirePos2().y);
-		App->particles->AddParticle(App->particles->ShootExplosion, setFirePos2().x, setFirePos2().y);
-		Mix_PlayChannel(-1, Shot_Sound, 0);
-	}
-	
 	// Draw everything --------------------------------------
-	Ship2 = current_animation2->GetCurrentFrame();
 	Ship = current_animation->GetCurrentFrame();
-
 	Ship1Collider->SetPos(position.x, position.y);
-	Ship2Collider->SetPos(positionp2.x, positionp2.y);
-	
 	App->render->Blit(graphics, position.x, position.y,&Ship,0.0f);
-	App->render->Blit(graphics, positionp2.x, positionp2.y, &Ship2, 0.0f);
 	
 	return UPDATE_CONTINUE;
 }
 
 void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
-	
-	App->player->Disable();
-	App->fade->FadeToBlack((Module*)App->scene1background, (Module*)App->gameover, 1.0f); //scene1 must be changed!!
+
+	current_animation = &DestroyShip; //Como hacemos para el p2?? Igual mejor en ModuleP2 no?
+
+	if (current_animation->Finished()) {
+
+		App->player->Disable();
+	}
+	if (current_animation->Finished() && App->player->pressed == false) {
+
+		App->fade->FadeToBlack((Module*)App->scene1background, (Module*)App->gameover, 1.0f);
+	}
 }

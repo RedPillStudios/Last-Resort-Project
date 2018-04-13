@@ -25,6 +25,7 @@ class ModuleStageClear;
 class ModuleCollision;
 class ModuleEnemies;
 class ModulePowerUp;
+class ModulePlayer2;
 
 class Application
 {
@@ -47,6 +48,7 @@ public:
 	ModuleCollision *collision;
 	ModuleEnemies *enemies;
 	ModulePowerUp *powerup;
+	ModulePlayer2 *player2;
 	
 
 public:
