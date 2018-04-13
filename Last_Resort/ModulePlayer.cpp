@@ -7,6 +7,7 @@
 #include "ModulePlayer.h"
 #include "ModuleSound.h"
 #include "ModuleFadeToBlack.h"
+#include "ModulePowerUp.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -69,8 +70,10 @@ bool ModulePlayer::Start() {
 	if (App->particles->IsEnabled() == false)
 		App->particles->Enable();
 
-	if (IsEnabled())
+	if (IsEnabled()) {
 		App->collision->Enable();
+		App->powerup->Enable();
+	}
 	
 	graphics = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
@@ -85,6 +88,7 @@ bool ModulePlayer::CleanUp() {
 
 	LOG("Cleaning Up Player Module");
 	App->collision->Disable();
+	App->powerup->Disable();
 	App->textures->Unload(graphics);
 	return true;
 }

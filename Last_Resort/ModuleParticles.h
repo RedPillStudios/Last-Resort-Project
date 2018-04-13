@@ -12,6 +12,7 @@
 
 #define MAX_ACTIVE_PARTICLES 5000
 
+
 struct SDL_Texture;
 struct Collider;
 enum COLLIDER_TYPE;
@@ -57,6 +58,9 @@ public:
 
 	Particle ShootExplosion;
 	Particle Laser;
+
+	uint Enemies_Weapon = 0;
+	uint Enemies_Speed = 0;
 };
 
 #endif

@@ -23,6 +23,8 @@ class ModuleGameOver;
 class ModuleParticles;
 class ModuleStageClear;
 class ModuleCollision;
+class ModuleEnemies;
+class ModulePowerUp;
 
 class Application
 {
@@ -43,6 +45,9 @@ public:
 	ModuleGameOver *gameover;
 	ModuleParticles *particles;
 	ModuleCollision *collision;
+	ModuleEnemies *enemies;
+	ModulePowerUp *powerup;
+	
 
 public:
 

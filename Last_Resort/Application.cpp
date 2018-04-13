@@ -13,25 +13,27 @@
 #include "ModuleParticles.h"
 #include "ModuleStageClear.h"
 #include "ModuleCollision.h"
-
+#include "ModuleEnemies.h"
+#include "ModulePowerUp.h"
 
 Application::Application()
 {
-	modules[0] = window = new ModuleWindow();
-	modules[1] = render = new ModuleRender();
-	modules[2] = input = new ModuleInput();
-	modules[3] = textures = new ModuleTextures();
-	modules[4] = sound = new ModuleSound();
-	modules[5] = menu = new ModuleMainMenu();
-	modules[6] = scene1background = new ModuleSceneLvl1();
-	modules[7] = gameover = new ModuleGameOver();
-	modules[8] = stageclear = new ModuleStageClear();
-	modules[9] = player = new ModulePlayer();
-	modules[10] = fade = new ModuleFadeToBlack();
-	modules[11] = particles = new ModuleParticles();
-	modules[12] = collision = new ModuleCollision();
-	
-
+	int i = 0;
+	modules[i] = window = new ModuleWindow();
+	modules[i++] = render = new ModuleRender();
+	modules[i++] = input = new ModuleInput();
+	modules[i++] = textures = new ModuleTextures();
+	modules[i++] = sound = new ModuleSound();
+	modules[i++] = menu = new ModuleMainMenu();
+	modules[i++] = scene1background = new ModuleSceneLvl1();
+	modules[i++] = enemies = new ModuleEnemies();
+	modules[i++] = gameover = new ModuleGameOver();
+	modules[i++] = stageclear = new ModuleStageClear();
+	modules[i++] = player = new ModulePlayer();
+	modules[i++] = fade = new ModuleFadeToBlack();
+	modules[i++] = particles = new ModuleParticles();
+	modules[i++] = collision = new ModuleCollision();
+	modules[i++] = powerup = new ModulePowerUp();
 }	
 
 Application::~Application()
@@ -52,6 +54,8 @@ bool Application::Init()
 	stageclear->Disable();
 	collision->Disable();
 	particles->Disable();
+	enemies->Disable();
+	powerup->Disable();
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();
