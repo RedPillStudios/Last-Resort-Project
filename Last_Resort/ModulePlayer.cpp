@@ -8,6 +8,7 @@
 #include "ModuleSound.h"
 #include "ModuleFadeToBlack.h"
 #include "ModulePowerUp.h"
+#include "ModulePlayer2.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -62,7 +63,7 @@ ModulePlayer::~ModulePlayer() {}
 // Load assets
 bool ModulePlayer::Start() {
 
-	LOG("Loading player textures");
+	LOG("Loading player 2 textures");
 	
 	if (App->particles->IsEnabled() == false)
 		App->particles->Enable();
@@ -71,6 +72,8 @@ bool ModulePlayer::Start() {
 		App->collision->Enable();
 		App->powerup->Enable();
 	}
+	if (App->player2->IsEnabled() == true)
+		App->player2->Disable();
 	
 	graphics = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
@@ -83,9 +86,10 @@ bool ModulePlayer::Start() {
 
 bool ModulePlayer::CleanUp() {
 
-	LOG("Cleaning Up Player Module");
+	LOG("Cleaning Up Player 2 Module");
 	App->collision->Disable();
 	App->powerup->Disable();
+	//App->particles->Disable();
 	App->textures->Unload(graphics);
 	return true;
 }
@@ -93,15 +97,16 @@ bool ModulePlayer::CleanUp() {
 // Update: draw background
 update_status ModulePlayer::Update() {
 
-	//Appear player 2
-	if (App->input->keyboard[SDL_SCANCODE_6]) {
-
+	//Appear/Disappear player 2
+	if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && pressed == false) {
 		pressed = true;
-	}
-	if (pressed == true) {
-
 		App->player2->Enable();
+		App->player2->resetPosition2();
 	}
+	//if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && pressed == true) {
+	//	pressed = false;
+	//	App->player2->Disable();
+	//}
 
 	if (AppearAnim) {
 
@@ -174,15 +179,19 @@ update_status ModulePlayer::Update() {
 }
 
 void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
+	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
+		
+		current_animation = &DestroyShip; //Como hacemos para el p2?? Igual mejor en ModuleP2 no?
+		if (current_animation->Finished()) {
 
-	current_animation = &DestroyShip; //Como hacemos para el p2?? Igual mejor en ModuleP2 no?
-
-	if (current_animation->Finished()) {
-
-		App->player->Disable();
+			App->player->Disable();
+		}
 	}
-	if (current_animation->Finished() && App->player->pressed == false) {
 
+	if (App->player->IsEnabled() == false && App->player->pressed == true && App->input->keyboard[SDL_SCANCODE_5] == KEY_STATE::KEY_REPEAT)
+		App->player->Enable();
+
+	if (current_animation->Finished() && App->player->pressed == false)
 		App->fade->FadeToBlack((Module*)App->scene1background, (Module*)App->gameover, 1.0f);
-	}
+	
 }

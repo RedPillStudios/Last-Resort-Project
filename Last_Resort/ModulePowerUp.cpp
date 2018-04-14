@@ -28,7 +28,7 @@ bool ModulePowerUp::Start() {
 
 	powerup = App->textures->Load("Images/General/PoweUps_Sprite.png");
 	PickUpSpeed = App->sound->LoadChunk("Audio/General/005_PowerUpSpeed.wav");
-	PickUpWeapon = App->sound->LoadChunk("Audio/General/006_PowerUpWeapon");
+	PickUpWeapon = App->sound->LoadChunk("Audio/General/006_PowerUpWeapon.wav");
 
 	colliderWeapon = App->collision->AddCollider({ 18, 80, 31, 16 }, COLLIDER_PLAYER, this);
 	colliderSpeed = App->collision->AddCollider({ 0, 64, 18, 21 }, COLLIDER_PLAYER, this);
@@ -44,8 +44,13 @@ bool ModulePowerUp::CleanUp() {
 }
 
 update_status ModulePowerUp::Update() {
+	
+	Power_Up_Weapon = Anim.GetCurrentFrame();
 
+	colliderSpeed->SetPos(Power_Up_Speed.x, Power_Up_Speed.y);
+	colliderWeapon->SetPos(Power_Up_Weapon.x, Power_Up_Weapon.y);
 	PowerUpAppear();
+
 	return UPDATE_CONTINUE;
 }
 

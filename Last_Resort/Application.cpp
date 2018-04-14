@@ -20,7 +20,7 @@
 Application::Application()
 {
 	int i = 0;
-	modules[i] = window = new ModuleWindow();
+	modules[i++] = window = new ModuleWindow();
 	modules[i++] = render = new ModuleRender();
 	modules[i++] = input = new ModuleInput();
 	modules[i++] = textures = new ModuleTextures();
@@ -31,7 +31,7 @@ Application::Application()
 	modules[i++] = gameover = new ModuleGameOver();
 	modules[i++] = stageclear = new ModuleStageClear();
 	modules[i++] = player = new ModulePlayer();
-	modules[i++] = player = new ModulePlayer();
+	modules[i++] = player2 = new ModulePlayer2();
 	modules[i++] = fade = new ModuleFadeToBlack();
 	modules[i++] = particles = new ModuleParticles();
 	modules[i++] = collision = new ModuleCollision();

@@ -84,15 +84,6 @@ bool ModulePlayer2::CleanUp() {
 // Update: draw background
 update_status ModulePlayer2::Update() {
 
-	if (App->input->keyboard[SDL_SCANCODE_6]) {
-
-		App->player->pressed = false;
-	}
-	if (App->player->pressed == false) {
-
-		App->player2->Disable();
-	}
-
 	if (AppearAnim) {
 
 		current_animation2 = &Appear;
@@ -165,16 +156,12 @@ update_status ModulePlayer2::Update() {
 
 void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 
-	current_animation2 = &DestroyShip; //Como hacemos para el p2?? Igual mejor en ModuleP2 no?
+	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
+		current_animation2 = &DestroyShip;
+		if (current_animation2->Finished()) {
 
-	if (current_animation2->Finished()) {
-
-		App->player2->Disable();
-		App->player->pressed = false;
-	}
-
-	if (App->player->current_animation->Finished() && App->player->pressed == false) {
-
-		App->fade->FadeToBlack((Module*)App->scene1background, (Module*)App->gameover, 1.0f);
+			App->player2->Disable();
+			App->player->pressed = false;
+		}
 	}
 }
