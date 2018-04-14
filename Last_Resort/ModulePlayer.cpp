@@ -184,7 +184,7 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 		current_animation = &DestroyShip; //Como hacemos para el p2?? Igual mejor en ModuleP2 no?
 		if (current_animation->Finished()) {
 
-			App->player->Disable();
+			//App->player->Disable(); A disable cant be done cause it desables particles and colliders
 		}
 	}
 
