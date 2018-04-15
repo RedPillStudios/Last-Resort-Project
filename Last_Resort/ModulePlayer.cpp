@@ -9,6 +9,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModulePowerUp.h"
 #include "ModulePlayer2.h"
+#include "ModuleCollision.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -56,6 +57,7 @@ ModulePlayer::ModulePlayer()
 			a = -55;
 		}
 	}
+	DestroyShip.speed = 0.15f;
 }
 
 ModulePlayer::~ModulePlayer() {}
@@ -105,11 +107,14 @@ update_status ModulePlayer::Update() {
 		pressed = true;
 		App->player2->Enable();
 		App->player2->resetPosition2();
+		
 	}
-	//if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && pressed == true) {
-	//	pressed = false;
-	//	App->player2->Disable();
-	//}
+	
+	else if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && pressed == true) {
+		App->player2->Ship2Collider->to_delete=true;
+		pressed = false;
+		App->player2->Disable();
+	}
 
 	if (AppearAnim) {
 
@@ -187,15 +192,18 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 		
 		current_animation = &DestroyShip; //Como hacemos para el p2?? Igual mejor en ModuleP2 no?
 		if (current_animation->Finished()) {
-
-			//App->player->Disable(); A disable cant be done cause it desables particles and colliders
+		App->player->Disable();
 		}
 	}
+	//if (App->player->IsEnabled() == false && App->player->pressed == true && App->input->keyboard[SDL_SCANCODE_5] == KEY_STATE::KEY_REPEAT)
+	//	App->player->Enable();
 
-	if (App->player->IsEnabled() == false && App->player->pressed == true && App->input->keyboard[SDL_SCANCODE_5] == KEY_STATE::KEY_REPEAT)
-		App->player->Enable();
-
-	if (current_animation->Finished() && App->player->pressed == false)
+	//if (current_animation->Finished() && App->player->pressed == false && player2)
+	
+	if(App->player2->IsEnabled()==false)
 		App->fade->FadeToBlack((Module*)App->scene1background, (Module*)App->gameover, 1.0f);
 	
+
+
+
 }

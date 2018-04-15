@@ -82,7 +82,7 @@ update_status ModuleCollision::PreUpdate()
 					c1->callback->OnCollision(c1, c2);
 
 				if (matrix[c2->type][c1->type] && c2->callback)
-					c2->callback->OnCollision(c2, c1);
+				c2->callback->OnCollision(c2, c1);
 			}
 		}
 	}
@@ -177,4 +177,10 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 	// between argument "r" and property "rect"
 	if ((r.x + r.w) < rect.x || (r.y + r.h) < rect.y || r.x > (rect.x + rect.w) || r.y > (rect.y + rect.h)) { return false; }
 	return true;
+}
+
+void ModuleCollision::Disable_collision(struct Collider*collider) {
+
+	
+
 }

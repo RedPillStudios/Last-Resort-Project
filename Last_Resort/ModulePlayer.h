@@ -34,7 +34,9 @@ public:
 	Animation DestroyShip;
 
 	Animation* current_animation = nullptr;
+	
 	iPoint position;
+
 	Collider *Ship1Collider;
 	
 
@@ -43,6 +45,7 @@ public:
 	bool startAnim = true;
 	bool shooted = false;
 	bool pressed = false;
+
 
 	Mix_Chunk*Shot_Sound=nullptr;
 

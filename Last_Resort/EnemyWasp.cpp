@@ -3,6 +3,7 @@
 #include "ModuleCollision.h"
 #include "Animation.h"
 
+
 EnemyWasp::EnemyWasp(int x, int y) : Enemy(x, y) {
 
 	/*AnimWasp.PushBack({0, 178, 32, 15});

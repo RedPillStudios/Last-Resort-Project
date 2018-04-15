@@ -9,8 +9,10 @@
 #include "ModulePowerUp.h"
 #include "ModulePlayer2.h"
 #include "ModulePlayer.h"
+#include "ModuleCollision.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
+
 
 ModulePlayer2::ModulePlayer2()
 {
@@ -56,6 +58,7 @@ ModulePlayer2::ModulePlayer2()
 			a = -55;
 		}
 	}
+	
 }
 
 ModulePlayer2::~ModulePlayer2() {}
@@ -67,8 +70,10 @@ bool ModulePlayer2::Start() {
 
 	graphics = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
-
+	
 	Ship2Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
+
+
 	AppearAnim = true;
 
 	return true;
@@ -157,11 +162,13 @@ update_status ModulePlayer2::Update() {
 void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 
 	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
-		current_animation2 = &DestroyShip;
+		
+	  	current_animation2 = &DestroyShip;
 		if (current_animation2->Finished()) {
-
 			App->player2->Disable();
 			App->player->pressed = false;
+			Ship2Collider->to_delete = true;
 		}
 	}
+
 }

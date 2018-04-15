@@ -51,8 +51,10 @@ public:
 	update_status Update() override;
 	bool CleanUp() override;
 
+
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr);
 	void DebugDraw();
+	void Disable_collision(struct Collider*collider);
 
 private:
 
