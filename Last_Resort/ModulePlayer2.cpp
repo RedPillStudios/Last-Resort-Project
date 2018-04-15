@@ -26,7 +26,6 @@ ModulePlayer2::ModulePlayer2()
 	Up.PushBack({ 0,0,32,13 });
 	Up.speed = 0.10f;
 	Up.loop = false;
-
 	Down.PushBack({ 96,0,32,12 });
 	Down.PushBack({ 128,1,32,11 });
 	Down.speed = 0.10f;
@@ -83,6 +82,9 @@ bool ModulePlayer2::CleanUp() {
 
 	LOG("Cleaning Up Player Module");
 	App->textures->Unload(graphics);
+
+	App->powerup->Disable();
+
 	return true;
 }
 
@@ -118,7 +120,7 @@ update_status ModulePlayer2::Update() {
 			break;
 		}
 	}
-	//Movement Down
+	/*Movement Down*/
 	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT) {
 		current_animation2 = &Down;
 		positionp2.y += speed;
@@ -127,7 +129,7 @@ update_status ModulePlayer2::Update() {
 			break;
 		}
 	}
-	//Movement Right
+	/*Movement Right*/
 	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT) {
 		positionp2.x += speed;
 		while (positionp2.x >= SCREEN_WIDTH - 30) {
@@ -135,7 +137,7 @@ update_status ModulePlayer2::Update() {
 			break;
 		}
 	}
-	//Movement left
+	/*Movement left*/
 	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT) {
 		positionp2.x -= speed;
 		while (positionp2.x <= 2) {
@@ -143,7 +145,7 @@ update_status ModulePlayer2::Update() {
 			break;
 		}
 	}
-	//Shoot
+	/*Shoot*/
 	if (App->input->keyboard[SDL_SCANCODE_RCTRL] == KEY_STATE::KEY_DOWN) {
 
 		App->particles->AddParticle(App->particles->Laser, setFirePos2().x, setFirePos2().y);
@@ -151,7 +153,7 @@ update_status ModulePlayer2::Update() {
 		Mix_PlayChannel(-1, Shot_Sound, 0);
 	}
 
-	// Draw everything --------------------------------------
+	/* Draw everything --------------------------------------*/
 	Ship2 = current_animation2->GetCurrentFrame();
 	Ship2Collider->SetPos(positionp2.x, positionp2.y);
 	App->render->Blit(graphics, positionp2.x, positionp2.y, &Ship2, 0.0f);
@@ -162,12 +164,13 @@ update_status ModulePlayer2::Update() {
 void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 
 	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
-		
+		Ship2Collider->to_delete = true;
 	  	current_animation2 = &DestroyShip;
+	
 		if (current_animation2->Finished()) {
 			App->player2->Disable();
 			App->player->pressed = false;
-			Ship2Collider->to_delete = true;
+		
 		}
 	}
 

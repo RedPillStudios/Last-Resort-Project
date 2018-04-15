@@ -6,6 +6,7 @@
 #include "Globals.h"
 #include "p2Point.h"
 
+
 struct SDL_Texture;
 struct Collider;
 struct Mix_Chunk;
@@ -20,7 +21,10 @@ public:
 	update_status Update();
 	bool CleanUp();
 	void OnCollision(Collider *c1, Collider *c2);
+	
 	bool AppearAnim;
+	bool dead;
+
 
 public:
 	SDL_Rect Ship;

@@ -48,7 +48,7 @@ update_status ModuleCollision::PreUpdate()
 	// Remove all colliders scheduled for deletion
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
-		if (colliders[i] != nullptr && colliders[i]->to_delete == true)
+ 		if (colliders[i] != nullptr && colliders[i]->to_delete == true)
 		{
 			delete colliders[i];
 			colliders[i] = nullptr;
@@ -179,8 +179,3 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 	return true;
 }
 
-void ModuleCollision::Disable_collision(struct Collider*collider) {
-
-	
-
-}

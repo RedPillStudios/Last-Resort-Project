@@ -1,7 +1,7 @@
 #ifndef __ModuleCollision_H__
 #define __ModuleCollision_H__
 
-#define MAX_COLLIDERS 50
+#define MAX_COLLIDERS 10
 
 #include "Module.h"
 
@@ -54,7 +54,7 @@ public:
 
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr);
 	void DebugDraw();
-	void Disable_collision(struct Collider*collider);
+	
 
 private:
 
