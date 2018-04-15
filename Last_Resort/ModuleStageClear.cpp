@@ -35,6 +35,11 @@ bool ModuleStageClear::Start() {
 			App->particles->Disable();
 			
 		}
+	/*	if (App->player2->IsEnabled() == true) {
+			App->player->Disable();
+			App->particles->Disable();
+
+		}*/
 	}
 
 	graphics_StageClearImage = App->textures->Load("Images/Stage_Clear/All_Stage_Clears.png"); 
