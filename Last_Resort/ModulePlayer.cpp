@@ -58,6 +58,7 @@ ModulePlayer::ModulePlayer()
 		}
 	}
 	DestroyShip.speed = 0.15f;
+	DestroyShip.loop = false;
 	
 
 }
@@ -85,14 +86,14 @@ bool ModulePlayer::Start() {
 	Ship1Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
 
 	AppearAnim = true;
-	dead = false;
+	Dead = false;
 
 	return true;
 }
 
 bool ModulePlayer::CleanUp() {
 
-	LOG("Cleaning Up Player 2 Module");
+	LOG("Cleaning Up Player 1 Module");
 	App->collision->Disable();
 	App->powerup->Disable();
 	//App->particles->Disable();
@@ -103,20 +104,21 @@ bool ModulePlayer::CleanUp() {
 // Update: draw background
 update_status ModulePlayer::Update() {
 	
-	if (!dead) {
-		//Appear/Disappear player 2
-		if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && pressed == false) {
-			pressed = true;
-			App->player2->Enable();
-			App->player2->resetPosition2();
+	if (!Dead) {
+		////Appear/Disappear player 2
+		//if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && pressed == false) {
+		//	pressed = true;
+		//	Dead = false;
+		//	App->player2->Enable();
+		//	App->player2->resetPosition2();
 
-		}
+		//}
 
-		else if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && pressed == true) {
-			App->player2->Ship2Collider->to_delete = true;
-			pressed = false;
-			App->player2->Disable();
-		}
+		//else if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && pressed == true) {
+		//	App->player2->Ship2Collider->to_delete = true;
+		//	pressed = false;
+		//	App->player2->Disable();
+		//}
 
 		if (AppearAnim) {
 
@@ -193,16 +195,18 @@ update_status ModulePlayer::Update() {
 void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
 
-		dead = true;
+		Dead = true;
 		current_animation = &DestroyShip;
 		Ship1Collider->to_delete = true;
+
 		if (current_animation->Finished()) {
-			App->player->Disable();
+		App->player->Disable();
 		}
 
-		App->player2->Disable();
+		
+		if (App->player2->IsEnabled()==false) {
 			App->fade->FadeToBlack((Module*)App->scene1background, (Module*)App->gameover, 1.0f);
-
+		}
 
 
 	}

@@ -23,7 +23,7 @@ public:
 	void OnCollision(Collider *c1, Collider *c2);
 	
 	bool AppearAnim;
-	bool dead;
+	bool Dead;
 
 
 public:

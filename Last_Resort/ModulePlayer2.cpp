@@ -57,7 +57,8 @@ ModulePlayer2::ModulePlayer2()
 			a = -55;
 		}
 	}
-	
+	DestroyShip.speed = 0.15f;
+	DestroyShip.loop = false;
 }
 
 ModulePlayer2::~ModulePlayer2() {}
@@ -74,15 +75,16 @@ bool ModulePlayer2::Start() {
 
 
 	AppearAnim = true;
+	Dead = false;
 
 	return true;
 }
 
 bool ModulePlayer2::CleanUp() {
 
-	LOG("Cleaning Up Player Module");
+	LOG("Cleaning Up Player 2 Module");
 	App->textures->Unload(graphics);
-
+	App->collision->Disable();
 	App->powerup->Disable();
 
 	return true;
@@ -90,67 +92,69 @@ bool ModulePlayer2::CleanUp() {
 
 // Update: draw background
 update_status ModulePlayer2::Update() {
+	
+	if (!Dead) {
+		if (AppearAnim) {
 
-	if (AppearAnim) {
-
-		current_animation2 = &Appear;
-		AppearAnim = false;
-	}
-
-	if (!AppearAnim && current_animation2->Finished()) {
-		current_animation2 = &Standard;
-	}
-
-	int passedframes;
-	int speed = 3;
-
-	if (startAnim) {
-
-		if (current_animation2->getCurrentFrame() >= 13) {
-			startAnim = false;
+			current_animation2 = &Appear;
+			AppearAnim = false;
 		}
-	}
 
-	//Movement Up
-	if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT) {
-		current_animation2 = &Up;
-		positionp2.y -= speed;
-		while (positionp2.y <= 2) {
-			positionp2.y = 2;
-			break;
+		if (!AppearAnim && current_animation2->Finished()) {
+			current_animation2 = &Standard;
 		}
-	}
-	/*Movement Down*/
-	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT) {
-		current_animation2 = &Down;
-		positionp2.y += speed;
-		while (positionp2.y >= SCREEN_HEIGHT - 15) {
-			positionp2.y = SCREEN_HEIGHT - 15;
-			break;
-		}
-	}
-	/*Movement Right*/
-	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT) {
-		positionp2.x += speed;
-		while (positionp2.x >= SCREEN_WIDTH - 30) {
-			positionp2.x = SCREEN_WIDTH - 30;
-			break;
-		}
-	}
-	/*Movement left*/
-	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT) {
-		positionp2.x -= speed;
-		while (positionp2.x <= 2) {
-			positionp2.x = 2;
-			break;
-		}
-	}
-	/*Shoot*/
-	if (App->input->keyboard[SDL_SCANCODE_RCTRL] == KEY_STATE::KEY_DOWN) {
 
-		App->particles->AddParticle(App->particles->Laser, setFirePos2().x, setFirePos2().y);
-		App->particles->AddParticle(App->particles->ShootExplosion, setFirePos2().x, setFirePos2().y);
-		Mix_PlayChannel(-1, Shot_Sound, 0);
+		int passedframes;
+		int speed = 3;
+
+		if (startAnim) {
+
+			if (current_animation2->getCurrentFrame() >= 13) {
+				startAnim = false;
+			}
+		}
+
+		//Movement Up
+		if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT) {
+			current_animation2 = &Up;
+			positionp2.y -= speed;
+			while (positionp2.y <= 2) {
+				positionp2.y = 2;
+				break;
+			}
+		}
+		/*Movement Down*/
+		if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT) {
+			current_animation2 = &Down;
+			positionp2.y += speed;
+			while (positionp2.y >= SCREEN_HEIGHT - 15) {
+				positionp2.y = SCREEN_HEIGHT - 15;
+				break;
+			}
+		}
+		/*Movement Right*/
+		if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT) {
+			positionp2.x += speed;
+			while (positionp2.x >= SCREEN_WIDTH - 30) {
+				positionp2.x = SCREEN_WIDTH - 30;
+				break;
+			}
+		}
+		/*Movement left*/
+		if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT) {
+			positionp2.x -= speed;
+			while (positionp2.x <= 2) {
+				positionp2.x = 2;
+				break;
+			}
+		}
+		/*Shoot*/
+		if (App->input->keyboard[SDL_SCANCODE_RCTRL] == KEY_STATE::KEY_DOWN) {
+
+			App->particles->AddParticle(App->particles->Laser, setFirePos2().x, setFirePos2().y);
+			App->particles->AddParticle(App->particles->ShootExplosion, setFirePos2().x, setFirePos2().y);
+			Mix_PlayChannel(-1, Shot_Sound, 0);
+		}
 	}
 
 	/* Draw everything --------------------------------------*/
@@ -164,13 +168,25 @@ update_status ModulePlayer2::Update() {
 void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 
 	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
+		
+		Dead = true;
+
+		current_animation2 = &DestroyShip;
 		Ship2Collider->to_delete = true;
-	  	current_animation2 = &DestroyShip;
-	
-		if (current_animation2->Finished()) {
+
+		//no s'executa la anim, abans hem de solucionar el if comentat just a sota de això.(mai entra dins quan mor pq el is finished() no funciona)
+		//App->player2->Disable();
+		App->player->pressed = false;
+		
+	  	
+		/*if (current_animation2->Finished()) {
 			App->player2->Disable();
 			App->player->pressed = false;
 		
+		}*/
+
+		if (App->player->IsEnabled() == false) {
+			App->fade->FadeToBlack((Module*)App->scene1background, (Module*)App->gameover, 1.0f);
 		}
 	}
 
