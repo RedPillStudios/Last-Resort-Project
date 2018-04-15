@@ -79,7 +79,9 @@ bool ModulePlayer::Start() {
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
 
 	Ship1Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
+
 	AppearAnim = true;
+
 
 	return true;
 }
@@ -96,6 +98,7 @@ bool ModulePlayer::CleanUp() {
 
 // Update: draw background
 update_status ModulePlayer::Update() {
+
 
 	//Appear/Disappear player 2
 	if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && pressed == false) {
@@ -116,6 +119,7 @@ update_status ModulePlayer::Update() {
 
 		if (!AppearAnim && current_animation->Finished()) {
 			current_animation = &Standard;
+
 		}
 
 		int passedframes;
