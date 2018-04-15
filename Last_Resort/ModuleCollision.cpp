@@ -48,7 +48,7 @@ update_status ModuleCollision::PreUpdate()
 	// Remove all colliders scheduled for deletion
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
-		if (colliders[i] != nullptr && colliders[i]->to_delete == true)
+ 		if (colliders[i] != nullptr && colliders[i]->to_delete == true)
 		{
 			delete colliders[i];
 			colliders[i] = nullptr;
@@ -82,7 +82,7 @@ update_status ModuleCollision::PreUpdate()
 					c1->callback->OnCollision(c1, c2);
 
 				if (matrix[c2->type][c1->type] && c2->callback)
-					c2->callback->OnCollision(c2, c1);
+				c2->callback->OnCollision(c2, c1);
 			}
 		}
 	}
@@ -95,7 +95,6 @@ update_status ModuleCollision::Update()
 {
 
 	DebugDraw();
-
 	return UPDATE_CONTINUE;
 }
 
@@ -179,3 +178,4 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 	if ((r.x + r.w) < rect.x || (r.y + r.h) < rect.y || r.x > (rect.x + rect.w) || r.y > (rect.y + rect.h)) { return false; }
 	return true;
 }
+

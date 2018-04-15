@@ -74,7 +74,6 @@ bool ModuleSceneLvl1::Start()
 			App->player->Enable();
 		}
 		App->player->resetPosition();
-		App->player->resetPosition2();
 	}
 	if (IsEnabled() == false) {
 		if (App->player->IsEnabled() == true) {
