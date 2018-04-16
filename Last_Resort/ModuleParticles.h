@@ -10,7 +10,7 @@
 
 #include "SDL_mixer/include/SDL_mixer.h"
 
-#define MAX_ACTIVE_PARTICLES 900
+#define MAX_ACTIVE_PARTICLES 50
 
 
 struct SDL_Texture;
@@ -56,8 +56,12 @@ private:
 
 public:
 
-	Particle ShootExplosion;
 	Particle Laser;
+	Particle ShootExplosion;
+	
+
+	Particle Laser2;
+	Particle ShootExplosionLaser2;
 
 	uint Enemies_Weapon = 0;
 	uint Enemies_Speed = 0;

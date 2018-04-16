@@ -66,6 +66,8 @@ bool ModuleSceneLvl1::Start()
 
 	
 	BallCollider = App->collision->AddCollider({ 140, 178, 26, 26 }, COLLIDER_ENEMY, this);
+	TheRubbishWall_1 = App->collision->AddCollider({ -50, 0, 26, 400 }, COLLIDER_WALL, this); // A WALL TO DESTROY EVERYTHING THAT PASSES THROUGHT THE PLAYER AND SCAPES BEHIND HIM
+	TheRubbishWall_2 = App->collision->AddCollider({ (SCREEN_WIDTH+30), 0, 26, 400 }, COLLIDER_ENEMY, this);// A WALL TO DESTROY SHOOTS THAT PASSES THROUGHT THE LIMIT OF THE SCREEN (IT IS OF ENEMY TYPE BC ENEMIES WILL SPAWN THERE)
 
 	//Music
 	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
@@ -86,6 +88,7 @@ bool ModuleSceneLvl1::Start()
 
 	}
 	//Enemies
+	
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 120, 80);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 145, 120);
 	return true;
@@ -120,8 +123,6 @@ update_status ModuleSceneLvl1::Update()
 		App->player2->Dead = false;
 		App->player2->Enable();
 		App->player2->resetPosition2();
-
-	
 	}
 
 	float Speed_Foreground=3;
@@ -135,9 +136,9 @@ update_status ModuleSceneLvl1::Update()
 
 	// Draw everything --------------------------------------
 	App->render->Blit(graphics_Boss_Static_Background, 0, 0, &CraterBossZone, 0.0f); // CRATER ZONE FIRST BOSS
-	App->render->Blit(graphics_ThirdPlaneBackground, (int)(ThirdPlaneBackground_position_X/3.3), 0, &ThirdPlaneBackground, 1.0f); // THIRD PLANE
-	App->render->Blit(graphics_SecondPlaneBackground, (int)(SecondPlaneGround_position_X/3), 30, &SecondPlaneBackground, 1.0f); //SECOND PLANE BACKGROUND
-	App->render->Blit(graphics_FirstPlaneBackGround, (int)(FirstPlaneBackGround_position_X/2), 0, &FirstPlaneBackGround, 1.0f); // FIRST PLANE BACKGROUND
+	App->render->Blit(graphics_ThirdPlaneBackground, (float)(ThirdPlaneBackground_position_X/3.7), 0, &ThirdPlaneBackground, 1.0f); // THIRD PLANE
+	App->render->Blit(graphics_SecondPlaneBackground, (float)(SecondPlaneGround_position_X/3.3), 30, &SecondPlaneBackground, 1.0f); //SECOND PLANE BACKGROUND
+	App->render->Blit(graphics_FirstPlaneBackGround, (float)(FirstPlaneBackGround_position_X/2.7), 0, &FirstPlaneBackGround, 1.0f); // FIRST PLANE BACKGROUND
 	App->render->Blit(graphics, 100, SCREEN_HEIGHT / 2, &Ball, 0.0f);
 
 
