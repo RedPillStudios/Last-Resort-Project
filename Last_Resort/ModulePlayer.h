@@ -48,10 +48,11 @@ public:
 	
 	bool startAnim = true;
 	bool shooted = false;
-	bool pressed = false;
+	bool PlayerActived = false;
 
 
 	Mix_Chunk*Shot_Sound=nullptr;
+	Mix_Chunk*Death_Sound = nullptr;
 
 
 public:

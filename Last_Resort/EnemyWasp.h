@@ -10,12 +10,12 @@ class EnemyWasp : public Enemy {
 
 private:
 	
-	Animation *AnimWasp;
-
+	Animation AnimWasp;
+	Collider *EnemyWaspCollider;
 public:
 
 	EnemyWasp(int x, int y);
-	
+	void Move();
 };
 
 
