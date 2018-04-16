@@ -81,7 +81,7 @@ bool ModuleSceneLvl1::Start()
 	}
 	//Enemies
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, SCREEN_WIDTH, 100);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 350, 100);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 370, 100);
 
 	return true;
 }
@@ -136,7 +136,6 @@ update_status ModuleSceneLvl1::Update()
 	BallCollider->SetPos(100, SCREEN_HEIGHT / 2);
 
 	// Draw everything --------------------------------------
-
 	App->render->Blit(graphics_Boss_Static_Background, 0, 0, &CraterBossZone, 0.0f); // CRATER ZONE FIRST BOSS
 	App->render->Blit(graphics_ThirdPlaneBackground, (int)(ThirdPlaneBackground_position_X/3.3), 0, &ThirdPlaneBackground, 1.0f); // THIRD PLANE
 	App->render->Blit(graphics_SecondPlaneBackground, (int)(SecondPlaneGround_position_X/3), 30, &SecondPlaneBackground, 1.0f); //SECOND PLANE BACKGROUND
