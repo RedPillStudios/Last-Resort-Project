@@ -50,7 +50,7 @@ update_status ModuleCollision::PreUpdate()
 	{
  		if (colliders[i] != nullptr && colliders[i]->to_delete == true)
 		{
-			delete colliders[i];
+ 			delete colliders[i];
 			colliders[i] = nullptr;
 		}
 	}

@@ -95,6 +95,7 @@ bool ModulePlayer::Start() {
 	DestroyShip.Reset();
 	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
+	Death_Sound = App->sound->LoadChunk("Audio/005_Death.wav");
 	Ship1Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
 
 	Dead = false;
@@ -201,12 +202,12 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
 
 		Dead = true;
+		
 		current_animation = &DestroyShip;
+		Mix_PlayChannel(-1, Death_Sound, 0);
+	
 		Ship1Collider->to_delete = true;
-		//Dead = true;
-		/*if (DestroyShip.Finished()==true) {
-			Disable();
-		}*/
+		
 	
 		if (DestroyShip.Finished()) {
 			Disable();

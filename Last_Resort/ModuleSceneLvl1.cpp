@@ -76,6 +76,7 @@ bool ModuleSceneLvl1::Start()
 			App->player->Enable();
 		}
 		App->player->resetPosition();
+	
 		if (App->collision->IsEnabled()==false) {
 			App->collision->Enable();
 		}
