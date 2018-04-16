@@ -69,6 +69,7 @@ bool ModuleSceneLvl1::Start()
 	TheRubbishWall_1 = App->collision->AddCollider({ -50, 0, 26, 400 }, COLLIDER_WALL, this); // A WALL TO DESTROY EVERYTHING THAT PASSES THROUGHT THE PLAYER AND SCAPES BEHIND HIM
 	TheRubbishWall_2 = App->collision->AddCollider({ (SCREEN_WIDTH+30), 0, 26, 400 }, COLLIDER_ENEMY, this);// A WALL TO DESTROY SHOOTS THAT PASSES THROUGHT THE LIMIT OF THE SCREEN (IT IS OF ENEMY TYPE BC ENEMIES WILL SPAWN THERE)
 
+
 	//Music
 	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
 	Mix_PlayMusic(Stage1, -1);
@@ -81,16 +82,26 @@ bool ModuleSceneLvl1::Start()
 		App->player->resetPosition();
 
 		App->enemies->Enable();
+	}
+	//Enemies
+  App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 120, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 145, 120);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, SCREEN_WIDTH, 100);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 370, 100);
+
+
+
+		
 
 		if (App->collision->IsEnabled()==false) {
 			App->collision->Enable();
 		}
 
 	}
-	//Enemies
 	
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 120, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 145, 120);
+	
+	
+
 	return true;
 }
 

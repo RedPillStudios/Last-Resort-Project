@@ -17,7 +17,7 @@ protected:
 
 public:
 
-	iPoint position;
+	fPoint position;
 
 	Enemy(int x, int y);
 	virtual ~Enemy();

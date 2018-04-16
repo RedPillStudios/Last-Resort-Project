@@ -11,10 +11,10 @@
 
 ModulePowerUp::ModulePowerUp() {
 
-	Anim.PushBack({ 18, 80, 31, 16 });
-	Anim.PushBack({ 49, 80, 31, 16 });
-	Anim.loop = true;
-	Anim.speed = 0.1f;
+	Anim_Weapon.PushBack({ 18, 80, 31, 16 });
+	Anim_Weapon.PushBack({ 49, 80, 31, 16 });
+	Anim_Weapon.loop = true;
+	Anim_Weapon.speed = 0.1f;
 }
 
 
@@ -45,7 +45,7 @@ bool ModulePowerUp::CleanUp() {
 
 update_status ModulePowerUp::Update() {
 	
-	Power_Up_Weapon = Anim.GetCurrentFrame();
+	Power_Up_Weapon = Anim_Weapon.GetCurrentFrame();
 
 	//colliderSpeed->SetPos(Power_Up_Speed.x, Power_Up_Speed.y);
 	//colliderWeapon->SetPos(Power_Up_Weapon.x, Power_Up_Weapon.y);
