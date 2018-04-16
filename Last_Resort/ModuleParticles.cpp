@@ -32,7 +32,7 @@ bool ModuleParticles::Start() {
 	Laser.Anim.PushBack({ 115, 242, 15, 7 });
 	Laser.Anim.speed = 0.0f;
 	Laser.fx = 1;
-	Laser.Life = 200;
+	Laser.Life = 2000;
 	Laser.Speed.x = 5;
 
 	return true;
