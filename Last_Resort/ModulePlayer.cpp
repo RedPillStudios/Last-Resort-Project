@@ -89,7 +89,6 @@ bool ModulePlayer::Start() {
 	
 	graphics = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
-
 	Ship1Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
 
 	AppearAnim = true;
@@ -105,6 +104,7 @@ bool ModulePlayer::CleanUp() {
 	LOG("Cleaning Up Player 1 Module");
 	App->collision->Disable();
 	App->powerup->Disable();
+	current_animation = NULL;
 	//App->particles->Disable();
 	App->textures->Unload(graphics);
 	return true;
@@ -211,11 +211,10 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 		current_animation = &DestroyShip;
 		Ship1Collider->to_delete = true;
 
-		if (current_animation->Finished()) {
+		if (DestroyShip.Finished()) {
 		App->player->Disable();
 		}
 
-		
 		if (App->player2->IsEnabled()==false) {
 			App->fade->FadeToBlack((Module*)App->scene1background, (Module*)App->gameover, 1.0f);
 		}
