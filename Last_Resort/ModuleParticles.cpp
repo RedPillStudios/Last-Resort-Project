@@ -30,10 +30,9 @@ bool ModuleParticles::Start() {
 	ShootExplosion.Anim.speed = 0.3f;
 
 	Laser.Anim.PushBack({ 115, 242, 15, 7 });
-	Laser.Anim.loop = true;
 	Laser.Anim.speed = 0.0f;
 	Laser.fx = 1;
-	Laser.Life = 2000;
+	Laser.Life = 200;
 	Laser.Speed.x = 5;
 
 	return true;
@@ -137,18 +136,14 @@ bool Particle::Update() {
 
 	bool ret = true;
 
-	if (Life > 0) {
-
-		if ((SDL_GetTicks() - Born) > Life) {
-			ret = true;
-		}
-	}
-	else {
-		
-		if (Anim.Finished()) {
+	if (Life > 0)
+	{
+		if ((SDL_GetTicks() - Born) > Life)
 			ret = false;
-		}
 	}
+	else
+		if (Anim.Finished())
+			ret = false;
 
 	Position.x += Speed.x;
 	Position.y += Speed.y;
