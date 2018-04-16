@@ -40,10 +40,8 @@ public:
 	SDL_Rect Ball;
 
 	Collider *BallCollider;
-	Collider *TheRubbishWall_1;
-	Collider *TheRubbishWall_2;
 	//Music
-	Mix_Music* Stage1 =  nullptr;
+	Mix_Music*Stage1 =  nullptr;
 
 public: //movement of the firstplanebackground
 	

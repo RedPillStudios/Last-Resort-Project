@@ -6,11 +6,7 @@
 #include "ModuleParticles.h"
 #include "ModuleSound.h"
 #include "Enemy.h"
-
 #include "EnemyRhino.h"
-
-#include "EnemyWasp.h"
-
 
 
 #define SPAWN_MARGIN 50
@@ -79,7 +75,6 @@ update_status ModuleEnemies::Update() {
 update_status ModuleEnemies::PostUpdate() {
 
 	//Check camera position to decide what to spawn
-
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 
 		if (enemies[i] != nullptr) {
@@ -91,7 +86,6 @@ update_status ModuleEnemies::PostUpdate() {
 				enemies[i] = nullptr;
 			}
 		}
-
 	}
 	return UPDATE_CONTINUE;
 }
@@ -121,27 +115,16 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 	uint i = 0;
 	for (; enemies[i] != nullptr && i < MAX_ENEMIES; ++i);
 
-
-	if (i != MAX_ENEMIES){
-		switch (info.type){
+	if (i != MAX_ENEMIES)
+	{
+		switch (info.type)
+		{
 		case ENEMY_TYPES::ENEMY_RHINO:
 			enemies[i] = new Enemy_Rhino(info.x, info.y);
 			break;
 
 		}
 	}
-
-	switch (info.type) {
-		if (i != MAX_ENEMIES) {
-	case ENEMY_TYPES::ENEMY_WASP:
-		enemies[i] = new EnemyWasp(info.x, info.y);
-		break;
-
-		}
-	}
-
-	
-
 }
 
 void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {

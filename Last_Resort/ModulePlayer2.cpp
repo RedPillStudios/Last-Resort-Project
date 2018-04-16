@@ -170,7 +170,7 @@ update_status ModulePlayer2::Update() {
 		/*Shoot*/
 		if (App->input->keyboard[SDL_SCANCODE_RCTRL] == KEY_STATE::KEY_DOWN) {
 
-			App->particles->AddParticle(App->particles->Laser, setFirePos2().x, setFirePos2().y,COLLIDER_PLAYER_SHOT);
+			App->particles->AddParticle(App->particles->Laser, setFirePos2().x, setFirePos2().y);
 			App->particles->AddParticle(App->particles->ShootExplosion, setFirePos2().x, setFirePos2().y);
 			Mix_PlayChannel(-1, Shot_Sound, 0);
 		}
