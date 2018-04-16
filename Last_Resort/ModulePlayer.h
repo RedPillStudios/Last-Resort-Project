@@ -23,12 +23,12 @@ public:
 	void OnCollision(Collider *c1, Collider *c2);
 	
 	bool AppearAnim;
-	bool dead;
+	bool Dead;
 
 
 public:
 	SDL_Rect Ship;
-	SDL_Texture* graphics = nullptr;
+	SDL_Texture* graphicsp1 = nullptr;
 
 	Animation Up;
 	Animation Down;
@@ -45,7 +45,7 @@ public:
 	
 
 public:
-
+	
 	bool startAnim = true;
 	bool shooted = false;
 	bool pressed = false;
@@ -70,7 +70,7 @@ public:
 		position.x = 20;
 		position.y = SCREEN_HEIGHT / 2;
 
-	};
+	}
 };
 
 #endif

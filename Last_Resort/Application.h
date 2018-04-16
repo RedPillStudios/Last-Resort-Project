@@ -25,6 +25,7 @@ class ModuleStageClear;
 class ModuleCollision;
 class ModuleEnemies;
 class ModulePowerUp;
+
 class ModulePlayer2;
 
 class Application

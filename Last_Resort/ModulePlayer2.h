@@ -16,16 +16,24 @@ public:
 	ModulePlayer2();
 	~ModulePlayer2();
 
-	bool Start();
+	
 	update_status Update();
-	bool CleanUp();
+	
 	void OnCollision(Collider *c1, Collider *c2);
+	
+
+public://bools
+	bool Start();
+	bool CleanUp();
 	bool AppearAnim;
+	bool Dead;
 
 public:
 
+
 	SDL_Rect Ship2;
-	SDL_Texture* graphics = nullptr;
+
+	SDL_Texture* graphicsp2 = nullptr;
 
 	Animation Up;
 	Animation Down;
@@ -35,7 +43,9 @@ public:
 	Animation DestroyShip;
 
 	Animation* current_animation2 = nullptr;
+
 	iPoint positionp2;
+
 	Collider *Ship2Collider;
 
 
