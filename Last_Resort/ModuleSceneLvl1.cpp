@@ -15,6 +15,7 @@
 #include "ModuleStageClear.h"
 #include "ModuleCollision.h"
 #include "ModuleParticles.h"
+#include "ModuleEnemies.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -65,6 +66,7 @@ bool ModuleSceneLvl1::Start()
 
 	BallCollider = App->collision->AddCollider({ 140, 178, 26, 26 }, COLLIDER_ENEMY, this);
 
+
 	//Music
 	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
 	Mix_PlayMusic(Stage1, -1);
@@ -75,12 +77,12 @@ bool ModuleSceneLvl1::Start()
 			App->player->Enable();
 		}
 		App->player->resetPosition();
+		App->enemies->Enable();
 	}
-	//if (IsEnabled() == false) {
-	//	if (App->player->IsEnabled() == true) {
-	//		App->player->Disable();
-	//	}
-	//}
+	//Enemies
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, SCREEN_WIDTH, 100);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 350, 100);
+
 	return true;
 }
 
@@ -134,6 +136,7 @@ update_status ModuleSceneLvl1::Update()
 	BallCollider->SetPos(100, SCREEN_HEIGHT / 2);
 
 	// Draw everything --------------------------------------
+
 	App->render->Blit(graphics_Boss_Static_Background, 0, 0, &CraterBossZone, 0.0f); // CRATER ZONE FIRST BOSS
 	App->render->Blit(graphics_ThirdPlaneBackground, (int)(ThirdPlaneBackground_position_X/3.3), 0, &ThirdPlaneBackground, 1.0f); // THIRD PLANE
 	App->render->Blit(graphics_SecondPlaneBackground, (int)(SecondPlaneGround_position_X/3), 30, &SecondPlaneBackground, 1.0f); //SECOND PLANE BACKGROUND

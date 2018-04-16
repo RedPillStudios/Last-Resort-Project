@@ -38,7 +38,7 @@ public:
 
 	Collider *colliderWeapon = nullptr;
 	Collider *colliderSpeed = nullptr;
-	Animation Anim;
+	Animation Anim_Weapon;
 };
 
 #endif

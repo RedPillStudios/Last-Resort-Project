@@ -6,6 +6,7 @@
 #include "ModuleParticles.h"
 #include "ModuleSound.h"
 #include "Enemy.h"
+#include "EnemyRhino.h"
 
 
 #define SPAWN_MARGIN 50
@@ -50,7 +51,7 @@ update_status ModuleEnemies::PreUpdate() {
 		if (queue[i].type != ENEMY_TYPES::NO_TYPE) {
 
 			if (queue[i].x * SCREEN_SIZE < App->render->camera.x + (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN) {
-
+		
 				SpawnEnemy(queue[i]);
 				queue[i].type = ENEMY_TYPES::NO_TYPE;
 				LOG("Spawning enemy at %d", queue[i].x * SCREEN_SIZE);
@@ -108,19 +109,22 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y) {
 	return ret;
 }
 
-void ModuleEnemies::SpawnEnemy(const EnemyInfo &info) {
-
-	//Find room for the new enemy
+void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
+{
+	// find room for the new enemy
 	uint i = 0;
 	for (; enemies[i] != nullptr && i < MAX_ENEMIES; ++i);
 
-	//if (i != MAX_ENEMIES) {
+	if (i != MAX_ENEMIES)
+	{
+		switch (info.type)
+		{
+		case ENEMY_TYPES::ENEMY_RHINO:
+			enemies[i] = new Enemy_Rhino(info.x, info.y);
+			break;
 
-	//	switch (info.type) {
-
-	//		//Put enemies here
-	//	}
-	//}
+		}
+	}
 }
 
 void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
