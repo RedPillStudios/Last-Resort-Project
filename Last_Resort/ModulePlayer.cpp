@@ -42,7 +42,7 @@ ModulePlayer::ModulePlayer()
 	Appear.PushBack({ 128,139,64,19 });
 	Appear.PushBack({ 128,158,64,19 });
 	Appear.speed = 0.2f;
-	Appear.loop = true;
+	Appear.loop = false;
 
 	DestroyShip.PushBack({ 0,16,55,17 });
 	DestroyShip.PushBack({ 0,33,55,17 });
@@ -63,6 +63,8 @@ ModulePlayer::ModulePlayer()
 	DestroyShip.PushBack({ 110,67,55,17 });
 	DestroyShip.PushBack({ 110,84,55,17 });
 	DestroyShip.PushBack({ 110,101,55,17 });
+	DestroyShip.PushBack({178,122,2,2});
+
 
 	DestroyShip.speed = 0.3f;
 	DestroyShip.loop = false;
@@ -89,7 +91,8 @@ bool ModulePlayer::Start() {
 	}
 	/*if (App->player2->IsEnabled() == true)
 		App->player2->Disable();*/
-	
+	Appear.Reset();
+	DestroyShip.Reset();
 	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
 	Ship1Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
@@ -110,7 +113,8 @@ bool ModulePlayer::CleanUp() {
 	current_animation = NULL;
 	//App->particles->Disable();
 	App->textures->Unload(graphicsp1);
-	Appear.Reset();
+	//DestroyShip.Reset();
+
 	return true;
 }
 

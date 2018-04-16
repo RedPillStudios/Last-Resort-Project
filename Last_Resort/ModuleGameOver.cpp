@@ -41,11 +41,11 @@ bool ModuleGameOver::Start() {
 		Mix_Volume(-1,VOLUME_MUSIC);
 		Mix_PlayMusic(GameOver, 0);
 
-		if (IsEnabled()) {
+		/*if (IsEnabled()) {
 			if (App->player->IsEnabled()) {
 				App->player->Disable();
 			}
-		}
+		}*/
 	
 	return true;
 }
@@ -63,7 +63,7 @@ update_status ModuleGameOver::Update() {
 	App->render->Blit(graphics_GameOverImage, 0, 0, &Background, 0);
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE]) {
-		App->fade->FadeToBlack(App->gameover, App->menu,3.0f);
+		App->fade->FadeToBlack(App->gameover, App->menu,1.0f);
 	}
 	
 	return UPDATE_CONTINUE;

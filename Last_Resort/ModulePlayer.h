@@ -45,7 +45,7 @@ public:
 	
 
 public:
-
+	
 	bool startAnim = true;
 	bool shooted = false;
 	bool PlayerActived = false;
@@ -70,7 +70,7 @@ public:
 		position.x = 20;
 		position.y = SCREEN_HEIGHT / 2;
 
-	};
+	}
 };
 
 #endif
