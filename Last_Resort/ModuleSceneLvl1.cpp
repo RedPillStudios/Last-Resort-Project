@@ -157,7 +157,9 @@ update_status ModuleSceneLvl1::Update()
 			}
 		}
 		else if ((App->player->Dead == true && App->player2->Dead == true)) {
-			App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
+			if (App->player->DestroyShip.Finished()&&App->player2->DestroyShip.Finished()) {
+				App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
+			}
 		}
 
 

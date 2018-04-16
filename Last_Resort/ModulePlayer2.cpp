@@ -64,6 +64,7 @@ ModulePlayer2::ModulePlayer2()
 	DestroyShip.PushBack({ 110,67,55,17 });
 	DestroyShip.PushBack({ 110,84,55,17 });
 	DestroyShip.PushBack({ 110,101,55,17 });
+	DestroyShip.PushBack({ 178,122,2,2 });
 
 	DestroyShip.speed = 0.3f;
 	DestroyShip.loop = false;
@@ -93,7 +94,10 @@ bool ModulePlayer2::Start() {
 	
 	AppearAnim = true;
 	Dead = false;
-	
+
+	Appear.Reset();
+	DestroyShip.Reset();
+
 	current_animation2 = &Appear;
 
 	return true;
