@@ -27,7 +27,6 @@ Application::Application()
 	modules[i++] = sound = new ModuleSound();
 	modules[i++] = menu = new ModuleMainMenu();
 	modules[i++] = scene1background = new ModuleSceneLvl1();
-	modules[i++] = enemies = new ModuleEnemies();
 	modules[i++] = gameover = new ModuleGameOver();
 	modules[i++] = stageclear = new ModuleStageClear();
 	modules[i++] = player = new ModulePlayer();
@@ -36,6 +35,7 @@ Application::Application()
 	modules[i++] = particles = new ModuleParticles();
 	modules[i++] = collision = new ModuleCollision();
 	modules[i++] = powerup = new ModulePowerUp();
+	modules[i++] = enemies = new ModuleEnemies();
 }	
 
 Application::~Application()
