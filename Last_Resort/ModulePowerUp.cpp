@@ -8,6 +8,7 @@
 #include "ModuleParticles.h"
 #include "ModuleInput.h"
 
+#define SPAWN_MARGIN 50
 
 ModulePowerUp::ModulePowerUp() {
 
@@ -16,7 +17,6 @@ ModulePowerUp::ModulePowerUp() {
 	Anim_Weapon.loop = true;
 	Anim_Weapon.speed = 0.1f;
 }
-
 
 ModulePowerUp::~ModulePowerUp() {}
 
@@ -42,6 +42,7 @@ bool ModulePowerUp::CleanUp() {
 	App->textures->Unload(powerup);
 	return true;
 }
+
 
 update_status ModulePowerUp::Update() {
 	

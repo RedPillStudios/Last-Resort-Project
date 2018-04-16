@@ -16,9 +16,6 @@
 ModulePlayer::ModulePlayer()
 {
 
-	position.x = 20;
-	position.y = SCREEN_HEIGHT/2;
-
 	Standard.PushBack({64,0,32,12});
 
 	Up.PushBack({ 32,0,32,13 });
@@ -78,7 +75,8 @@ ModulePlayer::~ModulePlayer() {}
 bool ModulePlayer::Start() {
 
 	LOG("Loading player 1 textures");
-	
+	position.x = 20;
+	position.y = SCREEN_HEIGHT / 2;
 	if (IsEnabled()) {
 		if (App->particles->IsEnabled() == false)
 			App->particles->Enable();
@@ -95,7 +93,7 @@ bool ModulePlayer::Start() {
 	DestroyShip.Reset();
 	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
-	Ship1Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
+	Ship1Collider = App->collision->AddCollider({ position.x, position.y,32,12 }, COLLIDER_PLAYER, this);
 
 	Dead = false;
 	pressed = false;
@@ -112,6 +110,7 @@ bool ModulePlayer::CleanUp() {
 	//App->powerup->Disable();
 	current_animation = NULL;
 	//App->particles->Disable();
+
 	App->textures->Unload(graphicsp1);
 	//DestroyShip.Reset();
 
@@ -121,17 +120,17 @@ bool ModulePlayer::CleanUp() {
 // Update: draw background
 update_status ModulePlayer::Update() {
 	
-	int speed = 3;
+	position.x += 1;
+
+	int speed = 2;
 
 	if (current_animation == &Appear) {
-		position.x = -12;
+		//position.x = 12;
 		if (Appear.Finished()) {
-			resetPosition();
+			//resetPosition();
 			current_animation = &Standard;
 		}
 	}
-
-
 		if (current_animation != &DestroyShip && Appear.Finished()) {
 			current_animation = &Standard;
 		}
@@ -140,6 +139,7 @@ update_status ModulePlayer::Update() {
 			//Movement Up
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
 				current_animation = &Up;
+				Up.Reset();
 				position.y -= speed;
 				while (position.y <= 2) {
 					position.y = 2;
@@ -158,18 +158,18 @@ update_status ModulePlayer::Update() {
 			//Movement Right
 			if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
 				position.x += speed;
-				while (position.x >= SCREEN_WIDTH - 30) {
-					position.x = SCREEN_WIDTH - 30;
+				while (position.x >=App->render->camera.w+App->render->camera.x){
+					position.x = App->render->camera.w + App->render->camera.x;
 					break;
 				}
 			}
 			//Movement left
 			if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) {
 				position.x -= speed;
-				while (position.x <= 2) {
-					position.x = 2;
+			/*	while (position.x <= App->render->camera.x) {
+					position.x = App->render->camera.x;
 					break;
-				}
+				}*/
 			}
 			//Shoot
 			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
@@ -177,9 +177,11 @@ update_status ModulePlayer::Update() {
 				App->particles->AddParticle(App->particles->Laser, setFirePos().x, setFirePos().y);
 				App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
 				Mix_PlayChannel(-1, Shot_Sound, 0);
+
 			}
 		}
-
+		
+		Ship1Collider->SetPos(position.x, position.y);
 	// Draw everything --------------------------------------
 		if (current_animation == &Appear) {
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
@@ -188,10 +190,10 @@ update_status ModulePlayer::Update() {
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
 		}
 		else {
-			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()), 0.0f);
+			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
 		}
 
-	Ship1Collider->SetPos(position.x, position.y);
+	
 	
 	
 	return UPDATE_CONTINUE;

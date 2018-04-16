@@ -56,7 +56,7 @@ bool ModuleSceneLvl1::Start()
 {
 	LOG("Loading background assets");
 
-
+	App->render->camera.x = 0;
 	//order of position in the game
 	graphics_Crater_Boss_Zone = App->textures->Load("Images/Background_Lvl1/Boss_Static_Background.png");
 	graphics_ThirdPlaneBackground = App->textures->Load("Images/Background_Lvl1/ThirdPlaneBackground.png");
@@ -81,7 +81,9 @@ bool ModuleSceneLvl1::Start()
 	}
 	//Enemies
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, SCREEN_WIDTH, 100);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 370, 100);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 400, 100);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 470, 100);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 540, 100);
 
 	return true;
 }
@@ -98,6 +100,7 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->textures->Unload(graphics_Crater_Boss_Zone);
 
 	App->collision->Disable();
+	App->enemies->Disable();
 	FirstPlaneBackGround_position_X = 0;
 	SecondPlaneGround_position_X = 0;
 	ThirdPlaneBackground_position_X = 0;
@@ -115,8 +118,6 @@ update_status ModuleSceneLvl1::Update()
 		App->player2->Dead = false;
 		App->player2->Enable();
 		App->player2->resetPosition2();
-
-	
 	}
 
 	//else if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && App->player->pressed == true) {
@@ -125,22 +126,23 @@ update_status ModuleSceneLvl1::Update()
 	//	App->player2->Disable();
 	//}
 
-
-	float Speed_Foreground=3;
-	float Speed_Background=1;
-	float Speed_Midground=2;
-	
-	FirstPlaneBackGround_position_X -= Speed_Foreground;
-	SecondPlaneGround_position_X -= Speed_Midground;
-	ThirdPlaneBackground_position_X -= Speed_Background;
-	BallCollider->SetPos(100, SCREEN_HEIGHT / 2);
+	//FirstPlaneBackGround_position_X -= Speed_Foreground;
+	//SecondPlaneGround_position_X -= Speed_Midground;
+	//ThirdPlaneBackground_position_X -= Speed_Background;
+	//BallCollider->SetPos(100, SCREEN_HEIGHT / 2);
 
 	// Draw everything --------------------------------------
-	App->render->Blit(graphics_Boss_Static_Background, 0, 0, &CraterBossZone, 0.0f); // CRATER ZONE FIRST BOSS
-	App->render->Blit(graphics_ThirdPlaneBackground, (int)(ThirdPlaneBackground_position_X/3.3), 0, &ThirdPlaneBackground, 1.0f); // THIRD PLANE
-	App->render->Blit(graphics_SecondPlaneBackground, (int)(SecondPlaneGround_position_X/3), 30, &SecondPlaneBackground, 1.0f); //SECOND PLANE BACKGROUND
-	App->render->Blit(graphics_FirstPlaneBackGround, (int)(FirstPlaneBackGround_position_X/2), 0, &FirstPlaneBackGround, 1.0f); // FIRST PLANE BACKGROUND
-	App->render->Blit(graphics, 100, SCREEN_HEIGHT / 2, &Ball, 0.0f);
+	//App->render->Blit(graphics_Boss_Static_Background, 0, 0, &CraterBossZone, 0.0f); // CRATER ZONE FIRST BOSS
+	//App->render->Blit(graphics_ThirdPlaneBackground, (int)(ThirdPlaneBackground_position_X/3.3), 0, &ThirdPlaneBackground, 1.0f); // THIRD PLANE
+	//App->render->Blit(graphics_SecondPlaneBackground, (int)(SecondPlaneGround_position_X/3), 30, &SecondPlaneBackground, 1.0f); //SECOND PLANE BACKGROUND
+	
+
+	App->render->camera.x += 1*SCREEN_SIZE;
+	App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.5f);
+	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.7f);
+	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL,1.3f); // FIRST PLANE BACKGROUND
+
+	App->render->Blit(graphics, 100, SCREEN_HEIGHT / 2, &Ball);
 
 
 	if (App->input->keyboard[SDL_SCANCODE_1]) {

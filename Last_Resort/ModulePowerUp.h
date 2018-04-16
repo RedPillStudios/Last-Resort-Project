@@ -13,6 +13,14 @@
 
 struct SDL_Texture;
 
+enum POWERUP_TYPES {
+
+
+	BLUE,
+	RED,
+	SPEED
+};
+
 class ModulePowerUp : public Module {
 
 public:
@@ -39,6 +47,7 @@ public:
 	Collider *colliderWeapon = nullptr;
 	Collider *colliderSpeed = nullptr;
 	Animation Anim_Weapon;
+	bool AddPowerUp(POWERUP_TYPES type, int x, int y);
 };
 
 #endif

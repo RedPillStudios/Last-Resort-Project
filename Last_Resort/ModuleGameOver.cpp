@@ -14,7 +14,7 @@
 
 ModuleGameOver::ModuleGameOver()
 {
-	
+
 	Background.x = 0;
 	Background.y = 0;
 	Background.w = SCREEN_WIDTH;
