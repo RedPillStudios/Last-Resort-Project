@@ -31,10 +31,6 @@ ModulePlayer::ModulePlayer()
 	Down.speed = 0.10f;
 	Down.loop = false;
 
-	Appear.PushBack({ 0,118,111,1 });
-	Appear.PushBack({ 6,121,105,2 });
-	Appear.PushBack({ 1,124,76,4 });
-	Appear.PushBack({ 0,128,74,7 });
 	Appear.PushBack({ 0,135,64,25 });
 	Appear.PushBack({ 0,160,64,25 });
 	Appear.PushBack({ 0,185,64,25 });
@@ -43,21 +39,32 @@ ModulePlayer::ModulePlayer()
 	Appear.PushBack({ 64,160,64,25 });
 	Appear.PushBack({ 64,185,64,25 });
 	Appear.PushBack({ 64,210,64,25 });
-	Appear.PushBack({ 156,139, 36,19 });
-	Appear.PushBack({ 160,158,36,19 });
-	Appear.speed = 0.20f;
+	Appear.PushBack({ 128,139,64,19 });
+	Appear.PushBack({ 128,158,64,19 });
+	Appear.speed = 0.2f;
 	Appear.loop = false;
 
-	int a = 110, b = 101;
-	for (int i = 18; i >= 0; --i) {
-		DestroyShip.PushBack({ a,b,55,16 });
-		b -= 16;
-		if (b <= 17) {
-			b = 101;
-			a = -55;
-		}
-	}
-	DestroyShip.speed = 0.15f;
+	DestroyShip.PushBack({ 0,16,55,17 });
+	DestroyShip.PushBack({ 0,33,55,17 });
+	DestroyShip.PushBack({ 0,50,55,17 });
+	DestroyShip.PushBack({ 0,67,55,17 });
+	DestroyShip.PushBack({ 0,84,55,17 });
+	DestroyShip.PushBack({ 0,101,55,17 });
+	DestroyShip.PushBack({ 55,16,55,17 });
+	DestroyShip.PushBack({ 55,33,55,17 });
+	DestroyShip.PushBack({ 55,50,55,17 });
+	DestroyShip.PushBack({ 55,67,55,17 });
+	DestroyShip.PushBack({ 55,84,55,17 });
+	DestroyShip.PushBack({ 55,101,55,17 });
+
+	DestroyShip.PushBack({ 110,16,55,17 });
+	DestroyShip.PushBack({ 110,33,55,17 });
+	DestroyShip.PushBack({ 110,50,55,17 });
+	DestroyShip.PushBack({ 110,67,55,17 });
+	DestroyShip.PushBack({ 110,84,55,17 });
+	DestroyShip.PushBack({ 110,101,55,17 });
+
+	DestroyShip.speed = 0.3f;
 	DestroyShip.loop = false;
 	
 
@@ -88,6 +95,8 @@ bool ModulePlayer::Start() {
 	AppearAnim = true;
 	Dead = false;
 
+	current_animation = &Appear;
+
 	return true;
 }
 
@@ -104,7 +113,15 @@ bool ModulePlayer::CleanUp() {
 // Update: draw background
 update_status ModulePlayer::Update() {
 	
-	if (!Dead) {
+	if (current_animation == &Appear) {
+		position.x = -12;
+		if (Appear.Finished()) {
+			resetPosition();
+			current_animation = &Standard;
+		}
+	}
+
+	
 		////Appear/Disappear player 2
 		//if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && pressed == false) {
 		//	pressed = true;
@@ -120,74 +137,69 @@ update_status ModulePlayer::Update() {
 		//	App->player2->Disable();
 		//}
 
-		if (AppearAnim) {
-
-			current_animation = &Appear;
-			AppearAnim = false;
-		}
-
-		if (!AppearAnim && current_animation->Finished()) {
-			current_animation = &Standard;
-
-		}
-
-		int passedframes;
+		
 		int speed = 3;
 
-		if (startAnim) {
+		if (current_animation != &DestroyShip && Appear.Finished()) {
+			current_animation = &Standard;
+		}
+		if (!Dead&& current_animation != &Appear) {
+			//Movement Up
+			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
+				current_animation = &Up;
+				position.y -= speed;
+				while (position.y <= 2) {
+					position.y = 2;
+					break;
+				}
+			}
+			//Movement Down
+			if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) {
+				current_animation = &Down;
+				position.y += speed;
+				while (position.y >= SCREEN_HEIGHT - 15) {
+					position.y = SCREEN_HEIGHT - 15;
+					break;
+				}
+			}
+			//Movement Right
+			if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
+				position.x += speed;
+				while (position.x >= SCREEN_WIDTH - 30) {
+					position.x = SCREEN_WIDTH - 30;
+					break;
+				}
+			}
+			//Movement left
+			if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) {
+				position.x -= speed;
+				while (position.x <= 2) {
+					position.x = 2;
+					break;
+				}
+			}
+			//Shoot
+			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
 
-			if (current_animation->getCurrentFrame() >= 13) {
-				startAnim = false;
+				App->particles->AddParticle(App->particles->Laser, setFirePos().x, setFirePos().y);
+				App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
+				Mix_PlayChannel(-1, Shot_Sound, 0);
 			}
 		}
-
-		//Movement Up
-		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
-			current_animation = &Up;
-			position.y -= speed;
-			while (position.y <= 2) {
-				position.y = 2;
-				break;
-			}
-		}
-		//Movement Down
-		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) {
-			current_animation = &Down;
-			position.y += speed;
-			while (position.y >= SCREEN_HEIGHT - 15) {
-				position.y = SCREEN_HEIGHT - 15;
-				break;
-			}
-		}
-		//Movement Right
-		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
-			position.x += speed;
-			while (position.x >= SCREEN_WIDTH - 30) {
-				position.x = SCREEN_WIDTH - 30;
-				break;
-			}
-		}
-		//Movement left
-		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) {
-			position.x -= speed;
-			while (position.x <= 2) {
-				position.x = 2;
-				break;
-			}
-		}
-		//Shoot
-		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
-
-			App->particles->AddParticle(App->particles->Laser, setFirePos().x, setFirePos().y);
-			App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
-			Mix_PlayChannel(-1, Shot_Sound, 0);
-		}
-	}
 
 	// Draw everything --------------------------------------
-	Ship = current_animation->GetCurrentFrame();
+		if (current_animation == &Appear) {
+			App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
+		}
+		else if (current_animation == &DestroyShip) {
+			App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
+		}
+		else {
+			App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()), 0.0f);
+		}
+
 	Ship1Collider->SetPos(position.x, position.y);
-	App->render->Blit(graphics, position.x, position.y,&Ship,0.0f);
+	
 	
 	return UPDATE_CONTINUE;
 }
