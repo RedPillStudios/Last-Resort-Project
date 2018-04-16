@@ -84,7 +84,7 @@ bool ModuleSceneLvl1::Start()
 		App->enemies->Enable();
 	}
 	//Enemies
-  App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 120, 80);
+    App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 120, 80);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 145, 120);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, SCREEN_WIDTH, 100);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 370, 100);
@@ -97,11 +97,7 @@ bool ModuleSceneLvl1::Start()
 			App->collision->Enable();
 		}
 
-	}
 	
-	
-	
-
 	return true;
 }
 
