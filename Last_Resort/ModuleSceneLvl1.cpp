@@ -15,6 +15,7 @@
 #include "ModuleStageClear.h"
 #include "ModuleCollision.h"
 #include "ModuleParticles.h"
+#include "ModuleEnemies.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -70,22 +71,23 @@ bool ModuleSceneLvl1::Start()
 	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
 	Mix_PlayMusic(Stage1, -1);
 	Mix_Volume(-1, VOLUME_MUSIC);
-
+	
 	if (IsEnabled()) {
 		if (App->player->IsEnabled() == false) {
-			App->player->Enable();
+	    	App->player->Enable();
 		}
 		App->player->resetPosition();
-	
+
+		App->enemies->Enable();
+
 		if (App->collision->IsEnabled()==false) {
 			App->collision->Enable();
 		}
+
 	}
-	//if (IsEnabled() == false) {
-	//	if (App->player->IsEnabled() == true) {
-	//		App->player->Disable();
-	//	}
-	//}
+	//Enemies
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 120, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 145, 120);
 	return true;
 }
 
@@ -104,7 +106,7 @@ bool ModuleSceneLvl1::CleanUp() {
 	FirstPlaneBackGround_position_X = 0;
 	SecondPlaneGround_position_X = 0;
 	ThirdPlaneBackground_position_X = 0;
-
+	App->enemies->Disable();
 	return true;
 }
 // Update: draw background
@@ -113,21 +115,14 @@ update_status ModuleSceneLvl1::Update()
 	//LOOKING TO MAKE PLAYER 2 APPEAR INDEPENDENT FROM PLAYER 1
 
 	//Appear/Disappear player 2
-	if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && App->player->pressed == false) {
-		App->player->pressed = true;
+	if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && App->player->PlayerActived == false) {
+		App->player->PlayerActived = true;
 		App->player2->Dead = false;
 		App->player2->Enable();
 		App->player2->resetPosition2();
 
 	
 	}
-
-	//else if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && App->player->pressed == true) {
-	//	App->player2->Ship2Collider->to_delete = true;
-	//	App->player->pressed = false;
-	//	App->player2->Disable();
-	//}
-
 
 	float Speed_Foreground=3;
 	float Speed_Background=1;

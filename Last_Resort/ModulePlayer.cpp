@@ -99,7 +99,7 @@ bool ModulePlayer::Start() {
 	Ship1Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
 
 	Dead = false;
-	pressed = false;
+	PlayerActived = false;
 	current_animation = &Appear;
 
 	return true;
