@@ -58,10 +58,10 @@ public:
 
 	Particle Laser;
 	Particle ShootExplosion;
-	
+	Particle ImpactExplosion;
 
 	Particle Laser2;
-	Particle ShootExplosionLaser2;
+	Particle ShootExplosionLaser2;// estas dos son para el segundo tipo de disparo
 
 	uint Enemies_Weapon = 0;
 	uint Enemies_Speed = 0;

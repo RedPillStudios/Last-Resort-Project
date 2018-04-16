@@ -32,10 +32,21 @@ bool ModuleParticles::Start() {
 	Laser.Anim.PushBack({ 115, 242, 15, 7 });
 	Laser.Anim.speed = 0.0f;
 	Laser.fx = 1;
-	Laser.Life = 2000;
+	Laser.Life = 1100;
 	Laser.Speed.x = 5;
 
-	Laser2.Anim.PushBack({});
+
+
+
+	ImpactExplosion.Anim.PushBack({ 315,369,16,16,});
+	ImpactExplosion.Anim.PushBack({ 331,369,16,16, });
+	ImpactExplosion.Anim.PushBack({ 347,369,16,16 });   //explosion
+	ImpactExplosion.Anim.PushBack({ 363,369,16,16 });
+
+	ImpactExplosion.Anim.speed = 0.3f;
+	ImpactExplosion.Anim.loop = false;
+
+
 
 	return true;
 
@@ -110,7 +121,9 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 	{
 		// Always destroy particles that collide
 		if (active[i] != nullptr && active[i]->collider == c1) {
-
+			if (c2->type == COLLIDER_ENEMY) {                        // we don't have walls, if we have walls we put an or
+				AddParticle(ImpactExplosion,active[i]->Position.x, active[i]->Position.y);
+			}
 			delete active[i];
 			active[i] = nullptr;
 			break;
