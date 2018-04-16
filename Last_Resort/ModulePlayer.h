@@ -28,7 +28,7 @@ public:
 
 public:
 	SDL_Rect Ship;
-	SDL_Texture* graphics = nullptr;
+	SDL_Texture* graphicsp1 = nullptr;
 
 	Animation Up;
 	Animation Down;

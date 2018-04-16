@@ -42,7 +42,7 @@ ModulePlayer::ModulePlayer()
 	Appear.PushBack({ 128,139,64,19 });
 	Appear.PushBack({ 128,158,64,19 });
 	Appear.speed = 0.2f;
-	Appear.loop = false;
+	Appear.loop = true;
 
 	DestroyShip.PushBack({ 0,16,55,17 });
 	DestroyShip.PushBack({ 0,33,55,17 });
@@ -75,25 +75,27 @@ ModulePlayer::~ModulePlayer() {}
 // Load assets
 bool ModulePlayer::Start() {
 
-	LOG("Loading player 2 textures");
+	LOG("Loading player 1 textures");
 	
-	if (App->particles->IsEnabled() == false)
-		App->particles->Enable();
-
 	if (IsEnabled()) {
-		App->collision->Enable();
-		App->powerup->Enable();
+		if (App->particles->IsEnabled() == false)
+			App->particles->Enable();
+		if (App->collision->IsEnabled() == false) {
+			App->collision->Enable();
+		}
+		if (App->powerup->IsEnabled() == false) {
+			App->powerup->Enable();
+		}
 	}
-	if (App->player2->IsEnabled() == true)
-		App->player2->Disable();
+	/*if (App->player2->IsEnabled() == true)
+		App->player2->Disable();*/
 	
-	graphics = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
+	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
 	Ship1Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
 
-	AppearAnim = true;
 	Dead = false;
-
+	pressed = false;
 	current_animation = &Appear;
 
 	return true;
@@ -102,17 +104,21 @@ bool ModulePlayer::Start() {
 bool ModulePlayer::CleanUp() {
 
 	LOG("Cleaning Up Player 1 Module");
-	App->collision->Disable();
-	App->powerup->Disable();
+
+	Ship1Collider=NULL;
+	//App->powerup->Disable();
 	current_animation = NULL;
 	//App->particles->Disable();
-	App->textures->Unload(graphics);
+	App->textures->Unload(graphicsp1);
+	Appear.Reset();
 	return true;
 }
 
 // Update: draw background
 update_status ModulePlayer::Update() {
 	
+	int speed = 3;
+
 	if (current_animation == &Appear) {
 		position.x = -12;
 		if (Appear.Finished()) {
@@ -121,28 +127,11 @@ update_status ModulePlayer::Update() {
 		}
 	}
 
-	
-		////Appear/Disappear player 2
-		//if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && pressed == false) {
-		//	pressed = true;
-		//	Dead = false;
-		//	App->player2->Enable();
-		//	App->player2->resetPosition2();
-
-		//}
-
-		//else if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && pressed == true) {
-		//	App->player2->Ship2Collider->to_delete = true;
-		//	pressed = false;
-		//	App->player2->Disable();
-		//}
-
-		
-		int speed = 3;
 
 		if (current_animation != &DestroyShip && Appear.Finished()) {
 			current_animation = &Standard;
 		}
+
 		if (!Dead&& current_animation != &Appear) {
 			//Movement Up
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
@@ -189,13 +178,13 @@ update_status ModulePlayer::Update() {
 
 	// Draw everything --------------------------------------
 		if (current_animation == &Appear) {
-			App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
+			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
 		}
 		else if (current_animation == &DestroyShip) {
-			App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
+			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
 		}
 		else {
-			App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()), 0.0f);
+			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()), 0.0f);
 		}
 
 	Ship1Collider->SetPos(position.x, position.y);
@@ -210,15 +199,14 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 		Dead = true;
 		current_animation = &DestroyShip;
 		Ship1Collider->to_delete = true;
-
+		//Dead = true;
+		/*if (DestroyShip.Finished()==true) {
+			Disable();
+		}*/
+	
 		if (DestroyShip.Finished()) {
-		App->player->Disable();
+			Disable();
 		}
-
-		if (App->player2->IsEnabled()==false) {
-			App->fade->FadeToBlack((Module*)App->scene1background, (Module*)App->gameover, 1.0f);
-		}
-
 
 	}
 }
