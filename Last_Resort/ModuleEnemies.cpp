@@ -87,6 +87,7 @@ update_status ModuleEnemies::PostUpdate() {
 				enemies[i] = nullptr;
 			}
 		}
+
 	}
 	return UPDATE_CONTINUE;
 }
