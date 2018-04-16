@@ -61,7 +61,9 @@ public:
 	Particle ImpactExplosion;
 
 	Particle Laser2;
-	Particle ShootExplosionLaser2;// estas dos son para el segundo tipo de disparo
+	Particle ShootExplosionLaser2; // estas dos son para el segundo tipo de disparo
+
+	Mix_Chunk *ImpactExplosionSound;
 
 	uint Enemies_Weapon = 0;
 	uint Enemies_Speed = 0;

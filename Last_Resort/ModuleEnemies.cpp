@@ -6,12 +6,8 @@
 #include "ModuleParticles.h"
 #include "ModuleSound.h"
 #include "Enemy.h"
-
 #include "EnemyRhino.h"
-
 #include "EnemyWasp.h"
-
-
 
 #define SPAWN_MARGIN 50
 
@@ -20,7 +16,6 @@ ModuleEnemies::ModuleEnemies() {
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 		enemies[i] = nullptr;
 }
-
 
 ModuleEnemies::~ModuleEnemies() {}
 

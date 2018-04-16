@@ -23,6 +23,7 @@ bool ModuleParticles::Start() {
 
 	LOG("Loading Particles");
 	Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	ImpactExplosionSound = App->sound->LoadChunk("Audio/General/007_Enemy_Explosion_Standard.wav");
 
 	ShootExplosion.Anim.PushBack({ 82, 239, 12, 12 });
 	ShootExplosion.Anim.PushBack({ 94, 241, 11, 9 });
@@ -35,9 +36,6 @@ bool ModuleParticles::Start() {
 	Laser.Life = 1100;
 	Laser.Speed.x = 5;
 
-
-
-
 	ImpactExplosion.Anim.PushBack({ 315,369,16,16,});
 	ImpactExplosion.Anim.PushBack({ 331,369,16,16, });
 	ImpactExplosion.Anim.PushBack({ 347,369,16,16 });   //explosion
@@ -45,8 +43,6 @@ bool ModuleParticles::Start() {
 
 	ImpactExplosion.Anim.speed = 0.3f;
 	ImpactExplosion.Anim.loop = false;
-
-
 
 	return true;
 
@@ -121,9 +117,13 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 	{
 		// Always destroy particles that collide
 		if (active[i] != nullptr && active[i]->collider == c1) {
-			if (c2->type == COLLIDER_ENEMY) {                        // we don't have walls, if we have walls we put an or
+			if (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_WALL) {
 				AddParticle(ImpactExplosion,active[i]->Position.x, active[i]->Position.y);
+			if (c2->type == COLLIDER_ENEMY) 
+				Mix_PlayChannel(-1, ImpactExplosionSound, 0);
+				
 			}
+
 			delete active[i];
 			active[i] = nullptr;
 			break;
