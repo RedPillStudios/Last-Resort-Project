@@ -10,7 +10,7 @@
 
 #include "SDL_mixer/include/SDL_mixer.h"
 
-#define MAX_ACTIVE_PARTICLES 800
+#define MAX_ACTIVE_PARTICLES 900
 
 
 struct SDL_Texture;
