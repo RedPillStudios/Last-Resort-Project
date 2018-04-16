@@ -63,6 +63,7 @@ bool ModuleSceneLvl1::Start()
 	graphics_FirstPlaneBackGround = App->textures->Load("Images/Background_Lvl1/FirstPlaneBackGround.png");
 	graphics = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
 
+	
 	BallCollider = App->collision->AddCollider({ 140, 178, 26, 26 }, COLLIDER_ENEMY, this);
 
 	//Music
@@ -75,6 +76,9 @@ bool ModuleSceneLvl1::Start()
 			App->player->Enable();
 		}
 		App->player->resetPosition();
+		if (App->collision->IsEnabled()==false) {
+			App->collision->Enable();
+		}
 	}
 	//if (IsEnabled() == false) {
 	//	if (App->player->IsEnabled() == true) {
