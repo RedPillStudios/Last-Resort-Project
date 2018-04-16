@@ -6,6 +6,7 @@
 #include "Globals.h"
 #include "p2Point.h"
 
+
 struct SDL_Texture;
 struct Collider;
 struct Mix_Chunk;
@@ -20,12 +21,14 @@ public:
 	update_status Update();
 	bool CleanUp();
 	void OnCollision(Collider *c1, Collider *c2);
+	
+	bool AppearAnim;
+	bool Dead;
+
 
 public:
 	SDL_Rect Ship;
-	SDL_Rect Ship2;
-
-	SDL_Texture* graphics = nullptr;
+	SDL_Texture* graphicsp1 = nullptr;
 
 	Animation Up;
 	Animation Down;
@@ -35,19 +38,18 @@ public:
 	Animation DestroyShip;
 
 	Animation* current_animation = nullptr;
-	Animation* current_animation2 = nullptr;
-
+	
 	iPoint position;
-	iPoint positionp2;
 
 	Collider *Ship1Collider;
-	Collider *Ship2Collider;
 	
 
 public:
-
+	
 	bool startAnim = true;
 	bool shooted = false;
+	bool pressed = false;
+
 
 	Mix_Chunk*Shot_Sound=nullptr;
 
@@ -64,26 +66,11 @@ public:
 		return FirePos;
 	}
 
-	SDL_Rect setFirePos2() {
-
-		SDL_Rect FirePos2;
-
-		FirePos2.x = positionp2.x + 31;
-		FirePos2.y = positionp2.y + 1;
-
-		return FirePos2;
-	}
-
 		void resetPosition() {
 		position.x = 20;
 		position.y = SCREEN_HEIGHT / 2;
 
-	};
-		void resetPosition2() {
-			positionp2.x = 20;
-			positionp2.y = SCREEN_HEIGHT / 4;
-
-		};
+	}
 };
 
 #endif

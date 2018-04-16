@@ -3,6 +3,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include "ModuleInput.h"
 #include "ModuleSceneLvl1.h"
 #include "ModuleSound.h"
@@ -74,13 +75,12 @@ bool ModuleSceneLvl1::Start()
 			App->player->Enable();
 		}
 		App->player->resetPosition();
-		App->player->resetPosition2();
 	}
-	if (IsEnabled() == false) {
-		if (App->player->IsEnabled() == true) {
-			App->player->Disable();
-		}
-	}
+	//if (IsEnabled() == false) {
+	//	if (App->player->IsEnabled() == true) {
+	//		App->player->Disable();
+	//	}
+	//}
 	return true;
 }
 
@@ -95,6 +95,7 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->textures->Unload(graphics_SecondPlaneBackground);
 	App->textures->Unload(graphics_Crater_Boss_Zone);
 
+	App->collision->Disable();
 	FirstPlaneBackGround_position_X = 0;
 	SecondPlaneGround_position_X = 0;
 	ThirdPlaneBackground_position_X = 0;
@@ -104,6 +105,24 @@ bool ModuleSceneLvl1::CleanUp() {
 // Update: draw background
 update_status ModuleSceneLvl1::Update()
 {
+	//LOOKING TO MAKE PLAYER 2 APPEAR INDEPENDENT FROM PLAYER 1
+
+	//Appear/Disappear player 2
+	if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && App->player->pressed == false) {
+		App->player->pressed = true;
+		App->player2->Dead = false;
+		App->player2->Enable();
+		App->player2->resetPosition2();
+
+	
+	}
+
+	//else if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && App->player->pressed == true) {
+	//	App->player2->Ship2Collider->to_delete = true;
+	//	App->player->pressed = false;
+	//	App->player2->Disable();
+	//}
+
 
 	float Speed_Foreground=3;
 	float Speed_Background=1;
@@ -129,6 +148,21 @@ update_status ModuleSceneLvl1::Update()
 	if (App->input->keyboard[SDL_SCANCODE_2]) {
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 3.0f);
 	}
+
+	// Condition to still play if pl2 is active 
+
+		if (App->player->Dead == true && App->player2->IsEnabled()== false) {
+			if (App->player->DestroyShip.Finished()) {
+				App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
+			}
+		}
+		else if ((App->player->Dead == true && App->player2->Dead == true)) {
+			if (App->player->DestroyShip.Finished()&&App->player2->DestroyShip.Finished()) {
+				App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
+			}
+		}
+
+
 
 	return UPDATE_CONTINUE;
 }
