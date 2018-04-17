@@ -9,8 +9,10 @@ struct SDL_Texture;
 class EnemyWasp : public Enemy {
 
 private:
-	
-	Animation *AnimWasp;
+  
+	Animation AnimWasp;
+	Collider *EnemyWaspCollider;
+
 
 public:
 

@@ -1,6 +1,9 @@
 #include "Application.h"
 #include "EnemyRhino.h"
 #include "ModuleCollision.h"
+#include "Animation.h"
+#include "ModuleEnemies.h"
+#include "ModuleParticles.h"
 
 Enemy_Rhino::Enemy_Rhino(int x, int y) : Enemy(x, y)
 {
@@ -18,6 +21,8 @@ Enemy_Rhino::Enemy_Rhino(int x, int y) : Enemy(x, y)
 	collider = App->collision->AddCollider({ 0, 0, 48, 45 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
 	original_y = y;
+
+	App->enemies->bigenemy = true;
 }
 
 void Enemy_Rhino::Move()

@@ -195,29 +195,20 @@ update_status ModulePlayer::Update() {
 			}
 			//Shoot
 			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
-
 				App->particles->AddParticle(App->particles->Laser, setFirePos().x, setFirePos().y);
 				App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
 				Mix_PlayChannel(-1, Shot_Sound, 0);
-
 			}
-			
 		}
 		
 		Ship1Collider->SetPos(position.x, position.y);
 	// Draw everything --------------------------------------
-		if (current_animation == &Appear) {
+		if (current_animation == &Appear) 
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
-		}
-		else if (current_animation == &DestroyShip) {
+		else if (current_animation == &DestroyShip)
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
-		}
-		else {
+		else 
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
-		}
-
-	
-	
 	
 	return UPDATE_CONTINUE;
 }
@@ -228,14 +219,7 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 		Dead = true;
 		current_animation = &DestroyShip;
 		Ship1Collider->to_delete = true;
-		//Dead = true;
-		/*if (DestroyShip.Finished()==true) {
+		if (DestroyShip.Finished())
 			Disable();
-		}*/
-	
-		if (DestroyShip.Finished()) {
-			Disable();
-		}
-
 	}
 }

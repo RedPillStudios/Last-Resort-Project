@@ -79,12 +79,11 @@ bool ModulePlayer2::Start() {
 
 		if (App->particles->IsEnabled() == false)
 			App->particles->Enable();
-		if (App->collision->IsEnabled() == false) {
+		if (App->collision->IsEnabled() == false) 
 			App->collision->Enable();
-		}
-		if (App->powerup->IsEnabled() == false) {
+		if (App->powerup->IsEnabled() == false) 
 			App->powerup->Enable();
-		}
+		
 	}
 	LOG("Loading player textures");
 
@@ -127,7 +126,6 @@ update_status ModulePlayer2::Update() {
 			current_animation2 = &Standard;
 		}
 	}
-
 
 		if (current_animation2 != &DestroyShip && Appear.Finished()) {
 			current_animation2 = &Standard;
@@ -203,10 +201,9 @@ void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 		Dead = true;
 		current_animation2 = &DestroyShip;
 		Ship2Collider->to_delete = true;
+		//App->player->PlayerActived = false;
 
-		if (DestroyShip.Finished()) {
+		if (DestroyShip.Finished() == true) 
 			Disable();
-		}
-
 	}
 }

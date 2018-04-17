@@ -7,6 +7,7 @@
 #include "ModuleSound.h"
 #include "Enemy.h"
 #include "EnemyRhino.h"
+#include "EnemyWasp.h"
 
 
 #define SPAWN_MARGIN 50
@@ -16,7 +17,6 @@ ModuleEnemies::ModuleEnemies() {
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 		enemies[i] = nullptr;
 }
-
 
 ModuleEnemies::~ModuleEnemies() {}
 
@@ -122,13 +122,15 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		case ENEMY_TYPES::ENEMY_RHINO:
 			enemies[i] = new Enemy_Rhino(info.x, info.y);
 			break;
-
+    case ENEMY_TYPES::ENEMY_WASP:
+	  	enemies[i] = new EnemyWasp(info.x, info.y);
+	  	break;
 		}
 	}
 }
 
 void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
-
+		
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 
 		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1) {

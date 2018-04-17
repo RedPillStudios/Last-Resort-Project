@@ -63,9 +63,8 @@ bool ModuleSceneLvl1::Start()
 	graphics_SecondPlaneBackground = App->textures->Load("Images/Background_Lvl1/SecondPlaneBackground.png");
 	graphics_FirstPlaneBackGround = App->textures->Load("Images/Background_Lvl1/FirstPlaneBackGround.png");
 	graphics = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
-
+  
 	BallCollider = App->collision->AddCollider({ 140, 178, 26, 26 }, COLLIDER_ENEMY, this);
-
 
 	//Music
 	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
@@ -85,6 +84,11 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 470, 100);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 540, 100);
 
+  App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 200, 80);
+	
+	if (App->collision->IsEnabled()==false) {
+		App->collision->Enable();
+	}
 	return true;
 }
 
@@ -104,18 +108,21 @@ bool ModuleSceneLvl1::CleanUp() {
 	return true;
 }
 // Update: draw background
-update_status ModuleSceneLvl1::Update()
-{
+update_status ModuleSceneLvl1::Update() {
 	//LOOKING TO MAKE PLAYER 2 APPEAR INDEPENDENT FROM PLAYER 1
 
 	//Appear/Disappear player 2
-	if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && App->player->pressed == false) {
-		App->player->pressed = true;
-		App->player2->Dead = false;
+
+	/*if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && App->player->pressed == false)
+		App->player->pressed = true;*/
+
+	if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && App->player->PlayerActived == false) {
 		App->player2->Enable();
+		App->player->PlayerActived = true;
+		App->player2->Dead = false;
 		App->player2->resetPosition2();
 	}
-
+  
 	//camera Mov
 	App->render->camera.x += 1*SCREEN_SIZE;
 
@@ -125,21 +132,19 @@ update_status ModuleSceneLvl1::Update()
 
 	App->render->Blit(graphics, 100, SCREEN_HEIGHT / 2, &Ball);
 
-
-	if (App->input->keyboard[SDL_SCANCODE_1]) {
+	if (App->input->keyboard[SDL_SCANCODE_1]) 
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 3.0f);
-	}
-
-	if (App->input->keyboard[SDL_SCANCODE_2]) {
+	
+	if (App->input->keyboard[SDL_SCANCODE_2]) 
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 3.0f);
-	}
+	
 
 	// Condition to still play if pl2 is active 
 
 		if (App->player->Dead == true && App->player2->IsEnabled()== false) {
-			if (App->player->DestroyShip.Finished()) {
+			if (App->player->DestroyShip.Finished()) 
 				App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
-			}
+			
 		}
 		else if ((App->player->Dead == true && App->player2->Dead == true)) {
 			if (App->player->DestroyShip.Finished()&&App->player2->DestroyShip.Finished()) {

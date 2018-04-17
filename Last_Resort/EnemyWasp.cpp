@@ -2,6 +2,8 @@
 #include "EnemyWasp.h"
 #include "ModuleCollision.h"
 #include "Animation.h"
+#include "ModuleEnemies.h"
+#include "ModuleParticles.h"
 
 
 EnemyWasp::EnemyWasp(int x, int y) : Enemy(x, y) {
