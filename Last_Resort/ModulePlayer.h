@@ -49,7 +49,8 @@ public:
 	bool startAnim = true;
 	bool shooted = false;
 	bool pressed = false;
-
+	int position_max_limit = SCREEN_WIDTH;
+	int position_min_limit = 0;
 
 	Mix_Chunk*Shot_Sound=nullptr;
 
@@ -71,6 +72,10 @@ public:
 		position.y = SCREEN_HEIGHT / 2;
 
 	}
+		void Reset_limits(){
+			int position_max_limit = SCREEN_WIDTH;
+			int position_min_limit = 0;
+		}
 };
 
 #endif

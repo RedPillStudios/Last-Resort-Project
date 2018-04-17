@@ -101,10 +101,6 @@ bool ModuleSceneLvl1::CleanUp() {
 
 	App->collision->Disable();
 	App->enemies->Disable();
-	FirstPlaneBackGround_position_X = 0;
-	SecondPlaneGround_position_X = 0;
-	ThirdPlaneBackground_position_X = 0;
-
 	return true;
 }
 // Update: draw background
@@ -120,27 +116,12 @@ update_status ModuleSceneLvl1::Update()
 		App->player2->resetPosition2();
 	}
 
-	//else if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && App->player->pressed == true) {
-	//	App->player2->Ship2Collider->to_delete = true;
-	//	App->player->pressed = false;
-	//	App->player2->Disable();
-	//}
-
-	//FirstPlaneBackGround_position_X -= Speed_Foreground;
-	//SecondPlaneGround_position_X -= Speed_Midground;
-	//ThirdPlaneBackground_position_X -= Speed_Background;
-	//BallCollider->SetPos(100, SCREEN_HEIGHT / 2);
-
-	// Draw everything --------------------------------------
-	//App->render->Blit(graphics_Boss_Static_Background, 0, 0, &CraterBossZone, 0.0f); // CRATER ZONE FIRST BOSS
-	//App->render->Blit(graphics_ThirdPlaneBackground, (int)(ThirdPlaneBackground_position_X/3.3), 0, &ThirdPlaneBackground, 1.0f); // THIRD PLANE
-	//App->render->Blit(graphics_SecondPlaneBackground, (int)(SecondPlaneGround_position_X/3), 30, &SecondPlaneBackground, 1.0f); //SECOND PLANE BACKGROUND
-	
-
+	//camera Mov
 	App->render->camera.x += 1*SCREEN_SIZE;
-	App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.5f);
-	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.7f);
-	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL,1.3f); // FIRST PLANE BACKGROUND
+
+	App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
+	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
+	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL,0.5f); // FIRST PLANE BACKGROUND
 
 	App->render->Blit(graphics, 100, SCREEN_HEIGHT / 2, &Ball);
 

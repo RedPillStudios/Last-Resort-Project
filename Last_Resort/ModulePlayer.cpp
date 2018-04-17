@@ -17,15 +17,17 @@ ModulePlayer::ModulePlayer()
 {
 
 	Standard.PushBack({64,0,32,12});
-
+	
 	Up.PushBack({ 32,0,32,13 });
 	Up.PushBack({ 0,0,32,13 });
-	Up.speed = 0.10f;
+	
+
+	Up.speed = 0.2f;
 	Up.loop = false;
 
 	Down.PushBack({ 96,0,32,12 });
 	Down.PushBack({ 128,1,32,11 });
-	Down.speed = 0.10f;
+	Down.speed = 0.2f;
 	Down.loop = false;
 
 	Appear.PushBack({ 0,135,64,25 });
@@ -74,8 +76,10 @@ ModulePlayer::~ModulePlayer() {}
 // Load assets
 bool ModulePlayer::Start() {
 
+	position_max_limit = SCREEN_WIDTH;
+	position_min_limit = 0;
 	LOG("Loading player 1 textures");
-	position.x = 20;
+	position.x = 0;
 	position.y = SCREEN_HEIGHT / 2;
 	if (IsEnabled()) {
 		if (App->particles->IsEnabled() == false)
@@ -112,8 +116,9 @@ bool ModulePlayer::CleanUp() {
 	//App->particles->Disable();
 
 	App->textures->Unload(graphicsp1);
-	//DestroyShip.Reset();
 
+
+	//DestroyShip.Reset();
 	return true;
 }
 
@@ -121,55 +126,72 @@ bool ModulePlayer::CleanUp() {
 update_status ModulePlayer::Update() {
 	
 	position.x += 1;
+	position_max_limit++;
+	position_min_limit++;
 
 	int speed = 2;
 
 	if (current_animation == &Appear) {
-		//position.x = 12;
-		if (Appear.Finished()) {
-			//resetPosition();
+		position.x=position_min_limit+2;
+		
+		if (Appear.Finished()&&current_animation!=&Standard) {
+			position.x = position_min_limit + 32;
 			current_animation = &Standard;
 		}
 	}
-		if (current_animation != &DestroyShip && Appear.Finished()) {
+		if (current_animation != &DestroyShip && Appear.Finished()&& (current_animation != &Up )) {
 			current_animation = &Standard;
 		}
 
 		if (!Dead&& current_animation != &Appear) {
 			//Movement Up
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
-				current_animation = &Up;
-				Up.Reset();
+				//current_animation = &Up;
+				if (current_animation != &Up)
+				{
+					Up.Reset();
+					current_animation = &Up;
+				}
+				//current_animation = &Up;
 				position.y -= speed;
 				while (position.y <= 2) {
 					position.y = 2;
 					break;
 				}
 			}
+			else { current_animation = &Standard; }
 			//Movement Down
 			if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) {
-				current_animation = &Down;
+				if (current_animation != &Down)
+				{
+					Down.Reset();
+					current_animation = &Down;
+				}
+					
 				position.y += speed;
 				while (position.y >= SCREEN_HEIGHT - 15) {
 					position.y = SCREEN_HEIGHT - 15;
 					break;
 				}
 			}
+			/*else {
+				current_animation = &Standard;
+			}*/
 			//Movement Right
 			if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
 				position.x += speed;
-				while (position.x >=App->render->camera.w+App->render->camera.x){
-					position.x = App->render->camera.w + App->render->camera.x;
+				while (position.x >=position_max_limit-32){
+					position.x = position_max_limit-32;
 					break;
 				}
 			}
 			//Movement left
 			if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) {
 				position.x -= speed;
-			/*	while (position.x <= App->render->camera.x) {
-					position.x = App->render->camera.x;
+				while (position.x <= position_min_limit+1) {
+					position.x = position_min_limit+1;
 					break;
-				}*/
+				}
 			}
 			//Shoot
 			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
@@ -179,6 +201,7 @@ update_status ModulePlayer::Update() {
 				Mix_PlayChannel(-1, Shot_Sound, 0);
 
 			}
+			
 		}
 		
 		Ship1Collider->SetPos(position.x, position.y);
