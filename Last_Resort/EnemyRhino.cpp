@@ -7,6 +7,7 @@
 
 Enemy_Rhino::Enemy_Rhino(int x, int y) : Enemy(x, y)
 {
+
 	fly.PushBack({ 64,211,48,45 });
 	fly.PushBack({ 112,211,48,45 });
 	fly.PushBack({ 160,211,48,45 });
@@ -18,8 +19,9 @@ Enemy_Rhino::Enemy_Rhino(int x, int y) : Enemy(x, y)
 	fly.loop = true;
 	animation = &fly;
 
-	collider = App->collision->AddCollider({ 0, 0, 48, 45 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
+	life = 2; //CAMBIAR A 5 CUANDO NO MOLESTE xD
 
+	collider = App->collision->AddCollider({ 0, 0, 48, 45 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 	original_y = y;
 
 	App->enemies->bigenemy = true;

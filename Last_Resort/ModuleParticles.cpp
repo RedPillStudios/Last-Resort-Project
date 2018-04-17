@@ -5,6 +5,7 @@
 #include "ModuleRender.h"
 #include "ModuleCollision.h"
 #include "ModuleParticles.h"
+#include "ModulePlayer.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -98,12 +99,11 @@ update_status ModuleParticles::Update() {
 	return UPDATE_CONTINUE;
 }
 
-void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay)
-{
-	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
-	{
-		if (active[i] == nullptr)
-		{
+void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLIDER_TYPE collider_type, Uint32 delay) {
+
+	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i) {
+		if (active[i] == nullptr) {
+
 			Particle* p = new Particle(particle);
 			p->Born = SDL_GetTicks() + delay;
 			p->Position.x = x;
@@ -138,7 +138,6 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 	}
 }
 
-
 Particle::Particle() {
 
 	Position.SetToZero();
@@ -167,6 +166,10 @@ bool Particle::Update() {
 	else
 		if (Anim.Finished())
 			ret = false;
+
+	if (collider != nullptr && collider->type == COLLIDER_PLAYER_SHOT && Position.x >= App->player->position_max_limit)
+			ret = false;
+	
 
 	Position.x += Speed.x;
 	Position.y += Speed.y;

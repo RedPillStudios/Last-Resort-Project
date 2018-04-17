@@ -36,8 +36,6 @@ public:
 	SDL_Rect SecondPlaneBackground;
 	SDL_Rect FirstPlaneBackGround;
 	SDL_Rect CraterBossZone;
-	SDL_Rect Ball;
-	Collider *BallCollider;
 	//Music
 	Mix_Music*Stage1 =  nullptr;
 };

@@ -100,7 +100,7 @@ bool ModulePlayer::Start() {
 	Ship1Collider = App->collision->AddCollider({ position.x, position.y,32,12 }, COLLIDER_PLAYER, this);
 
 	Dead = false;
-	pressed = false;
+	PlayerActivated = false;
 	current_animation = &Appear;
 
 	return true;
@@ -195,7 +195,7 @@ update_status ModulePlayer::Update() {
 			}
 			//Shoot
 			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
-				App->particles->AddParticle(App->particles->Laser, setFirePos().x, setFirePos().y);
+				App->particles->AddParticle(App->particles->Laser, setFirePos().x, setFirePos().y, COLLIDER_PLAYER_SHOT);
 				App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
 				Mix_PlayChannel(-1, Shot_Sound, 0);
 			}

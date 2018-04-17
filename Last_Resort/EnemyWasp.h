@@ -17,6 +17,7 @@ private:
 public:
 
 	EnemyWasp(int x, int y);
+	void Move();
 	
 };
 

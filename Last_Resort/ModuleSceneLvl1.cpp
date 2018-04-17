@@ -41,11 +41,7 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	CraterBossZone.y = 0;
 	CraterBossZone.w = SCREEN_WIDTH;
 	CraterBossZone.h = SCREEN_HEIGHT;
-	//Ball measures
-	Ball.x = 140;
-	Ball.y = 178;
-	Ball.w = 26;
-	Ball.h = 26;
+
 }
 
 ModuleSceneLvl1::~ModuleSceneLvl1()
@@ -63,9 +59,7 @@ bool ModuleSceneLvl1::Start()
 	graphics_SecondPlaneBackground = App->textures->Load("Images/Background_Lvl1/SecondPlaneBackground.png");
 	graphics_FirstPlaneBackGround = App->textures->Load("Images/Background_Lvl1/FirstPlaneBackGround.png");
 	graphics = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
-  
-	BallCollider = App->collision->AddCollider({ 140, 178, 26, 26 }, COLLIDER_ENEMY, this);
-
+ 
 	//Music
 	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
 	Mix_PlayMusic(Stage1, -1);
@@ -109,16 +103,10 @@ bool ModuleSceneLvl1::CleanUp() {
 }
 // Update: draw background
 update_status ModuleSceneLvl1::Update() {
-	//LOOKING TO MAKE PLAYER 2 APPEAR INDEPENDENT FROM PLAYER 1
 
-	//Appear/Disappear player 2
-
-	/*if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && App->player->pressed == false)
-		App->player->pressed = true;*/
-
-	if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && App->player->PlayerActived == false) {
+	if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && App->player->PlayerActivated == false) {
 		App->player2->Enable();
-		App->player->PlayerActived = true;
+		App->player->PlayerActivated = true;
 		App->player2->Dead = false;
 		App->player2->resetPosition2();
 	}
@@ -129,8 +117,6 @@ update_status ModuleSceneLvl1::Update() {
 	App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
 	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
 	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL,0.5f); // FIRST PLANE BACKGROUND
-
-	App->render->Blit(graphics, 100, SCREEN_HEIGHT / 2, &Ball);
 
 	if (App->input->keyboard[SDL_SCANCODE_1]) 
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 3.0f);
@@ -151,8 +137,6 @@ update_status ModuleSceneLvl1::Update() {
 				App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
 			}
 		}
-
-
 
 	return UPDATE_CONTINUE;
 }

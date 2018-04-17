@@ -48,7 +48,7 @@ public:
 	
 	bool startAnim = true;
 	bool shooted = false;
-	bool pressed = false;
+	bool PlayerActivated = false;
 	int position_max_limit = SCREEN_WIDTH;
 	int position_min_limit = 0;
 
