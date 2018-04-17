@@ -91,8 +91,7 @@ bool ModulePlayer::Start() {
 			App->powerup->Enable();
 		}
 	}
-	/*if (App->player2->IsEnabled() == true)
-		App->player2->Disable();*/
+	
 	Appear.Reset();
 	DestroyShip.Reset();
 	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
@@ -100,7 +99,7 @@ bool ModulePlayer::Start() {
 	Ship1Collider = App->collision->AddCollider({ position.x, position.y,32,12 }, COLLIDER_PLAYER, this);
 
 	Dead = false;
-	PlayerActivated = false;
+	Player1Activated = false;
 	current_animation = &Appear;
 
 	return true;
@@ -216,10 +215,14 @@ update_status ModulePlayer::Update() {
 void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
 
+		lives -= 1;
 		Dead = true;
+		Player1Activated = false;
 		current_animation = &DestroyShip;
 		Ship1Collider->to_delete = true;
-		if (DestroyShip.Finished())
+		if (DestroyShip.Finished()) {    //DESCOMENTAR PARA VER LA ANIMACION DE DESTRUCCION
 			Disable();
+		}
+			
 	}
 }

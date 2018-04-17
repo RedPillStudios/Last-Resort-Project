@@ -95,7 +95,6 @@ update_status ModuleParticles::Update() {
 			}
 		}
 	}
-
 	return UPDATE_CONTINUE;
 }
 

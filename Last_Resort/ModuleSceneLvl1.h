@@ -36,6 +36,12 @@ public:
 	SDL_Rect SecondPlaneBackground;
 	SDL_Rect FirstPlaneBackGround;
 	SDL_Rect CraterBossZone;
+	SDL_Rect Lives1Rect;
+	SDL_Rect Lives2Rect;
+	SDL_Rect Lives3Rect;
+
+
+
 	//Music
 	Mix_Music*Stage1 =  nullptr;
 };

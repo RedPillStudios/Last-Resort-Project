@@ -27,6 +27,7 @@ public://bools
 	bool CleanUp();
 	bool AppearAnim;
 	bool Dead;
+	bool Player2Activated = false;
 
 public:
 
@@ -48,6 +49,9 @@ public:
 
 	Collider *Ship2Collider;
 
+public:
+
+	uint lives = 3;
 
 public:
 
