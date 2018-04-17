@@ -77,8 +77,14 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 400, 100);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 470, 100);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 540, 100);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 640, 100);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 740, 100);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 840, 100);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 940, 100);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 1040, 100);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 1140, 100);
 
-  App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 200, 80);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 200, 80);
 	
 	if (App->collision->IsEnabled()==false) {
 		App->collision->Enable();
