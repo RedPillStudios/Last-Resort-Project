@@ -3,6 +3,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include "ModuleInput.h"
 #include "ModuleSceneLvl1.h"
 #include "ModuleSound.h"
@@ -31,6 +32,7 @@ bool ModuleMainMenu::Start() {
 	if (App->menu->IsEnabled()) {
 
 			App->player->Disable();
+			App->player2->Disable();
 			App->particles->Disable();
 	}
 
@@ -41,7 +43,9 @@ bool ModuleMainMenu::Start() {
 
 	Insert_Coin = App->sound->LoadChunk("Audio/Main_Menu/Insert_Coin.wav");
 	Mix_PlayMusic(Main_Menu, 0);
-  
+
+	App->render->camera.x = App->render->camera.y = 0;
+
 	return true;
 }
 

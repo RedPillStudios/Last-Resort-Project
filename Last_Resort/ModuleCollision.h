@@ -1,7 +1,7 @@
 #ifndef __ModuleCollision_H__
 #define __ModuleCollision_H__
 
-#define MAX_COLLIDERS 50
+#define MAX_COLLIDERS 800
 
 #include "Module.h"
 
@@ -13,6 +13,7 @@ enum COLLIDER_TYPE
 	COLLIDER_ENEMY,
 	COLLIDER_PLAYER_SHOT,
 	COLLIDER_ENEMY_SHOT,
+	COLLIDER_POWER_UP,
 
 	COLLIDER_MAX
 };
@@ -50,8 +51,10 @@ public:
 	update_status Update() override;
 	bool CleanUp() override;
 
+
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr);
 	void DebugDraw();
+	
 
 private:
 

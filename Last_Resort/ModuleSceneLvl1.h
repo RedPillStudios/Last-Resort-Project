@@ -26,7 +26,7 @@ public:
 
 public:
 	
-	SDL_Texture* graphics = nullptr;
+	SDL_Texture* graphics = nullptr; 
 	SDL_Texture* graphics_Boss_Static_Background = nullptr;
 	SDL_Texture* graphics_ThirdPlaneBackground = nullptr;
 	SDL_Texture* graphics_SecondPlaneBackground = nullptr;
@@ -40,8 +40,10 @@ public:
 	SDL_Rect Ball;
 
 	Collider *BallCollider;
+	Collider *TheRubbishWall_1;
+	//Collider *TheRubbishWall_2;
 	//Music
-	Mix_Music*Stage1 =  nullptr;
+	Mix_Music* Stage1 =  nullptr;
 
 public: //movement of the firstplanebackground
 	
