@@ -16,19 +16,18 @@
 ModulePlayer::ModulePlayer()
 {
 
-	position.x = 20;
-	position.y = SCREEN_HEIGHT/2;
-
 	Standard.PushBack({64,0,32,12});
-
+	
 	Up.PushBack({ 32,0,32,13 });
 	Up.PushBack({ 0,0,32,13 });
-	Up.speed = 0.10f;
+	
+
+	Up.speed = 0.2f;
 	Up.loop = false;
 
 	Down.PushBack({ 96,0,32,12 });
 	Down.PushBack({ 128,1,32,11 });
-	Down.speed = 0.10f;
+	Down.speed = 0.2f;
 	Down.loop = false;
 
 	Appear.PushBack({ 0,135,64,25 });
@@ -77,8 +76,11 @@ ModulePlayer::~ModulePlayer() {}
 // Load assets
 bool ModulePlayer::Start() {
 
+	position_max_limit = SCREEN_WIDTH;
+	position_min_limit = 0;
 	LOG("Loading player 1 textures");
-	
+	position.x = 0;
+	position.y = SCREEN_HEIGHT / 2;
 	if (IsEnabled()) {
 		if (App->particles->IsEnabled() == false)
 			App->particles->Enable();
@@ -95,11 +97,10 @@ bool ModulePlayer::Start() {
 	DestroyShip.Reset();
 	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
-	Death_Sound = App->sound->LoadChunk("Audio/005_Death.wav");
-	Ship1Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
+	Ship1Collider = App->collision->AddCollider({ position.x, position.y,32,12 }, COLLIDER_PLAYER, this);
 
 	Dead = false;
-	PlayerActived = false;
+	pressed = false;
 	current_animation = &Appear;
 
 	return true;
@@ -113,86 +114,101 @@ bool ModulePlayer::CleanUp() {
 	//App->powerup->Disable();
 	current_animation = NULL;
 	//App->particles->Disable();
-	App->textures->Unload(graphicsp1);
-	//DestroyShip.Reset();
 
+	App->textures->Unload(graphicsp1);
+
+
+	//DestroyShip.Reset();
 	return true;
 }
 
 // Update: draw background
 update_status ModulePlayer::Update() {
 	
-	int speed = 3;
+	position.x += 1;
+	position_max_limit++;
+	position_min_limit++;
+
+	int speed = 2;
 
 	if (current_animation == &Appear) {
-		position.x = -12;
-		if (Appear.Finished()) {
-			resetPosition();
+		position.x=position_min_limit+2;
+		
+		if (Appear.Finished()&&current_animation!=&Standard) {
+			position.x = position_min_limit + 32;
 			current_animation = &Standard;
 		}
 	}
-
-		if (current_animation != &DestroyShip && Appear.Finished()) {
+		if (current_animation != &DestroyShip && Appear.Finished()&& (current_animation != &Up )) {
 			current_animation = &Standard;
 		}
 
 		if (!Dead&& current_animation != &Appear) {
 			//Movement Up
 			if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
-				current_animation = &Up;
+				//current_animation = &Up;
+				if (current_animation != &Up)
+				{
+					Up.Reset();
+					current_animation = &Up;
+				}
+				//current_animation = &Up;
 				position.y -= speed;
 				while (position.y <= 2) {
 					position.y = 2;
 					break;
 				}
 			}
+			else { current_animation = &Standard; }
 			//Movement Down
 			if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) {
-				current_animation = &Down;
+				if (current_animation != &Down)
+				{
+					Down.Reset();
+					current_animation = &Down;
+				}
+					
 				position.y += speed;
 				while (position.y >= SCREEN_HEIGHT - 15) {
 					position.y = SCREEN_HEIGHT - 15;
 					break;
 				}
 			}
+			/*else {
+				current_animation = &Standard;
+			}*/
 			//Movement Right
 			if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
 				position.x += speed;
-				while (position.x >= SCREEN_WIDTH - 30) {
-					position.x = SCREEN_WIDTH - 30;
+				while (position.x >=position_max_limit-32){
+					position.x = position_max_limit-32;
 					break;
 				}
 			}
 			//Movement left
 			if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) {
 				position.x -= speed;
-				while (position.x <= 2) {
-					position.x = 2;
+				while (position.x <= position_min_limit+1) {
+					position.x = position_min_limit+1;
 					break;
 				}
 			}
 			//Shoot
 			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
-
-				App->particles->AddParticle(App->particles->Laser, setFirePos().x, setFirePos().y,COLLIDER_PLAYER_SHOT);
+				App->particles->AddParticle(App->particles->Laser, setFirePos().x, setFirePos().y);
 				App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
 				Mix_PlayChannel(-1, Shot_Sound, 0);
 			}
 		}
-
+		
+		Ship1Collider->SetPos(position.x, position.y);
 	// Draw everything --------------------------------------
 		if (current_animation == &Appear) 
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
-		
 		else if (current_animation == &DestroyShip)
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
-		
-		else
-			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()), 0.0f);
-		
-
-	Ship1Collider->SetPos(position.x, position.y);
-	
+		else 
+			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
 	
 	return UPDATE_CONTINUE;
 }
@@ -201,15 +217,9 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
 
 		Dead = true;
-		
 		current_animation = &DestroyShip;
-		Mix_PlayChannel(-1, Death_Sound, 0);
-	
 		Ship1Collider->to_delete = true;
-		
-		if (DestroyShip.Finished()) {
+		if (DestroyShip.Finished())
 			Disable();
-		}
-
 	}
 }

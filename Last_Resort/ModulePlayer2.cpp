@@ -115,12 +115,14 @@ bool ModulePlayer2::CleanUp() {
 // Update: draw background
 update_status ModulePlayer2::Update() {
 	
-	int speed = 3;
+	positionp2.x += 1;
+
+	int speed = 2;
 
 	if (current_animation2 == &Appear) {
-		positionp2.x = -12;
+		positionp2.x = App->player->position_min_limit+2;
 		if (Appear.Finished()) {
-			resetPosition2();
+			positionp2.x = App->player->position_min_limit + 32;
 			current_animation2 = &Standard;
 		}
 	}
@@ -152,23 +154,23 @@ update_status ModulePlayer2::Update() {
 		/*Movement Right*/
 		if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT) {
 			positionp2.x += speed;
-			while (positionp2.x >= SCREEN_WIDTH - 30) {
-				positionp2.x = SCREEN_WIDTH - 30;
+			while (positionp2.x >=App->player->position_max_limit-32) {
+				positionp2.x = App->player->position_max_limit-32;
 				break;
 			}
 		}
 		/*Movement left*/
 		if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT) {
 			positionp2.x -= speed;
-			while (positionp2.x <= 2) {
-				positionp2.x = 2;
+			while (positionp2.x <= App->player->position_min_limit+2) {
+				positionp2.x = App->player->position_min_limit+2;
 				break;
 			}
 		}
 		/*Shoot*/
 		if (App->input->keyboard[SDL_SCANCODE_RCTRL] == KEY_STATE::KEY_DOWN) {
 
-			App->particles->AddParticle(App->particles->Laser, setFirePos2().x, setFirePos2().y,COLLIDER_PLAYER_SHOT);
+			App->particles->AddParticle(App->particles->Laser, setFirePos2().x, setFirePos2().y);
 			App->particles->AddParticle(App->particles->ShootExplosion, setFirePos2().x, setFirePos2().y);
 			Mix_PlayChannel(-1, Shot_Sound, 0);
 		}
@@ -183,7 +185,7 @@ update_status ModulePlayer2::Update() {
 			App->render->Blit(graphicsp2, positionp2.x, positionp2.y, &(current_animation2->GetCurrentFrame()));
 		}
 		else {
-			App->render->Blit(graphicsp2, positionp2.x, positionp2.y, &(current_animation2->GetCurrentFrame()), 0.0f);
+			App->render->Blit(graphicsp2, positionp2.x, positionp2.y, &(current_animation2->GetCurrentFrame()));
 		}
 
 	Ship2Collider->SetPos(positionp2.x, positionp2.y);
