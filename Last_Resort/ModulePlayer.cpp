@@ -132,7 +132,6 @@ update_status ModulePlayer::Update() {
 		}
 	}
 
-
 		if (current_animation != &DestroyShip && Appear.Finished()) {
 			current_animation = &Standard;
 		}
@@ -182,15 +181,15 @@ update_status ModulePlayer::Update() {
 		}
 
 	// Draw everything --------------------------------------
-		if (current_animation == &Appear) {
+		if (current_animation == &Appear) 
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
-		}
-		else if (current_animation == &DestroyShip) {
+		
+		else if (current_animation == &DestroyShip)
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
-		}
-		else {
+		
+		else
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()), 0.0f);
-		}
+		
 
 	Ship1Collider->SetPos(position.x, position.y);
 	
@@ -208,7 +207,6 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 	
 		Ship1Collider->to_delete = true;
 		
-	
 		if (DestroyShip.Finished()) {
 			Disable();
 		}

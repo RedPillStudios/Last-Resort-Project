@@ -18,7 +18,6 @@ ModuleParticles::ModuleParticles() {
 
 ModuleParticles::~ModuleParticles() {}
 
-
 bool ModuleParticles::Start() {
 
 	LOG("Loading Particles");
@@ -36,13 +35,19 @@ bool ModuleParticles::Start() {
 	Laser.Life = 1100;
 	Laser.Speed.x = 5;
 
-	ImpactExplosion.Anim.PushBack({ 315,369,16,16,});
-	ImpactExplosion.Anim.PushBack({ 331,369,16,16, });
+	ImpactExplosion.Anim.PushBack({ 315,369,16,16 });
+	ImpactExplosion.Anim.PushBack({ 331,369,16,16 });
 	ImpactExplosion.Anim.PushBack({ 347,369,16,16 });   //explosion
 	ImpactExplosion.Anim.PushBack({ 363,369,16,16 });
-
 	ImpactExplosion.Anim.speed = 0.3f;
 	ImpactExplosion.Anim.loop = false;
+
+	EnemyExplosion.Anim.PushBack({ 450, 377, 24, 24 });
+	EnemyExplosion.Anim.PushBack({ 449, 408, 28, 26 });
+	EnemyExplosion.Anim.PushBack({ 447, 434, 32, 33 });
+	EnemyExplosion.Anim.PushBack({ 446, 467, 32, 32 });
+	EnemyExplosion.Anim.speed = 0.3f;
+	EnemyExplosion.Anim.loop = false;
 
 	return true;
 
@@ -117,19 +122,22 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 	{
 		// Always destroy particles that collide
 		if (active[i] != nullptr && active[i]->collider == c1) {
-			if (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_WALL) {
-				AddParticle(ImpactExplosion,active[i]->Position.x, active[i]->Position.y);
-			if (c2->type == COLLIDER_ENEMY) 
-				Mix_PlayChannel(-1, ImpactExplosionSound, 0);
-				
-			}
 
+			if (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_WALL)
+					AddParticle(ImpactExplosion,active[i]->Position.x, active[i]->Position.y);
+			if (c2->type == COLLIDER_ENEMY) {
+					Mix_PlayChannel(-1, ImpactExplosionSound, 0);
+					AddParticle(EnemyExplosion, active[i]->Position.x, active[i]->Position.y);
+					AddParticle(EnemyExplosion, active[i]->Position.x + 3, active[i]->Position.y -2, COLLIDER_NONE, 200);
+					AddParticle(EnemyExplosion, active[i]->Position.x - 3, active[i]->Position.y +2, COLLIDER_NONE, 200);
+				}
 			delete active[i];
 			active[i] = nullptr;
 			break;
 		}
 	}
 }
+
 
 Particle::Particle() {
 

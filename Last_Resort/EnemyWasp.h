@@ -12,6 +12,7 @@ private:
 	
 	Animation AnimWasp;
 	Collider *EnemyWaspCollider;
+
 public:
 
 	EnemyWasp(int x, int y);

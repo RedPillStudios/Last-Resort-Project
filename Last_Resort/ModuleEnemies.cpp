@@ -134,13 +134,10 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 
 		}
 	}
-
-	
-
 }
 
 void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
-
+		
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 
 		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1) {

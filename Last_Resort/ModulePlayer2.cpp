@@ -199,10 +199,9 @@ void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 		Dead = true;
 		current_animation2 = &DestroyShip;
 		Ship2Collider->to_delete = true;
+		//App->player->PlayerActived = false;
 
-		if (DestroyShip.Finished() == true) {
-			resetPosition2();
+		if (DestroyShip.Finished() == true) 
 			Disable();
-		}
 	}
 }
