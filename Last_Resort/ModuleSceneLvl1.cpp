@@ -59,7 +59,7 @@ bool ModuleSceneLvl1::Start()
 	graphics_SecondPlaneBackground = App->textures->Load("Images/Background_Lvl1/SecondPlaneBackground.png");
 	graphics_FirstPlaneBackGround = App->textures->Load("Images/Background_Lvl1/FirstPlaneBackGround.png");
 	graphics = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
- 
+
 	//Music
 	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
 	Mix_PlayMusic(Stage1, -1);
@@ -73,12 +73,95 @@ bool ModuleSceneLvl1::Start()
 		App->enemies->Enable();
 	}
 	//Enemies
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, SCREEN_WIDTH, 100);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 400, 100);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 470, 100);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 540, 100);
 
-  App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 200, 80);
+
+	//WASP->Wave1{
+	//troop1
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 540, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 580, 60);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 580, 145);
+
+	//troop2
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 630, 20);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 650, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 670, 20);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 710, 20);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 750, 20);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 790, 20);
+
+	//troop3
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 795, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 835, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 875, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 915, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 955, 145);
+
+	//troop4
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 970, 110);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 995, 135);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 995, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1035, 115);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1035, 85);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1095, 95);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1075, 65);
+
+	//troop5
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1155, 20);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1195, 20);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1235, 20);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1275, 20);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1315, 20);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1155, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1195, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1235, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1275, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1315, 145);
+	// }
+
+	//WASP->Wave2{
+	//troop1
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1900, 30);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1940, 60);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1980, 90);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2020, 120);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2060, 150);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2100, 150);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2140, 150);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2180, 150);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2220, 150);
+	//}
+
+	//WASP->Wave3{
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP,3200, 112);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3240, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3255, 112);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3270, 90);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3310, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3300, 145);
+
+	//}
+
+	//Rhino->Wave1
+	
+	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 525, 75);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 570, 75);*/
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2425,75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2470, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2515, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2560, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2605, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2650, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2695, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2740, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2785, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2830, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2875, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2920, 75);
+
 	
 	if (App->collision->IsEnabled()==false) {
 		App->collision->Enable();

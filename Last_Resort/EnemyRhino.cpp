@@ -19,12 +19,12 @@ Enemy_Rhino::Enemy_Rhino(int x, int y) : Enemy(x, y)
 	fly.loop = true;
 	animation = &fly;
 
-	life = 2; //CAMBIAR A 5 CUANDO NO MOLESTE xD
+	life = 5; //CAMBIAR A 5 CUANDO NO MOLESTE xD
 
 	collider = App->collision->AddCollider({ 0, 0, 48, 45 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 	original_y = y;
 
-	App->enemies->bigenemy = true;
+	/*App->enemies->bigenemy = true;*/
 }
 
 void Enemy_Rhino::Move()
