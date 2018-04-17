@@ -23,7 +23,6 @@ public:
 	update_status Update();
 	bool CleanUp();
 
-
 public:
 	
 	SDL_Texture* graphics = nullptr; 
@@ -37,21 +36,8 @@ public:
 	SDL_Rect SecondPlaneBackground;
 	SDL_Rect FirstPlaneBackGround;
 	SDL_Rect CraterBossZone;
-	SDL_Rect Ball;
-
-	Collider *BallCollider;
-	Collider *TheRubbishWall_1;
-	//Collider *TheRubbishWall_2;
 	//Music
-	Mix_Music* Stage1 =  nullptr;
-
-public: //movement of the firstplanebackground
-	
-	float FirstPlaneBackGround_position_X = 0;
-	float SecondPlaneGround_position_X = 0;
-	float ThirdPlaneBackground_position_X = 0;
-
-	float ScrollingSpeed_Foreground=1.0f;
+	Mix_Music*Stage1 =  nullptr;
 };
 
 #endif

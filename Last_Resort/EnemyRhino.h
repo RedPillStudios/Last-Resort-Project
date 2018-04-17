@@ -16,6 +16,7 @@ public:
 
 	Enemy_Rhino(int x, int y);
 	void Move();
+	
 };
 
 #endif // __ENEMY_REDBIRD_H__

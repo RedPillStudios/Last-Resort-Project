@@ -24,6 +24,8 @@ public:
 
 	const Collider* GetCollider() const;
 
+	uint life;
+
 public:
 
 	virtual void Move() {};
