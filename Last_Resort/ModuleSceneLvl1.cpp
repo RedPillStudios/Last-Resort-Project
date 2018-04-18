@@ -137,12 +137,24 @@ bool ModuleSceneLvl1::Start()
 	//WASP->Wave3{
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP,3200, 112);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3240, 145);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3255, 112);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3270, 90);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3310, 75);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3300, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3265, 112);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3280, 90);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3320, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3310, 145);
 
 	//}
+
+	//WASP->wave4
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3700, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3740, 115);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3780, 85);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3820, 55);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3860, 55);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3900, 55);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3940, 55);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3980, 55);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 4020, 55);
 
 	//Rhino->Wave1
 	
@@ -161,6 +173,10 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2830, 75);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2875, 75);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2920, 75);
+
+	//ZICZAC
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,3560, 145);
+
 
 	
 	if (App->collision->IsEnabled()==false) {

@@ -11,7 +11,8 @@ enum ENEMY_TYPES {
 
 	NO_TYPE,
 	ENEMY_WASP,
-	ENEMY_RHINO
+	ENEMY_RHINO,
+	ENEMY_ZICZAC
 };
 
 class Enemy;

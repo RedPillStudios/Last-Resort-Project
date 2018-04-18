@@ -8,6 +8,7 @@
 #include "Enemy.h"
 #include "EnemyRhino.h"
 #include "EnemyWasp.h"
+#include "EnemyZicZac.h"
 
 
 #define SPAWN_MARGIN 50
@@ -125,6 +126,10 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
     case ENEMY_TYPES::ENEMY_WASP:
 	  	enemies[i] = new EnemyWasp(info.x, info.y);
 	  	break;
+
+	case ENEMY_TYPES::ENEMY_ZICZAC:
+		enemies[i] = new EnemyZicZac(info.x, info.y);
+		break;
 		}
 	}
 }
