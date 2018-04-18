@@ -180,6 +180,8 @@ update_status ModulePlayer::Update() {
 			//Movement Right
 			if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
 				position.x += speed;
+				
+
 				while (position.x >=position_max_limit-32){
 					position.x = position_max_limit-32;
 					break;

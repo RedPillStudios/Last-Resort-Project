@@ -18,6 +18,8 @@ Enemy_Rhino::Enemy_Rhino(int x, int y) : Enemy(x, y)
 	fly.speed = 0.04f;
 	fly.loop = true;
 	animation = &fly;
+	
+
 
 	life = 2; //CAMBIAR A 5 CUANDO NO MOLESTE xD
 

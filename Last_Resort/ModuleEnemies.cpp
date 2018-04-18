@@ -24,6 +24,7 @@ bool ModuleEnemies::Start() {
 
 	LOG("Starting Module Enemies");
 	sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
+	
 	return true;
 }
 

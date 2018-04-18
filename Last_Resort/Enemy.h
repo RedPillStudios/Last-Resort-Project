@@ -15,9 +15,11 @@ protected:
 	Animation *animation = nullptr;
 	Collider *collider = nullptr;
 
+
 public:
 
 	fPoint position;
+	SDL_Texture *sprites;
 
 	Enemy(int x, int y);
 	virtual ~Enemy();

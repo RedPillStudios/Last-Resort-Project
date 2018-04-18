@@ -15,6 +15,11 @@
 struct SDL_Texture;
 struct Collider;
 enum COLLIDER_TYPE;
+enum TYPE {
+	NO_PARTICLE,
+	PARTICLE_1,
+	PARTICLE_2
+};
 
 struct Particle {
 
@@ -26,6 +31,9 @@ struct Particle {
 	Uint32 Born = 0;
 	Uint32 Life = 0;
 	bool fx_played = false;
+	TYPE Particle_Type=NO_PARTICLE;
+
+	SDL_Texture *Sprites = nullptr;
 
 	Particle();
 	Particle(const Particle &p);
@@ -50,7 +58,7 @@ public:
 
 private:
 
-	SDL_Texture *Sprites = nullptr;
+	//SDL_Texture *Sprites = nullptr;
 	Particle *active[MAX_ACTIVE_PARTICLES];
 
 public:
