@@ -112,7 +112,7 @@ bool ModuleSceneLvl1::CleanUp() {
 // Update: draw background
 update_status ModuleSceneLvl1::Update() {
 
-	if (App->input->keyboard[SDL_SCANCODE_7] == KEY_STATE::KEY_DOWN && App->player2->Player2Activated == false && App->player2->lives >0) {
+	if (App->input->keyboard[SDL_SCANCODE_7] == KEY_STATE::KEY_DOWN && App->player2->Player2Activated == false && App->player2->lives > 0) {
 		if (App->player2->IsEnabled() == false) {
 			App->player2->Enable();
 			App->player2->Player2Activated = true;
@@ -122,7 +122,7 @@ update_status ModuleSceneLvl1::Update() {
 			App->player2->ToBeDestroyed = false;
 		}
 	}
-	if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && App->player->Player1Activated == false && App->player->lives >0) {
+	if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && App->player->Player1Activated == false && App->player->lives > 0) {
 		if(App->player->IsEnabled()==false){
 			App->player->Enable();
 			App->player->Player1Activated = true;
@@ -131,8 +131,6 @@ update_status ModuleSceneLvl1::Update() {
 			App->player->Ship1Collider->to_delete = false;
 			App->player->ToBeDestroyed = false;
 		}
-		
-
 	}
   
 
@@ -150,19 +148,26 @@ update_status ModuleSceneLvl1::Update() {
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 3.0f);
 	
 
-	// Condition to still play if pl2 is active 
+	// FADE IF NOT ENOUGHT COINS
 
 
-		if (App->player->Dead == true && App->player2->IsEnabled()== false) {
-			//if (App->player->DestroyShip.Finished()){                                 //EL FINISHED NO FUNCIONA EM CAGO EN LA PUTA MARE QUE EM VA PARIR
-				App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
-			//}
+	if (App->player->lives == 0 && App->player2->lives == 0) {
+		if (App->player->DestroyShip.Finished()) {                               
+		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
 		}
-		else if ((App->player->Dead == true && App->player2->Dead == true)) {
-			//if (App->player->DestroyShip.Finished()&&App->player2->DestroyShip.Finished()) {                     //EL FINISHED NO FUNCIONA EM CAGO EN LA PUTA MARE QUE EM VA PARIR
-				App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
-			//}
-		}
+	}
+
+		//if (App->player->Dead == true && App->player2->IsEnabled()== false) {
+		//	if (App->player->DestroyShip.Finished()){                                 
+		//		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
+		//	}
+		//}
+		//else if ((App->player->Dead == true && App->player2->Dead == true)) {
+		//	if (App->player->DestroyShip.Finished()&&App->player2->DestroyShip.Finished()) {                   
+		//		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
+		//	}
+		//}
+		
 
 	
 	return UPDATE_CONTINUE;

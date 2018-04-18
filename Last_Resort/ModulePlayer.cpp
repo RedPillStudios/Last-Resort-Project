@@ -98,6 +98,7 @@ bool ModulePlayer::Start() {
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
 	Ship1Collider = App->collision->AddCollider({ position.x, position.y,32,12 }, COLLIDER_PLAYER, this);
 
+	Player1Activated = true;
 	Dead = false;
 	//Player1Activated = false;
 	current_animation = &Appear;
@@ -224,7 +225,7 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 		Player1Activated = false;
 		current_animation = &DestroyShip;
 		Ship1Collider->to_delete = true;
-
+		ToBeDestroyed = true;
 		
 			
 	}
