@@ -30,7 +30,6 @@ bool ModuleParticles::Start() {
 	ShootExplosion.Anim.PushBack({ 94, 241, 11, 9 });
 	ShootExplosion.Anim.loop = false;
 	ShootExplosion.Anim.speed = 0.3f;
-	ShootExplosion.Particle_Type = PARTICLE_1;
 
 	Laser.Anim.PushBack({ 115, 242, 15, 7 });
 	Laser.Anim.speed = 0.0f;
@@ -45,7 +44,7 @@ bool ModuleParticles::Start() {
 	ImpactExplosion.Anim.PushBack({ 363,369,16,16 });
 	ImpactExplosion.Anim.speed = 0.3f;
 	ImpactExplosion.Anim.loop = false;
-	ImpactExplosion.Particle_Type = PARTICLE_1;
+
 
 	EnemyExplosion.Anim.PushBack({ 450, 377, 24, 24 });
 	EnemyExplosion.Anim.PushBack({ 449, 408, 28, 26 });
@@ -53,7 +52,14 @@ bool ModuleParticles::Start() {
 	EnemyExplosion.Anim.PushBack({ 446, 467, 32, 32 });
 	EnemyExplosion.Anim.speed = 0.3f;
 	EnemyExplosion.Anim.loop = false;
-	EnemyExplosion.Particle_Type = PARTICLE_1;
+
+
+	HOU_Shot.Anim.PushBack({ 117,250,13,13 });
+	//HOU_Shot.Anim.PushBack({117,263,13,13});
+	HOU_Shot.Anim.speed = 0.2f;
+	HOU_Shot.Anim.loop = true;
+	HOU_Shot.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	HOU_Shot.Life = 2200;
 
 	return true;
 

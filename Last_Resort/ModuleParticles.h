@@ -69,6 +69,7 @@ public:
 	Particle EnemyExplosion;
 	Particle Laser2;
 	Particle ShootExplosionLaser2; // estas dos son para el segundo tipo de disparo
+	Particle HOU_Shot;
 
 	Mix_Chunk *ImpactExplosionSound;
 

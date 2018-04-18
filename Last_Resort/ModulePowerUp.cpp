@@ -156,7 +156,30 @@ update_status ModulePowerUp::Update() {
 		}
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_REPEAT) {
 			Charge_animation = &Charge;
+			
 			App->render->Blit(Charge_texture, HOU_position_x-10, HOU_position_y-15, &Charge_animation->GetCurrentFrame());
+		}
+		else if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
+			if (current_animation == &HOU_Front) {
+				App->particles->HOU_Shot.Speed.x = 5;
+				App->particles->HOU_Shot.Speed.y = 0;
+				App->particles->AddParticle(App->particles->HOU_Shot, HOU_position_x+3, HOU_position_y, COLLIDER_PLAYER_SHOT);
+			}
+			if (current_animation == &HOU_UP) {
+				App->particles->HOU_Shot.Speed.x = 1;
+				App->particles->HOU_Shot.Speed.y = -5;
+				App->particles->AddParticle(App->particles->HOU_Shot, HOU_position_x, HOU_position_y, COLLIDER_PLAYER_SHOT);
+			}
+			if (current_animation == &HOU_Down) {
+				App->particles->HOU_Shot.Speed.x = 1;
+				App->particles->HOU_Shot.Speed.y = 5;
+				App->particles->AddParticle(App->particles->HOU_Shot, HOU_position_x, HOU_position_y, COLLIDER_PLAYER_SHOT);
+			}
+			if (current_animation == &HOU_Back) {
+				App->particles->HOU_Shot.Speed.x = -5;
+				App->particles->HOU_Shot.Speed.y = 0;
+				App->particles->AddParticle(App->particles->HOU_Shot, HOU_position_x - 3, HOU_position_y, COLLIDER_PLAYER_SHOT);
+			}
 
 		}
 		colliderHUB->SetPos(HOU_position_x, HOU_position_y);
