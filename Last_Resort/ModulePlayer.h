@@ -24,7 +24,7 @@ public:
 	
 	bool AppearAnim;
 	bool Dead;
-
+	bool GOD = false;
 
 public:
 	SDL_Rect Ship;

@@ -9,6 +9,7 @@
 #include "EnemyRhino.h"
 #include "EnemyWasp.h"
 #include "EnemyZicZac.h"
+#include "EnemySuicide.h"
 
 
 #define SPAWN_MARGIN 50
@@ -129,6 +130,9 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 
 	case ENEMY_TYPES::ENEMY_ZICZAC:
 		enemies[i] = new EnemyZicZac(info.x, info.y);
+		break;
+	case ENEMY_TYPES::ENEMY_SUICIDE:
+		enemies[i] = new EnemySuicide(info.x, info.y);
 		break;
 		}
 	}

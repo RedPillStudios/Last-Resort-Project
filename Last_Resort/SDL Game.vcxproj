@@ -76,6 +76,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyRhino.h" />
+    <ClInclude Include="EnemySuicide.h" />
     <ClInclude Include="EnemyWasp.h" />
     <ClInclude Include="EnemyZicZac.h" />
     <ClInclude Include="Globals.h" />
@@ -104,6 +105,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyRhino.cpp" />
+    <ClCompile Include="EnemySuicide.cpp" />
     <ClCompile Include="EnemyWasp.cpp" />
     <ClCompile Include="EnemyZicZac.cpp" />
     <ClCompile Include="Globals.cpp" />

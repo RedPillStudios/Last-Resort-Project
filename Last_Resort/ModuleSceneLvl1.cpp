@@ -222,8 +222,9 @@ update_status ModuleSceneLvl1::Update() {
 	
 	if (App->input->keyboard[SDL_SCANCODE_2]) 
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 3.0f);
-	
 
+	
+	
 	// Condition to still play if pl2 is active 
 
 		if (App->player->Dead == true && App->player2->IsEnabled()== false) {

@@ -116,6 +116,8 @@ bool ModulePlayer::CleanUp() {
 	//App->particles->Disable();
 
 	App->textures->Unload(graphicsp1);
+	if (GOD)
+		GOD = false;
 
 
 	//DestroyShip.Reset();
@@ -193,6 +195,16 @@ update_status ModulePlayer::Update() {
 					break;
 				}
 			}
+
+			if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_STATE::KEY_DOWN) {
+				
+				if (!GOD)
+					GOD = true;
+			
+				else
+					GOD = false;
+			}
+
 			//Shoot
 			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
 				App->particles->AddParticle(App->particles->Laser, setFirePos().x, setFirePos().y, COLLIDER_PLAYER_SHOT);
@@ -216,10 +228,12 @@ update_status ModulePlayer::Update() {
 void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
 
-		Dead = true;
-		current_animation = &DestroyShip;
-		Ship1Collider->to_delete = true;
-		if (DestroyShip.Finished())
-			Disable();
+		if (!GOD) {
+			Dead = true;
+			current_animation = &DestroyShip;
+			Ship1Collider->to_delete = true;
+			if (DestroyShip.Finished())
+				Disable();
+		}
 	}
 }
