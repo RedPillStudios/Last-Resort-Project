@@ -190,8 +190,6 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 7060, 60);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 7160, 60);
 
-	
-
 
 	//ZICZAC
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,3560, 145);
@@ -200,10 +198,8 @@ bool ModuleSceneLvl1::Start()
 	
 
 	//CARS
-	App->enemies->AddEnemy(ENEMY_TYPES::CARS, 100, 145);
-
-
-
+	App->enemies->AddEnemy(ENEMY_TYPES::CARS,-10, 195);
+	
 
 	
 	if (App->collision->IsEnabled()==false) {

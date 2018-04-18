@@ -11,10 +11,10 @@
 
 CarsToFast::CarsToFast(int x, int y): Enemy(x,y){
 
-	Cars.PushBack({0,184,21,11});
-	Cars.PushBack({41,184,21,11});
-	Cars.PushBack({62,184,21,11});
-	Cars.PushBack({83,184,21,11});
+	Cars.PushBack({0,184,20,11});
+	Cars.PushBack({20,184,20,11});
+	Cars.PushBack({40,184,20,11});
+	Cars.PushBack({60,184,20,11});
 
 	Enemy::sprites= App->textures->Load("Images/General/Car_Sprites.png");
 
@@ -31,7 +31,7 @@ CarsToFast::CarsToFast(int x, int y): Enemy(x,y){
 void CarsToFast::Move() {
 
 
-	(float)position.x+= 2.0f;
+	(float)position.x+= 3.0f;
 
 
 }

@@ -45,7 +45,7 @@ ModuleCollision::ModuleCollision()
 
 	matrix[COLLIDER_CAR][COLLIDER_WALL] = false;
 	matrix[COLLIDER_CAR][COLLIDER_ENEMY] = false;
-	matrix[COLLIDER_CAR][COLLIDER_PLAYER_SHOT] = false;
+	matrix[COLLIDER_CAR][COLLIDER_PLAYER_SHOT] = true;
 	matrix[COLLIDER_CAR][COLLIDER_ENEMY_SHOT] = false;
 	matrix[COLLIDER_CAR][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_CAR][COLLIDER_CAR] = false;
