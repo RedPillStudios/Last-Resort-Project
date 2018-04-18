@@ -11,7 +11,7 @@
 #include "EnemyWasp.h"
 #include "EnemyZicZac.h"
 #include "EnemySuicide.h"
-
+#include "CarsToFast.h"
 
 #define SPAWN_MARGIN 50
 
@@ -26,19 +26,20 @@ ModuleEnemies::~ModuleEnemies() {}
 bool ModuleEnemies::Start() {
 
 	LOG("Starting Module Enemies");
-	sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
+	//sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
+	
 	return true;
 }
 
 bool ModuleEnemies::CleanUp() {
 
 	LOG("Cleaning Up Enemies Module");
-	App->textures->Unload(sprites);
+	
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 
 		if (enemies[i] != nullptr) {
-
+			App->textures->Unload(enemies[i]->sprites);
 			delete enemies[i];
 			enemies[i] = nullptr;
 		}
@@ -70,7 +71,7 @@ update_status ModuleEnemies::Update() {
 		if (enemies[i] != nullptr) enemies[i]->Move();
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
-		if (enemies[i] != nullptr) enemies[i]->Draw(sprites);
+		if (enemies[i] != nullptr) enemies[i]->Draw(enemies[i]->sprites);
 
 	return UPDATE_CONTINUE;
 
@@ -136,6 +137,9 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		break;
 	case ENEMY_TYPES::ENEMY_SUICIDE:
 		enemies[i] = new EnemySuicide(info.x, info.y);
+		break;
+	case ENEMY_TYPES::CARS:
+		enemies[i] = new CarsToFast(info.x, info.y);
 		break;
 		}
 	}

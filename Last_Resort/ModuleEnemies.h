@@ -13,7 +13,8 @@ enum ENEMY_TYPES {
 	ENEMY_WASP,
 	ENEMY_RHINO,
 	ENEMY_ZICZAC,
-	ENEMY_SUICIDE
+	ENEMY_SUICIDE,
+	CARS
 };
 
 class Enemy;
@@ -50,7 +51,7 @@ private:
 
 	EnemyInfo queue[MAX_ENEMIES];
 	Enemy *enemies[MAX_ENEMIES];
-	SDL_Texture *sprites;
+	
 
 };
 

@@ -25,6 +25,7 @@ struct Particle {
 	iPoint Speed;
 	Uint32 Born = 0;
 	Uint32 Life = 0;
+	SDL_Texture * Sprites = nullptr;
 	bool fx_played = false;
 
 	Particle();
@@ -50,7 +51,7 @@ public:
 
 private:
 
-	SDL_Texture *Sprites = nullptr;
+	
 	Particle *active[MAX_ACTIVE_PARTICLES];
 
 public:
@@ -66,6 +67,8 @@ public:
 
 	uint Enemies_Weapon = 0;
 	uint Enemies_Speed = 0;
+
+
 };
 
 #endif

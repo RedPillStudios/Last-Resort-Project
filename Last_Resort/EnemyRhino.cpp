@@ -15,6 +15,7 @@ Enemy_Rhino::Enemy_Rhino(int x, int y) : Enemy(x, y)
 	fly.PushBack({ 160,211,48,45 });
 	fly.PushBack({ 112,211,48,45 });
 	fly.PushBack({ 64,211,48,45 });
+	Enemy::sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
 	fly.speed = 0.04f;
 	fly.loop = true;
 	animation = &fly;

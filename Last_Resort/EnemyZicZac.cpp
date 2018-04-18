@@ -14,6 +14,7 @@ EnemyZicZac::EnemyZicZac(int x,int y):Enemy(x,y){
 	AnimZicZac.PushBack({ 128,161,32,27 });
 	AnimZicZac.speed = 0.4f;
 	AnimZicZac.loop = true;
+	Enemy::sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
 
 	life = 1;
 	animation = &AnimZicZac;

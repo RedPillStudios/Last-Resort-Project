@@ -199,8 +199,8 @@ bool ModuleSceneLvl1::Start()
 
 	
 
-
-
+	//CARS
+	App->enemies->AddEnemy(ENEMY_TYPES::CARS, 100, 145);
 
 
 
@@ -240,11 +240,6 @@ update_status ModuleSceneLvl1::Update() {
 	//camera Mov
 	App->render->camera.x += 1 * SCREEN_SIZE;
 
-	App->render->Blit(graphics_Crater_Boss_Zone, 0, 0, &CraterBossZone, 0.0f);
-	App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
-	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
-	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL, 0.5f); // FIRST PLANE BACKGROUND
-
 
 	if (App->input->keyboard[SDL_SCANCODE_1])
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 3.0f);
@@ -252,12 +247,10 @@ update_status ModuleSceneLvl1::Update() {
 	if (App->input->keyboard[SDL_SCANCODE_2])
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 3.0f);
 	
-	if (!SpawnEnemyCheat && App->input->keyboard[SDL_SCANCODE_F11] == KEY_STATE::KEY_DOWN) {
-		SpawnEnemyCheat = true;
-		if (SpawnEnemyCheat) {
+	if (App->input->keyboard[SDL_SCANCODE_F11] == KEY_STATE::KEY_DOWN) {
+		
 			App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, App->player->position.x + 200, App->player->position.y);
-			SpawnEnemyCheat = false;
-		}
+		
 	}
 	
 	// Condition to still play if pl2 is active 
@@ -272,6 +265,14 @@ update_status ModuleSceneLvl1::Update() {
 				App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
 			}
 		}
+
+
+
+		App->render->Blit(graphics_Crater_Boss_Zone, 0, 0, &CraterBossZone, 0.0f);
+		App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
+		App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
+		App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL, 0.5f); // FIRST PLANE BACKGROUND
+
 
 	return UPDATE_CONTINUE;
 }
