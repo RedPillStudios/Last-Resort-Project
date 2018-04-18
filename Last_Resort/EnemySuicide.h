@@ -9,6 +9,7 @@ class EnemySuicide:public Enemy{
 private:
 
 	Animation AnimSuicide;
+	Animation AnimSuicide2;
 
 public:
 

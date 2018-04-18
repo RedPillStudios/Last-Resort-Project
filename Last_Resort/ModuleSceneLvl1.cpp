@@ -174,8 +174,35 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2875, 75);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2920, 75);
 
+
+	//Wave2
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5500, 77);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5540, 77);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5580, 77);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5620, 77);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5660, 77);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5700, 77);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5740, 77);
+	 //wave3
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5860, 60);//these are not well located!!!!!!!!!!!!!!!!!!!!!!!!
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6960, 60);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 7060, 60);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 7160, 60);
+
+	
+
+
 	//ZICZAC
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,3560, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,7560, 60);
+
+	
+
+
+
+
+
 
 
 	
@@ -209,21 +236,29 @@ update_status ModuleSceneLvl1::Update() {
 		App->player2->Dead = false;
 		App->player2->resetPosition2();
 	}
-  
-	//camera Mov
-	App->render->camera.x += 1*SCREEN_SIZE;
 
+	//camera Mov
+	App->render->camera.x += 1 * SCREEN_SIZE;
+
+	App->render->Blit(graphics_Crater_Boss_Zone, 0, 0, &CraterBossZone, 0.0f);
 	App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
 	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
-	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL,0.5f); // FIRST PLANE BACKGROUND
+	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL, 0.5f); // FIRST PLANE BACKGROUND
 
-	if (App->input->keyboard[SDL_SCANCODE_1]) 
+
+	if (App->input->keyboard[SDL_SCANCODE_1])
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 3.0f);
-	
-	if (App->input->keyboard[SDL_SCANCODE_2]) 
-		App->fade->FadeToBlack(App->scene1background, App->stageclear, 3.0f);
 
+	if (App->input->keyboard[SDL_SCANCODE_2])
+		App->fade->FadeToBlack(App->scene1background, App->stageclear, 3.0f);
 	
+	if (!SpawnEnemyCheat && App->input->keyboard[SDL_SCANCODE_F11] == KEY_STATE::KEY_DOWN) {
+		SpawnEnemyCheat = true;
+		if (SpawnEnemyCheat) {
+			App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, App->player->position.x + 200, App->player->position.y);
+			SpawnEnemyCheat = false;
+		}
+	}
 	
 	// Condition to still play if pl2 is active 
 

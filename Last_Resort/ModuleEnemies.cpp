@@ -5,6 +5,7 @@
 #include "ModuleTextures.h"
 #include "ModuleParticles.h"
 #include "ModuleSound.h"
+#include "ModulePlayer.h"
 #include "Enemy.h"
 #include "EnemyRhino.h"
 #include "EnemyWasp.h"
@@ -72,6 +73,8 @@ update_status ModuleEnemies::Update() {
 		if (enemies[i] != nullptr) enemies[i]->Draw(sprites);
 
 	return UPDATE_CONTINUE;
+
+
 }
 
 update_status ModuleEnemies::PostUpdate() {

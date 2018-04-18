@@ -25,6 +25,7 @@ public:
 	bool AppearAnim;
 	bool Dead;
 	bool GOD = false;
+	bool SpawnEnemyCheat = false;
 
 public:
 	SDL_Rect Ship;

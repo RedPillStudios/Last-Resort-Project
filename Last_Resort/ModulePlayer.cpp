@@ -10,6 +10,7 @@
 #include "ModulePowerUp.h"
 #include "ModulePlayer2.h"
 #include "ModuleCollision.h"
+#include "ModuleEnemies.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -203,6 +204,15 @@ update_status ModulePlayer::Update() {
 			
 				else
 					GOD = false;
+			}
+			
+
+			if (!SpawnEnemyCheat && App->input->keyboard[SDL_SCANCODE_F11]) {
+				SpawnEnemyCheat = true;
+				if (SpawnEnemyCheat)
+				  App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, (App->player->position.x) + 200, App->player->position.y);
+				SpawnEnemyCheat = false;
+
 			}
 
 			//Shoot
