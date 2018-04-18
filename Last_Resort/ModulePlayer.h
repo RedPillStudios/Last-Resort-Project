@@ -24,6 +24,7 @@ public:
 	
 	bool AppearAnim;
 	bool Dead;
+	bool ToBeDestroyed = false;
 
 
 public:

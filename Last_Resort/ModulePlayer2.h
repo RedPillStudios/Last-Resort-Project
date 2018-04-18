@@ -28,7 +28,7 @@ public://bools
 	bool AppearAnim;
 	bool Dead;
 	bool Player2Activated = false;
-
+	bool ToBeDestroyed = false;
 public:
 
 

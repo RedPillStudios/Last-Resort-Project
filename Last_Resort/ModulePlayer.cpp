@@ -99,7 +99,7 @@ bool ModulePlayer::Start() {
 	Ship1Collider = App->collision->AddCollider({ position.x, position.y,32,12 }, COLLIDER_PLAYER, this);
 
 	Dead = false;
-	Player1Activated = false;
+	//Player1Activated = false;
 	current_animation = &Appear;
 
 	return true;
@@ -209,6 +209,10 @@ update_status ModulePlayer::Update() {
 		else 
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
 	
+		if (DestroyShip.Finished() == true && ToBeDestroyed == true) {
+			Disable();
+		}
+		
 	return UPDATE_CONTINUE;
 }
 
@@ -220,9 +224,8 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 		Player1Activated = false;
 		current_animation = &DestroyShip;
 		Ship1Collider->to_delete = true;
-		if (DestroyShip.Finished()) {    //DESCOMENTAR PARA VER LA ANIMACION DE DESTRUCCION
-			Disable();
-		}
+
+		
 			
 	}
 }
