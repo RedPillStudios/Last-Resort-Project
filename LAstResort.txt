@@ -1,0 +1,55 @@
+Power Ups:
+
+	//Speed(TODO).
+	Bomb(TODO).
+	Laser(TODO).
+
+Enemies:
+
+
+	Wasp (DONE)
+	Rhino (DONE)
+	ZigZag (DONE)
+	Tank || Iron Craw (TODO)
+	Car (Spawn Doubt)
+	How to delete enemies?
+
+
+DebugFuncionalities:
+
+
+	colliders (DONE)
+	GOD MODE F10 (DONE)
+	SpawnEnemies F11 (Doubt)
+	All Enemies to One Hit(TODO)
+	Teleport (TODO)
+	PowerUpsSpawn (TODO)
+	Player2 to apper (TODO)
+
+
+Fonts:
+
+	UI(doubt)
+
+
+Polish:
+
+	Coins
+
+Background:
+	LightAnimations(TODO)
+
+
+
+
+
+
+RULES:
+
+F1->collider
+F2->Win
+F3->lose
+F5->God Mode
+
+Player1->W A S D+Space
+Player2->Arrows + right Ctrl
