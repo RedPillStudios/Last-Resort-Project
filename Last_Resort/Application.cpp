@@ -16,6 +16,7 @@
 #include "ModuleEnemies.h"
 #include "ModulePowerUp.h"
 #include "ModulePlayer2.h"
+#include "ModuleFonts.h"
 
 Application::Application()
 {
@@ -34,8 +35,10 @@ Application::Application()
 	modules[i++] = player2 = new ModulePlayer2();
 	modules[i++] = fade = new ModuleFadeToBlack();
 	modules[i++] = particles = new ModuleParticles();
-	modules[i++] = collision = new ModuleCollision();
 	modules[i++] = powerup = new ModulePowerUp();
+	modules[i++] = collision = new ModuleCollision();
+	modules[i++] = fonts = new ModuleFonts();
+
 }	
 
 Application::~Application()

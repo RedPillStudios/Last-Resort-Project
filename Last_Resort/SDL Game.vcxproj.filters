@@ -107,6 +107,9 @@
     <ClInclude Include="ModulePowerUp.h">
       <Filter>Modules\Player</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleFonts.h">
+      <Filter>Modules\Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -177,6 +180,9 @@
     </ClCompile>
     <ClCompile Include="ModulePowerUp.cpp">
       <Filter>Modules\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFonts.cpp">
+      <Filter>Modules\Base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

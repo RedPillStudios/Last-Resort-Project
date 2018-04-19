@@ -156,7 +156,6 @@ update_status ModulePowerUp::Update() {
 		}
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_REPEAT) {
 			Charge_animation = &Charge;
-			
 			App->render->Blit(Charge_texture, HOU_position_x-10, HOU_position_y-15, &Charge_animation->GetCurrentFrame());
 		}
 		else if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
