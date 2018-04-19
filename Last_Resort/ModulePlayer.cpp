@@ -199,7 +199,7 @@ update_status ModulePlayer::Update() {
 				}
 			}
 
-			if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_STATE::KEY_DOWN) {
+			if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {
 				
 				GOD = !GOD;
 			}

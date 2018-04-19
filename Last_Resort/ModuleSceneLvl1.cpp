@@ -83,6 +83,9 @@ bool ModuleSceneLvl1::Start()
 		App->player2->Enable();
 		App->player2->resetPosition2();
 	}
+	if (App->collision->IsEnabled() == false) {
+		App->collision->Enable();
+	}
 
 	//Enemies
 	//WASP->Wave1{
@@ -199,11 +202,9 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, 7560, 60);
 
 	//CARS
-	App->enemies->AddEnemy(ENEMY_TYPES::CARS,-10, 195);
+	/*App->enemies->AddEnemy(ENEMY_TYPES::CARS,-10, 195);*/
 
-	if (App->collision->IsEnabled()==false) {
-		App->collision->Enable();
-	}
+	
 	return true;
 }
 
@@ -218,10 +219,11 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->textures->Unload(graphics_SecondPlaneBackground);
 	App->textures->Unload(graphics_Crater_Boss_Zone);
 
-	App->powerup->Disable();
 
+	App->powerup->Disable();
 	App->collision->Disable();
 	App->enemies->Disable();
+
 	return true;
 }
 // Update: draw background
@@ -247,10 +249,10 @@ update_status ModuleSceneLvl1::Update() {
 	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
 	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL,0.5f); // FIRST PLANE BACKGROUND
 
-	if (App->input->keyboard[SDL_SCANCODE_1])
+	if (App->input->keyboard[SDL_SCANCODE_F3])
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 3.0f);
 
-	if (App->input->keyboard[SDL_SCANCODE_2])
+	if (App->input->keyboard[SDL_SCANCODE_F2])
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 3.0f);
 	
 
@@ -263,7 +265,7 @@ update_status ModuleSceneLvl1::Update() {
 	if (coins <= 0 && (App->player->Dead == true && App->player2->Dead == true)) {
 		App->player->Disable();
 		App->player2->Disable();
-		App->powerup->Disable();
+		/*App->powerup->Disable();*/
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f); 
 	}
 
