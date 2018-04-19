@@ -19,8 +19,6 @@ Enemy_Rhino::Enemy_Rhino(int x, int y) : Enemy(x, y)
 	fly.speed = 0.04f;
 	fly.loop = true;
 	animation = &fly;
-
-	score = 300;
 	life = 5; 
 
 

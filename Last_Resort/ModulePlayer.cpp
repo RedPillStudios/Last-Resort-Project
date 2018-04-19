@@ -91,12 +91,14 @@ bool ModulePlayer::Start() {
 			App->powerup->Enable();
 		}
 	}
+
+	PlayerScore = 0;
 	
 	Appear.Reset();
 	DestroyShip.Reset();
 	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
 
-	//font_score = App->fonts->Load("Images/Fonts/chars_Sprite1.png", "0123456789[]ABCDEFGHIJKLMNOPQRSTUVWXYZ_.&#", 3);
+	font_score = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
 
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
 	Ship1Collider = App->collision->AddCollider({ position.x, position.y,32,12 }, COLLIDER_PLAYER, this);
@@ -118,6 +120,7 @@ bool ModulePlayer::CleanUp() {
 	//App->powerup->Disable();
 	current_animation = NULL;
 	//App->particles->Disable();
+	App->fonts->UnLoad(font_score);
 
 	App->textures->Unload(graphicsp1);
 	if (GOD)
@@ -209,8 +212,9 @@ update_status ModulePlayer::Update() {
 			}
 			
 
-			if (App->input->keyboard[SDL_SCANCODE_F11]) {
-				  App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, (App->player->position.x) + 200, App->player->position.y);
+			if (App->input->keyboard[SDL_SCANCODE_F11] == KEY_STATE::KEY_DOWN) {
+				LOG("Spawning enemy rhino")
+				  App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, (App->player->position.x) + 200, App->player->position.y);
 			}
 
 			//Shoot
@@ -230,8 +234,8 @@ update_status ModulePlayer::Update() {
 		else 
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
 	
-		//sprintf_s(score_text, 10, "%7d", PlayerScore);
-		//App->fonts->BlitText(61, 16, font_score, score_text);
+		sprintf_s(score_text, 10, "%7d", PlayerScore);
+		App->fonts->BlitText(61, 16, font_score, score_text);
   
 		//end anim of dead and disable
 		if (ToBeDeleted == true && current_animation->Finished() == true) {

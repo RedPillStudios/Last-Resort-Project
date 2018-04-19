@@ -148,15 +148,22 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 		
  if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1) {
 
-			enemies[i]->OnCollision(c2);
+		//	enemies[i]->OnCollision(c2);
 			--(enemies[i]->life);
 
-			//ADD HERE App.player.score += score;
 			if (enemies[i]->life <= 0) {
+				/*if (enemies[i]. == ENEMY_RHINO)     S HA DE POSAR IF ENEMY TYPE == ENEMY RHINO Y ASI
+					App->player->PlayerScore += 300;
+				else if (ENEMY_TYPES::ENEMY_ZICZAC)
+					App->player->PlayerScore += 100;
+				else if (ENEMY_TYPES::ENEMY_WASP)
+					App->player->PlayerScore += 100;
+				else if (ENEMY_TYPES::CARS)
+					App->player->PlayerScore += 100;*/
 				delete enemies[i];
 				enemies[i] = nullptr;
 				break;
 			}
-		}
+		} 
 	}
 }

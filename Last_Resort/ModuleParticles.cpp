@@ -171,9 +171,9 @@ bool Particle::Update() {
 
 	bool ret = true;
 
-	if (Life > 0)
-	{
-		if ((SDL_GetTicks() - Born) > Life)
+	if (Life > 0) {
+
+		if (((int)SDL_GetTicks() - (int)Born) > Life)
 			ret = false;
 	}
 	else
@@ -183,12 +183,14 @@ bool Particle::Update() {
 	if (collider != nullptr && collider->type == COLLIDER_PLAYER_SHOT && Position.x >= App->scene1background->position_max_limit)
 			ret = false;
 	
+	if (SDL_GetTicks() >= Born) {
 
-	Position.x += Speed.x;
-	Position.y += Speed.y;
+		Position.x += Speed.x;
+		Position.y += Speed.y;
 
-	if (collider != nullptr)
-		collider->SetPos(Position.x, Position.y);
+		if (collider != nullptr)
+			collider->SetPos(Position.x, Position.y);
+	}
 
 	return ret;
 

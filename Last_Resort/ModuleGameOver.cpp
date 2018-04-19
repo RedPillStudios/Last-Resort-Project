@@ -9,7 +9,6 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleMainMenu.h"
 #include "ModuleSceneLvl1.h"
-#include "ModuleSceneLvl2.h"
 #include "ModuleStageClear.h"
 
 ModuleGameOver::ModuleGameOver()

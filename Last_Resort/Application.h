@@ -17,7 +17,6 @@ class ModuleSound;
 class ModuleFadeToBlack;
 class Module;
 class ModuleSceneLvl1;
-class ModuleSceneLvl2;
 class ModuleMainMenu;
 class ModuleGameOver;
 class ModuleParticles;
@@ -44,7 +43,6 @@ public:
 	ModulePlayer* player;
 	ModuleSound* sound;
 	ModuleFadeToBlack *fade;
-	ModuleSceneLvl2 *scene2background;
 	ModuleGameOver *gameover;
 	ModuleParticles *particles;
 	ModuleCollision *collision;

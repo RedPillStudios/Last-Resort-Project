@@ -8,7 +8,6 @@
 #include "ModuleSceneLvl1.h"
 #include "ModuleSound.h"
 #include "ModuleFadeToBlack.h"
-#include "ModuleSceneLvl2.h"
 #include "ModuleMainMenu.h"
 #include "ModuleMainMenu.h"
 #include "ModuleGameOver.h"
@@ -252,11 +251,6 @@ update_status ModuleSceneLvl1::Update() {
 
 	if (App->input->keyboard[SDL_SCANCODE_2])
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 3.0f);
-	
-	if (App->input->keyboard[SDL_SCANCODE_F11] == KEY_STATE::KEY_DOWN) {
-		
-			App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, App->player->position.x + 200, App->player->position.y);
-	}
 
 	App->render->Blit(graphics_Crater_Boss_Zone, 0, 0, &CraterBossZone, 0.0f);
 	App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);

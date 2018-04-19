@@ -27,7 +27,7 @@ public:
 	const Collider* GetCollider() const;
 
 	uint life;
-	uint score;
+//	uint score;
 
 
 public:
