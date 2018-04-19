@@ -12,6 +12,7 @@ Enemy::~Enemy() {
 		collider->to_delete = true;
 }
 
+sprofljdmzx
 const Collider *Enemy::GetCollider() const {
 
 	return collider;
