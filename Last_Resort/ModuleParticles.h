@@ -8,6 +8,7 @@
 #include "ModuleSound.h"
 #include "ModuleCollision.h"
 #include "SDL_mixer/include/SDL_mixer.h"
+#include "SDL/include/SDL.h"
 
 #define MAX_ACTIVE_PARTICLES 500
 
@@ -30,7 +31,6 @@ struct Particle {
 	iPoint Speed;
 	Uint32 Born = 0;
 	Uint32 Life = 0;
-	SDL_Texture * Sprites = nullptr;
 	bool fx_played = false;
 	TYPE Particle_Type=NO_PARTICLE;
 

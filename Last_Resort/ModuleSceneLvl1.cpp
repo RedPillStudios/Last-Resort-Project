@@ -16,6 +16,7 @@
 #include "ModuleCollision.h"
 #include "ModuleParticles.h"
 #include "ModuleEnemies.h"
+#include "ModulePowerUp.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -72,6 +73,7 @@ bool ModuleSceneLvl1::Start()
 
 	if (IsEnabled()) {
 		App->enemies->Enable();
+		App->powerup->Enable();
 	}
 	if (App->player->IsEnabled() == false && App->scene1background->coins > 0) {
 		App->player->Enable();
@@ -194,9 +196,7 @@ bool ModuleSceneLvl1::Start()
 
 	//ZICZAC
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,3560, 145);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,7560, 60);
-
-	
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, 7560, 60);
 
 	//CARS
 	App->enemies->AddEnemy(ENEMY_TYPES::CARS,-10, 195);
@@ -218,6 +218,8 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->textures->Unload(graphics_SecondPlaneBackground);
 	App->textures->Unload(graphics_Crater_Boss_Zone);
 
+	App->powerup->Disable();
+
 	App->collision->Disable();
 	App->enemies->Disable();
 	return true;
@@ -227,8 +229,6 @@ update_status ModuleSceneLvl1::Update() {
 
     position_max_limit++;
 	position_min_limit++;
-
-	
 
 	//Add player to the game
 	if (App->player->IsEnabled() == false && coins > 0 && App->player->Dead == true) {
@@ -257,20 +257,19 @@ update_status ModuleSceneLvl1::Update() {
 		
 			App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, App->player->position.x + 200, App->player->position.y);
 	}
+
+	App->render->Blit(graphics_Crater_Boss_Zone, 0, 0, &CraterBossZone, 0.0f);
+	App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
+	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
+	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL, 0.5f); // FIRST PLANE BACKGROUND
+
 	// FADE IF NOT ENOUGHT COINS
 	if (coins <= 0 && (App->player->Dead == true && App->player2->Dead == true)) {
 		App->player->Disable();
 		App->player2->Disable();
+		App->powerup->Disable();
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f); 
 	}
 
-		App->render->Blit(graphics_Crater_Boss_Zone, 0, 0, &CraterBossZone, 0.0f);
-		App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
-		App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
-		App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL, 0.5f); // FIRST PLANE BACKGROUND
-
-
 	return UPDATE_CONTINUE;
 }
-
-

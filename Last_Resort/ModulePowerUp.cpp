@@ -108,9 +108,11 @@ bool ModulePowerUp::Start() {
 }
 
 bool ModulePowerUp::CleanUp() {
-
+	
 	LOG("Cleaning Up Power Ups");
+	App->textures->Unload(HOU_Texture);
 	App->textures->Unload(powerup);
+	App->textures->Unload(Charge_texture);
 	return true;
 }
 

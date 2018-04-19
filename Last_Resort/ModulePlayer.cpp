@@ -96,7 +96,7 @@ bool ModulePlayer::Start() {
 	DestroyShip.Reset();
 	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
 
-	font_score = App->fonts->Load("Images/Fonts/chars_Sprite1.png", "0123456789[]ABCDEFGHIJKLMNOPQRSTUVWXYZ_.&#", 3);
+	//font_score = App->fonts->Load("Images/Fonts/chars_Sprite1.png", "0123456789[]ABCDEFGHIJKLMNOPQRSTUVWXYZ_.&#", 3);
 
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
 	Ship1Collider = App->collision->AddCollider({ position.x, position.y,32,12 }, COLLIDER_PLAYER, this);
@@ -230,11 +230,12 @@ update_status ModulePlayer::Update() {
 		else 
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
 	
-		sprintf_s(score_text, 10, "%7d", PlayerScore);
-		App->fonts->BlitText(61, 16, font_score, score_text);
+		//sprintf_s(score_text, 10, "%7d", PlayerScore);
+		//App->fonts->BlitText(61, 16, font_score, score_text);
   
 		//end anim of dead and disable
 		if (ToBeDeleted == true && current_animation->Finished() == true) {
+			App->powerup->Disable();
 			Disable();
 		}
 	return UPDATE_CONTINUE;
@@ -253,10 +254,9 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 				App->scene1background->coins -= 1;
 				LOG("TE QUITO UN COIN PAPITO");
 				Dead = true;
+				ToBeDeleted = true;
 				current_animation = &DestroyShip;
 				Ship1Collider->to_delete = true;
-				if (DestroyShip.Finished())
-					Disable();
 		}
 	}
 }

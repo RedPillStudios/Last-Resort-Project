@@ -207,17 +207,11 @@ update_status ModulePlayer2::Update() {
 	}
 
 	Ship2Collider->SetPos(positionp2.x, positionp2.y);
-	
-
-
 
 	//end anim of dead and disable
 	if (ToBeDeleted == true && current_animation2->Finished() == true) {
 		Disable();
 	}
-
-	
-
 
 	return UPDATE_CONTINUE;
 }
@@ -231,9 +225,8 @@ void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 			LOG("TE QUITO UN COIN MAMASITA");
 			Dead = true;
 			current_animation2 = &DestroyShip;
+			ToBeDeleted = true;
 			Ship2Collider->to_delete = true;
-			if (DestroyShip.Finished())
-				Disable();
 		}
 	}
 }
