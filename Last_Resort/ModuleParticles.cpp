@@ -16,6 +16,7 @@ ModuleParticles::ModuleParticles() {
 
 		active[i] = nullptr;
 	}
+
 }
 
 ModuleParticles::~ModuleParticles() {}
@@ -23,7 +24,6 @@ ModuleParticles::~ModuleParticles() {}
 bool ModuleParticles::Start() {
 
 	LOG("Loading Particles");
-	 
 	ImpactExplosionSound = App->sound->LoadChunk("Audio/General/007_Enemy_Explosion_Standard.wav");
 
 	ShootExplosion.Anim.PushBack({ 82, 239, 12, 12 });
@@ -51,12 +51,18 @@ bool ModuleParticles::Start() {
 	EnemyExplosion.Anim.PushBack({67, 396, 32, 32});
 	EnemyExplosion.Anim.PushBack({100, 396, 32, 32 });
 	EnemyExplosion.Anim.PushBack({ 132, 396, 32, 32 });
-	
-	
 	EnemyExplosion.Anim.speed = 0.3f;
 	EnemyExplosion.Anim.loop = false;
 	EnemyExplosion.Sprites= App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
 
+
+
+	HOU_Shot.Anim.PushBack({ 117,250,13,13 });
+	//HOU_Shot.Anim.PushBack({117,263,13,13});
+	HOU_Shot.Anim.speed = 0.2f;
+	HOU_Shot.Anim.loop = true;
+	HOU_Shot.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	HOU_Shot.Life = 2200;
 
 	return true;
 
@@ -95,7 +101,6 @@ update_status ModuleParticles::Update() {
 		}
 
 		else if (SDL_GetTicks() >= p->Born) {
-
 			App->render->Blit(p->Sprites, p->Position.x, p->Position.y, &(p->Anim.GetCurrentFrame()));
 			if (p->fx_played = false) {
 

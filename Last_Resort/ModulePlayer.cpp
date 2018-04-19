@@ -10,11 +10,13 @@
 #include "ModulePowerUp.h"
 #include "ModulePlayer2.h"
 #include "ModuleCollision.h"
+#include "ModuleFonts.h"
 #include "ModuleEnemies.h"
 #include "ModuleSceneLvl1.h"
 
-// Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
+#include <stdio.h>
 
+// Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 ModulePlayer::ModulePlayer()
 {
 
@@ -66,11 +68,8 @@ ModulePlayer::ModulePlayer()
 	DestroyShip.PushBack({ 110,101,55,17 });
 	DestroyShip.PushBack({178,122,2,2});
 
-
 	DestroyShip.speed = 0.3f;
 	DestroyShip.loop = false;
-	
-
 }
 
 ModulePlayer::~ModulePlayer() {}
@@ -78,7 +77,6 @@ ModulePlayer::~ModulePlayer() {}
 // Load assets
 bool ModulePlayer::Start() {
 
-	
 	LOG("Loading player 1 textures");
 	position.x = App->scene1background->position_min_limit + 20;
 	position.y = SCREEN_HEIGHT / 2;
@@ -96,7 +94,10 @@ bool ModulePlayer::Start() {
 	
 	Appear.Reset();
 	DestroyShip.Reset();
-	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
+	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
+
+	font_score = App->fonts->Load("Images/Fonts/chars_Sprite1.png", "0123456789[]ABCDEFGHIJKLMNOPQRSTUVWXYZ_.&#", 3);
+
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
 	Ship1Collider = App->collision->AddCollider({ position.x, position.y,32,12 }, COLLIDER_PLAYER, this);
 
@@ -229,21 +230,23 @@ update_status ModulePlayer::Update() {
 		else 
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
 	
-
-
+		sprintf_s(score_text, 10, "%7d", PlayerScore);
+		App->fonts->BlitText(61, 16, font_score, score_text);
+  
 		//end anim of dead and disable
 		if (ToBeDeleted == true && current_animation->Finished() == true) {
 			Disable();
 		}
-		
-		
-		
 	return UPDATE_CONTINUE;
 }
 
 void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
+
+	//if (c1->type == COLLIDER_POWER_UP && c2->type == COLLIDER_PLAYER) {
+	//	App->powerup->HOU_activated = true;
+	//	App->powerup->colliderPowerUp->to_delete = true;
+	//}
 	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
-		
 
 			if (!GOD) {
 

@@ -27,8 +27,6 @@ ModuleEnemies::~ModuleEnemies() {}
 bool ModuleEnemies::Start() {
 
 	LOG("Starting Module Enemies");
-	//sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
-	
 	return true;
 }
 
@@ -85,8 +83,7 @@ update_status ModuleEnemies::PostUpdate() {
 
 		if (enemies[i] != nullptr) {
 
-			if (enemies[i]->position.x * SCREEN_SIZE < (App->scene1background->position_min_limit) - SPAWN_MARGIN) {
-
+			  if (enemies[i]->position.x * SCREEN_SIZE < (App->scene1background->position_min_limit) - SPAWN_MARGIN) {
 				LOG("DeSpawning enemy at %d", enemies[i]->position.x * SCREEN_SIZE);
 				delete enemies[i];
 				enemies[i] = nullptr;
@@ -149,11 +146,12 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 		
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 		
-		if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1) {
+ if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1) {
 
 			enemies[i]->OnCollision(c2);
 			--(enemies[i]->life);
 
+			//ADD HERE App.player.score += score;
 			if (enemies[i]->life <= 0) {
 				delete enemies[i];
 				enemies[i] = nullptr;

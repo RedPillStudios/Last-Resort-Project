@@ -15,9 +15,11 @@ protected:
 	Animation *animation = nullptr;
 	Collider *collider = nullptr;
 
+
 public:
 
 	fPoint position;
+	SDL_Texture *sprites;
 
 	Enemy(int x, int y);
 	virtual ~Enemy();
@@ -25,7 +27,10 @@ public:
 	const Collider* GetCollider() const;
 
 	uint life;
+	uint score;
+
 	SDL_Texture *sprites = nullptr;
+
 
 public:
 

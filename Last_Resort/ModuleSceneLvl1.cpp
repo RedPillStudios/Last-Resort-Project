@@ -81,7 +81,7 @@ bool ModuleSceneLvl1::Start()
 		App->player2->Enable();
 		App->player2->resetPosition2();
 	}
-  
+
 	//Enemies
 	//WASP->Wave1{
 	//troop1
@@ -148,11 +148,9 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3280, 90);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3320, 75);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3310, 145);
-
 	//}
 
 	//WASP->wave4
-
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3700, 145);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3740, 115);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3780, 85);
@@ -164,10 +162,8 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 4020, 55);
 
 	//Rhino->Wave1
-	
 	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 525, 75);
 		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 570, 75);*/
-
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2425,75);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2470, 75);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2515, 75);
@@ -181,7 +177,6 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2875, 75);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2920, 75);
 
-
 	//Wave2
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5500, 77);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5540, 77);
@@ -190,13 +185,12 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5660, 77);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5700, 77);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5740, 77);
+  
 	 //wave3
-
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5860, 60);//these are not well located!!!!!!!!!!!!!!!!!!!!!!!!
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6960, 60);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 7060, 60);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 7160, 60);
-
 
 	//ZICZAC
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,3560, 145);

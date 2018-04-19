@@ -15,6 +15,11 @@
 struct SDL_Texture;
 struct Collider;
 enum COLLIDER_TYPE;
+enum TYPE {
+	NO_PARTICLE,
+	PARTICLE_1,
+	PARTICLE_2
+};
 
 struct Particle {
 
@@ -27,6 +32,9 @@ struct Particle {
 	Uint32 Life = 0;
 	SDL_Texture * Sprites = nullptr;
 	bool fx_played = false;
+	TYPE Particle_Type=NO_PARTICLE;
+
+	SDL_Texture *Sprites = nullptr;
 
 	Particle();
 	Particle(const Particle &p);
@@ -51,7 +59,6 @@ public:
 
 private:
 
-	
 	Particle *active[MAX_ACTIVE_PARTICLES];
 
 public:
@@ -62,6 +69,7 @@ public:
 	Particle EnemyExplosion;
 	Particle Laser2;
 	Particle ShootExplosionLaser2; // estas dos son para el segundo tipo de disparo
+	Particle HOU_Shot;
 
 	Mix_Chunk *ImpactExplosionSound;
 

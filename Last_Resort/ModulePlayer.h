@@ -45,6 +45,10 @@ public:
 	iPoint position;
 
 	Collider *Ship1Collider;
+
+	int font_score = -1;
+	char score_text[10];
+	uint PlayerScore = 0;
 	
 
 public:
