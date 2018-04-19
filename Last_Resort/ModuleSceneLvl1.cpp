@@ -42,6 +42,8 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	CraterBossZone.w = SCREEN_WIDTH;
 	CraterBossZone.h = SCREEN_HEIGHT;
 
+	
+
 }
 
 ModuleSceneLvl1::~ModuleSceneLvl1()
@@ -66,18 +68,20 @@ bool ModuleSceneLvl1::Start()
 	Mix_Volume(-1, VOLUME_MUSIC);
 
 	if (IsEnabled()) {
-		if (App->player->IsEnabled() == false) {
-			App->player->Enable();
-		}
-		App->player->resetPosition();
 		App->enemies->Enable();
 	}
+	if (App->player->IsEnabled() == false && App->scene1background->coins >0) {
+		App->player->Enable();
+		App->player->resetPosition();
+	}
+	if (App->player2->IsEnabled() == false && App->scene1background->coins >0) {
+		App->player2->Enable();
+		App->player2->resetPosition2();
+	}
+  
 	//Enemies
-
-
 	//WASP->Wave1{
 	//troop1
-
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 540, 75);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 580, 60);
@@ -199,9 +203,7 @@ bool ModuleSceneLvl1::Start()
 
 	//CARS
 	App->enemies->AddEnemy(ENEMY_TYPES::CARS,-10, 195);
-	
 
-	
 	if (App->collision->IsEnabled()==false) {
 		App->collision->Enable();
 	}
@@ -226,16 +228,27 @@ bool ModuleSceneLvl1::CleanUp() {
 // Update: draw background
 update_status ModuleSceneLvl1::Update() {
 
-	if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && App->player->PlayerActivated == false) {
+    position_max_limit++;
+	position_min_limit++;
+
+	
+
+	//Add player to the game
+	if (App->player->IsEnabled() == false && coins > 0 && App->player->Dead == true) {
+		App->player->Enable();
+		App->player->resetPosition();
+	}
+	if (App->player2->IsEnabled() == false && coins > 0 && App->player2->Dead == true) {
 		App->player2->Enable();
-		App->player->PlayerActivated = true;
-		App->player2->Dead = false;
 		App->player2->resetPosition2();
 	}
 
 	//camera Mov
-	App->render->camera.x += 1 * SCREEN_SIZE;
-
+	App->render->camera.x += 1*SCREEN_SIZE;
+	
+	App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
+	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
+	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL,0.5f); // FIRST PLANE BACKGROUND
 
 	if (App->input->keyboard[SDL_SCANCODE_1])
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 3.0f);
@@ -246,23 +259,13 @@ update_status ModuleSceneLvl1::Update() {
 	if (App->input->keyboard[SDL_SCANCODE_F11] == KEY_STATE::KEY_DOWN) {
 		
 			App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, App->player->position.x + 200, App->player->position.y);
-		
 	}
-	
-	// Condition to still play if pl2 is active 
-
-		if (App->player->Dead == true && App->player2->IsEnabled()== false) {
-			if (App->player->DestroyShip.Finished()) 
-				App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
-			
-		}
-		else if ((App->player->Dead == true && App->player2->Dead == true)) {
-			if (App->player->DestroyShip.Finished()&&App->player2->DestroyShip.Finished()) {
-				App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
-			}
-		}
-
-
+	// FADE IF NOT ENOUGHT COINS
+	if (coins <= 0 && (App->player->Dead == true && App->player2->Dead == true)) {
+		App->player->Disable();
+		App->player2->Disable();
+		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f); 
+	}
 
 		App->render->Blit(graphics_Crater_Boss_Zone, 0, 0, &CraterBossZone, 0.0f);
 		App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
@@ -272,3 +275,5 @@ update_status ModuleSceneLvl1::Update() {
 
 	return UPDATE_CONTINUE;
 }
+
+

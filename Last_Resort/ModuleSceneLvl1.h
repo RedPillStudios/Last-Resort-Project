@@ -27,6 +27,11 @@ public:
 
 
 public:
+	int coins = 6;
+public:
+	int position_max_limit = SCREEN_WIDTH;
+	int position_min_limit = 0;
+public:
 	
 	SDL_Texture* graphics = nullptr; 
 	SDL_Texture* graphics_Boss_Static_Background = nullptr;
@@ -39,6 +44,12 @@ public:
 	SDL_Rect SecondPlaneBackground;
 	SDL_Rect FirstPlaneBackGround;
 	SDL_Rect CraterBossZone;
+	SDL_Rect Lives1Rect;
+	SDL_Rect Lives2Rect;
+	SDL_Rect Lives3Rect;
+
+
+
 	//Music
 	Mix_Music*Stage1 =  nullptr;
 };
