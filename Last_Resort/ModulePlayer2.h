@@ -30,6 +30,8 @@ public://bools
 	bool Dead;
 	bool Player2Activated = false;
 	bool ToBeDeleted = false;
+	bool GOD = false;
+
 public:
 
 

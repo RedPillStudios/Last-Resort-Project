@@ -12,6 +12,7 @@
 #include "EnemyZicZac.h"
 #include "EnemySuicide.h"
 #include "CarsToFast.h"
+#include "ModuleSceneLvl1.h"
 
 #define SPAWN_MARGIN 50
 
@@ -34,7 +35,6 @@ bool ModuleEnemies::Start() {
 bool ModuleEnemies::CleanUp() {
 
 	LOG("Cleaning Up Enemies Module");
-	
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 
@@ -85,7 +85,7 @@ update_status ModuleEnemies::PostUpdate() {
 
 		if (enemies[i] != nullptr) {
 
-			if (enemies[i]->position.x * SCREEN_SIZE < (App->render->camera.x) - SPAWN_MARGIN) {
+			if (enemies[i]->position.x * SCREEN_SIZE < (App->scene1background->position_min_limit) - SPAWN_MARGIN) {
 
 				LOG("DeSpawning enemy at %d", enemies[i]->position.x * SCREEN_SIZE);
 				delete enemies[i];

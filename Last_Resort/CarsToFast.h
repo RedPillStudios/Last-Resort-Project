@@ -11,8 +11,6 @@ class CarsToFast:public Enemy
 private:
 
 	Animation Cars;
-	
-
 
 public:
 

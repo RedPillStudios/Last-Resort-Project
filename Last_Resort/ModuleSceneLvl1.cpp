@@ -42,8 +42,6 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	CraterBossZone.w = SCREEN_WIDTH;
 	CraterBossZone.h = SCREEN_HEIGHT;
 
-	
-
 }
 
 ModuleSceneLvl1::~ModuleSceneLvl1()
@@ -53,6 +51,9 @@ ModuleSceneLvl1::~ModuleSceneLvl1()
 bool ModuleSceneLvl1::Start()
 {
 	LOG("Loading background assets");
+
+	position_max_limit = SCREEN_WIDTH;
+	position_min_limit = 0;
 
 	App->render->camera.x = 0;
 	//order of position in the game
@@ -67,10 +68,12 @@ bool ModuleSceneLvl1::Start()
 	Mix_PlayMusic(Stage1, -1);
 	Mix_Volume(-1, VOLUME_MUSIC);
 
+	coins = 6;
+
 	if (IsEnabled()) {
 		App->enemies->Enable();
 	}
-	if (App->player->IsEnabled() == false && App->scene1background->coins >0) {
+	if (App->player->IsEnabled() == false && App->scene1background->coins > 0) {
 		App->player->Enable();
 		App->player->resetPosition();
 	}

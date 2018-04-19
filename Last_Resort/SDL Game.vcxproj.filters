@@ -114,7 +114,7 @@
       <Filter>Modules\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="CarsToFast.h">
-      <Filter>Modules</Filter>
+      <Filter>Modules\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -194,7 +194,7 @@
       <Filter>Modules\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="CarsToFast.cpp">
-      <Filter>Core</Filter>
+      <Filter>Modules\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -175,6 +175,16 @@ update_status ModulePlayer2::Update() {
 				break;
 			}
 		}
+
+		if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_STATE::KEY_DOWN) {
+
+			if (!GOD)
+				GOD = true;
+
+			else
+				GOD = false;
+		}
+
 		/*Shoot*/
 		if (App->input->keyboard[SDL_SCANCODE_RCTRL] == KEY_STATE::KEY_DOWN) {
 
@@ -215,13 +225,15 @@ update_status ModulePlayer2::Update() {
 void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 
 	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
-		App->scene1background->coins -= 1;
-		LOG("TE QUITO UN COIN MAMASITA");
-		if (IsEnabled()) {
-			Ship2Collider->to_delete = true;
-			ToBeDeleted = true;
+		
+		if (!GOD) {
+			App->scene1background->coins -= 1;
+			LOG("TE QUITO UN COIN MAMASITA");
 			Dead = true;
 			current_animation2 = &DestroyShip;
+			Ship2Collider->to_delete = true;
+			if (DestroyShip.Finished())
+				Disable();
 		}
 	}
 }

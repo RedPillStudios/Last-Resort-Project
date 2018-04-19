@@ -208,12 +208,8 @@ update_status ModulePlayer::Update() {
 			}
 			
 
-			if (!SpawnEnemyCheat && App->input->keyboard[SDL_SCANCODE_F11]) {
-				SpawnEnemyCheat = true;
-				if (SpawnEnemyCheat)
+			if (App->input->keyboard[SDL_SCANCODE_F11]) {
 				  App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, (App->player->position.x) + 200, App->player->position.y);
-				SpawnEnemyCheat = false;
-
 			}
 
 			//Shoot
@@ -247,20 +243,17 @@ update_status ModulePlayer::Update() {
 
 void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
-		App->scene1background->coins -= 1;
-		LOG("TE QUITO UN COIN PAPITO");
-		if (IsEnabled()) {
-			Ship1Collider->to_delete = true;
-			ToBeDeleted = true;
-			Dead = true;
-			current_animation = &DestroyShip;
+		
 
-		if (!GOD) {
-			Dead = true;
-			current_animation = &DestroyShip;
-			Ship1Collider->to_delete = true;
-			if (DestroyShip.Finished())
-				Disable();
+			if (!GOD) {
+
+				App->scene1background->coins -= 1;
+				LOG("TE QUITO UN COIN PAPITO");
+				Dead = true;
+				current_animation = &DestroyShip;
+				Ship1Collider->to_delete = true;
+				if (DestroyShip.Finished())
+					Disable();
 		}
 	}
 }
