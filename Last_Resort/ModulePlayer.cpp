@@ -10,6 +10,9 @@
 #include "ModulePowerUp.h"
 #include "ModulePlayer2.h"
 #include "ModuleCollision.h"
+#include "ModuleFonts.h"
+
+#include <stdio.h>
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
@@ -95,7 +98,10 @@ bool ModulePlayer::Start() {
 		App->player2->Disable();*/
 	Appear.Reset();
 	DestroyShip.Reset();
-	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
+	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
+
+	font_score = App->fonts->Load("Images/Fonts/chars_Sprite1.png", "0123456789[]ABCDEFGHIJKLMNOPQRSTUVWXYZ_.&#", 3);
+
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
 	Ship1Collider = App->collision->AddCollider({ position.x, position.y,32,12 }, COLLIDER_PLAYER, this);
 
@@ -212,6 +218,9 @@ update_status ModulePlayer::Update() {
 		else 
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
 	
+		sprintf_s(score_text, 10, "%7d", PlayerScore);
+		App->fonts->BlitText(61, 16, font_score, score_text);
+
 	return UPDATE_CONTINUE;
 }
 

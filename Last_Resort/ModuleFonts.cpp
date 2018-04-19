@@ -6,17 +6,14 @@
 
 #include<string.h>
 
-// Constructor
 ModuleFonts::ModuleFonts() : Module()
 {}
 
-// Destructor
 ModuleFonts::~ModuleFonts()
 {}
 
-// Load new texture from file path
-int ModuleFonts::Load(const char* texture_path, const char* characters, uint rows)
-{
+int ModuleFonts::Load(const char* texture_path, const char* characters, uint rows) {
+
 	int id = -1;
 
 	if (texture_path == nullptr || characters == nullptr || rows == 0)
@@ -44,27 +41,16 @@ int ModuleFonts::Load(const char* texture_path, const char* characters, uint row
 		return id;
 	}
 
-	fonts[id].graphic = tex; // graphic: pointer to the texture
-	fonts[id].rows = rows; // rows: rows of characters in the texture
-	fonts[id].len = strlen(characters); // len: length of the table
-
-										// TODO 1: Finish storing font data
-
-										// table: array of chars to have the list of characters
+	fonts[id].graphic = tex;
+	fonts[id].rows = rows;
+	fonts[id].len = strlen(characters);
 
 	strcpy_s(fonts[id].table, characters);
 
-	// row_chars: amount of chars per row of the texture
-
 	fonts[id].row_chars = strlen(characters) / rows;
-
 	App->textures->GetSize(tex, fonts[id].char_w, fonts[id].char_h);
-	// char_w: width of each character
 	fonts[id].char_w /= fonts[id].row_chars;
 	fonts[id].char_h /= rows;
-
-	// char_h: height of each character
-
 
 	LOG("Successfully loaded BMP font from %s", texture_path);
 
@@ -81,7 +67,6 @@ void ModuleFonts::UnLoad(int font_id)
 	}
 }
 
-// Render text using a bitmap font
 void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 {
 	if (text == nullptr || font_id < 0 || font_id >= MAX_FONTS || fonts[font_id].graphic == nullptr)
@@ -97,17 +82,15 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 	rect.w = font->char_w;
 	rect.h = font->char_h;
 
-	for (uint i = 0; i < len; ++i)   // i is the position in text, the letter
+	for (uint i = 0; i < len; ++i)
 	{
-		// TODO 2: Find the character in the table and its position in the texture, then Blit
 		int c = 0;
-		for (; c < fonts[font_id].len; ++c) // c is the pos in our table
+		for (; c < fonts[font_id].len; ++c)
 		{
 			if (fonts[font_id].table[c] == text[i])
-			{
-				break;
+					break;
 
-			}
+			
 		}
 
 		uint col = c % fonts[font_id].row_chars;

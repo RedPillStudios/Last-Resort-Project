@@ -139,6 +139,7 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 			enemies[i]->OnCollision(c2);
 			--(enemies[i]->life);
 
+			//ADD HERE App.player.score += score;
 			if (enemies[i]->life <= 0) {
 				delete enemies[i];
 				enemies[i] = nullptr;

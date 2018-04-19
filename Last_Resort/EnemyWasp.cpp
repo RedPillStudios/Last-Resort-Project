@@ -14,6 +14,7 @@ EnemyWasp::EnemyWasp(int x, int y) : Enemy(x, y) {
 	AnimWasp.PushBack({ 0, 178, 32, 15 });
 	AnimWasp.PushBack({ 0, 178, 32, 15 });
 
+	score = 100;
 	life = 1;
 	animation = &AnimWasp;
 	collider = App->collision->AddCollider({0,0,31,16}, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);

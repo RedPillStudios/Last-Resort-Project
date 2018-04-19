@@ -22,12 +22,9 @@ public:
 	ModuleFonts();
 	~ModuleFonts();
 
-	//Loading Font
-
 	int Load(const char* texture_path, const char *characters, uint rows = 1);
 	void UnLoad(int font_id);
 
-	//Create surface from text
 	void BlitText(int x, int y, int bmp_font_id,const char *text) const;
 
 private:
