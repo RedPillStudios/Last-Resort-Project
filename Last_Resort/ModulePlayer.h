@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "Globals.h"
 #include "p2Point.h"
+#include "ModuleSceneLvl1.h"
 
 
 struct SDL_Texture;
@@ -25,6 +26,8 @@ public:
 	bool AppearAnim;
 	bool Dead;
 
+	bool GOD = false;
+	bool ToBeDeleted = false;
 
 public:
 	SDL_Rect Ship;
@@ -52,9 +55,8 @@ public:
 	
 	bool startAnim = true;
 	bool shooted = false;
-	bool PlayerActivated = false;
-	int position_max_limit = SCREEN_WIDTH;
-	int position_min_limit = 0;
+	
+	
 
 	Mix_Chunk*Shot_Sound=nullptr;
 
@@ -72,8 +74,8 @@ public:
 	}
 
 		void resetPosition() {
-		position.x = 20;
-		position.y = SCREEN_HEIGHT / 2;
+			position.x = App->scene1background->position_min_limit + 20;
+		    position.y = SCREEN_HEIGHT / 2;
 
 	}
 		void Reset_limits(){

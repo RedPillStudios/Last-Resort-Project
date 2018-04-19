@@ -11,8 +11,8 @@ class EnemyWasp : public Enemy {
 private:
   
 	Animation AnimWasp;
-	Collider *EnemyWaspCollider;
-
+	/*Collider *EnemyWaspCollider;*/
+	
 
 public:
 

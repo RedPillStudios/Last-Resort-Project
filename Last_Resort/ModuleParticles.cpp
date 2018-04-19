@@ -6,6 +6,7 @@
 #include "ModuleCollision.h"
 #include "ModuleParticles.h"
 #include "ModulePlayer.h"
+#include "ModuleSceneLvl1.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -23,13 +24,13 @@ ModuleParticles::~ModuleParticles() {}
 bool ModuleParticles::Start() {
 
 	LOG("Loading Particles");
-	
 	ImpactExplosionSound = App->sound->LoadChunk("Audio/General/007_Enemy_Explosion_Standard.wav");
 
 	ShootExplosion.Anim.PushBack({ 82, 239, 12, 12 });
 	ShootExplosion.Anim.PushBack({ 94, 241, 11, 9 });
 	ShootExplosion.Anim.loop = false;
 	ShootExplosion.Anim.speed = 0.3f;
+	ShootExplosion.Sprites= App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
 
 	Laser.Anim.PushBack({ 115, 242, 15, 7 });
 	Laser.Anim.speed = 0.0f;
@@ -44,14 +45,16 @@ bool ModuleParticles::Start() {
 	ImpactExplosion.Anim.PushBack({ 363,369,16,16 });
 	ImpactExplosion.Anim.speed = 0.3f;
 	ImpactExplosion.Anim.loop = false;
+	ImpactExplosion.Sprites= App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
 
-
-	EnemyExplosion.Anim.PushBack({ 450, 377, 24, 24 });
-	EnemyExplosion.Anim.PushBack({ 449, 408, 28, 26 });
-	EnemyExplosion.Anim.PushBack({ 447, 434, 32, 33 });
-	EnemyExplosion.Anim.PushBack({ 446, 467, 32, 32 });
+	EnemyExplosion.Anim.PushBack({ 0, 396, 32, 32 });
+	EnemyExplosion.Anim.PushBack({67, 396, 32, 32});
+	EnemyExplosion.Anim.PushBack({100, 396, 32, 32 });
+	EnemyExplosion.Anim.PushBack({ 132, 396, 32, 32 });
 	EnemyExplosion.Anim.speed = 0.3f;
 	EnemyExplosion.Anim.loop = false;
+	EnemyExplosion.Sprites= App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
+
 
 
 	HOU_Shot.Anim.PushBack({ 117,250,13,13 });
@@ -98,16 +101,13 @@ update_status ModuleParticles::Update() {
 		}
 
 		else if (SDL_GetTicks() >= p->Born) {
-
-				App->render->Blit(p->Sprites, p->Position.x, p->Position.y, &(p->Anim.GetCurrentFrame()));
-
+			App->render->Blit(p->Sprites, p->Position.x, p->Position.y, &(p->Anim.GetCurrentFrame()));
 			if (p->fx_played = false) {
 
 				p->fx_played = true;
 			}
 		}
 	}
-
 	return UPDATE_CONTINUE;
 }
 
@@ -180,7 +180,7 @@ bool Particle::Update() {
 		if (Anim.Finished())
 			ret = false;
 
-	if (collider != nullptr && collider->type == COLLIDER_PLAYER_SHOT && Position.x >= App->player->position_max_limit)
+	if (collider != nullptr && collider->type == COLLIDER_PLAYER_SHOT && Position.x >= App->scene1background->position_max_limit)
 			ret = false;
 	
 

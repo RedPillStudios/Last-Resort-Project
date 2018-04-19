@@ -29,6 +29,9 @@ public:
 	uint life;
 	uint score;
 
+	SDL_Texture *sprites = nullptr;
+
+
 public:
 
 	virtual void Move() {};

@@ -11,11 +11,12 @@
 #include "ModulePlayer2.h"
 #include "ModuleCollision.h"
 #include "ModuleFonts.h"
+#include "ModuleEnemies.h"
+#include "ModuleSceneLvl1.h"
 
 #include <stdio.h>
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
-
 ModulePlayer::ModulePlayer()
 {
 
@@ -67,11 +68,8 @@ ModulePlayer::ModulePlayer()
 	DestroyShip.PushBack({ 110,101,55,17 });
 	DestroyShip.PushBack({178,122,2,2});
 
-
 	DestroyShip.speed = 0.3f;
 	DestroyShip.loop = false;
-	
-
 }
 
 ModulePlayer::~ModulePlayer() {}
@@ -79,11 +77,10 @@ ModulePlayer::~ModulePlayer() {}
 // Load assets
 bool ModulePlayer::Start() {
 
-	position_max_limit = SCREEN_WIDTH;
-	position_min_limit = 0;
 	LOG("Loading player 1 textures");
-	position.x = 0;
+	position.x = App->scene1background->position_min_limit + 20;
 	position.y = SCREEN_HEIGHT / 2;
+
 	if (IsEnabled()) {
 		if (App->particles->IsEnabled() == false)
 			App->particles->Enable();
@@ -94,8 +91,7 @@ bool ModulePlayer::Start() {
 			App->powerup->Enable();
 		}
 	}
-	/*if (App->player2->IsEnabled() == true)
-		App->player2->Disable();*/
+	
 	Appear.Reset();
 	DestroyShip.Reset();
 	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
@@ -105,8 +101,10 @@ bool ModulePlayer::Start() {
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
 	Ship1Collider = App->collision->AddCollider({ position.x, position.y,32,12 }, COLLIDER_PLAYER, this);
 
+	ToBeDeleted = false;
+	
 	Dead = false;
-	PlayerActivated = false;
+	//Player1Activated = false;
 	current_animation = &Appear;
 
 	return true;
@@ -122,6 +120,8 @@ bool ModulePlayer::CleanUp() {
 	//App->particles->Disable();
 
 	App->textures->Unload(graphicsp1);
+	if (GOD)
+		GOD = false;
 
 
 	//DestroyShip.Reset();
@@ -132,16 +132,15 @@ bool ModulePlayer::CleanUp() {
 update_status ModulePlayer::Update() {
 	
 	position.x += 1;
-	position_max_limit++;
-	position_min_limit++;
+	
 
 	int speed = 2;
 
 	if (current_animation == &Appear) {
-		position.x=position_min_limit+2;
+		position.x=App->scene1background->position_min_limit+2;
 		
-		if (Appear.Finished()&&current_animation!=&Standard) {
-			position.x = position_min_limit + 32;
+		if (Appear.Finished() && current_animation!=&Standard) {
+			position.x = App->scene1background->position_min_limit + 32;
 			current_animation = &Standard;
 		}
 	}
@@ -186,21 +185,34 @@ update_status ModulePlayer::Update() {
 			//Movement Right
 			if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
 				position.x += speed;
-				
-
-				while (position.x >=position_max_limit-32){
-					position.x = position_max_limit-32;
+				while (position.x >= App->scene1background->position_max_limit-32){
+					position.x = App->scene1background->position_max_limit-32;
 					break;
 				}
 			}
 			//Movement left
 			if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) {
 				position.x -= speed;
-				while (position.x <= position_min_limit+1) {
-					position.x = position_min_limit+1;
+				while (position.x <= App->scene1background->position_min_limit+1) {
+					position.x = App->scene1background->position_min_limit+1;
 					break;
 				}
 			}
+
+			if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_STATE::KEY_DOWN) {
+				
+				if (!GOD)
+					GOD = true;
+			
+				else
+					GOD = false;
+			}
+			
+
+			if (App->input->keyboard[SDL_SCANCODE_F11]) {
+				  App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, (App->player->position.x) + 200, App->player->position.y);
+			}
+
 			//Shoot
 			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
 				App->particles->AddParticle(App->particles->Laser, setFirePos().x, setFirePos().y, COLLIDER_PLAYER_SHOT);
@@ -220,7 +232,11 @@ update_status ModulePlayer::Update() {
 	
 		sprintf_s(score_text, 10, "%7d", PlayerScore);
 		App->fonts->BlitText(61, 16, font_score, score_text);
-
+  
+		//end anim of dead and disable
+		if (ToBeDeleted == true && current_animation->Finished() == true) {
+			Disable();
+		}
 	return UPDATE_CONTINUE;
 }
 
@@ -232,10 +248,15 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 	//}
 	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
 
-		Dead = true;
-		current_animation = &DestroyShip;
-		Ship1Collider->to_delete = true;
-		if (DestroyShip.Finished())
-			Disable();
+			if (!GOD) {
+
+				App->scene1background->coins -= 1;
+				LOG("TE QUITO UN COIN PAPITO");
+				Dead = true;
+				current_animation = &DestroyShip;
+				Ship1Collider->to_delete = true;
+				if (DestroyShip.Finished())
+					Disable();
+		}
 	}
 }
