@@ -5,6 +5,7 @@
 #include "Animation.h"
 #include "Globals.h"
 #include "p2Point.h"
+#include "ModuleSceneLvl1.h"
 
 struct SDL_Texture;
 struct Collider;
@@ -28,7 +29,7 @@ public://bools
 	bool AppearAnim;
 	bool Dead;
 	bool Player2Activated = false;
-	bool ToBeDestroyed = false;
+	bool ToBeDeleted = false;
 public:
 
 
@@ -74,7 +75,7 @@ public:
 	}
 
 	void resetPosition2() {
-		positionp2.x = 20;
+		positionp2.x = App->scene1background->position_min_limit + 20;
 		positionp2.y = SCREEN_HEIGHT / 4;
 
 	};

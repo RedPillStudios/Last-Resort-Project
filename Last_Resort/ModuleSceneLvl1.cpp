@@ -68,24 +68,32 @@ bool ModuleSceneLvl1::Start()
 	Mix_Volume(-1, VOLUME_MUSIC);
 
 	if (IsEnabled()) {
-		if (App->player->IsEnabled() == false) {
-			App->player->Enable();
-		}
-		App->player->resetPosition();
 		App->enemies->Enable();
-		App->player2->IsEnabled() == false;
+	}
+	if (App->player->IsEnabled() == false && App->scene1background->coins >0) {
+		App->player->Enable();
+		App->player->resetPosition();
+	}
+	if (App->player2->IsEnabled() == false && App->scene1background->coins >0) {
+		App->player2->Enable();
+		App->player2->resetPosition2();
 	}
 	//Enemies
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, SCREEN_WIDTH, 100);
+	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, SCREEN_WIDTH, 100);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 400, 100);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 470, 100);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 540, 100);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 540, 100);*/
 
 
     App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 200, 80);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 250, 80);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 110, 80);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 225, 80);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 200, 100);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 250, 100);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 110, 100);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 225, 100);
 
 
 	if (App->collision->IsEnabled()==false) {
@@ -112,27 +120,23 @@ bool ModuleSceneLvl1::CleanUp() {
 // Update: draw background
 update_status ModuleSceneLvl1::Update() {
 
-	if (App->input->keyboard[SDL_SCANCODE_7] == KEY_STATE::KEY_DOWN && App->player2->Player2Activated == false && App->player2->lives > 0) {
-		if (App->player2->IsEnabled() == false) {
-			App->player2->Enable();
-			App->player2->Player2Activated = true;
-			App->player2->Dead = false;
-			App->player2->resetPosition2();
-			App->player2->Ship2Collider->to_delete = false;
-			App->player2->ToBeDestroyed = false;
-		}
+    position_max_limit++;
+	position_min_limit++;
+
+	
+
+	//Add player to the game
+	if (App->player->IsEnabled() == false && coins > 0 && App->player->Dead == true) {
+		App->player->Enable();
+		App->player->resetPosition();
 	}
-	if (App->input->keyboard[SDL_SCANCODE_6] == KEY_STATE::KEY_DOWN && App->player->Player1Activated == false && App->player->lives > 0) {
-		if(App->player->IsEnabled()==false){
-			App->player->Enable();
-			App->player->Player1Activated = true;
-			App->player->Dead = false;
-			App->player->resetPosition();
-			App->player->Ship1Collider->to_delete = false;
-			App->player->ToBeDestroyed = false;
-		}
+	if (App->player2->IsEnabled() == false && coins > 0 && App->player2->Dead == true) {
+		App->player2->Enable();
+		App->player2->resetPosition2();
 	}
-  
+
+
+		
 
 	//camera Mov
 	App->render->camera.x += 1*SCREEN_SIZE;
@@ -148,27 +152,23 @@ update_status ModuleSceneLvl1::Update() {
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 3.0f);
 	
 
+	
+
 	// FADE IF NOT ENOUGHT COINS
-
-
-	if (App->player->lives == 0 && App->player2->lives == 0) {
-		if (App->player->DestroyShip.Finished()) {                               
-		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
-		}
+	
+	if (coins <= 0 && (App->player->Dead == true && App->player2->Dead == true)) {
+		App->player->Disable();
+		App->player2->Disable();
+		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f); 
 	}
 
-		//if (App->player->Dead == true && App->player2->IsEnabled()== false) {
-		//	if (App->player->DestroyShip.Finished()){                                 
-		//		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
-		//	}
-		//}
-		//else if ((App->player->Dead == true && App->player2->Dead == true)) {
-		//	if (App->player->DestroyShip.Finished()&&App->player2->DestroyShip.Finished()) {                   
-		//		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
-		//	}
-		//}
-		
+
+
 
 	
+
+
 	return UPDATE_CONTINUE;
 }
+
+

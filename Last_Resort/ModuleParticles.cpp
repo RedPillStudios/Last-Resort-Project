@@ -6,6 +6,7 @@
 #include "ModuleCollision.h"
 #include "ModuleParticles.h"
 #include "ModulePlayer.h"
+#include "ModuleSceneLvl1.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -166,7 +167,7 @@ bool Particle::Update() {
 		if (Anim.Finished())
 			ret = false;
 
-	if (collider != nullptr && collider->type == COLLIDER_PLAYER_SHOT && Position.x >= App->player->position_max_limit)
+	if (collider != nullptr && collider->type == COLLIDER_PLAYER_SHOT && Position.x >= App->scene1background->position_max_limit)
 			ret = false;
 	
 

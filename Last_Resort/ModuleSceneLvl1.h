@@ -24,6 +24,11 @@ public:
 	bool CleanUp();
 
 public:
+	int coins = 6;
+public:
+	int position_max_limit = SCREEN_WIDTH;
+	int position_min_limit = 0;
+public:
 	
 	SDL_Texture* graphics = nullptr; 
 	SDL_Texture* graphics_Boss_Static_Background = nullptr;
