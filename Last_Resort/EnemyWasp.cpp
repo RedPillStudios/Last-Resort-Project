@@ -16,11 +16,14 @@ EnemyWasp::EnemyWasp(int x, int y) : Enemy(x, y) {
 
 	life = 1;
 	animation = &AnimWasp;
-	collider = App->collision->AddCollider({}, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
+	collider = App->collision->AddCollider({0,0,32,16}, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
 }
 
 void EnemyWasp::Move() {
 
-	(float)position.x -= 1.5f;
+
+	//(float)position.x -= 1.5f;
+	(float)position.x += 1.0f;     // para mantenerla quieta y hacer tests
+
 }

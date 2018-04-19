@@ -24,6 +24,7 @@ public:
 	
 	bool AppearAnim;
 	bool Dead;
+	bool ToBeDestroyed = false;
 
 
 public:
@@ -48,12 +49,15 @@ public:
 	
 	bool startAnim = true;
 	bool shooted = false;
-	bool PlayerActivated = false;
+	bool Player1Activated = false;
 	int position_max_limit = SCREEN_WIDTH;
 	int position_min_limit = 0;
 
 	Mix_Chunk*Shot_Sound=nullptr;
 
+public:
+
+	uint lives = 3;
 
 public:
 
