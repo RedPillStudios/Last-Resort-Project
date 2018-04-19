@@ -13,6 +13,7 @@
 #include "ModuleFonts.h"
 #include "ModuleEnemies.h"
 #include "ModuleSceneLvl1.h"
+#include "ModuleStageClear.h"
 
 #include <stdio.h>
 
@@ -82,23 +83,24 @@ bool ModulePlayer::Start() {
 	position.y = SCREEN_HEIGHT / 2;
 
 	if (IsEnabled()) {
+
+		if (App->fonts->IsEnabled() == false)
+			App->fonts->Enable();
 		if (App->particles->IsEnabled() == false)
 			App->particles->Enable();
-		if (App->collision->IsEnabled() == false) {
+		if (App->collision->IsEnabled() == false) 
 			App->collision->Enable();
-		}
-		if (App->powerup->IsEnabled() == false) {
+		if (App->powerup->IsEnabled() == false)
 			App->powerup->Enable();
-		}
 	}
 
-	PlayerScore = 0;
-	
+	ScoreP1 = 0;
+
 	Appear.Reset();
 	DestroyShip.Reset();
 	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
 
-	font_score = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
+	font = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
 
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
 	Ship1Collider = App->collision->AddCollider({ position.x, position.y,32,12 }, COLLIDER_PLAYER, this);
@@ -120,7 +122,7 @@ bool ModulePlayer::CleanUp() {
 	//App->powerup->Disable();
 	current_animation = NULL;
 	//App->particles->Disable();
-	App->fonts->UnLoad(font_score);
+	//App->fonts->UnLoad(font);
 
 	App->textures->Unload(graphicsp1);
 	if (GOD)
@@ -234,11 +236,36 @@ update_status ModulePlayer::Update() {
 		else 
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
 	
-		sprintf_s(score_text, 10, "%7d", PlayerScore);
-		App->fonts->BlitText(61, 16, font_score, score_text);
-  
+		//1P Score
+		LOG("Writing Player 1 Score");
+		sprintf_s(score_text, "%7d", ScoreP1);
+		App->fonts->BlitText(40, 16, font, score_text);
+		App->fonts->BlitText(13, 16, font, "P1");
+		App->fonts->BlitText(29, 11, font, "_");
+		App->fonts->BlitText(29, 15, font, "_");
+		
+		if (App->player2->Dead == false && App->player2->IsEnabled() == false) {
+			App->fonts->BlitText((SCREEN_WIDTH - 76), 16, font, "INSERT");
+			App->fonts->BlitText((SCREEN_WIDTH - 74), 24, font, "COIN");
+		}
+
+		//TOP Score
+		LOG("Writing Top Score");
+
+		if (App->player2->IsEnabled() == true)
+			TopScore = App->fonts->TopScore(ScoreP1, App->player2->ScoreP2, TopScore);
+		else
+			TopScore = App->fonts->TopScoreP1(ScoreP1, TopScore);
+
+		sprintf_s(top_score, "%7d", TopScore);
+		
+		App->fonts->BlitText((SCREEN_WIDTH / 2) - 41, 16, font, "T0P");
+		App->fonts->BlitText((SCREEN_WIDTH / 2) -9, 16, font, top_score);
+
+
 		//end anim of dead and disable
 		if (ToBeDeleted == true && current_animation->Finished() == true) {
+			App->stageclear->Score1 = ScoreP1;
 			App->powerup->Disable();
 			Disable();
 		}

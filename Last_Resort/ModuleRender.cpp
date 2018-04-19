@@ -5,8 +5,8 @@
 #include "ModuleInput.h"
 #include "SDL/include/SDL.h"
 
-ModuleRender::ModuleRender() : Module()
-{
+ModuleRender::ModuleRender() : Module() {
+
 	camera.x = camera.y = 0;
 	camera.w = SCREEN_WIDTH;
 	camera.h = SCREEN_HEIGHT;
@@ -49,20 +49,6 @@ update_status ModuleRender::PreUpdate()
 
 update_status ModuleRender::Update()
 {
-	int speed = 3;
-
-	if (App->input->keyboard[SDL_SCANCODE_KP_6] == KEY_STATE::KEY_REPEAT)
-		camera.y += speed;
-
-	if (App->input->keyboard[SDL_SCANCODE_KP_7] == KEY_STATE::KEY_REPEAT)
-		camera.y -= speed;
-
-	if (App->input->keyboard[SDL_SCANCODE_KP_8] == KEY_STATE::KEY_REPEAT)
-		camera.x += speed;
-
-	if (App->input->keyboard[SDL_SCANCODE_KP_9] == KEY_STATE::KEY_REPEAT)
-		camera.x -= speed;
-
 	return update_status::UPDATE_CONTINUE;
 }
 

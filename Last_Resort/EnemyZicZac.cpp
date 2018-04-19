@@ -17,6 +17,7 @@ EnemyZicZac::EnemyZicZac(int x,int y):Enemy(x,y){
 	Enemy::sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
 
 	life = 1;
+	score = 100;
 	animation = &AnimZicZac;
 	collider = App->collision->AddCollider({ 0,0,27,22 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 	
@@ -42,7 +43,7 @@ void EnemyZicZac::Move() {
 			wave -= 0.1f;
 	}
 
-	position.y = int(float(original_y) + (30.0f * sinf(wave)));
+	position.y = ((float)(original_y) + (30.0f * sinf(wave)));
 	position.x -= 0.9f;
 
 

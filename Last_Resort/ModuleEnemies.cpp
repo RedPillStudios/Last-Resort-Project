@@ -13,6 +13,7 @@
 #include "EnemySuicide.h"
 #include "CarsToFast.h"
 #include "ModuleSceneLvl1.h"
+#include "ModulePlayer2.h"
 
 #define SPAWN_MARGIN 50
 
@@ -72,8 +73,6 @@ update_status ModuleEnemies::Update() {
 		if (enemies[i] != nullptr) enemies[i]->Draw(enemies[i]->sprites);
 
 	return UPDATE_CONTINUE;
-
-
 }
 
 update_status ModuleEnemies::PostUpdate() {
@@ -125,17 +124,20 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		case ENEMY_TYPES::ENEMY_RHINO:
 			enemies[i] = new Enemy_Rhino(info.x, info.y);
 			break;
-    case ENEMY_TYPES::ENEMY_WASP:
+		
+		case ENEMY_TYPES::ENEMY_WASP:
 	  	enemies[i] = new EnemyWasp(info.x, info.y);
 	  	break;
-
-	case ENEMY_TYPES::ENEMY_ZICZAC:
+		
+		case ENEMY_TYPES::ENEMY_ZICZAC:
 		enemies[i] = new EnemyZicZac(info.x, info.y);
 		break;
-	case ENEMY_TYPES::ENEMY_SUICIDE:
+		
+		case ENEMY_TYPES::ENEMY_SUICIDE:
 		enemies[i] = new EnemySuicide(info.x, info.y);
 		break;
-	case ENEMY_TYPES::CARS:
+		
+		case ENEMY_TYPES::CARS:
 		enemies[i] = new CarsToFast(info.x, info.y);
 		break;
 		}
@@ -148,18 +150,15 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 		
  if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1) {
 
-		//	enemies[i]->OnCollision(c2);
 			--(enemies[i]->life);
-
+		
 			if (enemies[i]->life <= 0) {
-				/*if (enemies[i]. == ENEMY_RHINO)     S HA DE POSAR IF ENEMY TYPE == ENEMY RHINO Y ASI
-					App->player->PlayerScore += 300;
-				else if (ENEMY_TYPES::ENEMY_ZICZAC)
-					App->player->PlayerScore += 100;
-				else if (ENEMY_TYPES::ENEMY_WASP)
-					App->player->PlayerScore += 100;
-				else if (ENEMY_TYPES::CARS)
-					App->player->PlayerScore += 100;*/
+
+				if(c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT)
+					App->player->ScoreP1 += enemies[i]->score;
+				else if (c1->type == COLLIDER_PLAYER_SHOT2 || c2->type == COLLIDER_PLAYER_SHOT2)
+					App->player2->ScoreP2 += enemies[i]->score;
+
 				delete enemies[i];
 				enemies[i] = nullptr;
 				break;

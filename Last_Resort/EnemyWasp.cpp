@@ -16,7 +16,7 @@ EnemyWasp::EnemyWasp(int x, int y) : Enemy(x, y) {
 	Enemy::sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
 
 	life = 1;
-
+	score = 100;
 	AnimWasp.speed = 0.09f;
 	AnimWasp.loop = true;
 	animation = &AnimWasp;

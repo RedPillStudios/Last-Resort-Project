@@ -22,8 +22,6 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
-	
-	
 
 
 public:
@@ -47,8 +45,6 @@ public:
 	SDL_Rect Lives1Rect;
 	SDL_Rect Lives2Rect;
 	SDL_Rect Lives3Rect;
-
-
 
 	//Music
 	Mix_Music*Stage1 =  nullptr;

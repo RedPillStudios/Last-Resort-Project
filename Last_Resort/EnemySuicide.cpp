@@ -43,7 +43,8 @@ EnemySuicide::EnemySuicide(int x,int y) :Enemy(x,y) {
 	//AnimSuicide.PushBack({ 210,90,30,30 });
 	//AnimSuicide.loop = false;
 	//AnimSuicide.speed = 1.0f;
-
+	//life = 1;
+	//score = 100;
 	//animation = &AnimSuicide;
 	//
 	//AnimSuicide2.PushBack({ 0,120,30,30 });

@@ -22,7 +22,7 @@ CarsToFast::CarsToFast(int x, int y): Enemy(x,y){
 	Cars.speed =0.09f;
 	animation = &Cars;
 	life = 1;
-
+	score = 100;
 	collider = App->collision->AddCollider({0,0,21,11 }, COLLIDER_TYPE::COLLIDER_CAR, (Module*)App->enemies);
 
 }

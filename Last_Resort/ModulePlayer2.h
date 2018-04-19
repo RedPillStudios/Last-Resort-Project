@@ -32,6 +32,8 @@ public://bools
 	bool ToBeDeleted = false;
 	bool GOD = false;
 
+	int font2 = -1;
+
 public:
 
 
@@ -52,12 +54,15 @@ public:
 
 	Collider *Ship2Collider;
 
+	//Score
+	char score_text2[10];
+	uint ScoreP2;
+	char top_score[10];
+	uint TopScore;
+
 public:
 
 	uint lives = 3;
-
-public:
-
 	bool startAnim = true;
 	bool shooted = false;
 

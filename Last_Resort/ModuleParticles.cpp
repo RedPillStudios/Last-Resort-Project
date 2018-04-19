@@ -173,14 +173,14 @@ bool Particle::Update() {
 
 	if (Life > 0) {
 
-		if (((int)SDL_GetTicks() - (int)Born) > Life)
+		if (((int)SDL_GetTicks() - (int)Born) > (int)Life)
 			ret = false;
 	}
 	else
 		if (Anim.Finished())
 			ret = false;
 
-	if (collider != nullptr && collider->type == COLLIDER_PLAYER_SHOT && Position.x >= App->scene1background->position_max_limit)
+	if (collider != nullptr && (collider->type == COLLIDER_PLAYER_SHOT || collider->type == COLLIDER_PLAYER_SHOT2) && Position.x >= App->scene1background->position_max_limit)
 			ret = false;
 	
 	if (SDL_GetTicks() >= Born) {

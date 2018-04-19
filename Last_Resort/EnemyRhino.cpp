@@ -20,7 +20,7 @@ Enemy_Rhino::Enemy_Rhino(int x, int y) : Enemy(x, y)
 	fly.loop = true;
 	animation = &fly;
 	life = 5; 
-
+	score = 300;
 
 	collider = App->collision->AddCollider({ 0, 0, 48, 45 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 	original_y = y;
@@ -45,6 +45,6 @@ void Enemy_Rhino::Move()
 			wave -= 0.05f;
 	}
 
-	position.y = int(float(original_y) + (69.0f * sinf(wave)));
+	position.y = ((float)(original_y) + (69.0f * sinf(wave)));
 	position.x -= 0.9f;
 }

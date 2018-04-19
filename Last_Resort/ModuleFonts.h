@@ -25,7 +25,10 @@ public:
 	int Load(const char* texture_path, const char *characters, uint rows = 1);
 	void UnLoad(int font_id);
 
-	void BlitText(int x, int y, int bmp_font_id,const char *text) const;
+	void BlitText(int x, int y, int bmp_font_id, const char *text) const;
+	
+	uint TopScore(uint Score1, uint Score2, uint TopScore);
+	uint TopScoreP1(uint Score1, uint TopScore);
 
 private:
 

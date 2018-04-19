@@ -11,25 +11,25 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>Modules\Enemies and PowerUp</Filter>
+      <Filter>Modules\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="ModuleEnemies.cpp">
-      <Filter>Modules\Enemies and PowerUp</Filter>
+      <Filter>Modules\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="CarsToFast.cpp">
-      <Filter>Modules\Enemies and PowerUp\Cars</Filter>
+      <Filter>Modules\Enemies\Cars</Filter>
     </ClCompile>
     <ClCompile Include="EnemyRhino.cpp">
-      <Filter>Modules\Enemies and PowerUp\Rhino</Filter>
+      <Filter>Modules\Enemies\Rhino</Filter>
     </ClCompile>
     <ClCompile Include="EnemyWasp.cpp">
-      <Filter>Modules\Enemies and PowerUp\Wasp</Filter>
+      <Filter>Modules\Enemies\Wasp</Filter>
     </ClCompile>
     <ClCompile Include="EnemyZicZac.cpp">
-      <Filter>Modules\Enemies and PowerUp\ZigZag</Filter>
+      <Filter>Modules\Enemies\ZigZag</Filter>
     </ClCompile>
     <ClCompile Include="EnemySuicide.cpp">
-      <Filter>Modules\Enemies and PowerUp\Suicide</Filter>
+      <Filter>Modules\Enemies\Suicide</Filter>
     </ClCompile>
     <ClCompile Include="ModuleCollision.cpp">
       <Filter>Modules\Physics</Filter>
@@ -55,9 +55,6 @@
     <ClCompile Include="ModulePlayer.cpp">
       <Filter>Modules\Player</Filter>
     </ClCompile>
-    <ClCompile Include="ModulePowerUp.cpp">
-      <Filter>Modules\Enemies and PowerUp</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleFadeToBlack.cpp">
       <Filter>Modules\Base</Filter>
     </ClCompile>
@@ -79,6 +76,9 @@
     <ClCompile Include="ModuleWindow.cpp">
       <Filter>Modules\Base</Filter>
     </ClCompile>
+    <ClCompile Include="ModulePowerUp.cpp">
+      <Filter>Modules\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h" />
@@ -98,25 +98,25 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
-      <Filter>Modules\Enemies and PowerUp</Filter>
+      <Filter>Modules\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="ModuleEnemies.h">
-      <Filter>Modules\Enemies and PowerUp</Filter>
+      <Filter>Modules\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="CarsToFast.h">
-      <Filter>Modules\Enemies and PowerUp\Cars</Filter>
+      <Filter>Modules\Enemies\Cars</Filter>
     </ClInclude>
     <ClInclude Include="EnemyRhino.h">
-      <Filter>Modules\Enemies and PowerUp\Rhino</Filter>
+      <Filter>Modules\Enemies\Rhino</Filter>
     </ClInclude>
     <ClInclude Include="EnemyWasp.h">
-      <Filter>Modules\Enemies and PowerUp\Wasp</Filter>
+      <Filter>Modules\Enemies\Wasp</Filter>
     </ClInclude>
     <ClInclude Include="EnemyZicZac.h">
-      <Filter>Modules\Enemies and PowerUp\ZigZag</Filter>
+      <Filter>Modules\Enemies\ZigZag</Filter>
     </ClInclude>
     <ClInclude Include="EnemySuicide.h">
-      <Filter>Modules\Enemies and PowerUp\Suicide</Filter>
+      <Filter>Modules\Enemies\Suicide</Filter>
     </ClInclude>
     <ClInclude Include="ModuleCollision.h">
       <Filter>Modules\Physics</Filter>
@@ -142,9 +142,6 @@
     <ClInclude Include="ModulePlayer.h">
       <Filter>Modules\Player</Filter>
     </ClInclude>
-    <ClInclude Include="ModulePowerUp.h">
-      <Filter>Modules\Enemies and PowerUp</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleFadeToBlack.h">
       <Filter>Modules\Base</Filter>
     </ClInclude>
@@ -165,6 +162,9 @@
     </ClInclude>
     <ClInclude Include="ModuleWindow.h">
       <Filter>Modules\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ModulePowerUp.h">
+      <Filter>Modules\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -189,22 +189,22 @@
     <Filter Include="Modules\Physics">
       <UniqueIdentifier>{b80b83e2-a36f-4ea3-9611-33a3b0d6dad3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Modules\Enemies and PowerUp">
+    <Filter Include="Modules\Enemies">
       <UniqueIdentifier>{af62a31f-64cc-4e2e-beb7-87f5f136d350}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Modules\Enemies and PowerUp\Cars">
+    <Filter Include="Modules\Enemies\Cars">
       <UniqueIdentifier>{1694cf65-ad75-4a66-951a-cb447be3908f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Modules\Enemies and PowerUp\Rhino">
+    <Filter Include="Modules\Enemies\Rhino">
       <UniqueIdentifier>{009b851a-cc9c-4ec3-a82b-6937805b7760}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Modules\Enemies and PowerUp\Wasp">
+    <Filter Include="Modules\Enemies\Wasp">
       <UniqueIdentifier>{3d8d946b-cd65-4340-a0b6-e0a75d4280e7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Modules\Enemies and PowerUp\ZigZag">
+    <Filter Include="Modules\Enemies\ZigZag">
       <UniqueIdentifier>{fb8cc729-7ca0-4707-8598-4dbd2704a342}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Modules\Enemies and PowerUp\Suicide">
+    <Filter Include="Modules\Enemies\Suicide">
       <UniqueIdentifier>{10cda0ec-661b-4ffd-a5c7-d2c83481c544}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

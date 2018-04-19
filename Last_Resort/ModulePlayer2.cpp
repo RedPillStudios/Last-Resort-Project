@@ -11,6 +11,11 @@
 #include "ModulePlayer.h"
 #include "ModuleCollision.h"
 #include "ModuleSceneLvl1.h"
+#include "ModuleFonts.h"
+#include "ModuleStageClear.h"
+#include "ModuleMainMenu.h"
+
+#include <stdio.h>
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
 
@@ -78,30 +83,31 @@ bool ModulePlayer2::Start() {
 	positionp2.y = SCREEN_WIDTH/2;
 
 	if (IsEnabled()) {
-		if (App->particles->IsEnabled() == false) {
+		if (App->fonts->IsEnabled() == false)
+			App->fonts->Enable();
+		if (App->particles->IsEnabled() == false) 
 			App->particles->Enable();
-		}
-			if (App->collision->IsEnabled() == false) {
-				App->collision->Enable();
-		}	
-			if (App->powerup->IsEnabled() == false) {
-				App->powerup->Enable();
-		}	
+		if (App->collision->IsEnabled() == false) 
+			App->collision->Enable();
+		if (App->powerup->IsEnabled() == false) 
+			App->powerup->Enable();
 	}
+
 	LOG("Loading player2 textures");
 	Appear.Reset();
 
 	graphicsp2 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
 	Ship2Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
-	
 
+	font2 = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
+	
+	ScoreP2 = 0;
+	TopScore;
 
 	Dead = false;
 	AppearAnim = true;
 	ToBeDeleted = false;
-	
-
 	
 	DestroyShip.Reset();
 
@@ -183,7 +189,7 @@ update_status ModulePlayer2::Update() {
 		/*Shoot*/
 		if (App->input->keyboard[SDL_SCANCODE_RCTRL] == KEY_STATE::KEY_DOWN) {
 
-			App->particles->AddParticle(App->particles->Laser, setFirePos2().x, setFirePos2().y, COLLIDER_PLAYER_SHOT);
+			App->particles->AddParticle(App->particles->Laser, setFirePos2().x, setFirePos2().y, COLLIDER_PLAYER_SHOT2);
 			App->particles->AddParticle(App->particles->ShootExplosion, setFirePos2().x, setFirePos2().y);
 			Mix_PlayChannel(-1, Shot_Sound, 0);
 		}
@@ -203,8 +209,31 @@ update_status ModulePlayer2::Update() {
 
 	Ship2Collider->SetPos(positionp2.x, positionp2.y);
 
+	//2P Score
+	sprintf_s(score_text2, "%7d", ScoreP2);
+	App->fonts->BlitText((SCREEN_WIDTH - 65), 16, App->player->font, score_text2);
+	App->fonts->BlitText((SCREEN_WIDTH - 76), 11, App->player->font, "_");
+	App->fonts->BlitText((SCREEN_WIDTH - 76), 15, App->player->font, "_");
+	App->fonts->BlitText((SCREEN_WIDTH - 92), 16, App->player->font, "P2");
+
+	if (App->player->Dead == true && App->player->IsEnabled() == false) {
+
+		LOG("Writing Top Score");
+		
+		if (App->player->IsEnabled() == true)
+			TopScore = App->fonts->TopScore(App->player->ScoreP1, ScoreP2, TopScore);
+		else
+			TopScore = App->fonts->TopScoreP1(App->player->ScoreP1, TopScore);
+
+		sprintf_s(top_score, "%7d", TopScore);
+		App->fonts->BlitText((SCREEN_WIDTH / 2) - 41, 16, font2, "T0P");
+		App->fonts->BlitText((SCREEN_WIDTH / 2) - 9, 16, font2, top_score);
+	}
+
+
 	//end anim of dead and disable
 	if (ToBeDeleted == true && current_animation2->Finished() == true) {
+		App->stageclear->Score2 = ScoreP2;
 		Disable();
 	}
 

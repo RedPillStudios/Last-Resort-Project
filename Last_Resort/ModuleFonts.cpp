@@ -6,11 +6,9 @@
 
 #include<string.h>
 
-ModuleFonts::ModuleFonts() : Module()
-{}
+ModuleFonts::ModuleFonts() : Module() {}
 
-ModuleFonts::~ModuleFonts()
-{}
+ModuleFonts::~ModuleFonts() {}
 
 int ModuleFonts::Load(const char* texture_path, const char* characters, uint rows) {
 
@@ -84,13 +82,11 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 
 	for (uint i = 0; i < len; ++i)
 	{
-		int c = 0;
+		uint c = 0;
 		for (; c < fonts[font_id].len; ++c)
 		{
 			if (fonts[font_id].table[c] == text[i])
 					break;
-
-			
 		}
 
 		uint col = c % fonts[font_id].row_chars;
@@ -101,4 +97,26 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 
 		App->render->Blit(font->graphic, x + i*font->char_w, y, &rect, 1.0f, false);
 	}
+}
+
+uint ModuleFonts::TopScore(uint Score1, uint Score2, uint TopScore) {
+
+	uint MaxScore;
+	if (Score1 >= Score2)
+		MaxScore = Score1;
+	else
+		MaxScore = Score2;
+	
+	if (MaxScore > TopScore)
+		TopScore = MaxScore;
+
+	return TopScore;
+}
+
+uint ModuleFonts::TopScoreP1(uint Score1, uint TopScore) {
+
+	if (Score1 > TopScore)
+		TopScore = Score1;
+
+	return TopScore;
 }

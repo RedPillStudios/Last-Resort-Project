@@ -7,7 +7,6 @@
 #include "p2Point.h"
 #include "ModuleSceneLvl1.h"
 
-
 struct SDL_Texture;
 struct Collider;
 struct Mix_Chunk;
@@ -46,20 +45,23 @@ public:
 
 	Collider *Ship1Collider;
 
-	int font_score = -1;
+	//Font id
+	int font = -1;
+
+	//P1 Score
 	char score_text[10];
-	uint PlayerScore = 0;
-	
+	uint ScoreP1;
+
+	//Top Score
+	char top_score[10];
+	uint TopScore;
 
 public:
 	
 	bool startAnim = true;
 	bool shooted = false;
 	
-	
-
 	Mix_Chunk*Shot_Sound=nullptr;
-
 
 public:
 
