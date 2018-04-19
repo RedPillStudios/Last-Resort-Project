@@ -107,6 +107,15 @@
     <ClInclude Include="ModulePowerUp.h">
       <Filter>Modules\Player</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyZicZac.h">
+      <Filter>Modules\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySuicide.h">
+      <Filter>Modules\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="CarsToFast.h">
+      <Filter>Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -177,6 +186,15 @@
     </ClCompile>
     <ClCompile Include="ModulePowerUp.cpp">
       <Filter>Modules\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyZicZac.cpp">
+      <Filter>Modules\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemySuicide.cpp">
+      <Filter>Modules\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="CarsToFast.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

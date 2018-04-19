@@ -25,6 +25,7 @@ public:
 	const Collider* GetCollider() const;
 
 	uint life;
+	SDL_Texture *sprites = nullptr;
 
 public:
 

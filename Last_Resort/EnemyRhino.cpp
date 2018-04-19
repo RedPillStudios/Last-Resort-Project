@@ -15,16 +15,17 @@ Enemy_Rhino::Enemy_Rhino(int x, int y) : Enemy(x, y)
 	fly.PushBack({ 160,211,48,45 });
 	fly.PushBack({ 112,211,48,45 });
 	fly.PushBack({ 64,211,48,45 });
+	Enemy::sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
 	fly.speed = 0.04f;
 	fly.loop = true;
 	animation = &fly;
 
-	life = 2; //CAMBIAR A 5 CUANDO NO MOLESTE xD
+	life = 5; 
 
 	collider = App->collision->AddCollider({ 0, 0, 48, 45 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 	original_y = y;
 
-	App->enemies->bigenemy = true;
+	/*App->enemies->bigenemy = true;*/
 }
 
 void Enemy_Rhino::Move()

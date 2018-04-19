@@ -10,6 +10,7 @@
 #include "ModulePowerUp.h"
 #include "ModulePlayer2.h"
 #include "ModuleCollision.h"
+#include "ModuleEnemies.h"
 #include "ModuleSceneLvl1.h"
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
@@ -118,6 +119,8 @@ bool ModulePlayer::CleanUp() {
 	//App->particles->Disable();
 
 	App->textures->Unload(graphicsp1);
+	if (GOD)
+		GOD = false;
 
 
 	//DestroyShip.Reset();
@@ -194,6 +197,25 @@ update_status ModulePlayer::Update() {
 					break;
 				}
 			}
+
+			if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_STATE::KEY_DOWN) {
+				
+				if (!GOD)
+					GOD = true;
+			
+				else
+					GOD = false;
+			}
+			
+
+			if (!SpawnEnemyCheat && App->input->keyboard[SDL_SCANCODE_F11]) {
+				SpawnEnemyCheat = true;
+				if (SpawnEnemyCheat)
+				  App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, (App->player->position.x) + 200, App->player->position.y);
+				SpawnEnemyCheat = false;
+
+			}
+
 			//Shoot
 			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
 				App->particles->AddParticle(App->particles->Laser, setFirePos().x, setFirePos().y, COLLIDER_PLAYER_SHOT);
@@ -232,8 +254,13 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 			ToBeDeleted = true;
 			Dead = true;
 			current_animation = &DestroyShip;
-			
 
+		if (!GOD) {
+			Dead = true;
+			current_animation = &DestroyShip;
+			Ship1Collider->to_delete = true;
+			if (DestroyShip.Finished())
+				Disable();
 		}
 	}
 }

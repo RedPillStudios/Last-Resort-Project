@@ -61,7 +61,7 @@ bool ModuleSceneLvl1::Start()
 	graphics_SecondPlaneBackground = App->textures->Load("Images/Background_Lvl1/SecondPlaneBackground.png");
 	graphics_FirstPlaneBackGround = App->textures->Load("Images/Background_Lvl1/FirstPlaneBackGround.png");
 	graphics = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
- 
+
 	//Music
 	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
 	Mix_PlayMusic(Stage1, -1);
@@ -78,23 +78,131 @@ bool ModuleSceneLvl1::Start()
 		App->player2->Enable();
 		App->player2->resetPosition2();
 	}
+  
 	//Enemies
-	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, SCREEN_WIDTH, 100);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 400, 100);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 470, 100);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 540, 100);*/
+	//WASP->Wave1{
+	//troop1
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 540, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 580, 60);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 580, 145);
+
+	//troop2
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 630, 20);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 650, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 670, 20);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 710, 20);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 750, 20);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 790, 20);
+
+	//troop3
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 795, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 835, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 875, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 915, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 955, 145);
+
+	//troop4
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 970, 110);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 995, 135);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 995, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1035, 115);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1035, 85);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1095, 95);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1075, 65);
+
+	//troop5
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1155, 20);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1195, 20);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1235, 20);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1275, 20);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1315, 20);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1155, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1195, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1235, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1275, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1315, 145);
+	// }
+
+	//WASP->Wave2{
+	//troop1
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1900, 30);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1940, 60);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1980, 90);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2020, 120);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2060, 150);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2100, 150);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2140, 150);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2180, 150);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2220, 150);
+	//}
+
+	//WASP->Wave3{
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP,3200, 112);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3240, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3265, 112);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3280, 90);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3320, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3310, 145);
+
+	//}
+
+	//WASP->wave4
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3700, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3740, 115);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3780, 85);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3820, 55);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3860, 55);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3900, 55);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3940, 55);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3980, 55);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 4020, 55);
+
+	//Rhino->Wave1
+	
+	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 525, 75);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 570, 75);*/
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2425,75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2470, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2515, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2560, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2605, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2650, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2695, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2740, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2785, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2830, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2875, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2920, 75);
 
 
-    App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 200, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 250, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 110, 80);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 225, 80);
+	//Wave2
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5500, 77);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5540, 77);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5580, 77);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5620, 77);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5660, 77);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5700, 77);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5740, 77);
+	 //wave3
 
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 200, 100);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 250, 100);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 110, 100);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 225, 100);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5860, 60);//these are not well located!!!!!!!!!!!!!!!!!!!!!!!!
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6960, 60);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 7060, 60);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 7160, 60);
 
+
+	//ZICZAC
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,3560, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,7560, 60);
+
+	
+
+	//CARS
+	App->enemies->AddEnemy(ENEMY_TYPES::CARS,-10, 195);
 
 	if (App->collision->IsEnabled()==false) {
 		App->collision->Enable();
@@ -135,9 +243,6 @@ update_status ModuleSceneLvl1::Update() {
 		App->player2->resetPosition2();
 	}
 
-
-		
-
 	//camera Mov
 	App->render->camera.x += 1*SCREEN_SIZE;
 	
@@ -145,27 +250,27 @@ update_status ModuleSceneLvl1::Update() {
 	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
 	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL,0.5f); // FIRST PLANE BACKGROUND
 
-	if (App->input->keyboard[SDL_SCANCODE_1]) 
+	if (App->input->keyboard[SDL_SCANCODE_1])
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 3.0f);
-	
-	if (App->input->keyboard[SDL_SCANCODE_2]) 
+
+	if (App->input->keyboard[SDL_SCANCODE_2])
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 3.0f);
 	
-
-	
-
+	if (App->input->keyboard[SDL_SCANCODE_F11] == KEY_STATE::KEY_DOWN) {
+		
+			App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, App->player->position.x + 200, App->player->position.y);
+	}
 	// FADE IF NOT ENOUGHT COINS
-	
 	if (coins <= 0 && (App->player->Dead == true && App->player2->Dead == true)) {
 		App->player->Disable();
 		App->player2->Disable();
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f); 
 	}
 
-
-
-
-	
+		App->render->Blit(graphics_Crater_Boss_Zone, 0, 0, &CraterBossZone, 0.0f);
+		App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
+		App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
+		App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL, 0.5f); // FIRST PLANE BACKGROUND
 
 
 	return UPDATE_CONTINUE;
