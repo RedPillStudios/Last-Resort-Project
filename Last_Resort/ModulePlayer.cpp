@@ -201,15 +201,12 @@ update_status ModulePlayer::Update() {
 
 			if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_STATE::KEY_DOWN) {
 				
-				if (!GOD)
-					GOD = true;
-			
-				else
-					GOD = false;
+				GOD = !GOD;
 			}
 			
 
-			if (App->input->keyboard[SDL_SCANCODE_F11]) {
+			if (App->input->keyboard[SDL_SCANCODE_F11]==KEY_STATE::KEY_DOWN) {
+				LOG("Spawning Enemie")
 				  App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, (App->player->position.x) + 200, App->player->position.y);
 			}
 
@@ -217,6 +214,7 @@ update_status ModulePlayer::Update() {
 			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
 				App->particles->AddParticle(App->particles->Laser, setFirePos().x, setFirePos().y, COLLIDER_PLAYER_SHOT);
 				App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
+			
 				Mix_PlayChannel(-1, Shot_Sound, 0);
 			}
 		}
