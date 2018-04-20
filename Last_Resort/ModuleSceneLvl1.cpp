@@ -66,8 +66,7 @@ bool ModuleSceneLvl1::Start()
 
 	//Music
 	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
-	Mix_PlayMusic(Stage1, -1);
-	Mix_Volume(-1, VOLUME_MUSIC);
+	
 
 	coins = 6;
 
@@ -83,8 +82,9 @@ bool ModuleSceneLvl1::Start()
 		App->player2->Enable();
 		App->player2->resetPosition2();
 	}
-	if (App->collision->IsEnabled() == false) {
+	if (App->collision->IsEnabled() == false && App->particles->IsEnabled()==false) {
 		App->collision->Enable();
+		App->particles->Enable();
 	}
 
 	//Enemies
@@ -203,7 +203,9 @@ bool ModuleSceneLvl1::Start()
 
 	//CARS
 	/*App->enemies->AddEnemy(ENEMY_TYPES::CARS,-10, 195);*/
-
+	
+	Mix_PlayMusic(Stage1, -1);
+	Mix_Volume(-1, VOLUME_MUSIC);
 	
 	return true;
 }
@@ -221,8 +223,11 @@ bool ModuleSceneLvl1::CleanUp() {
 
 	App->sound->UnloadMusic(Stage1);
 
+	App->player->Disable();
+	App->player2->Disable();
 	App->powerup->Disable();
 	App->collision->Disable();
+	App->particles->Disable();
 	App->enemies->Disable();
 
 	return true;
@@ -246,10 +251,7 @@ update_status ModuleSceneLvl1::Update() {
 	//camera Mov
 	App->render->camera.x += 1*SCREEN_SIZE;
 	
-	App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
-	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
-	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL,0.5f); // FIRST PLANE BACKGROUND
-
+	
 	if (App->input->keyboard[SDL_SCANCODE_F3])
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 3.0f);
 
@@ -264,9 +266,7 @@ update_status ModuleSceneLvl1::Update() {
 
 	// FADE IF NOT ENOUGHT COINS
 	if (coins <= 0 && (App->player->Dead == true && App->player2->Dead == true)) {
-		App->player->Disable();
-		App->player2->Disable();
-		/*App->powerup->Disable();*/
+
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f); 
 	}
 

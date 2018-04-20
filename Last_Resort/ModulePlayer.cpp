@@ -81,7 +81,7 @@ bool ModulePlayer::Start() {
 	position.x = App->scene1background->position_min_limit + 20;
 	position.y = SCREEN_HEIGHT / 2;
 
-	if (IsEnabled()) {
+	/*if (IsEnabled()) {
 		if (App->particles->IsEnabled() == false)
 			App->particles->Enable();
 		if (App->collision->IsEnabled() == false) {
@@ -90,7 +90,7 @@ bool ModulePlayer::Start() {
 		if (App->powerup->IsEnabled() == false) {
 			App->powerup->Enable();
 		}
-	}
+	}*/
 	
 	Appear.Reset();
 	DestroyShip.Reset();
@@ -114,18 +114,22 @@ bool ModulePlayer::CleanUp() {
 
 	LOG("Cleaning Up Player 1 Module");
 
-	Ship1Collider=NULL;
-	//App->powerup->Disable();
-	current_animation = NULL;
-	//App->particles->Disable();
 	
+	//App->powerup->Disable();
+	current_animation =nullptr;
+	//App->particles->Disable();
+
+	
+	//App->fonts->UnLoad(font_score);
+	
+	if (Ship1Collider != nullptr)
+		Ship1Collider->to_delete = true; 
+
 	App->sound->UnloadChunks(Shot_Sound);
-
-
 	App->textures->Unload(graphicsp1);
-	if (GOD)
-		GOD = false;
-
+	if (GOD) {
+		GOD = !GOD;
+	}
 
 	//DestroyShip.Reset();
 	return true;
@@ -236,8 +240,8 @@ update_status ModulePlayer::Update() {
   
 		//end anim of dead and disable
 		if (ToBeDeleted == true && current_animation->Finished() == true) {
-			App->powerup->Disable();
-			Disable();
+			//App->powerup->Disable();
+			App->player->Disable();
 		}
 	return UPDATE_CONTINUE;
 }

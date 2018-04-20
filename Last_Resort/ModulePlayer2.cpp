@@ -77,7 +77,7 @@ bool ModulePlayer2::Start() {
 	positionp2.x = App->scene1background->position_min_limit + 20;
 	positionp2.y = SCREEN_WIDTH/2;
 
-	if (IsEnabled()) {
+	/*if (IsEnabled()) {
 		if (App->particles->IsEnabled() == false) {
 			App->particles->Enable();
 		}
@@ -87,7 +87,7 @@ bool ModulePlayer2::Start() {
 			if (App->powerup->IsEnabled() == false) {
 				App->powerup->Enable();
 		}	
-	}
+	}*/
 	LOG("Loading player2 textures");
 	Appear.Reset();
 
@@ -97,11 +97,10 @@ bool ModulePlayer2::Start() {
 	
 
 
+
 	Dead = false;
 	AppearAnim = true;
 	ToBeDeleted = false;
-	
-
 	
 	DestroyShip.Reset();
 
@@ -116,7 +115,9 @@ bool ModulePlayer2::CleanUp() {
 	App->textures->Unload(graphicsp2);
 	App->sound->UnloadChunks(Shot_Sound);
 	current_animation2=nullptr;
-	Ship2Collider =nullptr;
+
+	if(Ship2Collider!=nullptr)
+	Ship2Collider ->to_delete;
 	
 	//App->powerup->Disable();
 	return true;
@@ -207,7 +208,8 @@ update_status ModulePlayer2::Update() {
 
 	//end anim of dead and disable
 	if (ToBeDeleted == true && current_animation2->Finished() == true) {
-		Disable();
+
+		App->player2->Disable();
 	}
 
 	return UPDATE_CONTINUE;
