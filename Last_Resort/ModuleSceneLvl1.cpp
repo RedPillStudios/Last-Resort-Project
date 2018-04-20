@@ -219,6 +219,7 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->textures->Unload(graphics_SecondPlaneBackground);
 	App->textures->Unload(graphics_Crater_Boss_Zone);
 
+	App->sound->UnloadMusic(Stage1);
 
 	App->powerup->Disable();
 	App->collision->Disable();

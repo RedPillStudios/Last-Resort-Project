@@ -114,8 +114,10 @@ bool ModulePlayer2::CleanUp() {
 
 	LOG("Cleaning Up Player 2 Module")
 	App->textures->Unload(graphicsp2);
-	current_animation2=NULL;
-	Ship2Collider = NULL;
+	App->sound->UnloadChunks(Shot_Sound);
+	current_animation2=nullptr;
+	Ship2Collider =nullptr;
+	
 	//App->powerup->Disable();
 	return true;
 }
@@ -177,12 +179,7 @@ update_status ModulePlayer2::Update() {
 		}
 
 		if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_STATE::KEY_DOWN) {
-
-			if (!GOD)
-				GOD = true;
-
-			else
-				GOD = false;
+			GOD = !GOD;
 		}
 
 		/*Shoot*/

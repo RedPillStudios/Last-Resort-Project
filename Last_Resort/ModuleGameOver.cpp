@@ -54,6 +54,7 @@ bool ModuleGameOver::CleanUp() {
 
 	LOG("Unloading Game Over Screen");
 	App->textures->Unload(graphics_GameOverImage);
+	App->sound->UnloadMusic(GameOver);
 
 	return true;
 }

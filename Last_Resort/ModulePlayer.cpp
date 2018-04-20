@@ -118,6 +118,9 @@ bool ModulePlayer::CleanUp() {
 	//App->powerup->Disable();
 	current_animation = NULL;
 	//App->particles->Disable();
+	
+	App->sound->UnloadChunks(Shot_Sound);
+
 
 	App->textures->Unload(graphicsp1);
 	if (GOD)

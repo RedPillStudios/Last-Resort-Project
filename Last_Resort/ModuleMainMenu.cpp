@@ -53,6 +53,8 @@ bool ModuleMainMenu::CleanUp() {
 
 	LOG("Unloading Main Menu");
 	App->textures->Unload(graphics_Background);
+	App->sound->UnloadMusic(Main_Menu);
+	App->sound->UnloadChunks(Insert_Coin);
 	return true;
 
 }

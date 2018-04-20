@@ -53,13 +53,14 @@ bool ModuleStageClear::CleanUp() {
 	
 	LOG("Unloading Stage Clear images");
 	App->textures->Unload(graphics_StageClearImage);
+	App->sound->UnloadMusic(StageClear);
 	return true;
 }
 
 update_status ModuleStageClear::Update() {
 
 	//Draw everything
-	App->render->Blit(graphics_StageClearImage, 220,(SCREEN_HEIGHT/2) - 8 , &FirstPlaneImage);
+	App->render->Blit(graphics_StageClearImage, 220,(SCREEN_HEIGHT/2) - 8 , &FirstPlaneImage,0.0f);
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE]) {
 		App->fade->FadeToBlack(App->stageclear, App->menu, 3.0f);

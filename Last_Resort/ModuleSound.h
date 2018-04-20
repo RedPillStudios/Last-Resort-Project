@@ -25,7 +25,8 @@ public:
 	update_status Update();
 
 	Mix_Music*const LoadMusic(const char*path);
-
+	bool UnloadMusic(Mix_Music * music);
+	bool UnloadChunks(Mix_Chunk * chunk);
 
 	Mix_Chunk*const LoadChunk(const char*path);
 
