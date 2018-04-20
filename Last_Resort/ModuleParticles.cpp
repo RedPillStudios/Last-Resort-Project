@@ -24,20 +24,24 @@ ModuleParticles::~ModuleParticles() {}
 bool ModuleParticles::Start() {
 
 	LOG("Loading Particles");
+
+	
 	ImpactExplosionSound = App->sound->LoadChunk("Audio/General/007_Enemy_Explosion_Standard.wav");
+	particle1 = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	particle2 = App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
 
 	ShootExplosion.Anim.PushBack({ 82, 239, 12, 12 });
 	ShootExplosion.Anim.PushBack({ 94, 241, 11, 9 });
 	ShootExplosion.Anim.loop = false;
 	ShootExplosion.Anim.speed = 0.3f;
-	ShootExplosion.Sprites= App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	ShootExplosion.Sprites = particle1;
 
 	Laser.Anim.PushBack({ 115, 242, 15, 7 });
 	Laser.Anim.speed = 0.0f;
 	Laser.fx = 1;
 	Laser.Life = 1100;
 	Laser.Speed.x = 5;
-	Laser.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	Laser.Sprites = particle1;
 
 	ImpactExplosion.Anim.PushBack({ 315,369,16,16 });
 	ImpactExplosion.Anim.PushBack({ 331,369,16,16 });
@@ -45,7 +49,7 @@ bool ModuleParticles::Start() {
 	ImpactExplosion.Anim.PushBack({ 363,369,16,16 });
 	ImpactExplosion.Anim.speed = 0.3f;
 	ImpactExplosion.Anim.loop = false;
-	ImpactExplosion.Sprites= App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	ImpactExplosion.Sprites= particle1;
 
 	EnemyExplosion.Anim.PushBack({ 0, 396, 32, 32 });
 	EnemyExplosion.Anim.PushBack({67, 396, 32, 32});
@@ -53,7 +57,7 @@ bool ModuleParticles::Start() {
 	EnemyExplosion.Anim.PushBack({ 132, 396, 32, 32 });
 	EnemyExplosion.Anim.speed = 0.3f;
 	EnemyExplosion.Anim.loop = false;
-	EnemyExplosion.Sprites= App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
+	EnemyExplosion.Sprites= particle2;
 
 
 
@@ -61,7 +65,7 @@ bool ModuleParticles::Start() {
 	//HOU_Shot.Anim.PushBack({117,263,13,13});
 	HOU_Shot.Anim.speed = 0.2f;
 	HOU_Shot.Anim.loop = true;
-	HOU_Shot.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	HOU_Shot.Sprites = particle1;
 	HOU_Shot.Life = 2200;
 
 	return true;
@@ -72,10 +76,13 @@ bool ModuleParticles::CleanUp() {
 
 	LOG("Unloading Particles");
 	
+
+
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i) {
 
 		if (active[i] != nullptr) {
 			App->textures->Unload(active[i]->Sprites);
+			App->sound->UnloadChunks(ImpactExplosionSound);
 			delete active[i];
 			active[i] = nullptr;
 		}
@@ -136,19 +143,22 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
 		// Always destroy particles that collide
+  		
 		if (active[i] != nullptr && active[i]->collider == c1) {
 
 			if (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_WALL)
-					AddParticle(ImpactExplosion,active[i]->Position.x, active[i]->Position.y);
+				/*	AddParticle(ImpactExplosion,active[i]->Position.x, active[i]->Position.y);*/
 			if (c2->type == COLLIDER_ENEMY) {
-					Mix_PlayChannel(-1, ImpactExplosionSound, 0);
+					/*Mix_PlayChannel(-1, ImpactExplosionSound, 0);
 					AddParticle(EnemyExplosion, active[i]->Position.x, active[i]->Position.y);
 					AddParticle(EnemyExplosion, active[i]->Position.x + 3, active[i]->Position.y -2, COLLIDER_NONE, 200);
-					AddParticle(EnemyExplosion, active[i]->Position.x - 3, active[i]->Position.y +2, COLLIDER_NONE, 200);
+					AddParticle(EnemyExplosion, active[i]->Position.x - 3, active[i]->Position.y +2, COLLIDER_NONE, 200);*/
 				}
+			
 			delete active[i];
 			active[i] = nullptr;
-			App->sound->UnloadChunks(ImpactExplosionSound);
+			
+	
 			break;
 		}
 	}
@@ -176,7 +186,8 @@ bool Particle::Update() {
 
 	if (Life > 0)
 	{
-		if ((SDL_GetTicks() - Born) > Life)
+		int time = ((int)SDL_GetTicks() - (int)Born);
+		if (time > (int)Life)
 			ret = false;
 	}
 	else
@@ -184,15 +195,19 @@ bool Particle::Update() {
 			ret = false;
 
 	if (collider != nullptr && collider->type == COLLIDER_PLAYER_SHOT && Position.x >= App->scene1background->position_max_limit)
-			ret = false;
+		ret = false;
+
+	if (SDL_GetTicks() >= Born) {
+
+		Position.x += Speed.x;
+		Position.y += Speed.y;
+
+		if (collider != nullptr) {
+			collider->SetPos(Position.x, Position.y);
+		}
+
 	
 
-	Position.x += Speed.x;
-	Position.y += Speed.y;
-
-	if (collider != nullptr)
-		collider->SetPos(Position.x, Position.y);
-
+	}
 	return ret;
-
 }

@@ -71,6 +71,8 @@ public:
 	Particle ShootExplosionLaser2; // estas dos son para el segundo tipo de disparo
 	Particle HOU_Shot;
 
+	SDL_Texture*particle1;
+	SDL_Texture*particle2;
 	Mix_Chunk *ImpactExplosionSound;
 
 	uint Enemies_Weapon = 0;

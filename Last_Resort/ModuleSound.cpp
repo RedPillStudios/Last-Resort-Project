@@ -55,6 +55,8 @@ update_status ModuleSound::Update() {
 bool ModuleSound::CleanUp()
 {
 	LOG("Freeing Music and Chunks library");
+	
+	Mix_HaltMusic();
 
 	for (uint i = 0; i < MAX_MUSIC; ++i)
 		if (music[i] != nullptr) {

@@ -20,6 +20,8 @@
 
 // Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
+
+
 ModuleSceneLvl1::ModuleSceneLvl1()
 {
 	// background1 
@@ -43,6 +45,34 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	CraterBossZone.w = SCREEN_WIDTH;
 	CraterBossZone.h = SCREEN_HEIGHT;
 
+
+	//Bluelight.PushBack({0,0,38,87});
+	//Bluelight.PushBack({ 38,0,22,87 });
+	Bluelight.PushBack({ 69,0,4,87 });
+	Bluelight.PushBack({ 73,0,21,87 });
+	Bluelight.PushBack({ 100,0,25,79 });
+	Bluelight.PushBack({ 73,0,21,87 });
+	
+	Bluelight.speed = 0.03f;
+	
+
+	YellowLight.PushBack({132,0,25,143});
+	YellowLight.PushBack({156,0,25,143});
+	YellowLight.PushBack({195,0,25,143});
+	YellowLight.PushBack({247,0,65,143});
+	YellowLight.PushBack({312,0,81,143});
+	YellowLight.PushBack({393,0,99,143});
+	YellowLight.PushBack({0,144,121,289});
+	YellowLight.PushBack({121,144,142,289});//
+	YellowLight.PushBack({ 0,144,121,289 });
+	YellowLight.PushBack({ 393,0,99,143 });
+	YellowLight.PushBack({ 312,0,81,143 });
+	YellowLight.PushBack({ 247,0,65,143 });
+	YellowLight.PushBack({ 195,0,25,143 });
+	YellowLight.PushBack({ 156,0,25,143 });
+	YellowLight.loop = true;
+	YellowLight.speed = 0.1f;
+
 }
 
 ModuleSceneLvl1::~ModuleSceneLvl1()
@@ -63,6 +93,7 @@ bool ModuleSceneLvl1::Start()
 	graphics_SecondPlaneBackground = App->textures->Load("Images/Background_Lvl1/SecondPlaneBackground.png");
 	graphics_FirstPlaneBackGround = App->textures->Load("Images/Background_Lvl1/FirstPlaneBackGround.png");
 	graphics = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
+	Laser_Sprites = App->textures->Load("Images/Background_Lvl1/Lasers_Sprite.png");
 
 	//Music
 	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
@@ -220,6 +251,7 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->textures->Unload(graphics_FirstPlaneBackGround);
 	App->textures->Unload(graphics_SecondPlaneBackground);
 	App->textures->Unload(graphics_Crater_Boss_Zone);
+	App->textures->Unload(Laser_Sprites);
 
 	App->sound->UnloadMusic(Stage1);
 
@@ -261,8 +293,22 @@ update_status ModuleSceneLvl1::Update() {
 
 	App->render->Blit(graphics_Crater_Boss_Zone, 0, 0, &CraterBossZone, 0.0f);
 	App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
+
+	App->render->Blit(Laser_Sprites, 196, -17 , &Bluelight.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Laser_Sprites, 710, -17, &Bluelight.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Laser_Sprites, 790, 0, &Bluelight.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Laser_Sprites, 855, -15, &Bluelight.GetCurrentFrame(), 0.3f);
+
+
+	App->render->Blit(Laser_Sprites,400,0,&YellowLight.GetCurrentFrame(),0.3f);
+	/*App->render->Blit(Laser_Sprites, , , &YellowLight.GetCurrentFrame(), 0.2f);*/
+
+
 	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
 	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL, 0.5f); // FIRST PLANE BACKGROUND
+	
+	/*App->particles->AddParticle();*/
+	/*App->particles->AddParticle(Bluelight,500,50);*/
 
 	// FADE IF NOT ENOUGHT COINS
 	if (coins <= 0 && (App->player->Dead == true && App->player2->Dead == true)) {
