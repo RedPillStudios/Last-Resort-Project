@@ -306,9 +306,10 @@ update_status ModuleSceneLvl1::Update() {
 
 	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
 	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL, 0.5f); // FIRST PLANE BACKGROUND
+
 	
-	/*App->particles->AddParticle();*/
-	/*App->particles->AddParticle(Bluelight,500,50);*/
+	
+	
 
 	// FADE IF NOT ENOUGHT COINS
 	if (coins <= 0 && (App->player->Dead == true && App->player2->Dead == true)) {
