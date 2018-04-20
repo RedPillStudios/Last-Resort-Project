@@ -11,8 +11,8 @@ EnemyWasp::EnemyWasp(int x, int y) : Enemy(x, y) {
 	AnimWasp.PushBack({0, 178, 32, 15});
 	AnimWasp.PushBack({ 0, 194, 32, 15 });
 	AnimWasp.PushBack({ 0, 209, 32, 15 });
-	AnimWasp.PushBack({ 0, 224, 32, 15 });
-	AnimWasp.PushBack({ 0, 239, 32, 15 });
+	AnimWasp.PushBack({ 0, 225, 32, 15 });
+	AnimWasp.PushBack({ 0, 240, 32, 15 });
 	Enemy::sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
 
 	score = 100;

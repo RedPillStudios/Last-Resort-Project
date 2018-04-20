@@ -117,11 +117,11 @@ bool ModulePlayer2::CleanUp() {
 	current_animation2=nullptr;
 
 	if(Ship2Collider!=nullptr)
-	Ship2Collider ->to_delete;
+	Ship2Collider ->to_delete=true;
 	
 	//App->powerup->Disable();
 	return true;
-}
+}  
 
 // Update: draw background
 update_status ModulePlayer2::Update() {
