@@ -37,6 +37,10 @@ bool ModuleEnemies::CleanUp() {
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 
+		queue[i].type = NO_TYPE;
+		queue[i].x = 0;
+		queue[i].y = 0;
+
 		if (enemies[i] != nullptr) {
 			App->textures->Unload(enemies[i]->sprites);
 			delete enemies[i];
@@ -148,7 +152,7 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 		
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 		
- if (enemies[i] != nullptr && enemies[i]->GetCollider() == c1) {
+ if (enemies[i] != nullptr && (enemies[i]->GetCollider() == c1 || enemies[i]->GetCollider() == c2)) {
 
 			--(enemies[i]->life);
 		
