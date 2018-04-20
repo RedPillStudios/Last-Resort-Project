@@ -206,17 +206,42 @@ update_status ModulePlayer::Update() {
 
 			if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_STATE::KEY_DOWN) {
 				
-				if (!GOD)
-					GOD = true;
-			
-				else
-					GOD = false;
+				GOD = !GOD;
 			}
 			
+			if (GOD) {
 
-			if (App->input->keyboard[SDL_SCANCODE_F11] == KEY_STATE::KEY_DOWN) {
-				LOG("Spawning enemy rhino")
-				  App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, (App->player->position.x) + 200, App->player->position.y);
+				App->fonts->BlitText(13, SCREEN_HEIGHT - 10, font, "G0D");
+				App->fonts->BlitText(39, SCREEN_HEIGHT - 10, font, "M0DE");
+			}
+
+			if (App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) {
+				 App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, (App->player->position.x) + 200, App->player->position.y);
+				 Spawned = true;
+			}
+			if (App->input->keyboard[SDL_SCANCODE_F7] == KEY_STATE::KEY_DOWN) {
+				App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, (App->player->position.x) + 200, App->player->position.y);
+				Spawned = true;
+			}
+			if (App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) {
+				App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, (App->player->position.x) + 200, App->player->position.y);
+				Spawned = true;
+			}
+			if (App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) {
+				App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_SUICIDE, (App->player->position.x) + 200, App->player->position.y);
+				Spawned = true;
+			}
+
+			if (Spawned){
+				
+				//PUT FONT
+				App->fonts->BlitText((SCREEN_WIDTH - 98), (SCREEN_HEIGHT - 10), font, "ENEMY");
+				App->fonts->BlitText((SCREEN_WIDTH - 56), (SCREEN_HEIGHT - 10), font, "SPAWNED");
+				int a = SDL_GetTicks() + 2;
+				if (SDL_GetTicks() == a) {
+					
+					Spawned = false;
+				}
 			}
 
 			//Shoot

@@ -24,6 +24,7 @@ public:
 	
 	bool AppearAnim;
 	bool Dead;
+	bool Spawned;
 
 	bool GOD = false;
 	bool ToBeDeleted = false;
@@ -44,6 +45,7 @@ public:
 	iPoint position;
 
 	Collider *Ship1Collider;
+
 
 	//Font id
 	int font = -1;
