@@ -233,7 +233,6 @@ update_status ModulePlayer2::Update() {
 
 	//end anim of dead and disable
 	if (ToBeDeleted == true && current_animation2->Finished() == true) {
-		App->stageclear->Score2 = ScoreP2;
 		Disable();
 	}
 

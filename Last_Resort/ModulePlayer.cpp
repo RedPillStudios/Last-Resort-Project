@@ -101,7 +101,8 @@ bool ModulePlayer::Start() {
 	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
 
 	font = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
-
+	disappeartext = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
+	
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
 	Ship1Collider = App->collision->AddCollider({ position.x, position.y,32,12 }, COLLIDER_PLAYER, this);
 
@@ -125,6 +126,7 @@ bool ModulePlayer::CleanUp() {
 	//App->fonts->UnLoad(font);
 
 	App->textures->Unload(graphicsp1);
+	App->fonts->UnLoad(font);
 	if (GOD)
 		GOD = false;
 
@@ -137,7 +139,6 @@ bool ModulePlayer::CleanUp() {
 update_status ModulePlayer::Update() {
 	
 	position.x += 1;
-	
 
 	int speed = 2;
 
@@ -204,17 +205,6 @@ update_status ModulePlayer::Update() {
 				}
 			}
 
-			if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_STATE::KEY_DOWN) {
-				
-				GOD = !GOD;
-			}
-			
-			if (GOD) {
-
-				App->fonts->BlitText(13, SCREEN_HEIGHT - 10, font, "G0D");
-				App->fonts->BlitText(39, SCREEN_HEIGHT - 10, font, "M0DE");
-			}
-
 			if (App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) {
 				 App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, (App->player->position.x) + 200, App->player->position.y);
 				 Spawned = true;
@@ -231,15 +221,27 @@ update_status ModulePlayer::Update() {
 				App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_SUICIDE, (App->player->position.x) + 200, App->player->position.y);
 				Spawned = true;
 			}
+			if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_STATE::KEY_DOWN) {
 
+				GOD = !GOD;
+			}
+
+			if (GOD) {
+
+				App->fonts->BlitText(13, SCREEN_HEIGHT - 10, font, "G0D");
+				App->fonts->BlitText(39, SCREEN_HEIGHT - 10, font, "M0DE");
+			}
 			if (Spawned){
-				
 				//PUT FONT
-				App->fonts->BlitText((SCREEN_WIDTH - 98), (SCREEN_HEIGHT - 10), font, "ENEMY");
-				App->fonts->BlitText((SCREEN_WIDTH - 56), (SCREEN_HEIGHT - 10), font, "SPAWNED");
-				int a = SDL_GetTicks() + 2;
-				if (SDL_GetTicks() == a) {
-					
+				if(TimeCounter){
+					AppearTime = SDL_GetTicks() + 2000;
+					TimeCounter = false;
+				}
+				
+				App->fonts->BlitText((SCREEN_WIDTH - 98), (SCREEN_HEIGHT - 10), disappeartext, "ENEMY");
+				App->fonts->BlitText((SCREEN_WIDTH - 56), (SCREEN_HEIGHT - 10), disappeartext, "SPAWNED");
+				if (SDL_GetTicks() >= AppearTime) {
+					TimeCounter = true;
 					Spawned = false;
 				}
 			}
@@ -290,7 +292,6 @@ update_status ModulePlayer::Update() {
 
 		//end anim of dead and disable
 		if (ToBeDeleted == true && current_animation->Finished() == true) {
-			App->stageclear->Score1 = ScoreP1;
 			App->powerup->Disable();
 			Disable();
 		}

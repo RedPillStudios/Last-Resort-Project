@@ -20,8 +20,6 @@ public:
 	bool CleanUp();
 
 	int fontend;
-	uint Score1;
-	uint Score2;
 	uint SumScore;
 	char Score1_text[10];
 	char Score2_text[10];

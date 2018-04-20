@@ -28,6 +28,8 @@ public:
 
 	bool GOD = false;
 	bool ToBeDeleted = false;
+	bool TimeCounter = true;
+	uint AppearTime;
 
 public:
 	SDL_Rect Ship;
@@ -49,6 +51,7 @@ public:
 
 	//Font id
 	int font = -1;
+	int disappeartext = -1;
 
 	//P1 Score
 	char score_text[10];

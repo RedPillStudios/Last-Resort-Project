@@ -36,13 +36,9 @@ bool ModuleStageClear::Start() {
 		if (App->player->IsEnabled() == true) {
 			App->player->Disable();
 			App->particles->Disable();
-			
 		}
-	/*	if (App->player2->IsEnabled() == true) {
-			App->player->Disable();
-			App->particles->Disable();
-
-		}*/
+		if (App->player2->IsEnabled() == true) 
+			App->player2->Disable();
 	}
 
 	graphics_StageClearImage = App->textures->Load("Images/Stage_Clear/All_Stage_Clears.png"); 
@@ -64,31 +60,32 @@ bool ModuleStageClear::CleanUp() {
 update_status ModuleStageClear::Update() {
 
 	//Draw everything
-	App->render->Blit(graphics_StageClearImage, 220,(SCREEN_HEIGHT/2) - 50, &FirstPlaneImage);
+	App->render->Blit(graphics_StageClearImage, (SCREEN_WIDTH/2) - 106,(SCREEN_HEIGHT/2) - 40, &FirstPlaneImage, 0.0f, false);
 
-	SumScore = Score1 + Score2;
+	sprintf_s(Score1_text, "%d", App->player->ScoreP1);
+	sprintf_s(Score2_text, "%d", App->player2->ScoreP2);
+	
+	SumScore = App->player->ScoreP1 + App->player2->ScoreP2;
 
-	sprintf_s(Score1_text, "%d", Score1);
-	sprintf_s(Score2_text, "%d", Score2);
 	sprintf_s(SumScore_text, "%d", SumScore);
 
-	App->fonts->BlitText((SCREEN_WIDTH / 2) - 5, (SCREEN_HEIGHT / 2) + 10, fontend, "PLAYER");
-	App->fonts->BlitText((SCREEN_WIDTH / 2) + 44, (SCREEN_HEIGHT / 2) + 10, fontend, "1");
-	App->fonts->BlitText((SCREEN_WIDTH / 2) + 52, (SCREEN_HEIGHT / 2) + 10, fontend, "SC0RE");
-	App->fonts->BlitText((SCREEN_WIDTH / 2) + 100, (SCREEN_HEIGHT / 2) + 10, fontend, Score1_text);
+	App->fonts->BlitText((SCREEN_WIDTH / 2) - 56, (SCREEN_HEIGHT / 2) - 14, fontend, "PLAYER");
+	App->fonts->BlitText((SCREEN_WIDTH / 2) - 6, (SCREEN_HEIGHT / 2) - 14, fontend, "1");
+	App->fonts->BlitText((SCREEN_WIDTH / 2) + 4, (SCREEN_HEIGHT / 2) - 14, fontend, "SC0RE");
+	App->fonts->BlitText((SCREEN_WIDTH / 2) + 48, (SCREEN_HEIGHT / 2) - 14, fontend, Score1_text);
 
-	App->fonts->BlitText((SCREEN_WIDTH / 2) - 5, (SCREEN_HEIGHT / 2), fontend, "PLAYER");
-	App->fonts->BlitText((SCREEN_WIDTH / 2) + 44, (SCREEN_HEIGHT / 2), fontend, "2");
-	App->fonts->BlitText((SCREEN_WIDTH / 2) + 52, (SCREEN_HEIGHT / 2), fontend, "SC0RE");
-	App->fonts->BlitText((SCREEN_WIDTH / 2) + 100, (SCREEN_HEIGHT / 2), fontend, Score2_text);
+	App->fonts->BlitText((SCREEN_WIDTH / 2) - 56, (SCREEN_HEIGHT / 2) - 4, fontend, "PLAYER");
+	App->fonts->BlitText((SCREEN_WIDTH / 2) - 6, (SCREEN_HEIGHT / 2) - 4, fontend, "2");
+	App->fonts->BlitText((SCREEN_WIDTH / 2) + 4, (SCREEN_HEIGHT / 2) - 4, fontend, "SC0RE");
+	App->fonts->BlitText((SCREEN_WIDTH / 2) + 48, (SCREEN_HEIGHT / 2) - 4, fontend, Score2_text);
 
-	App->fonts->BlitText((SCREEN_WIDTH / 2) - 5, (SCREEN_HEIGHT / 2) - 10, fontend, "SC0RE");
-	App->fonts->BlitText((SCREEN_WIDTH / 2) + 44, (SCREEN_HEIGHT / 2) - 10, fontend, "SUM");
-	App->fonts->BlitText((SCREEN_WIDTH / 2) + 77, (SCREEN_HEIGHT / 2) - 10, fontend, SumScore_text);
+	App->fonts->BlitText((SCREEN_WIDTH / 2) - 38, (SCREEN_HEIGHT / 2) + 14, fontend, "SC0RE");
+	App->fonts->BlitText((SCREEN_WIDTH / 2) + 4, (SCREEN_HEIGHT / 2) + 14, fontend, "SUM");
+	App->fonts->BlitText((SCREEN_WIDTH / 2) + 48, (SCREEN_HEIGHT / 2) + 14, fontend, SumScore_text);
 
-	if (App->input->keyboard[SDL_SCANCODE_SPACE]) {
+	if (App->input->keyboard[SDL_SCANCODE_SPACE]) 
 		App->fade->FadeToBlack(App->stageclear, App->menu, 3.0f);
-	}
+	
 
 	return UPDATE_CONTINUE;
 }
