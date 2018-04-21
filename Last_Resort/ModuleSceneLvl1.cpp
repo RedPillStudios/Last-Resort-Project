@@ -273,6 +273,7 @@ update_status ModuleSceneLvl1::Update() {
 	if(App->Boss->dead == true){
 
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 1.0f);
+		App->Boss->dead = false;
 	}
 
 	return UPDATE_CONTINUE;

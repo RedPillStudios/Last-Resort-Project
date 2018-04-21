@@ -79,6 +79,7 @@ ModuleBossLvl1::~ModuleBossLvl1() {}
 bool ModuleBossLvl1::Start() {
 
 	position = { (SCREEN_WIDTH - 100), 18 };
+	
 	current_head = &AnimMouth;
 	current_eye = &AnimClosedEye;
 
