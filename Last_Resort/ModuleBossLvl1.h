@@ -60,8 +60,9 @@ public:
 public:
 
 	bool beAttacked;
-	void OnCollision(Collider *c1, Collider *c2);
-	uint life = 50;
+	void OnCollision(Collider *c1, Collider *c2) override;
+	uint life = 4;
+	bool dead;
 
 private:
 

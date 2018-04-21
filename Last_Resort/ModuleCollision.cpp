@@ -112,7 +112,6 @@ update_status ModuleCollision::PreUpdate()
 			delete colliders[i];
 			colliders[i] = nullptr;
 		}
-		
 	}
 
 	// Calculate collisions

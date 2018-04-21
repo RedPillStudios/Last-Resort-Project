@@ -49,7 +49,7 @@ bool ModuleTextures::CleanUp()
 	}
 
 	IMG_Quit();
-	return true;
+	return true;  
 }
 
 // Load new texture from file path

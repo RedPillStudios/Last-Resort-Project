@@ -259,10 +259,20 @@ update_status ModuleSceneLvl1::Update() {
 
 	// FADE IF NOT ENOUGHT COINS
 	if (P1Coins <= 0 && P2Coins <= 0 && App->player->Dead == true && App->player2->Dead == true) {
+
 		App->player->Disable();
 		App->player2->Disable();
 		App->powerup->Disable();
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f); 
+	}
+
+	//Fade if boss is dead
+	if(App->Boss->dead == true){
+
+		App->player->Disable();
+		App->player2->Disable();
+		App->powerup->Disable();
+		App->fade->FadeToBlack(App->scene1background, App->stageclear, 1.0f);
 	}
 
 	return UPDATE_CONTINUE;
