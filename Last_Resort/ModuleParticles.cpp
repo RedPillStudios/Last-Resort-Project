@@ -22,22 +22,27 @@ ModuleParticles::ModuleParticles() {
 ModuleParticles::~ModuleParticles() {}
 
 bool ModuleParticles::Start() {
-
+	
+	
 	LOG("Loading Particles");
+	Particle1 = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	Particle2 = App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
+
+
 	ImpactExplosionSound = App->sound->LoadChunk("Audio/General/007_Enemy_Explosion_Standard.wav");
 
 	ShootExplosion.Anim.PushBack({ 82, 239, 12, 12 });
 	ShootExplosion.Anim.PushBack({ 94, 241, 11, 9 });
 	ShootExplosion.Anim.loop = false;
 	ShootExplosion.Anim.speed = 0.3f;
-	ShootExplosion.Sprites= App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	ShootExplosion.Sprites = Particle1;
 
 	Laser.Anim.PushBack({ 115, 242, 15, 7 });
 	Laser.Anim.speed = 0.0f;
 	Laser.fx = 1;
 	Laser.Life = 1300;
 	Laser.Speed.x = 5;
-	Laser.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	Laser.Sprites = Particle1;
 
 	ImpactExplosion.Anim.PushBack({ 315,369,16,16 });
 	ImpactExplosion.Anim.PushBack({ 331,369,16,16 });
@@ -45,7 +50,7 @@ bool ModuleParticles::Start() {
 	ImpactExplosion.Anim.PushBack({ 363,369,16,16 });
 	ImpactExplosion.Anim.speed = 0.3f;
 	ImpactExplosion.Anim.loop = false;
-	ImpactExplosion.Sprites= App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	ImpactExplosion.Sprites = Particle1;
 
 	EnemyExplosion.Anim.PushBack({ 0, 396, 32, 32 });
 	EnemyExplosion.Anim.PushBack({67, 396, 32, 32});
@@ -53,10 +58,9 @@ bool ModuleParticles::Start() {
 	EnemyExplosion.Anim.PushBack({ 132, 396, 32, 32 });
 	EnemyExplosion.Anim.speed = 0.3f;
 	EnemyExplosion.Anim.loop = false;
-	EnemyExplosion.Sprites= App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
-
+	EnemyExplosion.Sprites = Particle2;
 	//Boss
-	BossShoot.Sprites = App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
+	BossShoot.Sprites = Particle1;
 	BossShoot.Anim.PushBack({ 129,256, 63, 32 });
 	BossShoot.Anim.PushBack({ 194,260, 63, 32 });
 	BossShoot.Anim.loop = true;
@@ -64,7 +68,7 @@ bool ModuleParticles::Start() {
 	BossShoot.Speed.x = -2;
 	BossShoot.Anim.speed = 0.1f;
 
-	BossCoolDown.Sprites = App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
+	BossCoolDown.Sprites = Particle1;
 	BossCoolDown.Anim.PushBack({ 63,311,56, 28 });
 	BossCoolDown.Anim.PushBack({ 119,311,56, 28 });
 	BossCoolDown.Anim.PushBack({ 175,311,56, 28 });
@@ -77,7 +81,7 @@ bool ModuleParticles::Start() {
 	BossCoolDown.Speed.x = 1;
 	BossCoolDown.Anim.speed = 0.2f;
 
-	BossShootExplosion.Sprites = App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
+	BossShootExplosion.Sprites = Particle1;
 	BossShootExplosion.Anim.PushBack({ 448, 255, 64, 56 });
 	BossShootExplosion.Anim.PushBack({ 384, 255, 64, 56 });
 	BossShootExplosion.Anim.speed = 0.15f;
@@ -86,7 +90,7 @@ bool ModuleParticles::Start() {
 	//HOU_Shot.Anim.PushBack({117,263,13,13});
 	HOU_Shot.Anim.speed = 0.2f;
 	HOU_Shot.Anim.loop = true;
-	HOU_Shot.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	HOU_Shot.Sprites = Particle1;
 	HOU_Shot.Life = 2200;
 
 	return true;
@@ -105,7 +109,10 @@ bool ModuleParticles::CleanUp() {
 			active[i] = nullptr;
 		}
 	}
+	App->sound->UnloadChunks(ImpactExplosionSound);
 
+	App->textures->Unload(Particle1);
+	App->textures->Unload(Particle2);
 	return true;
 }
 

@@ -22,8 +22,6 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
-
-
 public:
 	uint P1Coins;
 	uint P2Coins;

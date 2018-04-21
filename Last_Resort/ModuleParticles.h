@@ -40,6 +40,7 @@ struct Particle {
 	Particle(const Particle &p);
 	~Particle();
 	bool Update();
+
 };
 
 class ModuleParticles : public Module
@@ -70,6 +71,11 @@ public:
 	Particle Laser2;
 	Particle ShootExplosionLaser2; // estas dos son para el segundo tipo de disparo
 	Particle HOU_Shot;
+
+
+	SDL_Texture *Particle1 = nullptr;
+	SDL_Texture *Particle2 = nullptr;
+	
 
 	//Boss Shoot
 	Particle BossShoot;
