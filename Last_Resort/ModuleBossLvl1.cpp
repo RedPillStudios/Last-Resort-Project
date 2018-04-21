@@ -123,11 +123,11 @@ update_status ModuleBossLvl1::Update() {
 	Body->SetPos(position.x, position.y);
 
 	position.x++;
-	/*App->render->Blit(Boss, position.x + 10, position.y + 79, &current_eye->GetCurrentFrame());
+	App->render->Blit(Boss, position.x + 10, position.y + 79, &current_eye->GetCurrentFrame());
 	App->render->Blit(Boss, position.x + 8, position.y - 20, &current_head->GetCurrentFrame());
 	App->render->Blit(Boss, position.x - 14, position.y + 8, &AnimArm.GetCurrentFrame());
 	App->render->Blit(Boss, position.x + 6, position.y + 48, &AnimPotbelly.GetCurrentFrame());
-	App->render->Blit(Boss, position.x, position.y, &AnimBody.GetCurrentFrame());*/
+	App->render->Blit(Boss, position.x, position.y, &AnimBody.GetCurrentFrame());
 
 	Attack();
 

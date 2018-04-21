@@ -158,6 +158,8 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 		
 			if (enemies[i]->life <= 0) {
 
+				App->textures->Unload(enemies[i]->sprites);
+
 				if(c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT)
 					App->player->ScoreP1 += enemies[i]->score;
 				else if (c1->type == COLLIDER_PLAYER_SHOT2 || c2->type == COLLIDER_PLAYER_SHOT2)

@@ -127,21 +127,22 @@ bool ModulePlayer::Start() {
 bool ModulePlayer::CleanUp() {
 
 	LOG("Cleaning Up Player 1 Module");
+	if (Ship1Collider != nullptr) {
+		Ship1Collider = nullptr;
+	}
 
-	Ship1Collider=NULL;
-	//App->powerup->Disable();
-	current_animation = NULL;
+	if (current_animation != nullptr) {
+		current_animation = nullptr;
+	}
 
 	App->textures->Unload(UI_Main_Menu);
-	//App->particles->Disable();
-	//App->fonts->UnLoad(font);
-
 	App->textures->Unload(graphicsp1);
 	App->fonts->UnLoad(font);
+	App->fonts->UnLoad(disappeartext);
 	
-	if (GOD)
+	if (GOD) {
 		GOD = false;
-
+	}
 
 	//DestroyShip.Reset();
 	return true;
@@ -233,9 +234,16 @@ update_status ModulePlayer::Update() {
 				App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_SUICIDE, (App->player->position.x) + 200, App->player->position.y);
 				Spawned = true;
 			}
+			
 			if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_STATE::KEY_DOWN) {
+				if (GOD) {
+					GOD = !GOD;
+				}
+				else if (!GOD) {
+					GOD;
+				}
 
-				GOD = !GOD;
+
 			}
 
 			if (GOD) {
@@ -310,7 +318,8 @@ update_status ModulePlayer::Update() {
 
 		//end anim of dead and disable
 		if (ToBeDeleted == true && current_animation->Finished() == true) {
-			App->powerup->Disable();
+			App->player->Disable();
+			App->textures->Unload(graphicsp1);
 			Disable();
 		}
 	return UPDATE_CONTINUE;
@@ -318,10 +327,6 @@ update_status ModulePlayer::Update() {
 
 void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 
-	//if (c1->type == COLLIDER_POWER_UP && c2->type == COLLIDER_PLAYER) {
-	//	App->powerup->HOU_activated = true;
-	//	App->powerup->colliderPowerUp->to_delete = true;
-	//}
 	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
 
 			if (!GOD) {

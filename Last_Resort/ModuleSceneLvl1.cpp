@@ -217,10 +217,14 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->textures->Unload(graphics_FirstPlaneBackGround);
 	App->textures->Unload(graphics_SecondPlaneBackground);
 	App->textures->Unload(graphics_Crater_Boss_Zone);
+	App->textures->Unload(graphics);
 
+	App->player->Disable();
+	App->player2->Disable();
 	App->powerup->Disable();
 	App->Boss->Disable();
 	App->collision->Disable();
+	App->particles->Disable();
 	App->enemies->Disable();
 	return true;
 }
@@ -260,18 +264,12 @@ update_status ModuleSceneLvl1::Update() {
 	// FADE IF NOT ENOUGHT COINS
 	if (P1Coins <= 0 && P2Coins <= 0 && App->player->Dead == true && App->player2->Dead == true) {
 
-		App->player->Disable();
-		App->player2->Disable();
-		App->powerup->Disable();
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f); 
 	}
 
 	//Fade if boss is dead
 	if(App->Boss->dead == true){
 
-		App->player->Disable();
-		App->player2->Disable();
-		App->powerup->Disable();
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 1.0f);
 	}
 
