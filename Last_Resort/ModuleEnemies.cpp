@@ -157,6 +157,7 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 
 			//ADD HERE App.player.score += score;
 			if (enemies[i]->life <= 0) {
+				App->textures->Unload(enemies[i]->sprites);
 				delete enemies[i];
 				enemies[i] = nullptr;
 				break;

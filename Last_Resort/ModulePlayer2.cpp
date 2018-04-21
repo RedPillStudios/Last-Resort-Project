@@ -210,6 +210,7 @@ update_status ModulePlayer2::Update() {
 	if (ToBeDeleted == true && current_animation2->Finished() == true) {
 
 		App->player2->Disable();
+		App->textures->Unload(graphicsp2);
 	}
 
 	return UPDATE_CONTINUE;

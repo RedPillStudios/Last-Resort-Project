@@ -6,6 +6,7 @@
 #include "ModuleParticles.h"
 
 
+
 EnemyWasp::EnemyWasp(int x, int y) : Enemy(x, y) {
 
 	AnimWasp.PushBack({0, 178, 32, 15});
@@ -25,12 +26,12 @@ EnemyWasp::EnemyWasp(int x, int y) : Enemy(x, y) {
 	collider = App->collision->AddCollider({0,0,31,16}, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 }
 
-// EnemyWasp::~EnemyWasp(){
-//
-//
-//
-//}
-//
+ /*EnemyWasp::~EnemyWasp(){
+
+	 
+
+}
+*/
 
 void EnemyWasp::Move() {
 

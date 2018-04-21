@@ -21,7 +21,7 @@ Enemy_Rhino::Enemy_Rhino(int x, int y) : Enemy(x, y)
 	animation = &fly;
 
 	score = 300;
-	life = 5; 
+	life = 500; 
 
 
 	collider = App->collision->AddCollider({ 0, 0, 48, 45 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);

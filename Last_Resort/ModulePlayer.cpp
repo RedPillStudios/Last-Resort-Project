@@ -198,8 +198,13 @@ update_status ModulePlayer::Update() {
 			}
 
 			if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {
+				if (GOD) {
+					GOD = !GOD;
+				}
+				else if (!GOD) {
+					GOD;
+				}
 				
-				GOD = !GOD;
 			}
 			
 
@@ -231,8 +236,8 @@ update_status ModulePlayer::Update() {
   
 		//end anim of dead and disable
 		if (ToBeDeleted == true && current_animation->Finished() == true) {
-			//App->powerup->Disable();
 			App->player->Disable();
+			App->textures->Unload(graphicsp1);
 		}
 	return UPDATE_CONTINUE;
 }
