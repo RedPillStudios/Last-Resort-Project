@@ -35,7 +35,7 @@ bool ModuleParticles::Start() {
 	Laser.Anim.PushBack({ 115, 242, 15, 7 });
 	Laser.Anim.speed = 0.0f;
 	Laser.fx = 1;
-	Laser.Life = 1100;
+	Laser.Life = 1300;
 	Laser.Speed.x = 5;
 	Laser.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
 
@@ -55,7 +55,32 @@ bool ModuleParticles::Start() {
 	EnemyExplosion.Anim.loop = false;
 	EnemyExplosion.Sprites= App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
 
+	//Boss
+	BossShoot.Sprites = App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
+	BossShoot.Anim.PushBack({ 129,256, 63, 32 });
+	BossShoot.Anim.PushBack({ 194,260, 63, 32 });
+	BossShoot.Anim.loop = true;
+	BossShoot.Life = 1300;
+	BossShoot.Speed.x = -2;
+	BossShoot.Anim.speed = 0.1f;
 
+	BossCoolDown.Sprites = App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
+	BossCoolDown.Anim.PushBack({ 63,311,56, 28 });
+	BossCoolDown.Anim.PushBack({ 119,311,56, 28 });
+	BossCoolDown.Anim.PushBack({ 175,311,56, 28 });
+	BossCoolDown.Anim.PushBack({ 231,311,56, 28 });
+	BossCoolDown.Anim.PushBack({ 288,311,55, 28 });
+	BossCoolDown.Anim.PushBack({ 347,311,52, 28 });
+	BossCoolDown.Anim.PushBack({ 407,311,48, 28 });
+	BossCoolDown.Anim.PushBack({ 467,311,46, 28 });
+	BossCoolDown.Anim.loop = false;
+	BossCoolDown.Speed.x = 1;
+	BossCoolDown.Anim.speed = 0.2f;
+
+	BossShootExplosion.Sprites = App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
+	BossShootExplosion.Anim.PushBack({ 448, 255, 64, 56 });
+	BossShootExplosion.Anim.PushBack({ 384, 255, 64, 56 });
+	BossShootExplosion.Anim.speed = 0.15f;
 
 	HOU_Shot.Anim.PushBack({ 117,250,13,13 });
 	//HOU_Shot.Anim.PushBack({117,263,13,13});

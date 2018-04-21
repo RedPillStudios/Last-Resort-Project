@@ -60,6 +60,9 @@ public:
 	char top_score[10];
 	uint TopScore;
 
+	//P2 Life
+	char life_text[10];
+
 public:
 
 	uint lives = 3;

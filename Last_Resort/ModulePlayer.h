@@ -61,6 +61,9 @@ public:
 	char top_score[10];
 	uint TopScore;
 
+	//P1 Life
+	char life_text[10];
+
 public:
 	
 	bool startAnim = true;

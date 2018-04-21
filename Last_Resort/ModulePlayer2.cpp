@@ -209,16 +209,19 @@ update_status ModulePlayer2::Update() {
 
 	Ship2Collider->SetPos(positionp2.x, positionp2.y);
 
-	//2P Score
+	//P2 Score
 	sprintf_s(score_text2, "%7d", ScoreP2);
 	App->fonts->BlitText((SCREEN_WIDTH - 65), 16, App->player->font, score_text2);
 	App->fonts->BlitText((SCREEN_WIDTH - 76), 11, App->player->font, "_");
 	App->fonts->BlitText((SCREEN_WIDTH - 76), 15, App->player->font, "_");
 	App->fonts->BlitText((SCREEN_WIDTH - 92), 16, App->player->font, "P2");
 
-	if (App->player->Dead == true && App->player->IsEnabled() == false) {
+	//P2 Life
+	sprintf_s(life_text, "%7d", App->scene1background->P2Coins);
+	App->fonts->BlitText((SCREEN_WIDTH - 75), 24, App->player->font, "X0");
+	App->fonts->BlitText((SCREEN_WIDTH - 107), 24, App->player->font, life_text);
 
-		LOG("Writing Top Score");
+	if (App->player->Dead == true && App->player->IsEnabled() == false) {
 		
 		if (App->player->IsEnabled() == true)
 			TopScore = App->fonts->TopScore(App->player->ScoreP1, ScoreP2, TopScore);
@@ -244,7 +247,7 @@ void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
 		
 		if (!GOD) {
-			App->scene1background->coins -= 1;
+			App->scene1background->P2Coins -= 1;
 			LOG("TE QUITO UN COIN MAMASITA");
 			Dead = true;
 			current_animation2 = &DestroyShip;

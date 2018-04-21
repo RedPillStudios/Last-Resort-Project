@@ -16,8 +16,7 @@
 #include "ModuleParticles.h"
 #include "ModuleEnemies.h"
 #include "ModulePowerUp.h"
-
-// Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
+#include "ModuleBossLvl1.h"
 
 ModuleSceneLvl1::ModuleSceneLvl1()
 {
@@ -68,17 +67,19 @@ bool ModuleSceneLvl1::Start()
 	Mix_PlayMusic(Stage1, -1);
 	Mix_Volume(-1, VOLUME_MUSIC);
 
-	coins = 6;
+	P1Coins = 3;
+	P2Coins = 3;
 
 	if (IsEnabled()) {
 		App->enemies->Enable();
 		App->powerup->Enable();
+		App->Boss->Enable();
 	}
-	if (App->player->IsEnabled() == false && App->scene1background->coins > 0) {
+	if (App->player->IsEnabled() == false && App->scene1background->P1Coins > 0) {
 		App->player->Enable();
 		App->player->resetPosition();
 	}
-	if (App->player2->IsEnabled() == false && App->scene1background->coins >0) {
+	if (App->player2->IsEnabled() == false && App->scene1background->P2Coins >0) {
 		App->player2->Enable();
 		App->player2->resetPosition2();
 	}
@@ -218,7 +219,7 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->textures->Unload(graphics_Crater_Boss_Zone);
 
 	App->powerup->Disable();
-
+	App->Boss->Disable();
 	App->collision->Disable();
 	App->enemies->Disable();
 	return true;
@@ -230,11 +231,11 @@ update_status ModuleSceneLvl1::Update() {
 	position_min_limit++;
 
 	//Add player to the game
-	if (App->player->IsEnabled() == false && coins > 0 && App->player->Dead == true) {
+	if (App->player->IsEnabled() == false && P1Coins > 0 && App->player->Dead == true) {
 		App->player->Enable();
 		App->player->resetPosition();
 	}
-	if (App->player2->IsEnabled() == false && coins > 0 && App->player2->Dead == true) {
+	if (App->player2->IsEnabled() == false && P2Coins > 0 && App->player2->Dead == true) {
 		App->player2->Enable();
 		App->player2->resetPosition2();
 	}
@@ -257,7 +258,7 @@ update_status ModuleSceneLvl1::Update() {
 	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL, 0.5f); // FIRST PLANE BACKGROUND
 
 	// FADE IF NOT ENOUGHT COINS
-	if (coins <= 0 && (App->player->Dead == true && App->player2->Dead == true)) {
+	if (P1Coins <= 0 && P2Coins <= 0 && App->player->Dead == true && App->player2->Dead == true) {
 		App->player->Disable();
 		App->player2->Disable();
 		App->powerup->Disable();

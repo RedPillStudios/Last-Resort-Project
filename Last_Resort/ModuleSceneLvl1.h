@@ -25,7 +25,9 @@ public:
 
 
 public:
-	int coins = 6;
+	uint P1Coins;
+	uint P2Coins;
+
 public:
 	int position_max_limit = SCREEN_WIDTH;
 	int position_min_limit = 0;

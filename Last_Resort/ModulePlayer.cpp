@@ -17,7 +17,6 @@
 
 #include <stdio.h>
 
-// Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 ModulePlayer::ModulePlayer()
 {
 
@@ -150,9 +149,9 @@ update_status ModulePlayer::Update() {
 			current_animation = &Standard;
 		}
 	}
-		if (current_animation != &DestroyShip && Appear.Finished()&& (current_animation != &Up )) {
+		if (current_animation != &DestroyShip && Appear.Finished()&& (current_animation != &Up ))
 			current_animation = &Standard;
-		}
+		
 
 		if (!Dead&& current_animation != &Appear) {
 			//Movement Up
@@ -263,22 +262,24 @@ update_status ModulePlayer::Update() {
 		else 
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
 	
-		//1P Score
-		LOG("Writing Player 1 Score");
+		//P1 Score
 		sprintf_s(score_text, "%7d", ScoreP1);
 		App->fonts->BlitText(40, 16, font, score_text);
 		App->fonts->BlitText(13, 16, font, "P1");
 		App->fonts->BlitText(29, 11, font, "_");
 		App->fonts->BlitText(29, 15, font, "_");
-		
+
+		//P1 Life
+		sprintf_s(life_text, "%7d", App->scene1background->P1Coins);
+		App->fonts->BlitText(30, 24, font, "X0");
+		App->fonts->BlitText(-2, 24, font, life_text);
+
 		if (App->player2->Dead == false && App->player2->IsEnabled() == false) {
 			App->fonts->BlitText((SCREEN_WIDTH - 76), 16, font, "INSERT");
 			App->fonts->BlitText((SCREEN_WIDTH - 74), 24, font, "COIN");
 		}
 
 		//TOP Score
-		LOG("Writing Top Score");
-
 		if (App->player2->IsEnabled() == true)
 			TopScore = App->fonts->TopScore(ScoreP1, App->player2->ScoreP2, TopScore);
 		else
@@ -308,7 +309,7 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 
 			if (!GOD) {
 
-				App->scene1background->coins -= 1;
+				--(App->scene1background->P1Coins);
 				LOG("TE QUITO UN COIN PAPITO");
 				Dead = true;
 				ToBeDeleted = true;

@@ -71,6 +71,12 @@ public:
 	Particle ShootExplosionLaser2; // estas dos son para el segundo tipo de disparo
 	Particle HOU_Shot;
 
+	//Boss Shoot
+	Particle BossShoot;
+	Particle BossCoolDown;
+	Particle BossShootExplosion;
+
+
 	Mix_Chunk *ImpactExplosionSound;
 
 	uint Enemies_Weapon = 0;
