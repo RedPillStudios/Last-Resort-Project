@@ -100,23 +100,28 @@ bool ModulePlayer2::Start() {
 
 	LOG("Loading player2 textures");
 	Appear.Reset();
-
+	//textures
 	graphicsp2 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
 	UI_Main_Menu= App->textures->Load("Images/Stage_Clear/All_Stage_Clears.png");
-	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
-	Ship2Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
-
+	//fonts
 	font2 = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
-	
+	//collider
+	Ship2Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
+	//sound
+	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
+
+	//initializing
 	ScoreP2 = 0;
 	TopScore;
 
+
+	//bools
 	Dead = false;
 	AppearAnim = true;
 	ToBeDeleted = false;
 	
-	DestroyShip.Reset();
 
+	DestroyShip.Reset();
 	current_animation2 = &Appear;
 
 	return true;
@@ -127,9 +132,18 @@ bool ModulePlayer2::CleanUp() {
 	LOG("Cleaning Up Player 2 Module")
 	App->textures->Unload(graphicsp2);
 	App->textures->Unload(UI_Main_Menu);
-	current_animation2=NULL;
-	Ship2Collider = NULL;
-	//App->powerup->Disable();
+
+	if (current_animation2 != nullptr) {
+		current_animation2 = nullptr;
+	}
+	
+	if (Ship2Collider != nullptr) {
+		Ship2Collider = nullptr;
+	}
+	App->fonts->UnLoad(font2);
+
+	App->sound->UnloadChunks(Shot_Sound);
+	
 	return true;
 }
 

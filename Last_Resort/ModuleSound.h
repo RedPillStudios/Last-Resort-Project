@@ -31,6 +31,11 @@ public:
 
 public:
 	
+	bool UnloadMusic(Mix_Music*music);
+	bool UnloadChunks(Mix_Chunk*chunk);
+
+
+
 	bool Playing=false;
 	
 	Mix_Music*music[MAX_MUSIC];

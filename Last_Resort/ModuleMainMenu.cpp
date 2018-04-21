@@ -39,8 +39,8 @@ bool ModuleMainMenu::Start() {
 	LOG("Loading Main Menu");
 
 	graphics_Background = App->textures->Load("Images/Main_Menu/Last_Resort_Intro.png");
-	Main_Menu = App->sound->LoadMusic("Audio/Main_Menu/Title.ogg");
 
+	Main_Menu = App->sound->LoadMusic("Audio/Main_Menu/Title.ogg");
 	Insert_Coin = App->sound->LoadChunk("Audio/Main_Menu/Insert_Coin.wav");
 	Mix_PlayMusic(Main_Menu, 0);
 
@@ -53,6 +53,8 @@ bool ModuleMainMenu::CleanUp() {
 
 	LOG("Unloading Main Menu");
 	App->textures->Unload(graphics_Background);
+	App->sound->UnloadChunks(Insert_Coin);
+	App->sound->UnloadMusic(Main_Menu);
 	return true;
 
 }

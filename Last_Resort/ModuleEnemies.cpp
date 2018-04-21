@@ -83,11 +83,12 @@ update_status ModuleEnemies::PostUpdate() {
 
 	//Check camera position to decide what to spawn
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
-
+		
 		if (enemies[i] != nullptr) {
-
-			  if (enemies[i]->position.x * SCREEN_SIZE < (App->scene1background->position_min_limit) - SPAWN_MARGIN) {
+			
+			  if (enemies[i]->position.x * SCREEN_SIZE < (App->render->camera.x)-200) {
 				LOG("DeSpawning enemy at %d", enemies[i]->position.x * SCREEN_SIZE);
+				App->textures->Unload(enemies[i]->sprites);
 				delete enemies[i];
 				enemies[i] = nullptr;
 			}

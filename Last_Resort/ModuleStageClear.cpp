@@ -43,8 +43,9 @@ bool ModuleStageClear::Start() {
 	}
 
 	graphics_StageClearImage = App->textures->Load("Images/Stage_Clear/All_Stage_Clears.png"); 
-	StageClear = App->sound->LoadMusic("Audio/Stage_Clear/Stage_Clear.ogg");
 	fontend = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
+
+	StageClear = App->sound->LoadMusic("Audio/Stage_Clear/Stage_Clear.ogg");
 
 	Mix_PlayMusic(StageClear, 0);
 	return true;
@@ -55,6 +56,8 @@ bool ModuleStageClear::CleanUp() {
 	LOG("Unloading Stage Clear images");
 	App->textures->Unload(graphics_StageClearImage);
 	App->fonts->UnLoad(fontend);
+
+	App->sound->UnloadMusic(StageClear);
 	return true;
 }
 

@@ -219,6 +219,8 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->textures->Unload(graphics_Crater_Boss_Zone);
 	App->textures->Unload(graphics);
 
+	App->sound->UnloadMusic(Stage1);
+
 	App->player->Disable();
 	App->player2->Disable();
 	App->powerup->Disable();

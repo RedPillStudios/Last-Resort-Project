@@ -85,7 +85,7 @@ ModulePlayer::~ModulePlayer() {}
 // Load assets
 bool ModulePlayer::Start() {
 
-	LOG("Loading player 1 textures");
+	
 	position.x = App->scene1background->position_min_limit + 20;
 	position.y = SCREEN_HEIGHT / 2;
 
@@ -105,19 +105,28 @@ bool ModulePlayer::Start() {
 
 	Appear.Reset();
 	DestroyShip.Reset();
-	
-	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
 
+	LOG("Loading player 1 textures");
+	//textures
+	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
+	UI_Main_Menu = App->textures->Load("Images/Stage_Clear/All_Stage_Clears.png");
+
+	//fonts
 	font = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
 	disappeartext = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
-	UI_Main_Menu = App->textures->Load("Images/Stage_Clear/All_Stage_Clears.png");
-	
+
+	//audio
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
+
+
+	//Colliders
 	Ship1Collider = App->collision->AddCollider({ position.x, position.y,32,12 }, COLLIDER_PLAYER, this);
 
+
+	//bools
 	ToBeDeleted = false;
-	
 	Dead = false;
+
 	//Player1Activated = false;
 	current_animation = &Appear;
 
@@ -140,11 +149,13 @@ bool ModulePlayer::CleanUp() {
 	App->fonts->UnLoad(font);
 	App->fonts->UnLoad(disappeartext);
 	
+	App->sound->UnloadChunks(Shot_Sound);
+
 	if (GOD) {
 		GOD = false;
 	}
 
-	//DestroyShip.Reset();
+	
 	return true;
 }
 

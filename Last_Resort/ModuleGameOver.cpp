@@ -44,9 +44,11 @@ bool ModuleGameOver::Start() {
 
 		LOG("Loading Game Over Screen");
 		graphics_GameOverImage = App->textures->Load("Images/Congrats/GameOver.png");
-		GameOver = App->sound->LoadMusic("Audio/Congrats/GameOver.ogg");
 		fontend = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
-  
+
+
+		GameOver = App->sound->LoadMusic("Audio/Congrats/GameOver.ogg");
+		
 		Mix_Volume(-1,VOLUME_MUSIC);
 		Mix_PlayMusic(GameOver, 0);
 
@@ -56,7 +58,9 @@ bool ModuleGameOver::Start() {
 			if (App->player2->IsEnabled())
 				App->player2->Disable();
 		}
-
+		if (App->scene1background->IsEnabled()) {
+			App->scene1background->Disable();
+		}
 		Score = false;
 
 	
@@ -66,8 +70,11 @@ bool ModuleGameOver::Start() {
 bool ModuleGameOver::CleanUp() {
 
 	LOG("Unloading Game Over Screen");
-	if(App->textures->Unload(graphics_GameOverImage) == false)
-		App->textures->Unload(graphics_GameOverImage);
+	
+	App->textures->Unload(graphics_GameOverImage);
+	App->fonts->UnLoad(fontend);
+
+	App->sound->UnloadMusic(GameOver);
 
 	return true;
 }
