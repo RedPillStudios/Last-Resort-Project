@@ -72,6 +72,11 @@ ModulePlayer2::ModulePlayer2()
 
 	DestroyShip.speed = 0.3f;
 	DestroyShip.loop = false;
+
+	UI_ship2.x = 168;
+	UI_ship2.y = 25;
+	UI_ship2.w = 17;
+	UI_ship2.h = 6;
 }
 
 ModulePlayer2::~ModulePlayer2() {}
@@ -97,6 +102,7 @@ bool ModulePlayer2::Start() {
 	Appear.Reset();
 
 	graphicsp2 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
+	UI_Main_Menu= App->textures->Load("Images/Stage_Clear/All_Stage_Clears.png");
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
 	Ship2Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
 
@@ -120,6 +126,7 @@ bool ModulePlayer2::CleanUp() {
 
 	LOG("Cleaning Up Player 2 Module")
 	App->textures->Unload(graphicsp2);
+	App->textures->Unload(UI_Main_Menu);
 	current_animation2=NULL;
 	Ship2Collider = NULL;
 	//App->powerup->Disable();
@@ -215,6 +222,8 @@ update_status ModulePlayer2::Update() {
 	App->fonts->BlitText((SCREEN_WIDTH - 76), 11, App->player->font, "_");
 	App->fonts->BlitText((SCREEN_WIDTH - 76), 15, App->player->font, "_");
 	App->fonts->BlitText((SCREEN_WIDTH - 92), 16, App->player->font, "P2");
+
+	App->render->Blit(UI_Main_Menu,237,24,&UI_ship2,0.0f,false); //Mini_UI_Ships->Player2
 
 	//P2 Life
 	sprintf_s(life_text, "%7d", App->scene1background->P2Coins);

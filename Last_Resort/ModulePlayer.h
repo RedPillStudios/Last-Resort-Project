@@ -33,7 +33,11 @@ public:
 
 public:
 	SDL_Rect Ship;
+	SDL_Rect UI_ship;
+	
+
 	SDL_Texture* graphicsp1 = nullptr;
+	SDL_Texture*UI_Main_Menu = nullptr;
 
 	Animation Up;
 	Animation Down;

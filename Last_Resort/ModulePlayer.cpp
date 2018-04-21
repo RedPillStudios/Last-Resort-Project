@@ -70,6 +70,14 @@ ModulePlayer::ModulePlayer()
 
 	DestroyShip.speed = 0.3f;
 	DestroyShip.loop = false;
+
+	UI_ship.x=0; //UI_Ship
+	UI_ship.y=9;
+	UI_ship.w=16;
+	UI_ship.h=8;
+
+	
+
 }
 
 ModulePlayer::~ModulePlayer() {}
@@ -97,10 +105,12 @@ bool ModulePlayer::Start() {
 
 	Appear.Reset();
 	DestroyShip.Reset();
+	
 	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
 
 	font = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
 	disappeartext = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
+	UI_Main_Menu = App->textures->Load("Images/Stage_Clear/All_Stage_Clears.png");
 	
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
 	Ship1Collider = App->collision->AddCollider({ position.x, position.y,32,12 }, COLLIDER_PLAYER, this);
@@ -121,11 +131,14 @@ bool ModulePlayer::CleanUp() {
 	Ship1Collider=NULL;
 	//App->powerup->Disable();
 	current_animation = NULL;
+
+	App->textures->Unload(UI_Main_Menu);
 	//App->particles->Disable();
 	//App->fonts->UnLoad(font);
 
 	App->textures->Unload(graphicsp1);
 	App->fonts->UnLoad(font);
+	
 	if (GOD)
 		GOD = false;
 
@@ -262,12 +275,16 @@ update_status ModulePlayer::Update() {
 		else 
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
 	
+
 		//P1 Score
 		sprintf_s(score_text, "%7d", ScoreP1);
 		App->fonts->BlitText(40, 16, font, score_text);
 		App->fonts->BlitText(13, 16, font, "P1");
 		App->fonts->BlitText(29, 11, font, "_");
 		App->fonts->BlitText(29, 15, font, "_");
+
+		App->render->Blit(UI_Main_Menu,13 ,24,&UI_ship,0.0f,false); //Mini_UI_Ships->Player1
+		
 
 		//P1 Life
 		sprintf_s(life_text, "%7d", App->scene1background->P1Coins);
