@@ -93,6 +93,7 @@ bool ModuleBossLvl1::Start() {
 	Body = App->collision->AddCollider({ position.x, position.y, 95, 77}, COLLIDER_ENEMY);
 
 	dead == false;
+	life = 10;
 
 	return true;
 }

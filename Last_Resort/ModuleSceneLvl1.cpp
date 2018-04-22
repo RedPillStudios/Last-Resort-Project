@@ -83,6 +83,7 @@ bool ModuleSceneLvl1::Start()
 		App->player2->Enable();
 		App->player2->resetPosition2();
 	}
+	
 
 	//Enemies
 	//WASP->Wave1{
@@ -271,7 +272,6 @@ update_status ModuleSceneLvl1::Update() {
 
 	//Fade if boss is dead
 	if(App->Boss->dead == true){
-
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 1.0f);
 		App->Boss->dead = false;
 	}
