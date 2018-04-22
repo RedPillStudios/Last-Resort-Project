@@ -64,6 +64,8 @@ bool ModuleSceneLvl1::Start()
 
 	//Music
 	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
+	Stage1_Boss_Music = App->sound->LoadMusic("Audio/Stage1/Stage1_Music_Boss.ogg");
+
 	Mix_PlayMusic(Stage1, -1);
 	Mix_Volume(-1, VOLUME_MUSIC);
 
@@ -221,6 +223,7 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->textures->Unload(graphics);
 
 	App->sound->UnloadMusic(Stage1);
+	App->sound->UnloadMusic(Stage1_Boss_Music);
 
 	App->player->Disable();
 	App->player2->Disable();
@@ -256,6 +259,12 @@ update_status ModuleSceneLvl1::Update() {
 
 	//camera Mov
 	App->render->camera.x += 1*SCREEN_SIZE;
+	
+	if (App->render->camera.x >= 600) {
+		Mix_FadeOutMusic(3000);
+		/*Mix_PlayMusic(Stage1_Boss_Music,-1);
+		Mix_FadeInMusic(Stage1_Boss_Music, 1, 1000);*/
+	}
 	
 
 	//background

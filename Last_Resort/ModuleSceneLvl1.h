@@ -48,6 +48,7 @@ public:
 
 	//Music
 	Mix_Music*Stage1 =  nullptr;
+	Mix_Music*Stage1_Boss_Music = nullptr;
 };
 
 #endif
