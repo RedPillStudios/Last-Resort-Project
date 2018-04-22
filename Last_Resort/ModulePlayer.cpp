@@ -129,6 +129,8 @@ bool ModulePlayer::Start() {
 	//Player1Activated = false;
 	current_animation = &Appear;
 
+	WeaponType = 0;
+
 	return true;
 }
 
