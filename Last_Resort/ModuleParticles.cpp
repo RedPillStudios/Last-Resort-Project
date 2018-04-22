@@ -62,6 +62,56 @@ bool ModuleParticles::Start() {
 	MissilePower.Life = 3000;
 	MissilePower.Sprites = Particle1;
 
+	//___________________________
+
+	LaserBeam.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeam.Anim.PushBack({ 47,243,16,3 });
+	LaserBeam.Anim.loop = true;
+	LaserBeam.Anim.speed = 0.1;
+	LaserBeam.Speed.x = 6;
+	LaserBeam.Life = 3000;
+
+	LaserBeamExplosion.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeamExplosion.Anim.PushBack({ 0,317,13,13 });
+	LaserBeamExplosion.Anim.PushBack({ 0,334,27,9 });
+	LaserBeamExplosion.Anim.PushBack({ 0,348,30,7 });
+	LaserBeamExplosion.Anim.PushBack({ 0,369,31,5 });
+	LaserBeamExplosion.Anim.PushBack({ 33,319,32,3 });
+	LaserBeamExplosion.Anim.PushBack({ 33,329,32,3 });
+	LaserBeamExplosion.Anim.PushBack({ 33,348,30,3 });
+	LaserBeamExplosion.Anim.loop = false;
+	LaserBeamExplosion.Anim.speed = 0.3;
+	LaserBeamExplosion.Speed.x = 1;
+
+	LaserBeamArea1.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeamArea1.Anim.PushBack({ 48,264 - 10,4,8 + 21 });  //264
+	LaserBeamArea1.Anim.PushBack({ 57,261 - 5,6,15 + 15 });  //261
+	LaserBeamArea1.Anim.PushBack({ 66,254,11,31 });  //254
+	LaserBeamArea1.Anim.loop = false;
+	LaserBeamArea1.Anim.speed = 0.3f;
+	LaserBeamArea1.Speed.x = 2;
+
+	LaserBeamArea2.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeamArea2.Anim.PushBack({ 65,337,16,47 });
+	LaserBeamArea2.Anim.PushBack({ 85,337,20,47 });
+	LaserBeamArea2.Anim.PushBack({ 106,337,20,47 });
+	LaserBeamArea2.Anim.PushBack({ 129,337,20,47 });   //LASER AREA 1
+	LaserBeamArea2.Anim.PushBack({ 151,337,20,47 });
+	LaserBeamArea2.Anim.PushBack({ 166,337,17,47 });//____________________________
+	LaserBeamArea2.Anim.loop = false;
+	LaserBeamArea2.Anim.speed = 0.1;
+	LaserBeamArea2.Speed.x = 2.0f;
+	LaserBeamArea2.Life = 300;
+
+	LaserBeamArea3.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeamArea3.Anim.PushBack({ 65,337,16,47 });
+	LaserBeamArea3.Anim.loop = false;
+	LaserBeamArea3.Anim.speed = 0.1;
+	LaserBeamArea3.Speed.x = 5;
+	LaserBeamArea3.Life = 300;
+
+
+
 	EnemyExplosion.Anim.PushBack({ 0, 396, 32, 32 });
 	EnemyExplosion.Anim.PushBack({67, 396, 32, 32});
 	EnemyExplosion.Anim.PushBack({100, 396, 32, 32 });

@@ -104,6 +104,18 @@ public:
 			int position_max_limit = SCREEN_WIDTH;
 			int position_min_limit = 0;
 		}
+public:
+	//shoot selector here
+	int WeaponType = 0;
+
+	void ShootSelector(uint shoot) {
+		if (shoot == BASICSHOOT) {
+			WeaponType = 1;
+		}
+		else if (shoot == LASERSHOOT) {
+			WeaponType = 2;
+		}
+	};
 };
 
 #endif

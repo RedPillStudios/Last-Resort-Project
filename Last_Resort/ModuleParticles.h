@@ -16,6 +16,7 @@
 struct SDL_Texture;
 struct Collider;
 enum COLLIDER_TYPE;
+
 enum TYPE {
 	NO_PARTICLE,
 	PARTICLE_1,
@@ -73,6 +74,11 @@ public:
 	Particle HOU_Shot;
 	Particle MissilePower;
 
+	Particle LaserBeam;
+	Particle LaserBeamExplosion;
+	Particle LaserBeamArea1;
+	Particle LaserBeamArea2;
+	Particle LaserBeamArea3;
 
 	SDL_Texture *Particle1 = nullptr;
 	SDL_Texture *Particle2 = nullptr;
