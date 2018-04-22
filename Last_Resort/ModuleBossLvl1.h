@@ -4,6 +4,13 @@
 #include "Module.h"
 #include "p2Point.h"
 #include "Animation.h"
+#include "Globals.h"
+#include <stdio.h>
+
+#include "SDL/include/SDL.h"
+#include "SDL/include/SDL_timer.h"
+#include <stdlib.h>
+#include "ModuleSceneLvl1.h"
 
 struct Collider;
 struct SDL_Texture;
@@ -60,10 +67,20 @@ public:
 public:
 
 	bool beAttacked;
-	void OnCollision(Collider *c1, Collider *c2) override;
+	void OnCollision(Collider *c1, Collider *c2);
 	uint life;
 	bool dead;
 
+	bool ShootSpawned;
+	bool TimeCounter = true;
+	bool TimeCounter2 = true;
+
+	uint AppearTime;
+	uint AppearTime2;
+	uint current_time = SDL_GetTicks();
+
+
+	
 private:
 
 	//Booleans for charge attack
@@ -74,10 +91,6 @@ private:
 	//Attack Functions
 	void Charge();
 	void Shooting();
-	void Attack();
-
-	bool Wait1 = true;
-	bool Wait2 = false;
 	
 };
 

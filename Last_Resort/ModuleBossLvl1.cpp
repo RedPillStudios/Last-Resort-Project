@@ -8,7 +8,9 @@
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 
+#include <stdio.h>
 
+#include "SDL/include/SDL.h"
 #include "SDL/include/SDL_timer.h"
 #include <stdlib.h>
 
@@ -93,8 +95,10 @@ bool ModuleBossLvl1::Start() {
 	Left_Arm = App->collision->AddCollider({ position.x - 14, position.y + 8, 22, 72 }, COLLIDER_ENEMY);
 	Body = App->collision->AddCollider({ position.x, position.y, 95, 77}, COLLIDER_ENEMY);
 
-	dead == false;
+	dead = false;
 	life = 10;
+
+	ShootSpawned = true;
 
 	return true;
 }
@@ -132,7 +136,12 @@ update_status ModuleBossLvl1::Update() {
 	App->render->Blit(Boss, position.x + 6, position.y + 48, &AnimPotbelly.GetCurrentFrame());
 	App->render->Blit(Boss, position.x, position.y, &AnimBody.GetCurrentFrame());
 
-	Attack();
+	Shooting();
+	//Charge();
+	if (SDL_GetTicks() >= AppearTime) {
+		TimeCounter = true;
+		ShootSpawned = true;
+	}
 
 	return UPDATE_CONTINUE;
 }
@@ -158,68 +167,54 @@ void ModuleBossLvl1::OnCollision(Collider *c1, Collider *c2) {
 
 void ModuleBossLvl1::Shooting() {
 
-	App->particles->AddParticle(App->particles->BossShoot, position.x + 20, position.y + 74, COLLIDER_ENEMY_SHOT);
-	App->particles->AddParticle(App->particles->BossCoolDown, position.x - 20, position.y + 73, COLLIDER_NONE, 280);
-	App->particles->AddParticle (App->particles->BossShootExplosion, position.x - 10, position.y + 59);
-	App->particles->AddParticle(App->particles->BossShoot, position.x + 20, position.y + 74, COLLIDER_ENEMY_SHOT, 2000);
-	App->particles->AddParticle(App->particles->BossCoolDown, position.x - 20, position.y + 73, COLLIDER_NONE, 2280);
-	App->particles->AddParticle(App->particles->BossShootExplosion, position.x - 10, position.y + 59);
+	if (ShootSpawned) {
+		if (TimeCounter) {
+
+			AppearTime = SDL_GetTicks() + 5000;
+
+			App->particles->AddParticle(App->particles->BossShoot, position.x + 20, position.y + 74, COLLIDER_ENEMY_SHOT);
+			App->particles->AddParticle(App->particles->BossCoolDown, position.x - 20, position.y + 73, COLLIDER_NONE, 280);
+			App->particles->AddParticle(App->particles->BossShootExplosion, position.x - 10, position.y + 59);
+
+			App->particles->AddParticle(App->particles->BossShoot, position.x + 20, position.y + 74, COLLIDER_ENEMY_SHOT, 500);
+			App->particles->AddParticle(App->particles->BossCoolDown, position.x - 20, position.y + 73, COLLIDER_NONE, 780);
+			App->particles->AddParticle(App->particles->BossShootExplosion, position.x - 10, position.y + 59, COLLIDER_NONE, 500);
+
+			//Charge();
+
+			TimeCounter = false;
+			ShootSpawned = false;
+		}
+	}
 }
 
 void ModuleBossLvl1::Charge() {
 
 	uint Speed = 5;
 
-	if (current_eye == &AnimOpenEye && current_eye->Finished()) {
+	if(!ShootSpawned){
 
-		AnimOpenEye.Reset();
-		current_eye = &AnimCloseEye;
-	}
-	if (current_eye->Finished()) {
+		if (TimeCounter2) {
 
-		if (position.x <= (30 + App->scene1background->position_min_limit) && Left) {
-
-			Left = false;
-			Right = false;
+			AppearTime2 = SDL_GetTicks() + 3000;
+			TimeCounter = false;
 		}
 
-		if (Left)
-			position.x += Speed;
+			if (SDL_GetTicks() >= AppearTime2) {
 
-		if (Right && position.x <= (220 + App->scene1background->position_min_limit))
-			position.x++;
+				Left = true;
 
-		if (Right && position.x >= (220 + App->scene1background->position_min_limit)) {
+				if(Left)
+					position.x -= Speed;
+				if (Right)
+					position.x += Speed;
 
-			Left = true;
-			Right = false;
-			ChargeAttack = false;
-			current_eye = &AnimOpenEye;
-			AnimCloseEye.Reset();
+				if (position.x <= (100 + App->scene1background->position_min_limit) && Left) {
+					Left = false;
+					Right = true;
+				}
+				if (Right && position.x == (220 + App->scene1background->position_min_limit))
+					Right = false;
 		}
 	}
-}
-
-void ModuleBossLvl1::Attack() {
-
-	if(Wait1){
-
-		Shooting();
-		Wait1 = false;
-		Wait2 = true;
-	}
-	/*if (Wait2) {
-
-		Charge();
-		Wait2 = false;
-		Wait1 = true;
-	}
-	*/
-	if (current_eye == &AnimOpenEye && current_eye->Finished())
-		beAttacked = true;
-	else
-		beAttacked = false;
-
-	/*if (ChargeAttack)
-		Charge();*/
 }
