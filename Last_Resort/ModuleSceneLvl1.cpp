@@ -367,11 +367,13 @@ update_status ModuleSceneLvl1::Update() {
 	}
 
 	//Fade if boss is dead
-	if(App->Boss->dead == true){
+	if(App->Boss->dead){
 
   		App->player->TopScore += 10000;
+		App->Boss->Disable();
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 1.0f);
 		App->Boss->dead = false;
+		
 	}
 
 	return UPDATE_CONTINUE;

@@ -88,6 +88,9 @@ private:
 	bool Left = false;
 	bool Right = false;
 
+	bool boss1life = false;
+	int font = -1;
+
 	//Attack Functions
 	void Charge();
 	void Shooting();

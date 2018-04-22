@@ -7,6 +7,8 @@
 #include "ModuleSceneLvl1.h"
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
+#include "ModuleInput.h"
+#include "ModuleFonts.h"
 
 
 #include "SDL/include/SDL_timer.h"
@@ -87,6 +89,7 @@ bool ModuleBossLvl1::Start() {
 	current_eye = &AnimClosedEye;
 
 	Boss = App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
+	font = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
 
 	//Add Colliders
 	Bot = App->collision->AddCollider({ position.x + 10, position.y + 95, 48, 18 }, COLLIDER_ENEMY);
@@ -96,7 +99,7 @@ bool ModuleBossLvl1::Start() {
 	Body = App->collision->AddCollider({ position.x, position.y, 95, 77}, COLLIDER_ENEMY);
 
 	dead = false;
-	life = 1;
+	life = 50;
 	ShootSpawned = true;
 
 	return true;
@@ -117,6 +120,7 @@ bool ModuleBossLvl1::CleanUp() {
 		Body->to_delete = true;
 
 	App->textures->Unload(Boss);
+	App->fonts->UnLoad(font);
 	return true;
 }
 
@@ -144,6 +148,17 @@ update_status ModuleBossLvl1::Update() {
 		ShootSpawned = true;
 	}
 
+	if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_STATE::KEY_DOWN)
+		boss1life = true;
+	
+
+	if (boss1life) {
+
+		life = 1;
+		App->fonts->BlitText((SCREEN_WIDTH/2)-32, SCREEN_HEIGHT - 10, font, "B0SS");
+		App->fonts->BlitText((SCREEN_WIDTH/2), SCREEN_HEIGHT - 10, font, "1LIFE");
+	}
+
 	return UPDATE_CONTINUE;
 }
 
@@ -158,8 +173,6 @@ void ModuleBossLvl1::OnCollision(Collider *c1, Collider *c2) {
 					App->player->ScoreP1 += 5000;
 					App->player2->ScoreP2 += 5000;
  					dead = true;
-					App->Boss->Disable();
-					
 		}
 		
 	}
