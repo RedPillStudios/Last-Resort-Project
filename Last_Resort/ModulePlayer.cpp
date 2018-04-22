@@ -282,13 +282,16 @@ update_status ModulePlayer::Update() {
 
 			//Shoot
 			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
+				
 				if (WeaponType == Shoots::MISSILES) {
 					App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y + 10, COLLIDER_PLAYER_SHOT, 200);
 					App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y - 10, COLLIDER_PLAYER_SHOT, 200);
+					App->particles->AddParticle(App->particles->Laser, setFirePos().x-10, setFirePos().y, COLLIDER_PLAYER_SHOT);
+					App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
 				}
 				else if (WeaponType == Shoots::BASICSHOOT) {
 
-					App->particles->AddParticle(App->particles->Laser, setFirePos().x, setFirePos().y, COLLIDER_PLAYER_SHOT);
+					App->particles->AddParticle(App->particles->Laser, setFirePos().x-10, setFirePos().y, COLLIDER_PLAYER_SHOT);
 					App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
 				}
 				else if (WeaponType == Shoots::LASERSHOOT) {

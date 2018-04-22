@@ -158,9 +158,7 @@ bool ModulePowerUp::Start() {
 
 	colliderHUB = App->collision->AddCollider({ -2000,-200,22,16 }, COLLIDER_HOU, this);
 
-	AddPowerUp(RED, 600, 16);
-	AddPowerUp(RED, 400, 16);
-	AddPowerUp(LASER, 400, 90);
+	
 	return true;
 }
 
@@ -169,6 +167,20 @@ bool ModulePowerUp::CleanUp() {
 	LOG("Cleaning Up Power Ups");
 	App->textures->Unload(HOU_Texture);
 	App->textures->Unload(Charge_texture);
+	for (uint i = 0; i < MAX_POWERUP; ++i) {
+		if (PowerUps[i] != nullptr) {
+			App->textures->Unload(PowerUps[i]->sprite);
+			delete PowerUps[i];
+			PowerUps[i] = nullptr;
+			
+		}
+
+		queue[i].type = NON;
+	}
+
+	App->sound->UnloadChunks(PickUpSpeed);
+	App->sound->UnloadChunks(PickUpWeapon);
+
 	return true;
 }
 

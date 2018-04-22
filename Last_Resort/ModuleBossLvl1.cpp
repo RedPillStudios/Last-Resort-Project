@@ -148,7 +148,7 @@ update_status ModuleBossLvl1::Update() {
 		ShootSpawned = true;
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_STATE::KEY_DOWN)
+	if (App->input->keyboard[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN)
 		boss1life = true;
 	
 

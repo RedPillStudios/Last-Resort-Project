@@ -132,6 +132,8 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 750, 20);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 790, 20);
 
+	App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 790, 20);
+
 	//troop3
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 795, 145);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 835, 145);
@@ -148,6 +150,8 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1095, 95);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1075, 65);
 
+	App->powerup->AddPowerUp(POWERUP_TYPES::RED, 1075, 65);
+
 	//troop5
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1155, 20);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1195, 20);
@@ -160,6 +164,9 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1235, 145);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1275, 145);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1315, 145);
+
+
+	App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 1315, 145);
 	// }
 
 	//WASP->Wave2{
@@ -182,6 +189,7 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3280, 90);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3320, 75);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3310, 145);
+	App->powerup->AddPowerUp(POWERUP_TYPES::RED, 3310, 145);
 	//}
 
 	//WASP->wave4
@@ -234,6 +242,8 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5660, 77);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5700, 77);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5740, 77);
+
+	App->powerup->AddPowerUp(POWERUP_TYPES::RED, 5740, 77);
   
 	 //wave3
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5860, 60);//these are not well located!!!!!!!!!!!!!!!!!!!!!!!!
@@ -243,7 +253,9 @@ bool ModuleSceneLvl1::Start()
 
 	//ZICZAC
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,3560, 145);
+	App->powerup->AddPowerUp(POWERUP_TYPES::RED, 3560, 145);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, 7560, 60);
+	App->powerup->AddPowerUp(POWERUP_TYPES::RED, 7560, 60);
 
 	//CARS
 	App->enemies->AddEnemy(ENEMY_TYPES::CARS,-10, 195);
@@ -354,12 +366,6 @@ update_status ModuleSceneLvl1::Update() {
 
 	if (App->player->position.x >= 9000-(SCREEN_WIDTH-20) || App->player2->positionp2.x >= 9000- (SCREEN_WIDTH - 20)) {
 		App->Boss->Enable();
-
-	//fading msuic jack to the metro
-		Mix_FadeOutMusic(3000);
-	/*	Mix_PlayMusic(Stage1_Boss_Music,-1);*/
-	
-			//fadingIn Music Boss
 	
 
 		if (App->Boss->position.x > App->scene1background->position_min_limit && App->Boss->position.x < App->scene1background->position_max_limit-100)
