@@ -163,6 +163,7 @@ void ModuleCollision::DebugDraw()
 		debug = !debug;
 
 	if (debug == false)
+
 		return;
 
 	Uint8 alpha = 80;

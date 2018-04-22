@@ -76,15 +76,14 @@ public:
 
 	powerUp_red(int x, int y);
 	~powerUp_red() {};
-	void Move() {};
+	
 	void OnCollision(Collider *c1) {};
-	Animation Blue;
+	
 	Animation Red;
 	fPoint position;
 
-private:
 
-	POWERUP_TYPES a;
+	
 
 };
 
@@ -93,14 +92,12 @@ public:
 
 	powerUp_Laser(int x, int y);
 	~powerUp_Laser() {};
-	void Move() {};
+	
 	void OnCollision(Collider *c1) {};
 	Animation ChangeColor;
 	fPoint position;
 
-private:
 
-	POWERUP_TYPES a;
 
 };
 

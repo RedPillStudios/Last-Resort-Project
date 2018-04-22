@@ -119,6 +119,9 @@ bool ModuleBossLvl1::CleanUp() {
 	if (Body != nullptr)
 		Body->to_delete = true;
 
+	current_eye = nullptr;
+	current_head = nullptr;
+
 	App->textures->Unload(Boss);
 	App->fonts->UnLoad(font);
 	return true;

@@ -175,6 +175,13 @@ bool ModuleParticles::CleanUp() {
 	App->textures->Unload(Particle1);
 	App->textures->Unload(Particle2);
 	App->textures->Unload(Particle3);
+	App->textures->Unload(LaserBeam.Sprites);
+	App->textures->Unload(ImpactExplosion.Sprites);
+	App->textures->Unload(LaserBeamExplosion.Sprites);
+	App->textures->Unload(LaserBeamArea1.Sprites);
+	App->textures->Unload(LaserBeamArea2.Sprites);
+	App->textures->Unload(LaserBeamArea3.Sprites);
+		
 
 	return true;
 }

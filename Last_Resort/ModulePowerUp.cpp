@@ -170,12 +170,22 @@ bool ModulePowerUp::CleanUp() {
 	for (uint i = 0; i < MAX_POWERUP; ++i) {
 		if (PowerUps[i] != nullptr) {
 			App->textures->Unload(PowerUps[i]->sprite);
+			PowerUps[i]->collider->to_delete = true;
+			PowerUps[i]->animation = nullptr;
+
 			delete PowerUps[i];
 			PowerUps[i] = nullptr;
 			
 		}
 
 		queue[i].type = NON;
+
+	}
+	if (colliderHUB != nullptr) {
+		colliderHUB = nullptr;
+	}
+	if (current_animation != nullptr) {
+		current_animation = nullptr;
 	}
 
 	App->sound->UnloadChunks(PickUpSpeed);
