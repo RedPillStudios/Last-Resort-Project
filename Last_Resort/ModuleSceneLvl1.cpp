@@ -246,18 +246,18 @@ update_status ModuleSceneLvl1::Update() {
 		App->player2->resetPosition2();
 	}
 
-	//camera Mov
-	App->render->camera.x += 1*SCREEN_SIZE;
-	
-	App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
-	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
-	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL,0.5f); // FIRST PLANE BACKGROUND
-
+	//fades
 	if (App->input->keyboard[SDL_SCANCODE_F2])
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 3.0f);
 	if (App->input->keyboard[SDL_SCANCODE_F3])
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 3.0f);
 
+
+	//camera Mov
+	App->render->camera.x += 1*SCREEN_SIZE;
+	
+
+	//background
 	App->render->Blit(graphics_Crater_Boss_Zone, 0, 0, &CraterBossZone, 0.0f);
 	App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
 	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);

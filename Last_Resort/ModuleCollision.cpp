@@ -44,7 +44,7 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_PLAYER_SHOT] = false;
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_PLAYER_SHOT2] = false;
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_ENEMY_SHOT] = false;
-	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_POWER_UP] = true;
+	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_POWER_UP] = false;
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_HOU] = false;
 	matrix[COLLIDER_PLAYER_SHOT][COLLIDER_CAR] = true;
 
@@ -70,8 +70,8 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_POWER_UP][COLLIDER_WALL] = false;
 	matrix[COLLIDER_POWER_UP][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_POWER_UP][COLLIDER_ENEMY] = false;
-	matrix[COLLIDER_POWER_UP][COLLIDER_PLAYER_SHOT] = true;
-	matrix[COLLIDER_POWER_UP][COLLIDER_PLAYER_SHOT2] = true;
+	matrix[COLLIDER_POWER_UP][COLLIDER_PLAYER_SHOT] = false;
+	matrix[COLLIDER_POWER_UP][COLLIDER_PLAYER_SHOT2] =false;
 	matrix[COLLIDER_POWER_UP][COLLIDER_ENEMY_SHOT] = false;
 	matrix[COLLIDER_POWER_UP][COLLIDER_POWER_UP] = false;
 	matrix[COLLIDER_POWER_UP][COLLIDER_HOU] = false;
@@ -84,7 +84,7 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_HOU][COLLIDER_PLAYER_SHOT2] = false;
 	matrix[COLLIDER_HOU][COLLIDER_POWER_UP] = false;
 	matrix[COLLIDER_HOU][COLLIDER_HOU] = false;
-  matrix[COLLIDER_HOU][COLLIDER_CAR] =true;
+    matrix[COLLIDER_HOU][COLLIDER_CAR] =true;
 
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_CAR] = false;
 
@@ -95,7 +95,7 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_CAR][COLLIDER_ENEMY_SHOT] = false;
 	matrix[COLLIDER_CAR][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_CAR][COLLIDER_CAR] = false;
-  matrix[COLLIDER_CAR][COLLIDER_HOU] = false;
+    matrix[COLLIDER_CAR] [COLLIDER_HOU] = false;
 
 }
 

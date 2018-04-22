@@ -30,6 +30,7 @@ public:
 	bool ToBeDeleted = false;
 	bool TimeCounter = true;
 	uint AppearTime;
+	uint current_time=SDL_GetTicks();
 
 public:
 	SDL_Rect Ship;
