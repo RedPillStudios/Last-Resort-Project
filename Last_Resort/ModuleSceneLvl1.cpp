@@ -105,6 +105,8 @@ bool ModuleSceneLvl1::Start()
 		App->enemies->Enable();
 		App->powerup->Enable();
 		App->Boss->Enable();
+		App->collision->Enable();
+		App->particles->Enable();
 	}
 	if (App->player->IsEnabled() == false && App->scene1background->P1Coins > 0) {
 		App->player->Enable();
@@ -259,14 +261,6 @@ bool ModuleSceneLvl1::Start()
 
 	//CARS
 	App->enemies->AddEnemy(ENEMY_TYPES::CARS,-10, 195);
-
-
-
-
-	if (App->collision->IsEnabled() == false && App->particles->IsEnabled() == false) {
-		App->collision->Enable();
-		App->particles->Enable();
-	}
 	
 	return true;
 }

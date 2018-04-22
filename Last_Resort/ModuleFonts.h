@@ -30,6 +30,9 @@ public:
 	uint TopScore(uint Score1, uint Score2, uint TopScore);
 	uint TopScoreP1(uint Score1, uint TopScore);
 
+	uint SP1 = 0;
+	uint SP2 = 0;
+
 private:
 
 	Font fonts[MAX_FONTS];

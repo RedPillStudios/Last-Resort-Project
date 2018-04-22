@@ -85,6 +85,7 @@ ModulePlayer::~ModulePlayer() {}
 // Load assets
 bool ModulePlayer::Start() {
 
+	ScoreP1 = App->fonts->SP1;
 	position.x = App->scene1background->position_min_limit + 20;
 	position.y = SCREEN_HEIGHT / 2;
 
@@ -100,7 +101,7 @@ bool ModulePlayer::Start() {
 			App->powerup->Enable();
 	}
 
-	ScoreP1 = 0;
+	//ScoreP1 = 0;
 
 	Appear.Reset();
 	DestroyShip.Reset();
@@ -388,6 +389,7 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 
 			if (!GOD) {
 
+				App->fonts->SP1 = ScoreP1;
 				--(App->scene1background->P1Coins);
 				LOG("TE QUITO UN COIN PAPITO");
 				Dead = true;

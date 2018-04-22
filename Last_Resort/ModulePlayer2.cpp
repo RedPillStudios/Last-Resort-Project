@@ -84,6 +84,7 @@ ModulePlayer2::~ModulePlayer2() {}
 // Load assets
 bool ModulePlayer2::Start() {
 
+	ScoreP2 = App->fonts->SP2;
 	positionp2.x = App->scene1background->position_min_limit + 20;
 	positionp2.y = SCREEN_WIDTH/2;
 
@@ -274,6 +275,7 @@ void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
 		
 		if (!GOD) {
+			App->fonts->SP2 = ScoreP2;
 			App->scene1background->P2Coins -= 1;
 			LOG("TE QUITO UN COIN MAMASITA");
 			Dead = true;
