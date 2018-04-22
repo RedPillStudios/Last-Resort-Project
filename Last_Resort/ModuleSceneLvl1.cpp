@@ -156,6 +156,7 @@ bool ModuleSceneLvl1::Start()
 	//}
 
 	//WASP->wave4
+
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3700, 145);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3740, 115);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3780, 85);
@@ -166,9 +167,23 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3980, 55);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 4020, 55);
 
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7640, 50);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7640, 130);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7650, 150);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7660, 160);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8000, 165);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8040, 160);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8080, 160);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8120, 170);
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8150, 50);
+
+
+
 	//Rhino->Wave1
 	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 525, 75);
 		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 570, 75);*/
+
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2425,75);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2470, 75);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2515, 75);
@@ -267,16 +282,20 @@ update_status ModuleSceneLvl1::Update() {
 	//teleport to boss
 	/*if (App->input->keyboard[SDL_SCANCODE_F10]) {
 		if (App->player->IsEnabled())
-		App->player->position.x = 9000;
-		if(App->player2->IsEnabled())
-		App->player2->positionp2.x = 9000;
+		App->player->position.x = 8600;
+		if (App->player2->IsEnabled())
+			App->player2->positionp2.x = 18600;
+		
+	}*/
 
-		App->render->camera.x = App->player->position.x;
+	if (App->input->keyboard[SDL_SCANCODE_F10]) {
+		
 	}
-*/
+
 	//camera Mov
 	App->render->camera.x += 1*SCREEN_SIZE;
 
+	
 	//background
 	App->render->Blit(graphics_Crater_Boss_Zone, 0, 0, &CraterBossZone, 0.0f);
 	App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
@@ -288,12 +307,21 @@ update_status ModuleSceneLvl1::Update() {
 
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f); 
 		Mix_FadeOutMusic(3000);
+		
 	}
 
 	//Boss Spwan
 
 	if (App->player->position.x >= 9000-(SCREEN_WIDTH-20) || App->player2->positionp2.x >= 9000- (SCREEN_WIDTH - 20)) {
 		App->Boss->Enable();
+
+	//fading msuic jack to the metro
+		Mix_FadeOutMusic(3000);
+	/*	Mix_PlayMusic(Stage1_Boss_Music,-1);*/
+	
+			//fadingIn Music Boss
+	
+
 		if (App->Boss->position.x > App->scene1background->position_min_limit && App->Boss->position.x < App->scene1background->position_max_limit-100)
 			App->Boss->BossMoves = true;
 	}

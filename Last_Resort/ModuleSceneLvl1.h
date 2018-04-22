@@ -26,6 +26,8 @@ public:
 	uint P1Coins;
 	uint P2Coins;
 
+	uint current_time = SDL_GetTicks();
+
 public:
 	int position_max_limit = SCREEN_WIDTH;
 	int position_min_limit = 0;

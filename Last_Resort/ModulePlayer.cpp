@@ -191,7 +191,7 @@ update_status ModulePlayer::Update() {
 					break;
 				}
 				
-				if (App->player->position.x < 3750) {
+				if (App->player->position.x < 3600) {
 					if (App->render->camera.y > -20 && App->player->position.y <= SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 4 || (position.y >= SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 4)) {
 						App->render->camera.y -= speed;
 					}
@@ -214,7 +214,7 @@ update_status ModulePlayer::Update() {
 					position.y = SCREEN_HEIGHT - 15;
 					break;
 				}
-				if (App->player->position.x < 3750) {
+				if (App->player->position.x < 3600) {
 					if ((App->render->camera.y < SCREEN_HEIGHT / 3 && App->player->position.y >= SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 4) || (position.y <= SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 4)) {
 						App->render->camera.y += speed;
 					}

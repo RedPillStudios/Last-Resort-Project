@@ -79,7 +79,7 @@ ModuleBossLvl1::~ModuleBossLvl1() {}
 
 bool ModuleBossLvl1::Start() {
 
-	position = { (9300), 55 };
+	position = { (9000), 55 };
 	
 	current_head = &AnimMouth;
 	current_eye = &AnimClosedEye;
