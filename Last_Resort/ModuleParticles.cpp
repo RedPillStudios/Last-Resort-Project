@@ -7,7 +7,7 @@
 #include "ModuleParticles.h"
 #include "ModulePlayer.h"
 #include "ModuleSceneLvl1.h"
-
+#include "ModulePlayer.h"
 #include "SDL/include/SDL_timer.h"
 
 ModuleParticles::ModuleParticles() {
@@ -29,7 +29,7 @@ bool ModuleParticles::Start() {
 	ImpactExplosionSound = App->sound->LoadChunk("Audio/General/007_Enemy_Explosion_Standard.wav");
 	particle1 = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
 	particle2 = App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
-
+	//_____________
 	ShootExplosion.Anim.PushBack({ 82, 239, 12, 12 });
 	ShootExplosion.Anim.PushBack({ 94, 241, 11, 9 });
 	ShootExplosion.Anim.loop = false;
@@ -42,7 +42,7 @@ bool ModuleParticles::Start() {
 	Laser.Life = 1100;
 	Laser.Speed.x = 5;
 	Laser.Sprites = particle1;
-
+	//_________________
 	ImpactExplosion.Anim.PushBack({ 315,369,16,16 });
 	ImpactExplosion.Anim.PushBack({ 331,369,16,16 });
 	ImpactExplosion.Anim.PushBack({ 347,369,16,16 });   //explosion
@@ -58,7 +58,9 @@ bool ModuleParticles::Start() {
 	EnemyExplosion.Anim.speed = 0.3f;
 	EnemyExplosion.Anim.loop = false;
 	EnemyExplosion.Sprites= particle2;
-
+	//___________________________
+	LaserBeam.
+	//___________________________
 
 
 	HOU_Shot.Anim.PushBack({ 117,250,13,13 });

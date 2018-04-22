@@ -213,11 +213,25 @@ update_status ModulePlayer::Update() {
 				  App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, (App->player->position.x) + 200, App->player->position.y);
 			}
 
+			//Shoot type selection
+			if (App->input->keyboard[SDL_SCANCODE_C] == KEY_STATE::KEY_DOWN) {
+				uint shoot = Shoots::BASICSHOOT;
+				ShootSelector(shoot);
+			}
+			if (App->input->keyboard[SDL_SCANCODE_V] == KEY_STATE::KEY_DOWN) {
+				uint shoot = Shoots::LASERSHOOT;
+				ShootSelector(shoot);
+			}
+
 			//Shoot
 			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
-				App->particles->AddParticle(App->particles->Laser, setFirePos().x, setFirePos().y, COLLIDER_PLAYER_SHOT);
-				App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
-			
+				if (WeaponType == 1) {
+					App->particles->AddParticle(App->particles->Laser, setFirePos().x, setFirePos().y, COLLIDER_PLAYER_SHOT);
+					App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
+				}
+				/*else if (WeaponType == 2) {
+					App->particles
+				}*/
 				Mix_PlayChannel(-1, Shot_Sound, 0);
 			}
 		}

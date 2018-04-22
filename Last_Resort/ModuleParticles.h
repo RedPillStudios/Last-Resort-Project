@@ -65,6 +65,7 @@ public:
 
 	Particle ShootExplosion;
 	Particle Laser;
+	Particle LaserBeam;
 	Particle ImpactExplosion;
 	Particle EnemyExplosion;
 	Particle Laser2;
@@ -73,6 +74,7 @@ public:
 
 	SDL_Texture*particle1;
 	SDL_Texture*particle2;
+
 	Mix_Chunk *ImpactExplosionSound;
 
 	uint Enemies_Weapon = 0;
