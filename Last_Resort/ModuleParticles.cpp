@@ -43,25 +43,73 @@ bool ModuleParticles::Start() {
 	Laser.Speed.x = 5;
 	Laser.Sprites = particle1;
 	//_________________
+	ImpactExplosion.Sprites = particle1;
 	ImpactExplosion.Anim.PushBack({ 315,369,16,16 });
 	ImpactExplosion.Anim.PushBack({ 331,369,16,16 });
 	ImpactExplosion.Anim.PushBack({ 347,369,16,16 });   //explosion
 	ImpactExplosion.Anim.PushBack({ 363,369,16,16 });
 	ImpactExplosion.Anim.speed = 0.3f;
 	ImpactExplosion.Anim.loop = false;
-	ImpactExplosion.Sprites= particle1;
+	
 
+	EnemyExplosion.Sprites = particle2;
 	EnemyExplosion.Anim.PushBack({ 0, 396, 32, 32 });
 	EnemyExplosion.Anim.PushBack({67, 396, 32, 32});
 	EnemyExplosion.Anim.PushBack({100, 396, 32, 32 });
 	EnemyExplosion.Anim.PushBack({ 132, 396, 32, 32 });
 	EnemyExplosion.Anim.speed = 0.3f;
 	EnemyExplosion.Anim.loop = false;
-	EnemyExplosion.Sprites= particle2;
+	
 	//___________________________
-	LaserBeam.Anim.PushBack({});
+	LaserBeam.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	
 
-	//___________________________
+
+	LaserBeam.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeam.Anim.PushBack({ 47,243,16,3 });
+	LaserBeam.Anim.loop = true;
+	LaserBeam.Anim.speed = 0.1;
+	LaserBeam.Speed.x = 6;
+	LaserBeam.Life = 3000;
+
+	LaserBeamExplosion.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeamExplosion.Anim.PushBack({0,317,13,13});
+	LaserBeamExplosion.Anim.PushBack({0,334,27,9});
+	LaserBeamExplosion.Anim.PushBack({0,348,30,7});
+	LaserBeamExplosion.Anim.PushBack({0,369,31,5});
+	LaserBeamExplosion.Anim.PushBack({33,319,32,3});
+	LaserBeamExplosion.Anim.PushBack({33,329,32,3});
+	LaserBeamExplosion.Anim.PushBack({33,348,30,3});
+	LaserBeamExplosion.Anim.loop = false;
+	LaserBeamExplosion.Anim.speed = 0.3;
+	LaserBeamExplosion.Speed.x = 1;
+
+	LaserBeamArea1.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeamArea1.Anim.PushBack({ 48,264-10,4,8+21 });  //264
+	LaserBeamArea1.Anim.PushBack({ 57,261-5,6,15+15 });  //261
+	LaserBeamArea1.Anim.PushBack({ 66,254,11,31 });  //254
+	LaserBeamArea1.Anim.loop = false;
+	LaserBeamArea1.Anim.speed = 0.3f;
+	LaserBeamArea1.Speed.x = 2;
+
+	LaserBeamArea2.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeamArea2.Anim.PushBack({ 65,337,16,47 });
+	LaserBeamArea2.Anim.PushBack({ 85,337,20,47 });
+	LaserBeamArea2.Anim.PushBack({ 106,337,20,47 });
+	LaserBeamArea2.Anim.PushBack({ 129,337,20,47 });   //LASER AREA 1
+	LaserBeamArea2.Anim.PushBack({ 151,337,20,47 });
+	LaserBeamArea2.Anim.PushBack({ 166,337,17,47 });//____________________________
+	LaserBeamArea2.Anim.loop = false;
+	LaserBeamArea2.Anim.speed = 0.1;
+	LaserBeamArea2.Speed.x = 2.0f;
+	LaserBeamArea2.Life = 300;
+
+	LaserBeamArea3.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeamArea3.Anim.PushBack({ 65,337,16,47 });
+	LaserBeamArea3.Anim.loop = false;
+	LaserBeamArea3.Anim.speed = 0.1;
+	LaserBeamArea3.Speed.x = 5;
+	LaserBeamArea3.Life = 300;
 
 
 	HOU_Shot.Anim.PushBack({ 117,250,13,13 });
@@ -133,8 +181,9 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLID
 			p->Position.x = x;
 			p->Position.y = y;
 			p->Sprites = particle.Sprites;
-			if (collider_type != COLLIDER_NONE)
+			if (collider_type != COLLIDER_NONE) {
 				p->collider = App->collision->AddCollider(p->Anim.GetCurrentFrame(), collider_type, this);
+			}
 			active[i] = p;
 			break;
 		}

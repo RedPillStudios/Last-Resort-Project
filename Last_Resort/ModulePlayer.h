@@ -91,7 +91,7 @@ public:
 
 public:
 	 //shoot selector here
-	int WeaponType = 1;
+	int WeaponType = 0;
 
 	void ShootSelector(uint shoot) {
 		if (shoot == BASICSHOOT){

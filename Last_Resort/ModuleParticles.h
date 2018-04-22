@@ -66,6 +66,10 @@ public:
 	Particle ShootExplosion;
 	Particle Laser;
 	Particle LaserBeam;
+	Particle LaserBeamExplosion;
+	Particle LaserBeamArea1;
+	Particle LaserBeamArea2;
+	Particle LaserBeamArea3;
 	Particle ImpactExplosion;
 	Particle EnemyExplosion;
 	Particle Laser2;
