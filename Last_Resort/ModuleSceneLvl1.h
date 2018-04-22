@@ -39,6 +39,8 @@ public:
 	SDL_Texture* graphics_SecondPlaneBackground = nullptr;
 	SDL_Texture* graphics_FirstPlaneBackGround = nullptr;
 	SDL_Texture* graphics_Crater_Boss_Zone = nullptr;
+	SDL_Texture* Laser_Sprites = nullptr;
+	SDL_Texture* Street_Lights = nullptr;
 
 	SDL_Rect ThirdPlaneBackground;
 	SDL_Rect SecondPlaneBackground;
@@ -47,6 +49,9 @@ public:
 	SDL_Rect Lives1Rect;
 	SDL_Rect Lives2Rect;
 	SDL_Rect Lives3Rect;
+
+	Animation Bluelight;
+	Animation YellowLight;
 
 	//Music
 	Mix_Music*Stage1 =  nullptr;
