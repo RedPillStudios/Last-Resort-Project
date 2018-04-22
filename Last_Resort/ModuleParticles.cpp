@@ -59,7 +59,8 @@ bool ModuleParticles::Start() {
 	EnemyExplosion.Anim.loop = false;
 	EnemyExplosion.Sprites= particle2;
 	//___________________________
-	LaserBeam.
+	LaserBeam.Anim.PushBack({});
+
 	//___________________________
 
 

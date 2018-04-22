@@ -229,9 +229,9 @@ update_status ModulePlayer::Update() {
 					App->particles->AddParticle(App->particles->Laser, setFirePos().x, setFirePos().y, COLLIDER_PLAYER_SHOT);
 					App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
 				}
-				/*else if (WeaponType == 2) {
-					App->particles
-				}*/
+				else if (WeaponType == 2) {
+					App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x, setFirePos().y, COLLIDER_PLAYER_SHOT);
+				}
 				Mix_PlayChannel(-1, Shot_Sound, 0);
 			}
 		}
