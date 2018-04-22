@@ -378,7 +378,7 @@ update_status ModuleSceneLvl1::Update() {
   		App->player->TopScore += 10000;
 		App->Boss->Disable();
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 1.0f);
-		App->Boss->dead = false;
+		
 		
 	}
 

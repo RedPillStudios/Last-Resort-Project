@@ -163,7 +163,9 @@ update_status ModulePlayer::Update() {
 
 	int speed = 2;
 
+
 	if (current_animation == &Appear) {
+		
 		position.x=App->scene1background->position_min_limit+2;
 		
 		if (Appear.Finished() && current_animation!=&Standard) {
