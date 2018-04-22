@@ -24,6 +24,7 @@ enum POWERUP_TYPES {
 	NONE,
 	BLUE,
 	RED,
+	LASER,
 	SPEED
 };
 
@@ -63,9 +64,8 @@ public:
 	virtual void Move() {};
 	virtual void OnCollision(Collider *c1) {};
 	fPoint position;
-
-private:
 	POWERUP_TYPES type;
+
 
 };
 
@@ -76,10 +76,26 @@ public:
 
 	powerUp_red(int x, int y);
 	~powerUp_red() {};
-	void Move();
+	void Move() {};
 	void OnCollision(Collider *c1) {};
 	Animation Blue;
 	Animation Red;
+	fPoint position;
+
+private:
+
+	POWERUP_TYPES a;
+
+};
+
+class powerUp_Laser : public powerUp {
+public:
+
+	powerUp_Laser(int x, int y);
+	~powerUp_Laser() {};
+	void Move() {};
+	void OnCollision(Collider *c1) {};
+	Animation ChangeColor;
 	fPoint position;
 
 private:

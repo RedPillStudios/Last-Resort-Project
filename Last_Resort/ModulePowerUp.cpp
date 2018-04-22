@@ -14,17 +14,25 @@ powerUp_red::powerUp_red(int x, int y) : powerUp(x, y) {
 
 	powerUp::sprite = App->textures->Load("Images/General/PowerUps_Sprite.png");
 	Red.PushBack({ 49,64,31,16 });
-	//Blue.PushBack({ 18,64,31,16 });
+	Red.PushBack({ 18,64,31,16 });
 	collider = App->collision->AddCollider({ 500,120,31,16 }, COLLIDER_TYPE::COLLIDER_POWER_UP, (Module*)App->powerup);
 	animation = &Red;
+	Red.speed = 0.1f;
+	type = POWERUP_TYPES::RED;
 
 };
 
-void powerUp_red::Move() {
+powerUp_Laser::powerUp_Laser(int x, int y) : powerUp(x, y) {
 
+	powerUp::sprite = App->textures->Load("Images/General/PowerUps_Sprite.png");
+	ChangeColor.PushBack({ 49,80,31,16 });
+	ChangeColor.PushBack({ 18,80,31,16 });
+	collider = App->collision->AddCollider({ 500,120,31,16 }, COLLIDER_TYPE::COLLIDER_POWER_UP, (Module*)App->powerup);
+	animation = &ChangeColor;
+	ChangeColor.speed = 0.1f;
+	type = POWERUP_TYPES::LASER;
+};
 
-
-}
 
 ModulePowerUp::ModulePowerUp() {
 
@@ -152,7 +160,7 @@ bool ModulePowerUp::Start() {
 
 	AddPowerUp(RED, 600, 16);
 	AddPowerUp(RED, 400, 16);
-
+	AddPowerUp(LASER,400,90);
 	return true;
 }
 
@@ -301,7 +309,10 @@ void ModulePowerUp::OnCollision(Collider *c1, Collider *c2) {
 		if (PowerUps[i] != nullptr && PowerUps[i]->GetCollider() == c1) {
 			HOU_activated = true;
 			PowerUps[i]->OnCollision(c2);
-
+			if (PowerUps[i]->type == POWERUP_TYPES::RED)
+				App->player->WeaponType = 2;
+			if (PowerUps[i]->type == POWERUP_TYPES::LASER)
+				App->player->WeaponType = 1;
 			//ADD HERE App.player.score += score;
 			delete PowerUps[i];
 			PowerUps[i] = nullptr;
@@ -344,6 +355,9 @@ void ModulePowerUp::spawnPowerUp(const PowerUpInfo &info)
 		{
 		case POWERUP_TYPES::RED:
 			PowerUps[i] = new powerUp_red(info.x, info.y);
+			break;
+		case POWERUP_TYPES::LASER:
+			PowerUps[i] = new powerUp_Laser(info.x, info.y);
 			break;
 		}
 	}
