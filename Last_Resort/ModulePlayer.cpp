@@ -287,10 +287,7 @@ update_status ModulePlayer::Update() {
 
 void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 
-	if (c1->type == COLLIDER_POWER_UP && c2->type == COLLIDER_PLAYER) {
-		App->powerup->HOU_activated = true;
-		App->powerup->colliderPowerUp->to_delete = true;
-	}
+	
 	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
 
 			if (!GOD) {
