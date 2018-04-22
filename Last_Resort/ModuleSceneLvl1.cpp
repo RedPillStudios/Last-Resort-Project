@@ -230,10 +230,15 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->player->Disable();
 	App->player2->Disable();
 	App->powerup->Disable();
-	App->Boss->Disable();
 	App->collision->Disable();
 	App->particles->Disable();
 	App->enemies->Disable();
+
+	if(App->Boss->IsEnabled())
+		App->Boss->Disable();
+
+	App->Boss->BossMoves = false;
+
 	return true;
 }
 // Update: draw background
@@ -253,12 +258,22 @@ update_status ModuleSceneLvl1::Update() {
 	}
 
 	//fades
+	//direct win
 	if (App->input->keyboard[SDL_SCANCODE_F2])
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 3.0f);
+	//direct lose
 	if (App->input->keyboard[SDL_SCANCODE_F3])
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 3.0f);
+	//teleport to boss
+	/*if (App->input->keyboard[SDL_SCANCODE_F10]) {
+		if (App->player->IsEnabled())
+		App->player->position.x = 9000;
+		if(App->player2->IsEnabled())
+		App->player2->positionp2.x = 9000;
 
-
+		App->render->camera.x = App->player->position.x;
+	}
+*/
 	//camera Mov
 	App->render->camera.x += 1*SCREEN_SIZE;
 
@@ -275,8 +290,17 @@ update_status ModuleSceneLvl1::Update() {
 		Mix_FadeOutMusic(3000);
 	}
 
+	//Boss Spwan
+
+	if (App->player->position.x >= 9000-(SCREEN_WIDTH-20) || App->player2->positionp2.x >= 9000- (SCREEN_WIDTH - 20)) {
+		App->Boss->Enable();
+		if (App->Boss->position.x > App->scene1background->position_min_limit && App->Boss->position.x < App->scene1background->position_max_limit-100)
+			App->Boss->BossMoves = true;
+	}
+
 	//Fade if boss is dead
 	if(App->Boss->dead == true){
+
 		App->player->TopScore += 10000;
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 1.0f);
 		App->Boss->dead = false;

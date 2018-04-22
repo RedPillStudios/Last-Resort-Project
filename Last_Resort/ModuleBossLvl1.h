@@ -63,6 +63,7 @@ public:
 	void OnCollision(Collider *c1, Collider *c2) override;
 	uint life;
 	bool dead;
+	bool BossMoves = false;
 
 private:
 
@@ -78,6 +79,7 @@ private:
 
 	bool Wait1 = true;
 	bool Wait2 = false;
+	
 	
 };
 

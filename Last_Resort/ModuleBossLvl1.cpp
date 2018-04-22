@@ -79,7 +79,7 @@ ModuleBossLvl1::~ModuleBossLvl1() {}
 
 bool ModuleBossLvl1::Start() {
 
-	position = { (SCREEN_WIDTH - 100), 18 };
+	position = { (9300), 55 };
 	
 	current_head = &AnimMouth;
 	current_eye = &AnimClosedEye;
@@ -125,7 +125,9 @@ update_status ModuleBossLvl1::Update() {
 	Left_Arm->SetPos(position.x - 14, position.y + 8);
 	Body->SetPos(position.x, position.y);
 
-	position.x++;
+	if (BossMoves){
+		position.x++;
+}
 	App->render->Blit(Boss, position.x + 10, position.y + 79, &current_eye->GetCurrentFrame());
 	App->render->Blit(Boss, position.x + 8, position.y - 20, &current_head->GetCurrentFrame());
 	App->render->Blit(Boss, position.x - 14, position.y + 8, &AnimArm.GetCurrentFrame());
