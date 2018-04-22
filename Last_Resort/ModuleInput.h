@@ -3,7 +3,8 @@
 
 #include "Module.h"
 #include "Globals.h"
-#include "SDL\include\SDL_scancode.h"
+#include "SDL/include/SDL.h"
+#include "SDL/include/SDL_scancode.h"
 
 #define MAX_KEYS 300
 enum KEY_STATE {
@@ -24,6 +25,7 @@ public:
 	bool Init();
 	update_status PreUpdate();
 	bool CleanUp();
+	SDL_Event event_;
 
 public:
 	KEY_STATE keyboard[MAX_KEYS];

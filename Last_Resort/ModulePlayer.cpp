@@ -85,7 +85,6 @@ ModulePlayer::~ModulePlayer() {}
 // Load assets
 bool ModulePlayer::Start() {
 
-	
 	position.x = App->scene1background->position_min_limit + 20;
 	position.y = SCREEN_HEIGHT / 2;
 
@@ -136,13 +135,11 @@ bool ModulePlayer::Start() {
 bool ModulePlayer::CleanUp() {
 
 	LOG("Cleaning Up Player 1 Module");
-	if (Ship1Collider != nullptr) {
-		Ship1Collider = nullptr;
-	}
+	if (Ship1Collider != nullptr)
+		Ship1Collider->to_delete = true;
 
-	if (current_animation != nullptr) {
+	if (current_animation != nullptr) 
 		current_animation = nullptr;
-	}
 
 	App->textures->Unload(UI_Main_Menu);
 	App->textures->Unload(graphicsp1);
@@ -151,9 +148,9 @@ bool ModulePlayer::CleanUp() {
 	
 	App->sound->UnloadChunks(Shot_Sound);
 
-	if (GOD) {
-		GOD = false;
-	}
+	if (GOD)
+		GOD = !GOD;
+	
 
 	
 	return true;
@@ -193,9 +190,9 @@ update_status ModulePlayer::Update() {
 					position.y = 2;
 					break;
 				}
-				if (App->render->camera.y > -20 && App->player->position.y<= SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 4 || (position.y>= SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 4)) {
+				if (App->render->camera.y > -20 && App->player->position.y<= SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 4 || (position.y>= SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 4))
 					App->render->camera.y -= speed;
-				}
+				
 
 			}
 			else { current_animation = &Standard; }
@@ -212,12 +209,12 @@ update_status ModulePlayer::Update() {
 					position.y = SCREEN_HEIGHT - 15;
 					break;
 				}
-				if ((App->render->camera.y < SCREEN_HEIGHT /3 && App->player->position.y>=SCREEN_HEIGHT/2+SCREEN_HEIGHT/4) || (position.y<=SCREEN_HEIGHT/2-SCREEN_HEIGHT/4)) {
+				if ((App->render->camera.y < SCREEN_HEIGHT /3 && App->player->position.y>=SCREEN_HEIGHT/2+SCREEN_HEIGHT/4) || (position.y<=SCREEN_HEIGHT/2-SCREEN_HEIGHT/4)) 
 					App->render->camera.y += speed;
 					
-				}
+				
 			}
-			
+
 			//Movement Right
 			if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
 				position.x += speed;
@@ -252,16 +249,8 @@ update_status ModulePlayer::Update() {
 				Spawned = true;
 			}
 			//GOD MODE
-			if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {
-				if (GOD) {
-					GOD = !GOD;
-				}
-				else if (!GOD) {
-					GOD=true;
-				}
-
-
-			}
+			if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) 
+				GOD = !GOD;
 
 			if (GOD) {
 
@@ -324,8 +313,8 @@ update_status ModulePlayer::Update() {
 		//TOP Score
 		if (App->player2->IsEnabled() == true)
 			TopScore = App->fonts->TopScore(ScoreP1, App->player2->ScoreP2, TopScore);
-		else
-			TopScore = App->fonts->TopScoreP1(ScoreP1, TopScore);
+		/*else
+			TopScore = App->fonts->TopScoreP1(ScoreP1, TopScore);*/
 
 		sprintf_s(top_score, "%7d", TopScore);
 		
@@ -335,9 +324,8 @@ update_status ModulePlayer::Update() {
 
 		//end anim of dead and disable
 		if (ToBeDeleted == true && current_animation->Finished() == true) {
-			App->player->Disable();
-			App->textures->Unload(graphicsp1);
 			Disable();
+			App->textures->Unload(graphicsp1);
 		}
 	return UPDATE_CONTINUE;
 }

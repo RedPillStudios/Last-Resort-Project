@@ -181,6 +181,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 				}
 			delete active[i];
 			active[i] = nullptr;
+			App->sound->UnloadChunks(ImpactExplosionSound);
 			break;
 		}
 	}

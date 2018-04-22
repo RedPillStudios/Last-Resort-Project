@@ -102,10 +102,7 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 uint ModuleFonts::TopScore(uint Score1, uint Score2, uint TopScore) {
 
 	uint MaxScore;
-	if (Score1 >= Score2)
-		MaxScore = Score1;
-	else
-		MaxScore = Score2;
+	MaxScore = Score1 + Score2;
 	
 	if (MaxScore > TopScore)
 		TopScore = MaxScore;

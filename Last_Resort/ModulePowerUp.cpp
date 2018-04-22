@@ -113,6 +113,8 @@ bool ModulePowerUp::CleanUp() {
 	App->textures->Unload(HOU_Texture);
 	App->textures->Unload(powerup);
 	App->textures->Unload(Charge_texture);
+	App->sound->UnloadChunks(PickUpSpeed);
+	App->sound->UnloadChunks(PickUpWeapon);
 	return true;
 }
 

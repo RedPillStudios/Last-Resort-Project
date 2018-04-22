@@ -133,13 +133,13 @@ bool ModulePlayer2::CleanUp() {
 	App->textures->Unload(graphicsp2);
 	App->textures->Unload(UI_Main_Menu);
 
-	if (current_animation2 != nullptr) {
+	if (current_animation2 != nullptr) 
 		current_animation2 = nullptr;
-	}
 	
-	if (Ship2Collider != nullptr) {
-		Ship2Collider = nullptr;
-	}
+	
+	if (Ship2Collider != nullptr) 
+		Ship2Collider->to_delete = true;
+	
 	App->fonts->UnLoad(font2);
 
 	App->sound->UnloadChunks(Shot_Sound);
@@ -176,6 +176,8 @@ update_status ModulePlayer2::Update() {
 				positionp2.y = 2;
 				break;
 			}
+			if (App->render->camera.y > -20 && App->player->position.y <= SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 4 || (positionp2.y >= SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 4))
+				App->render->camera.y -= speed;
 		}
 		/*Movement Down*/
 		if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT) {
@@ -185,7 +187,10 @@ update_status ModulePlayer2::Update() {
 				positionp2.y = SCREEN_HEIGHT - 15;
 				break;
 			}
+			if ((App->render->camera.y < SCREEN_HEIGHT / 3 && App->player->position.y >= SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 4) || (positionp2.y <= SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 4))
+				App->render->camera.y += speed;
 		}
+
 		/*Movement Right*/
 		if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT) {
 			positionp2.x += speed;
@@ -202,11 +207,9 @@ update_status ModulePlayer2::Update() {
 				break;
 			}
 		}
-
-		if (App->input->keyboard[SDL_SCANCODE_F10] == KEY_STATE::KEY_DOWN) {
-			GOD = !GOD;
-		}
-
+		if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)
+				GOD = !GOD;
+			
 		/*Shoot*/
 		if (App->input->keyboard[SDL_SCANCODE_RCTRL] == KEY_STATE::KEY_DOWN) {
 
@@ -260,6 +263,7 @@ update_status ModulePlayer2::Update() {
 	//end anim of dead and disable
 	if (ToBeDeleted == true && current_animation2->Finished() == true) {
 		Disable();
+		App->textures->Unload(graphicsp2);
 	}
 
 	return UPDATE_CONTINUE;

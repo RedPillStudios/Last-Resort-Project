@@ -204,9 +204,11 @@ bool ModuleSceneLvl1::Start()
 	//CARS
 	App->enemies->AddEnemy(ENEMY_TYPES::CARS,-10, 195);
 
-	if (App->collision->IsEnabled()==false) {
+	if (App->collision->IsEnabled() == false && App->particles->IsEnabled() == false) {
 		App->collision->Enable();
+		App->particles->Enable();
 	}
+	
 	return true;
 }
 
@@ -259,13 +261,6 @@ update_status ModuleSceneLvl1::Update() {
 
 	//camera Mov
 	App->render->camera.x += 1*SCREEN_SIZE;
-	
-	if (App->render->camera.x >= 600) {
-		Mix_FadeOutMusic(3000);
-		/*Mix_PlayMusic(Stage1_Boss_Music,-1);
-		Mix_FadeInMusic(Stage1_Boss_Music, 1, 1000);*/
-	}
-	
 
 	//background
 	App->render->Blit(graphics_Crater_Boss_Zone, 0, 0, &CraterBossZone, 0.0f);
@@ -277,10 +272,12 @@ update_status ModuleSceneLvl1::Update() {
 	if (P1Coins <= 0 && P2Coins <= 0 && App->player->Dead == true && App->player2->Dead == true) {
 
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f); 
+		Mix_FadeOutMusic(3000);
 	}
 
 	//Fade if boss is dead
 	if(App->Boss->dead == true){
+		App->player->TopScore += 10000;
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 1.0f);
 		App->Boss->dead = false;
 	}
