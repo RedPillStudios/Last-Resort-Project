@@ -71,6 +71,7 @@ public:
 	Particle Laser2;
 	Particle ShootExplosionLaser2; // estas dos son para el segundo tipo de disparo
 	Particle HOU_Shot;
+	Particle MissilePower;
 
 
 	SDL_Texture *Particle1 = nullptr;

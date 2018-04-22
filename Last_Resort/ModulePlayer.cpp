@@ -285,6 +285,11 @@ update_status ModulePlayer::Update() {
 				App->particles->AddParticle(App->particles->Laser, setFirePos().x, setFirePos().y, COLLIDER_PLAYER_SHOT);
 				App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
 				Mix_PlayChannel(-1, Shot_Sound, 0);
+
+				App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y + 10, COLLIDER_PLAYER_SHOT, 200);
+				App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y - 10, COLLIDER_PLAYER_SHOT, 200);
+
+
 			}
 		}
 		

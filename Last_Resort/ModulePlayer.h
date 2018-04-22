@@ -11,6 +11,13 @@ struct SDL_Texture;
 struct Collider;
 struct Mix_Chunk;
 
+enum Shoots
+{
+	BASICSHOOT,
+	LASERSHOOT,
+	MISSILES
+};
+
 class ModulePlayer : public Module
 {
 public:

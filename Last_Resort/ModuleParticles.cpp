@@ -52,6 +52,16 @@ bool ModuleParticles::Start() {
 	ImpactExplosion.Anim.loop = false;
 	ImpactExplosion.Sprites = Particle1;
 
+	MissilePower.Anim.PushBack({ 14,237,30,16 });
+	MissilePower.Anim.PushBack({ 0,258,44,7 });
+	MissilePower.Anim.PushBack({ 0,274,44,7 });
+	MissilePower.Anim.PushBack({ 0,290,74,6 });
+	MissilePower.Anim.speed = 0.1f;
+	MissilePower.Speed.x = 4;
+	MissilePower.Anim.loop = false;
+	MissilePower.Life = 3000;
+	MissilePower.Sprites = Particle1;
+
 	EnemyExplosion.Anim.PushBack({ 0, 396, 32, 32 });
 	EnemyExplosion.Anim.PushBack({67, 396, 32, 32});
 	EnemyExplosion.Anim.PushBack({100, 396, 32, 32 });
