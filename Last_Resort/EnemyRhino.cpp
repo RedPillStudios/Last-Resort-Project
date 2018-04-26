@@ -30,14 +30,11 @@ Enemy_Rhino::Enemy_Rhino(int x, int y) : Enemy(x, y)
 
 void Enemy_Rhino::Move()
 {
-	
-	else
-	{
 		if (wave < -1.0f)
 			going_up = true;
 		else
 			wave -= 0.05f;
-	}
-	position.y = ((float)(original_y) + (69.0f * sinf(wave)));
+	
+	position.y = int(float(original_y) / 3 + (69.0f * sinf(wave)));
 	position.x -= 0.9f;
 }
