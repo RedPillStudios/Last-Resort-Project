@@ -18,12 +18,22 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+	SDL_Rect ScoreRect;
+
 public:
 
 	SDL_Texture *graphics_GameOverImage;
 
 	SDL_Rect Background;
 	SDL_Rect GameOverImage;
+
+	//Scores
+	bool Score;
+	uint SumScore;
+	char Score1_text[10];
+	char Score2_text[10];
+	char SumScore_text[10];
+	int fontend;
 
 	Mix_Music *GameOver = nullptr;
 };

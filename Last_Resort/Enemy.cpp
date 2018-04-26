@@ -4,7 +4,7 @@
 #include "ModuleParticles.h"
 #include "ModuleRender.h"
 
-Enemy::Enemy(int x, int y) : position(x,y) {}
+Enemy::Enemy(int x, int y) : position((float)x,(float)y) {}
 
 Enemy::~Enemy() {
 
@@ -20,13 +20,13 @@ const Collider *Enemy::GetCollider() const {
 void Enemy::Draw(SDL_Texture *sprites) {
 
 	if (collider != nullptr)
-		collider->SetPos(position.x, position.y);
+		collider->SetPos((int)position.x, (int)position.y);
 
 	if (animation != nullptr)
-		App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()));
+		App->render->Blit(sprites, (int)position.x, (int)position.y, &(animation->GetCurrentFrame()));
 }
 
 void Enemy::OnCollision(Collider* collider)
 {
-	App->particles->AddParticle(App->particles->ShootExplosion, position.x, position.y);
+	App->particles->AddParticle(App->particles->ShootExplosion, (int)position.x, (int)position.y);
 }

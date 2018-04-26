@@ -118,3 +118,45 @@ Mix_Chunk*const ModuleSound::LoadChunk(const char*path)
 
 	return chunks;
 }
+bool ModuleSound::UnloadMusic(Mix_Music * Music)
+{
+	bool ret = false;
+
+	if (Music != nullptr)
+	{
+		for (int i = 0; i < MAX_MUSIC; ++i)
+		{
+			if (music[i] == Music)
+			{
+				Mix_FreeMusic(Music);
+				music[i] = nullptr;
+				ret = true;
+				break;
+			}
+		}
+
+
+	}
+	return ret;
+}
+
+bool ModuleSound::UnloadChunks(Mix_Chunk * chunk) {
+	bool ret = false;
+
+	if (chunk != nullptr)
+	{
+		for (int i = 0; i < MAX_CHUNKS; ++i)
+		{
+			if (chunks[i] == chunk)
+			{
+
+				Mix_FreeChunk(chunk);
+				chunks[i] = nullptr;
+				ret = true;
+				break;
+			}
+		}
+
+	}
+	return ret;
+}

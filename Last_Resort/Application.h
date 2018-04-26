@@ -3,7 +3,7 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 16
+#define NUM_MODULES 18
 
 //Scene 2 is not here!!
 
@@ -17,7 +17,6 @@ class ModuleSound;
 class ModuleFadeToBlack;
 class Module;
 class ModuleSceneLvl1;
-class ModuleSceneLvl2;
 class ModuleMainMenu;
 class ModuleGameOver;
 class ModuleParticles;
@@ -25,6 +24,8 @@ class ModuleStageClear;
 class ModuleCollision;
 class ModuleEnemies;
 class ModulePowerUp;
+class ModuleFonts;
+class ModuleBossLvl1;
 
 class ModulePlayer2;
 
@@ -43,13 +44,14 @@ public:
 	ModulePlayer* player;
 	ModuleSound* sound;
 	ModuleFadeToBlack *fade;
-	ModuleSceneLvl2 *scene2background;
 	ModuleGameOver *gameover;
 	ModuleParticles *particles;
 	ModuleCollision *collision;
 	ModuleEnemies *enemies;
 	ModulePowerUp *powerup;
 	ModulePlayer2 *player2;
+	ModuleFonts *fonts;
+	ModuleBossLvl1 *Boss;
 	
 
 public:
