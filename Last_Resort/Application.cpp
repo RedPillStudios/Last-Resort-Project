@@ -7,7 +7,6 @@
 #include "ModulePlayer.h"
 #include "ModuleSound.h"
 #include "ModuleFadeToBlack.h"
-#include "ModuleSceneLvl2.h"
 #include "ModuleMainMenu.h"
 #include "ModuleGameOver.h"
 #include "ModuleParticles.h"
@@ -16,6 +15,9 @@
 #include "ModuleEnemies.h"
 #include "ModulePowerUp.h"
 #include "ModulePlayer2.h"
+#include "ModuleFonts.h"
+#include "ModuleBossLvl1.h"
+
 
 Application::Application()
 {
@@ -34,8 +36,11 @@ Application::Application()
 	modules[i++] = player2 = new ModulePlayer2();
 	modules[i++] = fade = new ModuleFadeToBlack();
 	modules[i++] = particles = new ModuleParticles();
-	modules[i++] = collision = new ModuleCollision();
 	modules[i++] = powerup = new ModulePowerUp();
+	modules[i++] = collision = new ModuleCollision();
+	modules[i++] = fonts = new ModuleFonts();
+	modules[i++] = Boss = new ModuleBossLvl1();
+
 }	
 
 Application::~Application()

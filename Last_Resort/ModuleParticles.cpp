@@ -6,6 +6,7 @@
 #include "ModuleCollision.h"
 #include "ModuleParticles.h"
 #include "ModulePlayer.h"
+#include "ModuleSceneLvl1.h"
 
 #include "SDL/include/SDL_timer.h"
 
@@ -15,26 +16,33 @@ ModuleParticles::ModuleParticles() {
 
 		active[i] = nullptr;
 	}
+
 }
 
 ModuleParticles::~ModuleParticles() {}
 
 bool ModuleParticles::Start() {
-
+	
+	
 	LOG("Loading Particles");
-	Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	Particle1 = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	Particle2 = App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
+	Particle3= App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
+
 	ImpactExplosionSound = App->sound->LoadChunk("Audio/General/007_Enemy_Explosion_Standard.wav");
 
 	ShootExplosion.Anim.PushBack({ 82, 239, 12, 12 });
 	ShootExplosion.Anim.PushBack({ 94, 241, 11, 9 });
 	ShootExplosion.Anim.loop = false;
 	ShootExplosion.Anim.speed = 0.3f;
+	ShootExplosion.Sprites = Particle1;
 
 	Laser.Anim.PushBack({ 115, 242, 15, 7 });
 	Laser.Anim.speed = 0.0f;
 	Laser.fx = 1;
-	Laser.Life = 1100;
+	Laser.Life = 1300;
 	Laser.Speed.x = 5;
+	Laser.Sprites = Particle1;
 
 	ImpactExplosion.Anim.PushBack({ 315,369,16,16 });
 	ImpactExplosion.Anim.PushBack({ 331,369,16,16 });
@@ -42,13 +50,48 @@ bool ModuleParticles::Start() {
 	ImpactExplosion.Anim.PushBack({ 363,369,16,16 });
 	ImpactExplosion.Anim.speed = 0.3f;
 	ImpactExplosion.Anim.loop = false;
+	ImpactExplosion.Sprites = Particle1;
 
-	EnemyExplosion.Anim.PushBack({ 450, 377, 24, 24 });
-	EnemyExplosion.Anim.PushBack({ 449, 408, 28, 26 });
-	EnemyExplosion.Anim.PushBack({ 447, 434, 32, 33 });
-	EnemyExplosion.Anim.PushBack({ 446, 467, 32, 32 });
+	EnemyExplosion.Anim.PushBack({ 0, 396, 32, 32 });
+	EnemyExplosion.Anim.PushBack({67, 396, 32, 32});
+	EnemyExplosion.Anim.PushBack({100, 396, 32, 32 });
+	EnemyExplosion.Anim.PushBack({ 132, 396, 32, 32 });
 	EnemyExplosion.Anim.speed = 0.3f;
 	EnemyExplosion.Anim.loop = false;
+	EnemyExplosion.Sprites = Particle2;
+	//Boss
+	BossShoot.Sprites = Particle3;
+	BossShoot.Anim.PushBack({ 129,256, 63, 32 });
+	BossShoot.Anim.PushBack({ 194,260, 63, 32 });
+	BossShoot.Anim.loop = true;
+	BossShoot.Life = 1300;
+	BossShoot.Speed.x = -2;
+	BossShoot.Anim.speed = 0.1f;
+
+	BossCoolDown.Sprites = Particle3;
+	BossCoolDown.Anim.PushBack({ 63,311,56, 28 });
+	BossCoolDown.Anim.PushBack({ 119,311,56, 28 });
+	BossCoolDown.Anim.PushBack({ 175,311,56, 28 });
+	BossCoolDown.Anim.PushBack({ 231,311,56, 28 });
+	BossCoolDown.Anim.PushBack({ 288,311,55, 28 });
+	BossCoolDown.Anim.PushBack({ 347,311,52, 28 });
+	BossCoolDown.Anim.PushBack({ 407,311,48, 28 });
+	BossCoolDown.Anim.PushBack({ 467,311,46, 28 });
+	BossCoolDown.Anim.loop = false;
+	BossCoolDown.Speed.x = 1;
+	BossCoolDown.Anim.speed = 0.2f;
+
+	BossShootExplosion.Sprites = Particle3;
+	BossShootExplosion.Anim.PushBack({ 448, 255, 64, 56 });
+	BossShootExplosion.Anim.PushBack({ 384, 255, 64, 56 });
+	BossShootExplosion.Anim.speed = 0.15f;
+
+	HOU_Shot.Anim.PushBack({ 117,250,13,13 });
+	//HOU_Shot.Anim.PushBack({117,263,13,13});
+	HOU_Shot.Anim.speed = 0.2f;
+	HOU_Shot.Anim.loop = true;
+	HOU_Shot.Sprites = Particle1;
+	HOU_Shot.Life = 2200;
 
 	return true;
 
@@ -57,15 +100,21 @@ bool ModuleParticles::Start() {
 bool ModuleParticles::CleanUp() {
 
 	LOG("Unloading Particles");
-	App->textures->Unload(Sprites);
+	
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i) {
 
 		if (active[i] != nullptr) {
-
+			App->textures->Unload(active[i]->Sprites);
 			delete active[i];
 			active[i] = nullptr;
 		}
 	}
+
+	App->sound->UnloadChunks(ImpactExplosionSound);
+
+	App->textures->Unload(Particle1);
+	App->textures->Unload(Particle2);
+	App->textures->Unload(Particle3);
 
 	return true;
 }
@@ -87,15 +136,13 @@ update_status ModuleParticles::Update() {
 		}
 
 		else if (SDL_GetTicks() >= p->Born) {
-
-			App->render->Blit(Sprites, p->Position.x, p->Position.y, &(p->Anim.GetCurrentFrame()));
+			App->render->Blit(p->Sprites, p->Position.x, p->Position.y, &(p->Anim.GetCurrentFrame()));
 			if (p->fx_played = false) {
 
 				p->fx_played = true;
 			}
 		}
 	}
-
 	return UPDATE_CONTINUE;
 }
 
@@ -108,6 +155,7 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLID
 			p->Born = SDL_GetTicks() + delay;
 			p->Position.x = x;
 			p->Position.y = y;
+			p->Sprites = particle.Sprites;
 			if (collider_type != COLLIDER_NONE)
 				p->collider = App->collision->AddCollider(p->Anim.GetCurrentFrame(), collider_type, this);
 			active[i] = p;
@@ -133,6 +181,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 				}
 			delete active[i];
 			active[i] = nullptr;
+			App->sound->UnloadChunks(ImpactExplosionSound);
 			break;
 		}
 	}
@@ -158,24 +207,26 @@ bool Particle::Update() {
 
 	bool ret = true;
 
-	if (Life > 0)
-	{
-		if ((SDL_GetTicks() - Born) > Life)
+	if (Life > 0) {
+
+		if (((int)SDL_GetTicks() - (int)Born) > (int)Life)
 			ret = false;
 	}
 	else
 		if (Anim.Finished())
 			ret = false;
 
-	if (collider != nullptr && collider->type == COLLIDER_PLAYER_SHOT && Position.x >= App->player->position_max_limit)
+	if (collider != nullptr && (collider->type == COLLIDER_PLAYER_SHOT || collider->type == COLLIDER_PLAYER_SHOT2) && Position.x >= App->scene1background->position_max_limit)
 			ret = false;
 	
+	if (SDL_GetTicks() >= Born) {
 
-	Position.x += Speed.x;
-	Position.y += Speed.y;
+		Position.x += Speed.x;
+		Position.y += Speed.y;
 
-	if (collider != nullptr)
-		collider->SetPos(Position.x, Position.y);
+		if (collider != nullptr)
+			collider->SetPos(Position.x, Position.y);
+	}
 
 	return ret;
 

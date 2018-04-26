@@ -8,13 +8,19 @@
 #include "ModuleSound.h"
 #include "ModuleCollision.h"
 #include "SDL_mixer/include/SDL_mixer.h"
+#include "SDL/include/SDL.h"
 
-#define MAX_ACTIVE_PARTICLES 500
+#define MAX_ACTIVE_PARTICLES 700
 
 
 struct SDL_Texture;
 struct Collider;
 enum COLLIDER_TYPE;
+enum TYPE {
+	NO_PARTICLE,
+	PARTICLE_1,
+	PARTICLE_2
+};
 
 struct Particle {
 
@@ -26,11 +32,15 @@ struct Particle {
 	Uint32 Born = 0;
 	Uint32 Life = 0;
 	bool fx_played = false;
+	TYPE Particle_Type=NO_PARTICLE;
+
+	SDL_Texture *Sprites = nullptr;
 
 	Particle();
 	Particle(const Particle &p);
 	~Particle();
 	bool Update();
+
 };
 
 class ModuleParticles : public Module
@@ -50,7 +60,6 @@ public:
 
 private:
 
-	SDL_Texture *Sprites = nullptr;
 	Particle *active[MAX_ACTIVE_PARTICLES];
 
 public:
@@ -61,11 +70,25 @@ public:
 	Particle EnemyExplosion;
 	Particle Laser2;
 	Particle ShootExplosionLaser2; // estas dos son para el segundo tipo de disparo
+	Particle HOU_Shot;
+
+
+	SDL_Texture *Particle1 = nullptr;
+	SDL_Texture *Particle2 = nullptr;
+	SDL_Texture *Particle3 = nullptr;
+
+	//Boss Shoot
+	Particle BossShoot;
+	Particle BossCoolDown;
+	Particle BossShootExplosion;
+
 
 	Mix_Chunk *ImpactExplosionSound;
 
 	uint Enemies_Weapon = 0;
 	uint Enemies_Speed = 0;
+
+
 };
 
 #endif

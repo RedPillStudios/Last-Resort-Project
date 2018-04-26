@@ -8,19 +8,23 @@
 
 EnemyWasp::EnemyWasp(int x, int y) : Enemy(x, y) {
 
-	AnimWasp.PushBack({0, 178, 32, 15});
 	AnimWasp.PushBack({ 0, 178, 32, 15 });
-	AnimWasp.PushBack({ 0, 178, 32, 15 });
-	AnimWasp.PushBack({ 0, 178, 32, 15 });
-	AnimWasp.PushBack({ 0, 178, 32, 15 });
+	AnimWasp.PushBack({ 0, 194, 32, 15 });
+	AnimWasp.PushBack({ 0, 209, 32, 15 });
+	AnimWasp.PushBack({ 0, 225, 32, 15 });
+	AnimWasp.PushBack({ 0, 240, 32, 15 });
+	Enemy::sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
 
 	life = 1;
+	score = 100;
+	AnimWasp.speed = 0.09f;
+	AnimWasp.loop = true;
 	animation = &AnimWasp;
-	collider = App->collision->AddCollider({}, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 
+	collider = App->collision->AddCollider({0,0,31,16}, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 }
 
 void EnemyWasp::Move() {
 
-	(float)position.x -= 1.5f;
+	(float)position.x -= 1.0f;
 }

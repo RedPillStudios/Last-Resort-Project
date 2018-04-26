@@ -5,6 +5,8 @@
 #include "ModuleRender.h"
 #include "SDL/include/SDL_render.h"
 #include "SDL/include/SDL_timer.h"
+#include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 
 ModuleFadeToBlack::ModuleFadeToBlack()
 {
@@ -71,7 +73,12 @@ update_status ModuleFadeToBlack::Update()
 bool ModuleFadeToBlack::FadeToBlack(Module* module_off, Module* module_on, float time)
 {
 	bool ret = false;
-
+	if (App->player->IsEnabled()) {
+		App->player->Disable();
+	}
+	if (App->player2->IsEnabled()) {
+		App->player2->Disable();
+	}
 	moduleOff = module_off;
 	moduleOn = module_on; 
 

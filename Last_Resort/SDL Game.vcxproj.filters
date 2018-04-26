@@ -1,125 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Core">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Modules">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Containers">
-      <UniqueIdentifier>{78a7f487-1d77-4fdc-9f51-f067eccd6239}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Player">
-      <UniqueIdentifier>{b4546b8d-f32e-4481-a3c8-a52cd56641e2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Scenes">
-      <UniqueIdentifier>{b386aaeb-7592-420e-9ec3-7633c0642b17}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Base">
-      <UniqueIdentifier>{9c5b78c8-cfd5-48d3-ba16-040f0735fee2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Enemies">
-      <UniqueIdentifier>{e9ee09f8-e0dd-49b5-9e7e-dcc196f0a612}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Physics">
-      <UniqueIdentifier>{1f756e8d-2fdf-4330-90a4-5041aa2dc787}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Module.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="MemLeaks.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Globals.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Application.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="p2Point.h">
-      <Filter>Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>Containers</Filter>
-    </ClInclude>
-    <ClInclude Include="ModulePlayer.h">
-      <Filter>Modules\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleGameOver.h">
-      <Filter>Modules\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleMainMenu.h">
-      <Filter>Modules\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleSceneLvl1.h">
-      <Filter>Modules\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleSceneLvl2.h">
-      <Filter>Modules\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleStageClear.h">
-      <Filter>Modules\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleWindow.h">
-      <Filter>Modules\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleRender.h">
-      <Filter>Modules\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleSound.h">
-      <Filter>Modules\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleTextures.h">
-      <Filter>Modules\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleFadeToBlack.h">
-      <Filter>Modules\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleInput.h">
-      <Filter>Modules\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleParticles.h">
-      <Filter>Modules\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleCollision.h">
-      <Filter>Modules\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleEnemies.h">
-      <Filter>Modules\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="ModulePlayer2.h">
-      <Filter>Modules\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Modules\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyWasp.h">
-      <Filter>Modules\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyRhino.h">
-      <Filter>Modules\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="ModulePowerUp.h">
-      <Filter>Modules\Player</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Globals.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="ModulePlayer.cpp">
-      <Filter>Modules\Player</Filter>
+    <ClCompile Include="Main.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Modules\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleEnemies.cpp">
+      <Filter>Modules\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="CarsToFast.cpp">
+      <Filter>Modules\Enemies\Cars</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyRhino.cpp">
+      <Filter>Modules\Enemies\Rhino</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyWasp.cpp">
+      <Filter>Modules\Enemies\Wasp</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyZicZac.cpp">
+      <Filter>Modules\Enemies\ZigZag</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemySuicide.cpp">
+      <Filter>Modules\Enemies\Suicide</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleCollision.cpp">
+      <Filter>Modules\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleParticles.cpp">
+      <Filter>Modules\Physics</Filter>
     </ClCompile>
     <ClCompile Include="ModuleGameOver.cpp">
       <Filter>Modules\Scenes</Filter>
@@ -130,11 +46,23 @@
     <ClCompile Include="ModuleSceneLvl1.cpp">
       <Filter>Modules\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleSceneLvl2.cpp">
-      <Filter>Modules\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleStageClear.cpp">
       <Filter>Modules\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="ModulePlayer2.cpp">
+      <Filter>Modules\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ModulePlayer.cpp">
+      <Filter>Modules\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFadeToBlack.cpp">
+      <Filter>Modules\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleFonts.cpp">
+      <Filter>Modules\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleInput.cpp">
+      <Filter>Modules\Base</Filter>
     </ClCompile>
     <ClCompile Include="ModuleRender.cpp">
       <Filter>Modules\Base</Filter>
@@ -148,35 +76,142 @@
     <ClCompile Include="ModuleWindow.cpp">
       <Filter>Modules\Base</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleFadeToBlack.cpp">
-      <Filter>Modules\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleInput.cpp">
-      <Filter>Modules\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleCollision.cpp">
-      <Filter>Modules\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleParticles.cpp">
-      <Filter>Modules\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleEnemies.cpp">
-      <Filter>Modules\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="ModulePlayer2.cpp">
-      <Filter>Modules\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Modules\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyWasp.cpp">
-      <Filter>Modules\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyRhino.cpp">
-      <Filter>Modules\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="ModulePowerUp.cpp">
-      <Filter>Modules\Player</Filter>
+      <Filter>Modules\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleBossLvl1.cpp">
+      <Filter>Modules\Enemies</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Module.h" />
+    <ClInclude Include="Animation.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Point.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Globals.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="MemLeaks.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Modules\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleEnemies.h">
+      <Filter>Modules\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="CarsToFast.h">
+      <Filter>Modules\Enemies\Cars</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyRhino.h">
+      <Filter>Modules\Enemies\Rhino</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyWasp.h">
+      <Filter>Modules\Enemies\Wasp</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyZicZac.h">
+      <Filter>Modules\Enemies\ZigZag</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemySuicide.h">
+      <Filter>Modules\Enemies\Suicide</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleCollision.h">
+      <Filter>Modules\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleParticles.h">
+      <Filter>Modules\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleGameOver.h">
+      <Filter>Modules\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleMainMenu.h">
+      <Filter>Modules\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleSceneLvl1.h">
+      <Filter>Modules\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleStageClear.h">
+      <Filter>Modules\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ModulePlayer2.h">
+      <Filter>Modules\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ModulePlayer.h">
+      <Filter>Modules\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleFadeToBlack.h">
+      <Filter>Modules\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleFonts.h">
+      <Filter>Modules\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleInput.h">
+      <Filter>Modules\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleRender.h">
+      <Filter>Modules\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleSound.h">
+      <Filter>Modules\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleTextures.h">
+      <Filter>Modules\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleWindow.h">
+      <Filter>Modules\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ModulePowerUp.h">
+      <Filter>Modules\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleBossLvl1.h">
+      <Filter>Modules\Enemies</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{98a93524-b886-4c52-94cf-274ab0775d39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Containers">
+      <UniqueIdentifier>{05cd4e6f-11b0-44b2-80a2-62c5d9bc2897}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules">
+      <UniqueIdentifier>{db2d6703-8928-4e6c-9e23-ff3dcee904b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Base">
+      <UniqueIdentifier>{10b3c981-63d4-48cf-be02-8cff5a17ebb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Player">
+      <UniqueIdentifier>{db5d2be6-8db5-458f-b4af-fb91aa0cae40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Scenes">
+      <UniqueIdentifier>{dda1ca69-2e3a-4c57-a71c-90aa2d34f16b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Physics">
+      <UniqueIdentifier>{b80b83e2-a36f-4ea3-9611-33a3b0d6dad3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies">
+      <UniqueIdentifier>{af62a31f-64cc-4e2e-beb7-87f5f136d350}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\Cars">
+      <UniqueIdentifier>{1694cf65-ad75-4a66-951a-cb447be3908f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\Rhino">
+      <UniqueIdentifier>{009b851a-cc9c-4ec3-a82b-6937805b7760}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\Wasp">
+      <UniqueIdentifier>{3d8d946b-cd65-4340-a0b6-e0a75d4280e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\ZigZag">
+      <UniqueIdentifier>{fb8cc729-7ca0-4707-8598-4dbd2704a342}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\Suicide">
+      <UniqueIdentifier>{10cda0ec-661b-4ffd-a5c7-d2c83481c544}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
