@@ -1,9 +1,6 @@
 ROADMAP
 
 
-0.5.2-> Remove some trash code and fix stuff such as shooting and ball, controller, screen resizable and fullscreen
-
-
 0.6-> Lvl 5 scroll and backround incluiding the limits and the camera ajustments animations & music
 
 0.6.2-> Lvl 5 polished and fully functional
@@ -43,6 +40,9 @@ ROADMAP
 0.9-> Final Boss
 
 0.9.2-> Final Boss Polished. fully functional
+
+
+0.9.3-> Remove some trash code and fix stuff such as shooting and ball, controller, screen resizable and fullscreen
 
 
 
