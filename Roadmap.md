@@ -36,7 +36,7 @@ ROADMAP
 
 
 
-0.9-> Final Boss
+0.9-> Final Boss, controller and fullscreen
 
 0.9.2-> Final Boss Polished. fully functional
 
