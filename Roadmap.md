@@ -1,6 +1,6 @@
 ROADMAP
 
-0.6-> Lvl 5 scroll and backround incluiding the limits and the camera ajustments
+0.6-> Lvl 5 scroll and backround incluiding the limits and the camera ajustments animations & music
 
 0.6.2-> Lvl 5 polished and fully functional
 
