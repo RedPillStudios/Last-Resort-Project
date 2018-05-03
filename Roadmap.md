@@ -1,7 +1,7 @@
 ROADMAP
 
 
-0.5.2-> fix stuff such as shooting and ball, controller, screen resizable and fullscreen
+0.5.2-> Fix stuff such as shooting and ball, controller, screen resizable and fullscreen
 
 0.6-> Lvl 5 scroll and backround incluiding the limits and the camera ajustments animations & music
 
