@@ -1,3 +1,7 @@
+- Bug:
+
+- Bug Type (A, B or C):
+
 - Expected behavior:
 
 - Actual behavior:
