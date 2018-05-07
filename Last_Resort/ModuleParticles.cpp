@@ -40,8 +40,8 @@ bool ModuleParticles::Start() {
 	Laser.Anim.PushBack({ 115, 242, 15, 7 });
 	Laser.Anim.speed = 0.0f;
 	Laser.fx = 1;
-	Laser.Life = 1300;
-	Laser.Speed.x = 5;
+	Laser.Life = 900;
+	Laser.Speed.x = 13;
 	Laser.Sprites = Particle1;
 
 	ImpactExplosion.Anim.PushBack({ 315,369,16,16 });
@@ -147,6 +147,7 @@ bool ModuleParticles::Start() {
 	BossShootExplosion.Anim.speed = 0.15f;
 
 	HOU_Shot.Anim.PushBack({ 117,250,13,13 });
+
 	//HOU_Shot.Anim.PushBack({117,263,13,13});
 	HOU_Shot.Anim.speed = 0.2f;
 	HOU_Shot.Anim.loop = true;
