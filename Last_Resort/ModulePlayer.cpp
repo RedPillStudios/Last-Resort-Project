@@ -283,18 +283,20 @@ update_status ModulePlayer::Update() {
 					if (missilePattern == 1) {
 						App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y + 10, COLLIDER_PLAYER_SHOT, 200);
 						App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y - 10, COLLIDER_PLAYER_SHOT, 200);
+						Mix_PlayChannel(-1, MissilePower_Sound, 0);
 						missilePattern++;
+					
 					}
 					else if (missilePattern == 2) {
 						App->particles->AddParticle(App->particles->MissilePowerPatter2, position.x - 5, position.y + 10, COLLIDER_PLAYER_SHOT, 200);
 						App->particles->AddParticle(App->particles->MissilePowerPatter2, position.x - 5, position.y - 10, COLLIDER_PLAYER_SHOT, 200);
-
+						Mix_PlayChannel(-1, MissilePower_Sound, 0);
 						missilePattern--;
 					}
 
 					App->particles->AddParticle(App->particles->Laser, setFirePos().x-10, setFirePos().y, COLLIDER_PLAYER_SHOT);
 					App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
-					Mix_PlayChannel(-1,MissilePower_Sound,0);
+					
 				}
 				else if (WeaponType == Shoots::BASICSHOOT) {
 
