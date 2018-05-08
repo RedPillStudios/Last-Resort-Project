@@ -1,5 +1,8 @@
 #include "ModuleGameControllers.h"
+#include "Globals.h"
+#include "Application.h"
 #include "ModuleInput.h"
+#include "SDL/include/SDL.h"
 
 
 ModuleGameControllers::ModuleGameControllers():Module()
@@ -18,21 +21,24 @@ bool ModuleGameControllers::Init()
 
 	SDL_Init(SDL_INIT_GAMECONTROLLER);
 	
-	if (SDL_NumJoysticks() < 1) {
-		LOG("there is no controller connected");
-		ret = false;
+	if (SDL_InitSubSystem(SDL_INIT_GAMECONTROLLER) < 0 || SDL_NumJoysticks() < 1) {
+		LOG("Error, gamecontroller fail to initilize",SDL_GetError());
+		
 	}
-	else {
 
 
 	for (int i = 0; i < SDL_NumJoysticks(); i++){
 
+		if (i > MAX_GAME_CONTROLLERS) {
+			break;
+		}
+
 		if (SDL_IsGameController(i)){
 
-			PlayerController = SDL_GameControllerOpen(i);//initializing the first controller
+			PlayerController[i] = SDL_GameControllerOpen(i);//initializing the first controller
 			LOG("%d",SDL_GameControllerName);
-			LOG(SDL_GameControllerMapping(PlayerController));
-			break;
+			LOG(SDL_GameControllerMapping(PlayerController[i]));
+			
 		}
 
 	}
@@ -40,7 +46,7 @@ bool ModuleGameControllers::Init()
 	//SDL_GameControllerAddMappingsFromFile(""); -> for adding or own map controller just leaving it here
 
 
-	}
+	
 	return ret;
 }
 
@@ -51,7 +57,7 @@ update_status  ModuleGameControllers::PreUpdate()
 	while (SDL_PollEvent(&event_)!=0) {
 
 			//COndition if there is movement in the joystick axes
-			if (event_.type ==SDL_CONTROLLERAXISMOTION ) {
+			/*if (event_.type ==SDL_CONTROLLERAXISMOTION ) {
 
 				if(event_.jaxis.which==0){
 				
@@ -72,22 +78,25 @@ update_status  ModuleGameControllers::PreUpdate()
 			
 				}
 
-			}
+			}*/
+
+			//game controller buttons input
 
 			if (event_.type == SDL_CONTROLLERBUTTONDOWN) {
 				
-				LOG("%d", (int)event_.jbutton.button);
+				LOG("%d", (int)event_.cbutton.button);
 
-				if (event_.jbutton.button == SDL_CONTROLLER_BUTTON_A) {
-					
+				if (event_.cbutton.button == SDL_CONTROLLER_BUTTON_A) {
+						//do this
+					App->input->keyboard[SDL_SCANCODE_SPACE] = KEY_DOWN;
+				}
+				if (event_.cbutton.button == SDL_CONTROLLER_BUTTON_RIGHTSHOULDER) {
 
-					//if (event_.jbutton.button == 0) {
-
-
-					//	//do this
-					//}
+					//do this
 
 				}
+
+
 
 			}
 
@@ -102,12 +111,17 @@ update_status  ModuleGameControllers::PreUpdate()
 // Called before quitting
 bool  ModuleGameControllers::CleanUp()
 {
-	if (PlayerController != NULL) {
-		SDL_GameControllerClose(PlayerController);
-		PlayerController = nullptr;
+	LOG("Cleanning moduleGameController")
 
-	}
-	
+		for (int i = 0; i < MAX_GAME_CONTROLLERS; ++i)
+		{
+			if (PlayerController[i] != nullptr) {
+				SDL_GameControllerClose(PlayerController[i]);
+			}
+
+			PlayerController[i] = nullptr;
+
+		}
 
 	return true;
 }
