@@ -64,6 +64,7 @@ public:
 	//Font id
 	int font = -1;
 	int disappeartext = -1;
+	int missilePattern = 1;
 
 	//P1 Score
 	char score_text[10];
