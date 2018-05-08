@@ -117,7 +117,8 @@ bool ModulePlayer::Start() {
 
 	//audio
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
-
+	MissilePower_Sound = App->sound->LoadChunk("Audio/General/016_Rocket _Launcher.wav");
+	LasserBeam_Sound = App->sound->LoadChunk("Audio/General/015_Lasser_3.wav");
 
 	//Colliders
 	Ship1Collider = App->collision->AddCollider({ position.x, position.y,32,12 }, COLLIDER_PLAYER, this);
@@ -150,6 +151,8 @@ bool ModulePlayer::CleanUp() {
 	App->fonts->UnLoad(disappeartext);
 	
 	App->sound->UnloadChunks(Shot_Sound);
+	App->sound->UnloadChunks(MissilePower_Sound);
+	App->sound->UnloadChunks(LasserBeam_Sound);
 
 	if (GOD)
 		GOD = !GOD;
@@ -291,11 +294,13 @@ update_status ModulePlayer::Update() {
 
 					App->particles->AddParticle(App->particles->Laser, setFirePos().x-10, setFirePos().y, COLLIDER_PLAYER_SHOT);
 					App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
+					Mix_PlayChannel(-1,MissilePower_Sound,0);
 				}
 				else if (WeaponType == Shoots::BASICSHOOT) {
 
 					App->particles->AddParticle(App->particles->Laser, setFirePos().x-10, setFirePos().y, COLLIDER_PLAYER_SHOT);
 					App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
+					Mix_PlayChannel(-1, Shot_Sound, 0);
 				}
 				else if (WeaponType == Shoots::LASERSHOOT) {
 
@@ -324,6 +329,7 @@ update_status ModulePlayer::Update() {
 					App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 200 - 30);
 					App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 250 - 30);
 					App->particles->AddParticle(App->particles->LaserBeamArea2, setFirePos().x + 100, setFirePos().y - 18, COLLIDER_NONE, 250 - 30);
+					Mix_PlayChannel(-1, LasserBeam_Sound,0);
 
 				}
 

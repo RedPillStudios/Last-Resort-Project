@@ -83,6 +83,8 @@ public:
 	bool shooted = false;
 	
 	Mix_Chunk*Shot_Sound=nullptr;
+	Mix_Chunk*MissilePower_Sound = nullptr;
+	Mix_Chunk*LasserBeam_Sound = nullptr;
 
 public:
 
