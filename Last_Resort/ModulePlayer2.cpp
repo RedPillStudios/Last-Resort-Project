@@ -178,8 +178,7 @@ update_status ModulePlayer2::Update() {
 				positionp2.y = 2;
 				break;
 			}
-			if (App->render->camera.y > -20 && App->player->position.y <= SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 4 || (positionp2.y >= SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 4))
-				App->render->camera.y -= speed;
+		
 		}
 		/*Movement Down*/
 		if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT) {
@@ -189,8 +188,7 @@ update_status ModulePlayer2::Update() {
 				positionp2.y = SCREEN_HEIGHT - 15;
 				break;
 			}
-			if ((App->render->camera.y < SCREEN_HEIGHT / 3 && App->player->position.y >= SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 4) || (positionp2.y <= SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 4))
-				App->render->camera.y += speed;
+		
 		}
 
 		/*Movement Right*/
