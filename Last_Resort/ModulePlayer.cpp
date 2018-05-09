@@ -313,22 +313,8 @@ update_status ModulePlayer::Update() {
 				
 					if (WeaponType == Shoots::LASERSHOOT && ShootTimer3 < SDL_GetTicks() - 500) {
 
-						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT);
-						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 12);
-						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 24);
-						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 36);
-						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 48);
-						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 60);
-						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 72);
-						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 84);
-						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 96);
-						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 108);
-						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 120);
-						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 132);
-						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 144);
-						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 156);
-						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 168);
-						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 180);
+						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x -16, setFirePos().y + 3, COLLIDER_PLAYER_LASERBEAM_SHOT);
+						
 
 						App->particles->AddParticle(App->particles->LaserBeamExplosion, setFirePos().x, setFirePos().y, COLLIDER_NONE);
 
@@ -336,8 +322,8 @@ update_status ModulePlayer::Update() {
 						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 100 - 30);
 						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 150 - 30);
 						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 200 - 30);
-						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 250 - 30);
-						App->particles->AddParticle(App->particles->LaserBeamArea2, setFirePos().x + 100, setFirePos().y - 18, COLLIDER_NONE, 250 - 30);
+						
+						
 						ShootTimer3 = SDL_GetTicks();
 					}											
 			}
