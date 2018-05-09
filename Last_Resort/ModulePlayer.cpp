@@ -290,8 +290,11 @@ update_status ModulePlayer::Update() {
 
 					App->particles->AddParticle(App->particles->Laser, setFirePos().x - 10, setFirePos().y, COLLIDER_PLAYER_SHOT);
 					App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
+
+					Mix_PlayChannel(-1, Shot_Sound, 0);
+
 					ShootTimer1 = SDL_GetTicks();
-					
+				
 				}
 
 
@@ -299,7 +302,9 @@ update_status ModulePlayer::Update() {
 						App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y + 10, COLLIDER_PLAYER_SHOT, 200);
 						App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y - 10, COLLIDER_PLAYER_SHOT, 200);
 
+						Mix_PlayChannel(-1, MissilePower_Sound, 0);
 						ShootTimer2 = SDL_GetTicks();
+						
 					}
 				
 					
@@ -317,6 +322,7 @@ update_status ModulePlayer::Update() {
 						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 150 - 30);
 						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 200 - 30);
 						
+						Mix_PlayChannel(-1, LasserBeam_Sound, 0);
 						
 						ShootTimer3 = SDL_GetTicks();
 					}											
