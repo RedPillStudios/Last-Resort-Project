@@ -197,5 +197,13 @@ bool  ModuleGameControllers::CleanUp()
 	LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 
+		SDL_GameControllerClose(Controller_player1);
+		SDL_GameControllerClose(Controller_player2);
+	
+		Controller_player1 = nullptr;
+		Controller_player2 = nullptr;
+	
+
+
 	return true;
 }
