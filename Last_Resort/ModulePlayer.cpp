@@ -286,22 +286,23 @@ update_status ModulePlayer::Update() {
 
 			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN ) {
 				
+				if (ShootTimer1 < SDL_GetTicks() - 100) {
 
-					if (WeaponType == Shoots::MISSILES && ShootTimer2 < SDL_GetTicks() - 400) {
+					App->particles->AddParticle(App->particles->Laser, setFirePos().x - 10, setFirePos().y, COLLIDER_PLAYER_SHOT);
+					App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
+					ShootTimer1 = SDL_GetTicks();
+					
+				}
+
+
+					if (WeaponType == Shoots::MISSILES && ShootTimer2 < SDL_GetTicks() - 550) {
 						App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y + 10, COLLIDER_PLAYER_SHOT, 200);
 						App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y - 10, COLLIDER_PLAYER_SHOT, 200);
-						App->particles->AddParticle(App->particles->Laser, setFirePos().x - 10, setFirePos().y, COLLIDER_PLAYER_SHOT);
-						App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
+
 						ShootTimer2 = SDL_GetTicks();
 					}
 				
-					if (WeaponType == Shoots::BASICSHOOT && ShootTimer1 < SDL_GetTicks() - 100) {
-
-						App->particles->AddParticle(App->particles->Laser, setFirePos().x - 10, setFirePos().y, COLLIDER_PLAYER_SHOT);
-						App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
-						ShootTimer1 = SDL_GetTicks();
-					}
-				
+					
 					if (WeaponType == Shoots::LASERSHOOT && ShootTimer3 < SDL_GetTicks() - 500) {
 
 

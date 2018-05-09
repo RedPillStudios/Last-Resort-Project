@@ -275,7 +275,7 @@ update_status ModulePowerUp::Update() {
 		}
 		else if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
 			if (current_animation == &HOU_Front) {
-				App->particles->HOU_Shot.Speed.x = 5;
+				App->particles->HOU_Shot.Speed.x = 10;
 				App->particles->HOU_Shot.Speed.y = 0;
 				App->particles->AddParticle(App->particles->HOU_Shot, HOU_position_x + 3, HOU_position_y, COLLIDER_PLAYER_SHOT);
 			}
