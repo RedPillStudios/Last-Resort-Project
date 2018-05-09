@@ -17,7 +17,7 @@
 #include "ModulePlayer2.h"
 #include "ModuleFonts.h"
 #include "ModuleBossLvl1.h"
-
+#include "ModuleGameControllers.h"
 
 Application::Application()
 {
@@ -25,6 +25,7 @@ Application::Application()
 	modules[i++] = window = new ModuleWindow();
 	modules[i++] = render = new ModuleRender();
 	modules[i++] = input = new ModuleInput();
+	modules[i++] = controllers = new ModuleGameControllers();
 	modules[i++] = textures = new ModuleTextures();
 	modules[i++] = sound = new ModuleSound();
 	modules[i++] = menu = new ModuleMainMenu();

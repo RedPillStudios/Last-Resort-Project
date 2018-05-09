@@ -75,6 +75,7 @@ public:
 	Particle ShootExplosionLaser2; // estas dos son para el segundo tipo de disparo
 	Particle HOU_Shot;
 	Particle MissilePower;
+	Particle MissilePowerPatter2;
 
 	Particle LaserBeam;
 	Particle LaserBeamExplosion;

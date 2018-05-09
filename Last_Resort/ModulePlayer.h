@@ -64,6 +64,7 @@ public:
 	//Font id
 	int font = -1;
 	int disappeartext = -1;
+	int missilePattern = 1;
 
 	//P1 Score
 	char score_text[10];
@@ -85,6 +86,8 @@ public:
 	bool shooted = false;
 	
 	Mix_Chunk*Shot_Sound=nullptr;
+	Mix_Chunk*MissilePower_Sound = nullptr;
+	Mix_Chunk*LasserBeam_Sound = nullptr;
 
 public:
 

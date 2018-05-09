@@ -24,51 +24,52 @@ ModulePlayer2::ModulePlayer2()
 	positionp2.x = 20;
 	positionp2.y = SCREEN_HEIGHT / 4;
 
-	Standard.PushBack({ 64,0,32,12 });
+	Standard.PushBack({32,0,32,11});
 
-	Up.PushBack({ 32,0,32,13 });
-	Up.PushBack({ 0,0,32,13 });
+	Up.PushBack({ 128,0,32,11 });
+	Up.PushBack({ 160,0,32,11 });
 	Up.speed = 0.10f;
 	Up.loop = false;
 
-	Down.PushBack({ 96,0,32,12 });
-	Down.PushBack({ 128,1,32,11 });
+	Down.PushBack({ 64,0,32,12 });
+	Down.PushBack({ 94,0,32,11 });
 	Down.speed = 0.10f;
 	Down.loop = false;
 
-	Appear.PushBack({ 0,135,64,25 });
-	Appear.PushBack({ 0,160,64,25 });
-	Appear.PushBack({ 0,185,64,25 });
-	Appear.PushBack({ 0,210,64,25 });
-	Appear.PushBack({ 64,135,64,25 });
-	Appear.PushBack({ 64,160,64,25 });
-	Appear.PushBack({ 64,185,64,25 });
-	Appear.PushBack({ 64,210,64,25 });
-	Appear.PushBack({ 128,139,64,19 });
-	Appear.PushBack({ 128,158,64,19 });
-	Appear.speed = 0.2f;
-	Appear.loop = false;
+	Appear2.PushBack({ 0,102,62,15 });
+	Appear2.PushBack({ 62,102,51,16 });
+	Appear2.PushBack({ 113,102,64,16 });
+	Appear2.PushBack({ 177,102,64,25 });
+	Appear2.PushBack({ 241,102,57,25 });
+	Appear2.PushBack({ 298,102,56,25 });
+	Appear2.PushBack({ 353,102,36,19 });
+	Appear2.PushBack({390,102,32,15 });
+	/*Appear.PushBack({ 128,139,64,19 });
+	Appear.PushBack({ 128,158,64,19 });*/
+	Appear2.speed = 0.2f;
+	Appear2.loop = false;
 
-	DestroyShip.PushBack({ 0,16,55,17 });
-	DestroyShip.PushBack({ 0,33,55,17 });
-	DestroyShip.PushBack({ 0,50,55,17 });
-	DestroyShip.PushBack({ 0,67,55,17 });
-	DestroyShip.PushBack({ 0,84,55,17 });
-	DestroyShip.PushBack({ 0,101,55,17 });
-	DestroyShip.PushBack({ 55,16,55,17 });
-	DestroyShip.PushBack({ 55,33,55,17 });
-	DestroyShip.PushBack({ 55,50,55,17 });
-	DestroyShip.PushBack({ 55,67,55,17 });
-	DestroyShip.PushBack({ 55,84,55,17 });
-	DestroyShip.PushBack({ 55,101,55,17 });
+	DestroyShip.PushBack({ 352,0,32,11 });
+	DestroyShip.PushBack({ 384,0,32,12 });
+	DestroyShip.PushBack({416,0,40,15});
+	DestroyShip.PushBack({459,0,32,18 });
+	DestroyShip.PushBack({ 0,18,45,19});
+	DestroyShip.PushBack({45,18,51,20 });
+	DestroyShip.PushBack({96,18,59,21});
+	DestroyShip.PushBack({155,18,63,23  });
+	DestroyShip.PushBack({221,18,60,24 });
+	DestroyShip.PushBack({283,18,64,23  });
+	DestroyShip.PushBack({350,18,57,23 });
+	DestroyShip.PushBack({410,17,55,24 });
 
-	DestroyShip.PushBack({ 110,16,55,17 });
-	DestroyShip.PushBack({ 110,33,55,17 });
-	DestroyShip.PushBack({ 110,50,55,17 });
-	DestroyShip.PushBack({ 110,67,55,17 });
-	DestroyShip.PushBack({ 110,84,55,17 });
-	DestroyShip.PushBack({ 110,101,55,17 });
-	DestroyShip.PushBack({ 178,122,2,2 });
+	DestroyShip.PushBack({0,42,58,25});
+	DestroyShip.PushBack({58,42,54,26});
+	DestroyShip.PushBack({112,42,59,27});
+	DestroyShip.PushBack({174,42,57,28});
+	DestroyShip.PushBack({230,42,57,28 });
+	DestroyShip.PushBack({288,42,58,27});
+	DestroyShip.PushBack({352,42,42,21 });
+	DestroyShip.PushBack({399,42,38,16 });
 
 	DestroyShip.speed = 0.3f;
 	DestroyShip.loop = false;
@@ -100,9 +101,9 @@ bool ModulePlayer2::Start() {
 	}
 
 	LOG("Loading player2 textures");
-	Appear.Reset();
+	Appear2.Reset();
 	//textures
-	graphicsp2 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
+	graphicsp2 = App->textures->Load("Images/Player/Player2_Spirtes.png"); // arcade version
 	UI_Main_Menu= App->textures->Load("Images/Stage_Clear/All_Stage_Clears.png");
 	//fonts
 	font2 = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
@@ -123,7 +124,7 @@ bool ModulePlayer2::Start() {
 	
 
 	DestroyShip.Reset();
-	current_animation2 = &Appear;
+	current_animation2 = &Appear2;
 
 	return true;
 }
@@ -155,20 +156,20 @@ update_status ModulePlayer2::Update() {
 
 	int speed = 2;
 
-	if (current_animation2 == &Appear) {
+	if (current_animation2 == &Appear2) {
 		positionp2.x = App->scene1background->position_min_limit + 2;
-		if (Appear.Finished()) {
+		if (Appear2.Finished()) {
 			positionp2.x = App->scene1background->position_min_limit + 32;
 			current_animation2 = &Standard;
 		}
 	}
 
-	if (current_animation2 != &DestroyShip && Appear.Finished()) {
+	if (current_animation2 != &DestroyShip && Appear2.Finished()) {
 		current_animation2 = &Standard;
 	}
 
 
-	if (!Dead&& current_animation2 != &Appear) {
+	if (!Dead&& current_animation2 != &Appear2) {
 		//Movement Up
 		if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT) {
 			current_animation2 = &Up;
@@ -177,8 +178,7 @@ update_status ModulePlayer2::Update() {
 				positionp2.y = 2;
 				break;
 			}
-			if (App->render->camera.y > -20 && App->player->position.y <= SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 4 || (positionp2.y >= SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 4))
-				App->render->camera.y -= speed;
+		
 		}
 		/*Movement Down*/
 		if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT) {
@@ -188,8 +188,7 @@ update_status ModulePlayer2::Update() {
 				positionp2.y = SCREEN_HEIGHT - 15;
 				break;
 			}
-			if ((App->render->camera.y < SCREEN_HEIGHT / 3 && App->player->position.y >= SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 4) || (positionp2.y <= SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 4))
-				App->render->camera.y += speed;
+		
 		}
 
 		/*Movement Right*/
@@ -222,7 +221,7 @@ update_status ModulePlayer2::Update() {
 
 	/* Draw everything --------------------------------------*/
 
-	if (current_animation2 == &Appear) {
+	if (current_animation2 == &Appear2) {
 		App->render->Blit(graphicsp2, positionp2.x, positionp2.y, &(current_animation2->GetCurrentFrame()));
 	}
 	else if (current_animation2 == &DestroyShip) {

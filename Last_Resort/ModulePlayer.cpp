@@ -120,7 +120,8 @@ bool ModulePlayer::Start() {
 
 	//audio
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
-
+	MissilePower_Sound = App->sound->LoadChunk("Audio/General/016_Rocket _Launcher.wav");
+	LasserBeam_Sound = App->sound->LoadChunk("Audio/General/015_Lasser_3.wav");
 
 	//Colliders
 	Ship1Collider = App->collision->AddCollider({ position.x, position.y,32,12 }, COLLIDER_PLAYER, this);
@@ -153,6 +154,8 @@ bool ModulePlayer::CleanUp() {
 	App->fonts->UnLoad(disappeartext);
 	
 	App->sound->UnloadChunks(Shot_Sound);
+	App->sound->UnloadChunks(MissilePower_Sound);
+	App->sound->UnloadChunks(LasserBeam_Sound);
 
 	if (GOD)
 		GOD = !GOD;
@@ -199,13 +202,7 @@ update_status ModulePlayer::Update() {
 					break;
 				}
 				
-				if (App->player->position.x < 3600) {
-					if (App->render->camera.y > -20 && App->player->position.y <= SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 4 || (position.y >= SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 4)) {
-						App->render->camera.y -= speed;
-					}
-				}
-				else
-					App->render->camera.y = 0;
+				
 
 			}
 			else { current_animation = &Standard; }
@@ -222,13 +219,7 @@ update_status ModulePlayer::Update() {
 					position.y = SCREEN_HEIGHT - 15;
 					break;
 				}
-				if (App->player->position.x < 3600) {
-					if ((App->render->camera.y < SCREEN_HEIGHT / 3 && App->player->position.y >= SCREEN_HEIGHT / 2 + SCREEN_HEIGHT / 4) || (position.y <= SCREEN_HEIGHT / 2 - SCREEN_HEIGHT / 4)) {
-						App->render->camera.y += speed;
-					}
-				}
-				else
-					App->render->camera.y = 0;
+		
 			}
 
 			//Movement Right
@@ -295,7 +286,7 @@ update_status ModulePlayer::Update() {
 
 			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN ) {
 				
-					
+
 					if (WeaponType == Shoots::MISSILES && ShootTimer2 < SDL_GetTicks() - 400) {
 						App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y + 10, COLLIDER_PLAYER_SHOT, 200);
 						App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y - 10, COLLIDER_PLAYER_SHOT, 200);
@@ -312,6 +303,8 @@ update_status ModulePlayer::Update() {
 					}
 				
 					if (WeaponType == Shoots::LASERSHOOT && ShootTimer3 < SDL_GetTicks() - 500) {
+
+
 
 						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x -16, setFirePos().y + 3, COLLIDER_PLAYER_LASERBEAM_SHOT);
 						

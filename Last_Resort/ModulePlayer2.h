@@ -45,7 +45,7 @@ public:
 
 	Animation Up;
 	Animation Down;
-	Animation Appear;
+	Animation Appear2;
 	Animation Standard;
 	Animation idle;
 	Animation DestroyShip;

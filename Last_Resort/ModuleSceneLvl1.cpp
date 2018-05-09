@@ -344,7 +344,18 @@ update_status ModuleSceneLvl1::Update() {
 	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
 	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL, 0.5f); // FIRST PLANE BACKGROUND
 	
+	//BOSS Music
 
+	//if (App->player->position.x >= 600) {
+	//	Mix_FadeOutMusic(3000);
+	//
+	//	while (Mix_FadeOutMusic(3000)<3000 && Mix_PlayingMusic()) {
+	//		// wait for any fades to complete
+	//		SDL_Delay(100);
+	//	}	
+	//	//Mix_FadeInMusciPos();
+
+	//}
 	
 
 

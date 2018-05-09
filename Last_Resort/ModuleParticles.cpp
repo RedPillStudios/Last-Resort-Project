@@ -51,16 +51,45 @@ bool ModuleParticles::Start() {
 	ImpactExplosion.Anim.speed = 0.3f;
 	ImpactExplosion.Anim.loop = false;
 	ImpactExplosion.Sprites = Particle1;
+//---------------------------------------------------
+	//pattern1
+	MissilePower.Anim.PushBack({ 14,237,30,16 });
+	MissilePower.Anim.PushBack({ 0,290,74,6 });
+	MissilePower.Anim.PushBack({ 0,258,44,7 });
+	MissilePower.Anim.PushBack({ 0,274,44,7 });//
 
 	MissilePower.Anim.PushBack({ 14,237,30,16 });
+	MissilePower.Anim.PushBack({ 0,290,74,6 });
+	MissilePower.Anim.PushBack({ 0,258,44,7 });
+	MissilePower.Anim.PushBack({ 0,274,44,7 });//
+
 	MissilePower.Anim.PushBack({ 0,258,44,7 });
 	MissilePower.Anim.PushBack({ 0,274,44,7 });
-	MissilePower.Anim.PushBack({ 0,290,74,6 });
+	
 	MissilePower.Anim.speed = 0.1f;
 	MissilePower.Speed.x = 4;
 	MissilePower.Anim.loop = false;
 	MissilePower.Life = 3000;
 	MissilePower.Sprites = Particle1;
+	//pattern2
+	MissilePowerPatter2.Anim.PushBack({ 14,237,30,16 });
+	MissilePowerPatter2.Anim.PushBack({ 0,290,74,6 });
+	MissilePowerPatter2.Anim.PushBack({ 0,258,44,7 });
+	MissilePowerPatter2.Anim.PushBack({ 0,274,44,7 });//
+
+	MissilePowerPatter2.Anim.PushBack({ 0,258,44,7 });
+	MissilePowerPatter2.Anim.PushBack({ 0,274,44,7 });
+	MissilePowerPatter2.Anim.PushBack({ 14,237,30,16 });
+	MissilePowerPatter2.Anim.PushBack({ 0,290,74,6 });
+
+	MissilePowerPatter2.Anim.PushBack({ 0,258,44,7 });
+	MissilePowerPatter2.Anim.PushBack({ 0,274,44,7 });//
+
+	MissilePowerPatter2.Anim.speed = 0.1f;
+	MissilePowerPatter2.Speed.x = 4;
+	MissilePowerPatter2.Anim.loop = false;
+	MissilePowerPatter2.Life = 3000;
+	MissilePowerPatter2.Sprites = Particle1;
 
 	//___________________________
 
