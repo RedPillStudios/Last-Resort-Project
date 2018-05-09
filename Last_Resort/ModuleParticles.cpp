@@ -25,6 +25,7 @@ bool ModuleParticles::Start() {
 	
 	
 	LOG("Loading Particles");
+	particle0 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
 	Particle1 = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
 	Particle2 = App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
 	Particle3= App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
@@ -53,43 +54,36 @@ bool ModuleParticles::Start() {
 	ImpactExplosion.Sprites = Particle1;
 //---------------------------------------------------
 	//pattern1
-	MissilePower.Anim.PushBack({ 14,237,30,16 });
-	MissilePower.Anim.PushBack({ 0,290,74,6 });
-	MissilePower.Anim.PushBack({ 0,258,44,7 });
-	MissilePower.Anim.PushBack({ 0,274,44,7 });//
+	MissilePower.Anim.PushBack({ 0,384,74,16 });
+	MissilePower.Anim.PushBack({ 0,400,74,16 });
+	MissilePower.Anim.PushBack({ 0,416,74,16 });
+	MissilePower.Anim.PushBack({ 0,432,74,16 });//
 
-	MissilePower.Anim.PushBack({ 14,237,30,16 });
-	MissilePower.Anim.PushBack({ 0,290,74,6 });
-	MissilePower.Anim.PushBack({ 0,258,44,7 });
-	MissilePower.Anim.PushBack({ 0,274,44,7 });//
-
-	MissilePower.Anim.PushBack({ 0,258,44,7 });
-	MissilePower.Anim.PushBack({ 0,274,44,7 });
 	
-	MissilePower.Anim.speed = 0.1f;
+	MissilePower.Anim.speed = 0.3f;
 	MissilePower.Speed.x = 4;
-	MissilePower.Anim.loop = false;
+	MissilePower.Anim.loop = true;
 	MissilePower.Life = 3000;
-	MissilePower.Sprites = Particle1;
-	//pattern2
-	MissilePowerPatter2.Anim.PushBack({ 14,237,30,16 });
-	MissilePowerPatter2.Anim.PushBack({ 0,290,74,6 });
-	MissilePowerPatter2.Anim.PushBack({ 0,258,44,7 });
-	MissilePowerPatter2.Anim.PushBack({ 0,274,44,7 });//
+	MissilePower.Sprites = particle0;
+	////pattern2
+	//MissilePowerPatter2.Anim.PushBack({ 14,237,30,16 });
+	//MissilePowerPatter2.Anim.PushBack({ 0,290,74,6 });
+	//MissilePowerPatter2.Anim.PushBack({ 0,258,44,7 });
+	//MissilePowerPatter2.Anim.PushBack({ 0,274,44,7 });//
 
-	MissilePowerPatter2.Anim.PushBack({ 0,258,44,7 });
-	MissilePowerPatter2.Anim.PushBack({ 0,274,44,7 });
-	MissilePowerPatter2.Anim.PushBack({ 14,237,30,16 });
-	MissilePowerPatter2.Anim.PushBack({ 0,290,74,6 });
+	//MissilePowerPatter2.Anim.PushBack({ 0,258,44,7 });
+	//MissilePowerPatter2.Anim.PushBack({ 0,274,44,7 });
+	//MissilePowerPatter2.Anim.PushBack({ 14,237,30,16 });
+	//MissilePowerPatter2.Anim.PushBack({ 0,290,74,6 });
 
-	MissilePowerPatter2.Anim.PushBack({ 0,258,44,7 });
-	MissilePowerPatter2.Anim.PushBack({ 0,274,44,7 });//
+	//MissilePowerPatter2.Anim.PushBack({ 0,258,44,7 });
+	//MissilePowerPatter2.Anim.PushBack({ 0,274,44,7 });//
 
-	MissilePowerPatter2.Anim.speed = 0.1f;
-	MissilePowerPatter2.Speed.x = 4;
-	MissilePowerPatter2.Anim.loop = false;
-	MissilePowerPatter2.Life = 3000;
-	MissilePowerPatter2.Sprites = Particle1;
+	//MissilePowerPatter2.Anim.speed = 0.1f;
+	//MissilePowerPatter2.Speed.x = 4;
+	//MissilePowerPatter2.Anim.loop = false;
+	//MissilePowerPatter2.Life = 3000;
+	//MissilePowerPatter2.Sprites = Particle1;
 
 	//___________________________
 
