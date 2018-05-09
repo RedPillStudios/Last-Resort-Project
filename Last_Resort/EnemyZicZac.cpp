@@ -6,7 +6,7 @@
 #include "ModuleEnemies.h"
 #include "ModuleParticles.h"
 
-EnemyZicZac::EnemyZicZac(int x,int y):Enemy(x,y){
+EnemyZicZac::EnemyZicZac(int x,int y,bool powerUp):Enemy(x,y){
 
 	AnimZicZac.PushBack({ 32,161,32,27 });
 	AnimZicZac.PushBack({ 64,161,32,27 });
@@ -20,7 +20,7 @@ EnemyZicZac::EnemyZicZac(int x,int y):Enemy(x,y){
 	score = 100;
 	animation = &AnimZicZac;
 	collider = App->collision->AddCollider({ 0,0,27,22 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
-	
+	PowerUp = powerUp;
 	original_y = y;
 
 }

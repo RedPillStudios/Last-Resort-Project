@@ -18,7 +18,7 @@ private:
 
 public:
 
-	EnemyZicZac(int x, int y);
+	EnemyZicZac(int x, int y,bool powerUp);
 	void Move();
 
 };
