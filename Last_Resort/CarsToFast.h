@@ -14,6 +14,11 @@ private:
 
 public:
 
+	Animation CarRed;
+	Animation CarYellow;
+	Animation CarBlue;
+	int randomColorCars = 0;
+
 	CarsToFast(int x, int y);
 	void Move();
 };

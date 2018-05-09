@@ -67,6 +67,24 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	YellowLight.loop = true;
 	YellowLight.speed = 0.1f;
 
+	Streetlight.PushBack({ 0,0,53,69 });
+	Streetlight.PushBack({ 53,0,53,69 });
+	Streetlight.PushBack({ 106,0,53,69 });
+	Streetlight.PushBack({ 159,0,53,69 });
+	Streetlight.PushBack({ 0,69,53,69 });
+	Streetlight.speed = 0.008f;
+
+
+	Streetlight2.PushBack({ 0,69,53,69 });
+	Streetlight2.PushBack({ 0,0,53,69 });
+	Streetlight2.PushBack({ 53,0,53,69 });
+	Streetlight2.PushBack({ 106,0,53,69 });
+	Streetlight2.PushBack({ 159,0,53,69 });
+
+	Streetlight2.speed = 0.008f;
+
+	srand(2);
+
 }
 
 ModuleSceneLvl1::~ModuleSceneLvl1()
@@ -88,7 +106,7 @@ bool ModuleSceneLvl1::Start()
 	graphics_FirstPlaneBackGround = App->textures->Load("Images/Background_Lvl1/FirstPlaneBackGround.png");
 	graphics = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
 	Laser_Sprites = App->textures->Load("Images/Background_Lvl1/Lasers_Sprite.png");
-	Street_Lights = App->textures->Load("Images/Background_Lvl1/Farols_Animations.png");
+	graphics_Streetlight = App->textures->Load("Images/Background_Lvl1/Farols_Animations.png");
 
 
 	//Music
@@ -259,8 +277,7 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, 7560, 60);
 	App->powerup->AddPowerUp(POWERUP_TYPES::RED, 7560, 60);
 
-	//CARS
-	App->enemies->AddEnemy(ENEMY_TYPES::CARS,-10, 195);
+	
 	
 	return true;
 }
@@ -277,7 +294,7 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->textures->Unload(graphics_Crater_Boss_Zone);
 	App->textures->Unload(graphics);
 	App->textures->Unload(Laser_Sprites);
-	App->textures->Unload(Street_Lights);
+	App->textures->Unload(graphics_Streetlight);
 
 	App->sound->UnloadMusic(Stage1);
 	App->sound->UnloadMusic(Stage1_Boss_Music);
@@ -343,6 +360,23 @@ update_status ModuleSceneLvl1::Update() {
 
 	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
 	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL, 0.5f); // FIRST PLANE BACKGROUND
+	StreetlightCreator();
+	//CARS
+
+	if (position_max_limit<= 4263) {
+		randomPositionCars = rand() % 2 + 1;
+
+		if ((posCars % 40 == 0) || posCars % 60 == 0) {
+			if (randomPositionCars == 1) {
+				App->enemies->AddEnemy(ENEMY_TYPES::CARS, posCars, 195);
+			}
+			else if (randomPositionCars == 2) {
+				App->enemies->AddEnemy(ENEMY_TYPES::CARS, posCars, 210);
+			}
+		}
+		posCars++;
+	}
+
 	
 	//BOSS Music
 
@@ -388,4 +422,22 @@ update_status ModuleSceneLvl1::Update() {
 	}
 
 	return UPDATE_CONTINUE;
+}
+
+void ModuleSceneLvl1::StreetlightCreator() {
+	int pos = 39;
+	int modul = 0;
+	for (int i = 0; i < 27; i++) {
+		if (modul % 2 == 0)
+			App->render->Blit(graphics_Streetlight, pos, 133, &Streetlight.GetCurrentFrame(), 0.5f);
+		else if (modul % 1 == 0)
+			App->render->Blit(graphics_Streetlight, pos, 133, &Streetlight2.GetCurrentFrame(), 0.5f);
+
+		pos += 64;
+		modul++;
+
+	}
+
+
+
 }

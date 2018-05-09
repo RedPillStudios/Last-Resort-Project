@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
+#include <iostream>
 
 #include "SDL_mixer/include/SDL_mixer.h"
 #pragma comment(lib,"SDL_mixer/libx86/SDL2_mixer.lib")
@@ -40,7 +41,9 @@ public:
 	SDL_Texture* graphics_FirstPlaneBackGround = nullptr;
 	SDL_Texture* graphics_Crater_Boss_Zone = nullptr;
 	SDL_Texture* Laser_Sprites = nullptr;
-	SDL_Texture* Street_Lights = nullptr;
+	SDL_Texture* graphics_Streetlight = nullptr;
+
+	
 
 	SDL_Rect ThirdPlaneBackground;
 	SDL_Rect SecondPlaneBackground;
@@ -52,6 +55,17 @@ public:
 
 	Animation Bluelight;
 	Animation YellowLight;
+	Animation Streetlight;
+	Animation Streetlight2;
+
+	int posCars = 0;
+	int randomPositionCars = 0;
+	int randomColorCars = 0;
+
+
+	void StreetlightCreator();
+
+	
 
 	//Music
 	Mix_Music*Stage1 =  nullptr;

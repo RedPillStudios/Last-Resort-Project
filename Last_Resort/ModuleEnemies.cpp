@@ -86,7 +86,7 @@ update_status ModuleEnemies::PostUpdate() {
 		
 		if (enemies[i] != nullptr) {
 			
-			  if (enemies[i]->position.x * SCREEN_SIZE < (App->render->camera.x)-200) {
+			if ((enemies[i]->position.x * SCREEN_SIZE < (App->render->camera.x) - 200) || (enemies[i]->position.x * SCREEN_SIZE)> App->render->camera.x + (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN + 20) {
 				LOG("DeSpawning enemy at %d", enemies[i]->position.x * SCREEN_SIZE);
 				App->textures->Unload(enemies[i]->sprites);
 				delete enemies[i];
