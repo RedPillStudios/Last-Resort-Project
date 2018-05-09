@@ -34,6 +34,8 @@ struct Particle {
 	Uint32 Life = 0;
 	bool fx_played = false;
 	TYPE Particle_Type=NO_PARTICLE;
+	uint TimesCollided = 0;
+
 
 	SDL_Texture *Sprites = nullptr;
 

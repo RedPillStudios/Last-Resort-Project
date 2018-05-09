@@ -76,7 +76,10 @@ public:
 
 	//P1 Life
 	char life_text[10];
-
+	//Timer
+	int ShootTimer1;
+	int ShootTimer2;
+	int ShootTimer3;
 public:
 	
 	bool startAnim = true;

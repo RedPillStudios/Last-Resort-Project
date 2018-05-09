@@ -100,7 +100,10 @@ bool ModulePlayer::Start() {
 		if (App->powerup->IsEnabled() == false)
 			App->powerup->Enable();
 	}
-
+	//timer
+	ShootTimer1 = 0;
+	ShootTimer2 = 0;
+    ShootTimer3 = 0;
 	//ScoreP1 = 0;
 
 	Appear.Reset();
@@ -276,65 +279,46 @@ update_status ModulePlayer::Update() {
 				}
 			}
 
-			//Shoot
-			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
+			//Shoot with timer:
+			
+
+			
+
+			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN ) {
 				
-				if (WeaponType == Shoots::MISSILES) {
-					if (missilePattern == 1) {
+
+					if (WeaponType == Shoots::MISSILES && ShootTimer2 < SDL_GetTicks() - 400) {
 						App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y + 10, COLLIDER_PLAYER_SHOT, 200);
 						App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y - 10, COLLIDER_PLAYER_SHOT, 200);
-						Mix_PlayChannel(-1, MissilePower_Sound, 0);
-						missilePattern++;
-					
+						App->particles->AddParticle(App->particles->Laser, setFirePos().x - 10, setFirePos().y, COLLIDER_PLAYER_SHOT);
+						App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
+						ShootTimer2 = SDL_GetTicks();
 					}
-					else if (missilePattern == 2) {
-						App->particles->AddParticle(App->particles->MissilePowerPatter2, position.x - 5, position.y + 10, COLLIDER_PLAYER_SHOT, 200);
-						App->particles->AddParticle(App->particles->MissilePowerPatter2, position.x - 5, position.y - 10, COLLIDER_PLAYER_SHOT, 200);
-						Mix_PlayChannel(-1, MissilePower_Sound, 0);
-						missilePattern--;
+				
+					if (WeaponType == Shoots::BASICSHOOT && ShootTimer1 < SDL_GetTicks() - 100) {
+
+						App->particles->AddParticle(App->particles->Laser, setFirePos().x - 10, setFirePos().y, COLLIDER_PLAYER_SHOT);
+						App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
+						ShootTimer1 = SDL_GetTicks();
 					}
+				
+					if (WeaponType == Shoots::LASERSHOOT && ShootTimer3 < SDL_GetTicks() - 500) {
 
-					App->particles->AddParticle(App->particles->Laser, setFirePos().x-10, setFirePos().y, COLLIDER_PLAYER_SHOT);
-					App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
-					
-				}
-				else if (WeaponType == Shoots::BASICSHOOT) {
 
-					App->particles->AddParticle(App->particles->Laser, setFirePos().x-10, setFirePos().y, COLLIDER_PLAYER_SHOT);
-					App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
-					Mix_PlayChannel(-1, Shot_Sound, 0);
-				}
-				else if (WeaponType == Shoots::LASERSHOOT) {
 
-					App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT);
-					App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 12);
-					App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 24);
-					App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 36);
-					App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 48);
-					App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 60);
-					App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 72);
-					App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 84);
-					App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 96);
-					App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 108);
-					App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 120);
-					App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 132);
-					App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 144);
-					App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 156);
-					App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 168);
-					App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x + 6, setFirePos().y + 3, COLLIDER_PLAYER_SHOT, 180);
+						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x -16, setFirePos().y + 3, COLLIDER_PLAYER_LASERBEAM_SHOT);
+						
 
-					App->particles->AddParticle(App->particles->LaserBeamExplosion, setFirePos().x, setFirePos().y, COLLIDER_NONE);
+						App->particles->AddParticle(App->particles->LaserBeamExplosion, setFirePos().x, setFirePos().y, COLLIDER_NONE);
 
-					App->particles->AddParticle(App->particles->LaserBeamArea1, setFirePos().x + -5, setFirePos().y - 10, COLLIDER_NONE);
-					App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 100 - 30);
-					App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 150 - 30);
-					App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 200 - 30);
-					App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 250 - 30);
-					App->particles->AddParticle(App->particles->LaserBeamArea2, setFirePos().x + 100, setFirePos().y - 18, COLLIDER_NONE, 250 - 30);
-					Mix_PlayChannel(-1, LasserBeam_Sound,0);
-
-				}
-
+						App->particles->AddParticle(App->particles->LaserBeamArea1, setFirePos().x + -5, setFirePos().y - 10, COLLIDER_NONE);
+						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 100 - 30);
+						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 150 - 30);
+						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 200 - 30);
+						
+						
+						ShootTimer3 = SDL_GetTicks();
+					}											
 			}
 		}
 		
