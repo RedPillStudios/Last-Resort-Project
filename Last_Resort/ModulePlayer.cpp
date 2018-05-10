@@ -266,27 +266,22 @@ update_status ModulePlayer::Update() {
 				App->fonts->BlitText(39, SCREEN_HEIGHT - 10, font, "M0DE");
 			}
 			if (Spawned){
-				//PUT FONT
-				if(TimeCounter){
-					AppearTime = SDL_GetTicks() + 2000;
-					TimeCounter = false;
-				}
-				
-				App->fonts->BlitText((SCREEN_WIDTH - 98), (SCREEN_HEIGHT - 10), disappeartext, "ENEMY");
-				App->fonts->BlitText((SCREEN_WIDTH - 56), (SCREEN_HEIGHT - 10), disappeartext, "SPAWNED");
-				if (SDL_GetTicks() >= AppearTime) {
-					TimeCounter = true;
-					Spawned = false;
-				}
+			//PUT FONT
+			if(TimeCounter){
+				AppearTime = SDL_GetTicks() + 2000;
+				TimeCounter = false;
 			}
+				
+			App->fonts->BlitText((SCREEN_WIDTH - 98), (SCREEN_HEIGHT - 10), disappeartext, "ENEMY");
+			App->fonts->BlitText((SCREEN_WIDTH - 56), (SCREEN_HEIGHT - 10), disappeartext, "SPAWNED");
+			if (SDL_GetTicks() >= AppearTime) {
+				TimeCounter = true;
+				Spawned = false;
+			}
+		}
 
 			//Shoot with timer:
-			
-
-			
-
 			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN ) {
-				
 				if (ShootTimer1 < SDL_GetTicks() - 100) {
 
 					App->particles->AddParticle(App->particles->Laser, setFirePos().x - 10, setFirePos().y, COLLIDER_PLAYER_SHOT);
@@ -297,9 +292,8 @@ update_status ModulePlayer::Update() {
 					ShootTimer1 = SDL_GetTicks();
 				
 				}
+					if (WeaponType == Shoots::MISSILES && ShootTimer2 < SDL_GetTicks() - 450) {
 
-
-					if (WeaponType == Shoots::MISSILES && ShootTimer2 < SDL_GetTicks() - 550) {
 						App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y + 10, COLLIDER_PLAYER_SHOT, 200);
 						App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y - 10, COLLIDER_PLAYER_SHOT, 200);
 
@@ -311,11 +305,7 @@ update_status ModulePlayer::Update() {
 					
 					if (WeaponType == Shoots::LASERSHOOT && ShootTimer3 < SDL_GetTicks() - 500) {
 
-
-
 						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x -16, setFirePos().y + 3, COLLIDER_PLAYER_LASERBEAM_SHOT);
-						
-
 						App->particles->AddParticle(App->particles->LaserBeamExplosion, setFirePos().x, setFirePos().y, COLLIDER_NONE);
 
 						App->particles->AddParticle(App->particles->LaserBeamArea1, setFirePos().x + -5, setFirePos().y - 10, COLLIDER_NONE);
@@ -329,7 +319,6 @@ update_status ModulePlayer::Update() {
 					}											
 			}
 		}
-		
 		
 		Ship1Collider->SetPos(position.x, position.y);
 	// Draw everything --------------------------------------
