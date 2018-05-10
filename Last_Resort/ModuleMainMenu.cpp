@@ -12,7 +12,7 @@
 #include "ModuleGameOver.h"
 #include "ModuleStageClear.h"
 #include "ModuleParticles.h"
-#include "ModuleFonts.h"
+#include "ModuleUI.h"
 
 ModuleMainMenu::ModuleMainMenu()
 {

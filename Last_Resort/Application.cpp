@@ -15,16 +15,20 @@
 #include "ModuleEnemies.h"
 #include "ModulePowerUp.h"
 #include "ModulePlayer2.h"
-#include "ModuleFonts.h"
+#include "ModuleUI.h"
 #include "ModuleBossLvl1.h"
-
+#include "ModuleGameControllers.h"
+#include <time.h>
 
 Application::Application()
 {
+	srand(time(NULL));
+
 	int i = 0;
 	modules[i++] = window = new ModuleWindow();
 	modules[i++] = render = new ModuleRender();
 	modules[i++] = input = new ModuleInput();
+	modules[i++] = controllers = new ModuleGameControllers();
 	modules[i++] = textures = new ModuleTextures();
 	modules[i++] = sound = new ModuleSound();
 	modules[i++] = menu = new ModuleMainMenu();
@@ -38,7 +42,7 @@ Application::Application()
 	modules[i++] = particles = new ModuleParticles();
 	modules[i++] = powerup = new ModulePowerUp();
 	modules[i++] = collision = new ModuleCollision();
-	modules[i++] = fonts = new ModuleFonts();
+	modules[i++] = fonts = new ModuleUI();
 	modules[i++] = Boss = new ModuleBossLvl1();
 
 }	

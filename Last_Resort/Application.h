@@ -3,12 +3,13 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 18
+#define NUM_MODULES 19
 
 //Scene 2 is not here!!
 
 class ModuleWindow;
 class ModuleInput;
+class ModuleGameControllers;//gamepads
 class ModuleTextures;
 class ModuleRender;
 class ModuleSceneLvl1;
@@ -24,9 +25,8 @@ class ModuleStageClear;
 class ModuleCollision;
 class ModuleEnemies;
 class ModulePowerUp;
-class ModuleFonts;
+class ModuleUI;
 class ModuleBossLvl1;
-
 class ModulePlayer2;
 
 class Application
@@ -38,6 +38,7 @@ public:
 	ModuleMainMenu *menu;
 	ModuleRender* render;
 	ModuleInput* input;
+	ModuleGameControllers*controllers;
 	ModuleTextures* textures;
 	ModuleSceneLvl1* scene1background;
 	ModuleStageClear *stageclear;
@@ -50,7 +51,7 @@ public:
 	ModuleEnemies *enemies;
 	ModulePowerUp *powerup;
 	ModulePlayer2 *player2;
-	ModuleFonts *fonts;
+	ModuleUI *fonts;
 	ModuleBossLvl1 *Boss;
 	
 

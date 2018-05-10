@@ -5,7 +5,7 @@
 #include "ModuleEnemies.h"
 #include "ModuleParticles.h"
 
-Enemy_Rhino::Enemy_Rhino(int x, int y) : Enemy(x, y)
+Enemy_Rhino::Enemy_Rhino(int x, int y, bool powerUp) : Enemy(x, y)
 {
 
 	fly.PushBack({ 64,211,48,45 });
@@ -24,7 +24,7 @@ Enemy_Rhino::Enemy_Rhino(int x, int y) : Enemy(x, y)
 
 	collider = App->collision->AddCollider({ 0, 0, 48, 45 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
 	original_y = y;
-
+	PowerUp = powerUp;
 	/*App->enemies->bigenemy = true;*/
 }
 

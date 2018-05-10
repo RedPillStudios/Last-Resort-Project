@@ -28,6 +28,7 @@ public:
 
 	uint life;
 	uint score;
+	bool PowerUp;
 
 public:
 

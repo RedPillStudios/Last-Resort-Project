@@ -13,7 +13,7 @@ private:
 
 public:
 
-	EnemySuicide(int x, int y);
+	EnemySuicide(int x, int y,bool powerUp);
 	void Move();
 
 

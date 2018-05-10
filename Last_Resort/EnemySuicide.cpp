@@ -7,7 +7,7 @@
 #include "ModuleParticles.h"
 
 
-EnemySuicide::EnemySuicide(int x,int y) :Enemy(x,y) {
+EnemySuicide::EnemySuicide(int x,int y,bool powerUp) :Enemy(x,y) {
 
 	//AnimSuicide.PushBack({0,0,30,30});
 	//AnimSuicide.PushBack({30,0,30,30});

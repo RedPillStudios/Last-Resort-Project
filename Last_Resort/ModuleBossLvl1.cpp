@@ -8,7 +8,7 @@
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 #include "ModuleInput.h"
-#include "ModuleFonts.h"
+#include "ModuleUI.h"
 
 
 #include "SDL/include/SDL_timer.h"

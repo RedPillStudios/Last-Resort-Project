@@ -14,6 +14,7 @@
 #include "CarsToFast.h"
 #include "ModuleSceneLvl1.h"
 #include "ModulePlayer2.h"
+#include "ModulePowerUp.h"
 
 #define SPAWN_MARGIN 50
 
@@ -86,7 +87,7 @@ update_status ModuleEnemies::PostUpdate() {
 		
 		if (enemies[i] != nullptr) {
 			
-			  if (enemies[i]->position.x * SCREEN_SIZE < (App->render->camera.x)-200) {
+			if ((enemies[i]->position.x * SCREEN_SIZE < (App->render->camera.x) - 200) || (enemies[i]->position.x * SCREEN_SIZE)> App->render->camera.x + (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN + 20) {
 				LOG("DeSpawning enemy at %d", enemies[i]->position.x * SCREEN_SIZE);
 				App->textures->Unload(enemies[i]->sprites);
 				delete enemies[i];
@@ -97,7 +98,7 @@ update_status ModuleEnemies::PostUpdate() {
 	return UPDATE_CONTINUE;
 }
 
-bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y) {
+bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y,bool PowerUp) {
 
 	bool ret = false;
 
@@ -108,6 +109,7 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y) {
 			queue[i].type = type;
 			queue[i].x = x;
 			queue[i].y = y;
+			queue[i].PowerUp=PowerUp;
 			ret = true;
 			break;
 		}
@@ -127,19 +129,19 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		switch (info.type)
 		{
 		case ENEMY_TYPES::ENEMY_RHINO:
-			enemies[i] = new Enemy_Rhino(info.x, info.y);
+			enemies[i] = new Enemy_Rhino(info.x, info.y,info.PowerUp);
 			break;
 		
 		case ENEMY_TYPES::ENEMY_WASP:
-	  	enemies[i] = new EnemyWasp(info.x, info.y);
+	  	enemies[i] = new EnemyWasp(info.x, info.y,info.PowerUp);
 	  	break;
 		
 		case ENEMY_TYPES::ENEMY_ZICZAC:
-		enemies[i] = new EnemyZicZac(info.x, info.y);
+		enemies[i] = new EnemyZicZac(info.x, info.y,info.PowerUp);
 		break;
 		
 		case ENEMY_TYPES::ENEMY_SUICIDE:
-		enemies[i] = new EnemySuicide(info.x, info.y);
+		enemies[i] = new EnemySuicide(info.x, info.y,info.PowerUp);
 		break;
 		
 		case ENEMY_TYPES::CARS:
@@ -158,7 +160,13 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 			--(enemies[i]->life);
 		
 			if (enemies[i]->life <= 0) {
-
+				if (enemies[i]->PowerUp == true) {
+					if(App->scene1background->randomPositionCars==1)
+					App->powerup->AddPowerUp(POWERUP_TYPES::LASER,enemies[i]->position.x,enemies[i]->position.y);
+					else if (App->scene1background->randomColorCars == 2) {
+					App->powerup->AddPowerUp(POWERUP_TYPES::RED, enemies[i]->position.x, enemies[i]->position.y);
+					}
+				}
 				App->textures->Unload(enemies[i]->sprites);
 
 				if(c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT)

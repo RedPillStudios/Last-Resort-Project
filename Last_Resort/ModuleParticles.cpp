@@ -25,6 +25,7 @@ bool ModuleParticles::Start() {
 	
 	
 	LOG("Loading Particles");
+	particle0 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
 	Particle1 = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
 	Particle2 = App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
 	Particle3= App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
@@ -40,8 +41,8 @@ bool ModuleParticles::Start() {
 	Laser.Anim.PushBack({ 115, 242, 15, 7 });
 	Laser.Anim.speed = 0.0f;
 	Laser.fx = 1;
-	Laser.Life = 1300;
-	Laser.Speed.x = 5;
+	Laser.Life = 900;
+	Laser.Speed.x = 13;
 	Laser.Sprites = Particle1;
 
 	ImpactExplosion.Anim.PushBack({ 315,369,16,16 });
@@ -51,25 +52,47 @@ bool ModuleParticles::Start() {
 	ImpactExplosion.Anim.speed = 0.3f;
 	ImpactExplosion.Anim.loop = false;
 	ImpactExplosion.Sprites = Particle1;
+//---------------------------------------------------
+	//pattern1
+	MissilePower.Anim.PushBack({ 0,384,74,16 });
+	MissilePower.Anim.PushBack({ 0,400,74,16 });
+	MissilePower.Anim.PushBack({ 0,416,74,16 });
+	MissilePower.Anim.PushBack({ 0,432,74,16 });//
 
-	MissilePower.Anim.PushBack({ 14,237,30,16 });
-	MissilePower.Anim.PushBack({ 0,258,44,7 });
-	MissilePower.Anim.PushBack({ 0,274,44,7 });
-	MissilePower.Anim.PushBack({ 0,290,74,6 });
-	MissilePower.Anim.speed = 0.1f;
+	
+	MissilePower.Anim.speed = 0.3f;
 	MissilePower.Speed.x = 4;
-	MissilePower.Anim.loop = false;
+	MissilePower.Anim.loop = true;
 	MissilePower.Life = 3000;
-	MissilePower.Sprites = Particle1;
+	MissilePower.Sprites = particle0;
+	////pattern2
+	//MissilePowerPatter2.Anim.PushBack({ 14,237,30,16 });
+	//MissilePowerPatter2.Anim.PushBack({ 0,290,74,6 });
+	//MissilePowerPatter2.Anim.PushBack({ 0,258,44,7 });
+	//MissilePowerPatter2.Anim.PushBack({ 0,274,44,7 });//
+
+	//MissilePowerPatter2.Anim.PushBack({ 0,258,44,7 });
+	//MissilePowerPatter2.Anim.PushBack({ 0,274,44,7 });
+	//MissilePowerPatter2.Anim.PushBack({ 14,237,30,16 });
+	//MissilePowerPatter2.Anim.PushBack({ 0,290,74,6 });
+
+	//MissilePowerPatter2.Anim.PushBack({ 0,258,44,7 });
+	//MissilePowerPatter2.Anim.PushBack({ 0,274,44,7 });//
+
+	//MissilePowerPatter2.Anim.speed = 0.1f;
+	//MissilePowerPatter2.Speed.x = 4;
+	//MissilePowerPatter2.Anim.loop = false;
+	//MissilePowerPatter2.Life = 3000;
+	//MissilePowerPatter2.Sprites = Particle1;
 
 	//___________________________
 
 	LaserBeam.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
-	LaserBeam.Anim.PushBack({ 47,243,16,3 });
+	LaserBeam.Anim.PushBack({ 23,296,112,3 });
 	LaserBeam.Anim.loop = true;
 	LaserBeam.Anim.speed = 0.1;
-	LaserBeam.Speed.x = 6;
-	LaserBeam.Life = 3000;
+	LaserBeam.Speed.x = 8;
+	LaserBeam.Life = 1000;
 
 	LaserBeamExplosion.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
 	LaserBeamExplosion.Anim.PushBack({ 0,317,13,13 });
@@ -107,8 +130,8 @@ bool ModuleParticles::Start() {
 	LaserBeamArea3.Anim.PushBack({ 65,337,16,47 });
 	LaserBeamArea3.Anim.loop = false;
 	LaserBeamArea3.Anim.speed = 0.1;
-	LaserBeamArea3.Speed.x = 5;
-	LaserBeamArea3.Life = 300;
+	LaserBeamArea3.Speed.x = 8;
+	LaserBeamArea3.Life = 1000;
 
 
 
@@ -147,11 +170,13 @@ bool ModuleParticles::Start() {
 	BossShootExplosion.Anim.speed = 0.15f;
 
 	HOU_Shot.Anim.PushBack({ 117,250,13,13 });
+
 	//HOU_Shot.Anim.PushBack({117,263,13,13});
 	HOU_Shot.Anim.speed = 0.2f;
 	HOU_Shot.Anim.loop = true;
 	HOU_Shot.Sprites = Particle1;
 	HOU_Shot.Life = 2200;
+	
 
 	return true;
 
@@ -235,9 +260,38 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
-		// Always destroy particles that collide
-		if (active[i] != nullptr && active[i]->collider == c1) {
+		// DON'T DESTROY LASERBEAM WHEN COLLIDES
+		
+		if (active[i] != nullptr && active[i]->collider == c1 && c1->type == COLLIDER_PLAYER_LASERBEAM_SHOT) {
 
+			if (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_WALL)
+				AddParticle(ImpactExplosion, active[i]->Position.x, active[i]->Position.y);
+			if (c2->type == COLLIDER_ENEMY) {
+				Mix_PlayChannel(-1, ImpactExplosionSound, 0);
+
+				//AREAS DISSAPEARING JUST 1 TIME!!!
+		
+				if (active[i]->TimesCollided == 0 ) {
+					active[i]->TimesCollided = 1;
+					
+					AddParticle(LaserBeamArea3, active[i]->Position.x + 90, active[i]->Position.y - 18, COLLIDER_NONE, 100 - 30);
+					AddParticle(LaserBeamArea3, active[i]->Position.x + 90, active[i]->Position.y - 18, COLLIDER_NONE, 150 - 30);
+					AddParticle(LaserBeamArea3, active[i]->Position.x + 90, active[i]->Position.y - 18, COLLIDER_NONE, 200 - 30);
+					
+					AddParticle(LaserBeamArea2, active[i]->Position.x + 160, active[i]->Position.y - 18, COLLIDER_NONE, 250 - 30);
+				}
+				
+				////_______
+				AddParticle(EnemyExplosion, active[i]->Position.x, active[i]->Position.y);
+				AddParticle(EnemyExplosion, active[i]->Position.x + 80, active[i]->Position.y - 2, COLLIDER_NONE, 200);
+				AddParticle(EnemyExplosion, active[i]->Position.x - 80, active[i]->Position.y + 3, COLLIDER_NONE, 200);
+			}
+			break;
+		}
+
+		// Always destroy particles that collide AND AREN`T LASSER BEAM
+		if (active[i] != nullptr && active[i]->collider == c1 && c1->type != COLLIDER_PLAYER_LASERBEAM_SHOT) {
+			
 			if (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_WALL)
 					AddParticle(ImpactExplosion,active[i]->Position.x, active[i]->Position.y);
 			if (c2->type == COLLIDER_ENEMY) {

@@ -14,7 +14,7 @@ private:
 
 public:
 
-	Enemy_Rhino(int x, int y);
+	Enemy_Rhino(int x, int y,bool powerUp);
 	void Move();
 	
 };

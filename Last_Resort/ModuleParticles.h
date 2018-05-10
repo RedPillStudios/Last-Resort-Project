@@ -34,6 +34,8 @@ struct Particle {
 	Uint32 Life = 0;
 	bool fx_played = false;
 	TYPE Particle_Type=NO_PARTICLE;
+	uint TimesCollided = 0;
+
 
 	SDL_Texture *Sprites = nullptr;
 
@@ -73,6 +75,7 @@ public:
 	Particle ShootExplosionLaser2; // estas dos son para el segundo tipo de disparo
 	Particle HOU_Shot;
 	Particle MissilePower;
+	Particle MissilePowerPatter2;
 
 	Particle LaserBeam;
 	Particle LaserBeamExplosion;
@@ -80,6 +83,7 @@ public:
 	Particle LaserBeamArea2;
 	Particle LaserBeamArea3;
 
+	SDL_Texture *particle0 = nullptr;
 	SDL_Texture *Particle1 = nullptr;
 	SDL_Texture *Particle2 = nullptr;
 	SDL_Texture *Particle3 = nullptr;
