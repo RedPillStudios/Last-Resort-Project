@@ -11,7 +11,7 @@
 #include "ModuleMainMenu.h"
 #include "ModuleSceneLvl1.h"
 #include "ModuleStageClear.h"
-#include "ModuleFonts.h"
+#include "ModuleUI.h"
 
 #include <stdio.h>
 

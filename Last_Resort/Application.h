@@ -25,7 +25,7 @@ class ModuleStageClear;
 class ModuleCollision;
 class ModuleEnemies;
 class ModulePowerUp;
-class ModuleFonts;
+class ModuleUI;
 class ModuleBossLvl1;
 class ModulePlayer2;
 
@@ -51,7 +51,7 @@ public:
 	ModuleEnemies *enemies;
 	ModulePowerUp *powerup;
 	ModulePlayer2 *player2;
-	ModuleFonts *fonts;
+	ModuleUI *fonts;
 	ModuleBossLvl1 *Boss;
 	
 

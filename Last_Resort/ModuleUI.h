@@ -1,5 +1,5 @@
-#ifndef MODULEFONTS_H
-#define MODULEFONTS_H
+#ifndef ModuleUI_H
+#define ModuleUI_H
 
 #include "Module.h"
 #include "SDL/include/SDL_pixels.h"
@@ -16,11 +16,11 @@ struct Font {
 	uint rows, len, char_w, char_h, row_chars;
 };
 
-class ModuleFonts : public Module {
+class ModuleUI : public Module {
 
 public:
-	ModuleFonts();
-	~ModuleFonts();
+	ModuleUI();
+	~ModuleUI();
 
 	int Load(const char* texture_path, const char *characters, uint rows = 1);
 	void UnLoad(int font_id);

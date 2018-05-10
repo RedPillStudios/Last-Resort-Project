@@ -12,7 +12,7 @@
 #include "ModuleGameOver.h"
 #include "ModuleParticles.h"
 #include "ModulePlayer2.h"
-#include "ModuleFonts.h"
+#include "ModuleUI.h"
 
 
 #include <stdio.h>

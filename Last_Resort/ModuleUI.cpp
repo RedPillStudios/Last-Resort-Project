@@ -2,15 +2,15 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
-#include "ModuleFonts.h"
+#include "ModuleUI.h"
 
 #include<string.h>
 
-ModuleFonts::ModuleFonts() : Module() {}
+ModuleUI::ModuleUI() : Module() {}
 
-ModuleFonts::~ModuleFonts() {}
+ModuleUI::~ModuleUI() {}
 
-int ModuleFonts::Load(const char* texture_path, const char* characters, uint rows) {
+int ModuleUI::Load(const char* texture_path, const char* characters, uint rows) {
 
 	int id = -1;
 
@@ -55,7 +55,7 @@ int ModuleFonts::Load(const char* texture_path, const char* characters, uint row
 	return id;
 }
 
-void ModuleFonts::UnLoad(int font_id)
+void ModuleUI::UnLoad(int font_id)
 {
 	if (font_id >= 0 && font_id < MAX_FONTS && fonts[font_id].graphic != nullptr)
 	{
@@ -65,7 +65,7 @@ void ModuleFonts::UnLoad(int font_id)
 	}
 }
 
-void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
+void ModuleUI::BlitText(int x, int y, int font_id, const char* text) const
 {
 	if (text == nullptr || font_id < 0 || font_id >= MAX_FONTS || fonts[font_id].graphic == nullptr)
 	{
@@ -99,7 +99,7 @@ void ModuleFonts::BlitText(int x, int y, int font_id, const char* text) const
 	}
 }
 
-uint ModuleFonts::TopScore(uint Score1, uint Score2, uint TopScore) {
+uint ModuleUI::TopScore(uint Score1, uint Score2, uint TopScore) {
 
 	uint MaxScore;
 	MaxScore = Score1 + Score2;
@@ -110,7 +110,7 @@ uint ModuleFonts::TopScore(uint Score1, uint Score2, uint TopScore) {
 	return TopScore;
 }
 
-uint ModuleFonts::TopScoreP1(uint Score1, uint TopScore) {
+uint ModuleUI::TopScoreP1(uint Score1, uint TopScore) {
 
 	if (Score1 > TopScore)
 		TopScore = Score1;

@@ -11,7 +11,7 @@
 #include "ModulePlayer.h"
 #include "ModuleCollision.h"
 #include "ModuleSceneLvl1.h"
-#include "ModuleFonts.h"
+#include "ModuleUI.h"
 #include "ModuleStageClear.h"
 #include "ModuleMainMenu.h"
 

@@ -10,7 +10,7 @@
 #include "ModulePowerUp.h"
 #include "ModulePlayer2.h"
 #include "ModuleCollision.h"
-#include "ModuleFonts.h"
+#include "ModuleUI.h"
 #include "ModuleEnemies.h"
 #include "ModuleSceneLvl1.h"
 #include "ModuleStageClear.h"
@@ -160,9 +160,7 @@ bool ModulePlayer::CleanUp() {
 
 	if (GOD)
 		GOD = !GOD;
-	
 
-	
 	return true;
 }
 
