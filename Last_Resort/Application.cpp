@@ -18,9 +18,12 @@
 #include "ModuleFonts.h"
 #include "ModuleBossLvl1.h"
 #include "ModuleGameControllers.h"
+#include <time.h>
 
 Application::Application()
 {
+	srand(time(NULL));
+
 	int i = 0;
 	modules[i++] = window = new ModuleWindow();
 	modules[i++] = render = new ModuleRender();
