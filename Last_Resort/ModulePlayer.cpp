@@ -104,6 +104,7 @@ bool ModulePlayer::Start() {
 	ShootTimer1 = 0;
 	ShootTimer2 = 0;
     ShootTimer3 = 0;
+	ShootTimer4 = 0;
 	//ScoreP1 = 0;
 
 	Appear.Reset();
@@ -304,12 +305,16 @@ update_status ModulePlayer::Update() {
 					if (WeaponType == Shoots::LASERSHOOT && ShootTimer3 < SDL_GetTicks() - 500) {
 
 						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x -16, setFirePos().y + 3, COLLIDER_PLAYER_LASERBEAM_SHOT);
+
 						App->particles->AddParticle(App->particles->LaserBeamExplosion, setFirePos().x, setFirePos().y, COLLIDER_NONE);
 
-						App->particles->AddParticle(App->particles->LaserBeamArea1, setFirePos().x + -5, setFirePos().y - 10, COLLIDER_NONE);
-						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 100 - 30);
-						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 150 - 30);
-						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 200 - 30);
+						App->particles->AddParticle(App->particles->LaserBeamArea1, setFirePos().x + 5, setFirePos().y - 10, COLLIDER_NONE);
+
+						for (int i = SDL_GetTicks(); i > SDL_GetTicks() + 50; i++) {
+							
+						}
+						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x, setFirePos().y - 11, COLLIDER_PLAYER_LASERBEAM_AREA_SHOT, 100 - 30);
+						
 						
 						Mix_PlayChannel(-1, LasserBeam_Sound, 0);
 						

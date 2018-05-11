@@ -228,7 +228,11 @@ void ModuleCollision::DebugDraw()
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);
 		case COLLIDER_CAR: // magenta
 			App->render->DrawQuad(colliders[i]->rect, 155, 155, 255, alpha);
-			break;
+		case COLLIDER_PLAYER_LASERBEAM_SHOT:
+			App->render->DrawQuad(colliders[i]->rect, 33, 33, 66, alpha);
+		case COLLIDER_PLAYER_LASERBEAM_AREA_SHOT:
+			App->render->DrawQuad(colliders[i]->rect, 99, 68, 4, alpha);
+
 		}
 	}
 }
