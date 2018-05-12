@@ -7,6 +7,7 @@
 #include "ModuleEnemies.h"
 #include "ModuleParticles.h"
 #include "ModuleInput.h"
+#include <math.h>
 
 #define SPAWN_MARGIN 50
 
@@ -39,6 +40,42 @@ ModulePowerUp::ModulePowerUp() {
 	for (uint i = 0; i < MAX_POWERUP; ++i)
 		PowerUps[i] = nullptr;
 	int counter = 0;
+
+
+	for (uint i = 0; i <= 7; ++i) {
+		HOU_Front_Up_Up.PushBack({ 261,counter,17,23 });
+		counter += 23;
+		if (counter >= 184)
+			counter = 0;
+	}
+	HOU_Front_Up_Up.speed = 0.4f;
+
+	for (uint i = 0; i <= 7; ++i) {
+		HOU_Front_Up_Down.PushBack({ 218,counter,22,17 });
+		counter += 17;
+		if (counter >= 136 )
+			counter = 0;
+	}
+	HOU_Front_Up_Up.speed = 0.4f;
+
+	for (uint i = 0; i <= 7; ++i) {
+		HOU_Front_Down_Up.PushBack({ 490,counter,22,17 });
+		counter += 17;
+		if (counter >= 136)
+			counter = 0;
+	}
+	HOU_Front_Down_Up.speed = 0.4f;
+
+	for (uint i = 0; i <= 7; ++i) {
+		HOU_Front_Down_Down.PushBack({ 452,counter,17,23 });
+		counter += 23;
+		if (counter >= 184)
+			counter = 0;
+	}
+	HOU_Front_Down_Down.speed = 0.4f;
+
+	
+
 	for (uint i = 0; i <= 7; ++i) {
 		HOU_Front_Up.PushBack({ 240,counter,21,21 });
 		counter += 21;
@@ -48,7 +85,7 @@ ModulePowerUp::ModulePowerUp() {
 
 	HOU_Front_Up.speed = 0.4f;
 
-	for (uint i = 0; i < 7; i++) {
+	for (uint i = 0; i <= 7; i++) {
 		HOU_Front_Down.PushBack({ 469,counter,21,21 });
 		counter += 21;
 		if (counter >= 168)
@@ -56,7 +93,39 @@ ModulePowerUp::ModulePowerUp() {
 	}
 	HOU_Front_Down.speed = 0.4f;
 
-	for (uint i = 0; i < 7; i++) {
+	for (uint i = 0; i <= 7; ++i) {
+		HOU_Back_Up_Up.PushBack({ 294,counter,17,23 });
+		counter += 23;
+		if (counter >= 184)
+			counter = 0;
+	}
+	HOU_Back_Up_Up.speed = 0.4f;
+
+	for (uint i = 0; i <= 7; ++i) {
+		HOU_Back_Up_Down.PushBack({ 332,counter,22,17 });
+		counter += 17;
+		if (counter >= 136)
+			counter = 0;
+	}
+	HOU_Back_Up_Down.speed = 0.4f;
+
+	for (uint i = 0; i <= 7; ++i) {
+		HOU_Back_Down_Up.PushBack({ 376,counter,22,17 });
+		counter += 17;
+		if (counter >= 136)
+			counter = 0;
+	}
+	HOU_Back_Down_Up.speed = 0.4f;
+
+	for (uint i = 0; i <= 7; ++i) {
+		HOU_Back_Down_Down.PushBack({ 419,counter,17,23 });
+		counter += 23;
+		if (counter >= 184)
+			counter = 0;
+	}
+	HOU_Back_Down_Down.speed = 0.4f;
+
+	for (uint i = 0; i <= 7; i++) {
 		HOU_Back_Down.PushBack({ 398,counter,21,21 });
 		counter += 21;
 		if (counter >= 168)
@@ -65,7 +134,7 @@ ModulePowerUp::ModulePowerUp() {
 	HOU_Back_Down.speed = 0.4f;
 
 
-	for (uint i = 0; i < 7; i++) {
+	for (uint i = 0; i <= 7; i++) {
 		HOU_Back_UP.PushBack({ 311,counter,21,21 });
 		counter += 21;
 		if (counter >= 168)
@@ -142,6 +211,9 @@ ModulePowerUp::~ModulePowerUp() {}
 
 bool ModulePowerUp::Start() {
 
+	//HOU_position_x = App->player->position.x;
+	//HOU_position_y = App->player->position.y;
+
 	LOG("Loading PowerUps");
 	if (App->player->IsEnabled() == true && App->powerup->IsEnabled() == false)
 		App->powerup->Enable();
@@ -217,110 +289,133 @@ update_status ModulePowerUp::PreUpdate() {
 update_status ModulePowerUp::Update() {
 
 
+	shipCenter.x = App->player->position.x+10;
+	shipCenter.y = App->player->position.y;
+
+	if (HOU_Direction >= 360) {
+		HOU_Direction = 0;
+	}
+
 	for (uint i = 0; i < MAX_POWERUP; ++i)
 		if (PowerUps[i] != nullptr)PowerUps[i]->Draw(PowerUps[i]->sprite);
 
-	if (HOU_activated == true) {
-		if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
-			current_animation = &HOU_Down;
-			HOU_position_x = App->player->position.x + 10;
-			HOU_position_y = App->player->position.y + 15;
+	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
 
+		if (HOU_Direction <= 270 && HOU_Direction > 90) {
+			HOU_Direction -= HOU_Speed;
 		}
-		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) {
-			current_animation = &HOU_Front;
-			HOU_position_x = App->player->position.x + 38;
-			HOU_position_y = App->player->position.y - 2;
-
-
+		else if (HOU_Direction > 270) {
+			HOU_Direction += HOU_Speed;
 		}
-		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
-			current_animation = &HOU_Back;
-			HOU_position_x = App->player->position.x - 25;
-			HOU_position_y = App->player->position.y - 2;
+		 if (HOU_Direction >= 0 && HOU_Direction < 90) {
+			HOU_Direction += HOU_Speed;
 		}
-		if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) {
-			current_animation = &HOU_UP;
-			HOU_position_x = App->player->position.x + 10;
-			HOU_position_y = App->player->position.y - 25;
-		}
-		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) {
-			current_animation = &HOU_Front_Up;
-			HOU_position_x = App->player->position.x + 38;
-			HOU_position_y = App->player->position.y - 25;
-		}
-		if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT && App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
-			current_animation = &HOU_Front_Down;
-			HOU_position_x = App->player->position.x + 38;
-			HOU_position_y = App->player->position.y + 15;
-		}
-		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
-			current_animation = &HOU_Back_Down;
-			HOU_position_x = App->player->position.x - 25;
-			HOU_position_y = App->player->position.y + 15;
-		}
-		if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT && App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) {
-			current_animation = &HOU_Back_UP;
-			HOU_position_x = App->player->position.x - 25;
-			HOU_position_y = App->player->position.y - 25;
-		}
-
-
-
-
-
-		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_REPEAT) {
-			Charge_animation = &Charge;
-			App->render->Blit(Charge_texture, HOU_position_x - 10, HOU_position_y - 15, &Charge_animation->GetCurrentFrame());
-		}
-		else if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
-			if (current_animation == &HOU_Front) {
-				App->particles->HOU_Shot.Speed.x = 10;
-				App->particles->HOU_Shot.Speed.y = 0;
-				App->particles->AddParticle(App->particles->HOU_Shot, HOU_position_x + 3, HOU_position_y, COLLIDER_PLAYER_SHOT);
-			}
-			if (current_animation == &HOU_UP) {
-				App->particles->HOU_Shot.Speed.x = 1;
-				App->particles->HOU_Shot.Speed.y = -5;
-				App->particles->AddParticle(App->particles->HOU_Shot, HOU_position_x, HOU_position_y, COLLIDER_PLAYER_SHOT);
-			}
-			if (current_animation == &HOU_Down) {
-				App->particles->HOU_Shot.Speed.x = 1;
-				App->particles->HOU_Shot.Speed.y = 5;
-				App->particles->AddParticle(App->particles->HOU_Shot, HOU_position_x, HOU_position_y, COLLIDER_PLAYER_SHOT);
-			}
-			if (current_animation == &HOU_Back) {
-				App->particles->HOU_Shot.Speed.x = -5;
-				App->particles->HOU_Shot.Speed.y = 0;
-				App->particles->AddParticle(App->particles->HOU_Shot, HOU_position_x - 3, HOU_position_y, COLLIDER_PLAYER_SHOT);
-			}
-			if (current_animation == &HOU_Front_Up) {
-				App->particles->HOU_Shot.Speed.x = 5;
-				App->particles->HOU_Shot.Speed.y = -5;
-				App->particles->AddParticle(App->particles->HOU_Shot, HOU_position_x - 3, HOU_position_y, COLLIDER_PLAYER_SHOT);
-			}
-			if (current_animation == &HOU_Front_Down) {
-				App->particles->HOU_Shot.Speed.x = 5;
-				App->particles->HOU_Shot.Speed.y = 5;
-				App->particles->AddParticle(App->particles->HOU_Shot, HOU_position_x - 3, HOU_position_y, COLLIDER_PLAYER_SHOT);
-			}
-			if (current_animation == &HOU_Back_UP) {
-				App->particles->HOU_Shot.Speed.x = -5;
-				App->particles->HOU_Shot.Speed.y = -5;
-				App->particles->AddParticle(App->particles->HOU_Shot, HOU_position_x - 3, HOU_position_y, COLLIDER_PLAYER_SHOT);
-			}
-			if (current_animation == &HOU_Back_Down) {
-				App->particles->HOU_Shot.Speed.x = -5;
-				App->particles->HOU_Shot.Speed.y = 5;
-				App->particles->AddParticle(App->particles->HOU_Shot, HOU_position_x - 3, HOU_position_y, COLLIDER_PLAYER_SHOT);
-			}
-
-		}
-		colliderHUB->SetPos(HOU_position_x, HOU_position_y);
-		HOU_position_x++; //automatic_movement
-		App->render->Blit(HOU_Texture, HOU_position_x, HOU_position_y, &current_animation->GetCurrentFrame());
 
 	}
+
+	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) {
+		if (HOU_Direction <= 180 && HOU_Direction > 0) {
+			HOU_Direction -= HOU_Speed;
+		}
+		if (HOU_Direction > 180 && HOU_Direction != 0) {
+			HOU_Direction += HOU_Speed;
+		}
+	}
+	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) {
+		
+		if (HOU_Direction < 270 && HOU_Direction >= 90) {
+			HOU_Direction += HOU_Speed;
+		}
+		else if (HOU_Direction < 90) {
+			HOU_Direction -= HOU_Speed;
+			if (HOU_Direction <= 0){
+				HOU_Direction = 359;
+			}
+		}
+		 if (HOU_Direction < 360 && HOU_Direction >270) {
+			HOU_Direction -= HOU_Speed;
+		}
+	}
+
+	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
+		if (HOU_Direction > 180) {
+			HOU_Direction -= HOU_Speed;
+		}
+		if (HOU_Direction < 180) {
+			HOU_Direction += HOU_Speed;
+		}
+
+	}
+	
+	if (HOU_Direction >= 0 && HOU_Direction < 15) {
+		current_animation = &HOU_Front;
+	}
+	else if (HOU_Direction >= 15 && HOU_Direction < 35) {
+		current_animation = &HOU_Front_Down_Up;
+	}
+	else if (HOU_Direction >= 35 && HOU_Direction < 55) {
+		current_animation = &HOU_Front_Down;
+	}
+	else if (HOU_Direction >= 55 && HOU_Direction < 75) {
+		current_animation = &HOU_Front_Down_Down;
+	}
+	else if (HOU_Direction >= 75 && HOU_Direction < 105) {
+		current_animation = &HOU_Down;
+	}
+	else if (HOU_Direction >= 105 && HOU_Direction < 125) {
+		current_animation = &HOU_Back_Down_Down;
+	}
+	else if (HOU_Direction >= 125 && HOU_Direction < 145) {
+		current_animation = &HOU_Back_Down;
+	}
+	else if (HOU_Direction >= 145 && HOU_Direction < 165) {
+		current_animation = &HOU_Back_Down_Up;
+	}
+	else if (HOU_Direction >= 165 && HOU_Direction < 195) {
+		current_animation = &HOU_Back;
+	}
+	else if (HOU_Direction >= 195 && HOU_Direction < 215) {
+		current_animation = &HOU_Back_Up_Down;
+	}
+	else if (HOU_Direction >= 215 && HOU_Direction < 225) {
+		current_animation = &HOU_Back_UP;
+	}
+	else if (HOU_Direction >= 225 && HOU_Direction < 255) {
+		current_animation = &HOU_Back_Up_Up;
+	}
+	else if (HOU_Direction >= 255 && HOU_Direction < 285) {
+		current_animation = &HOU_UP;
+	}
+	else if (HOU_Direction >= 285 && HOU_Direction < 305) {
+		current_animation = &HOU_Front_Up_Up;
+	}
+	else if (HOU_Direction >= 305 && HOU_Direction < 325) {
+		current_animation = &HOU_Front_Up;
+	}
+	else if (HOU_Direction >= 325 && HOU_Direction < 345) {
+		current_animation = &HOU_Front_Up_Down;
+	}
+	else if (HOU_Direction >= 345 && HOU_Direction <= 360) {
+		current_animation = &HOU_Front;
+	}
+
+	//Settinng Grpah position HOU
+	HOU_position.x = shipCenter.x + 40 * cos(HOU_Direction*PI / 180);
+	HOU_position.y = shipCenter.y + 30 * sin(HOU_Direction*PI / 180);
+	
+	//Render HOU
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
+		App->particles->AddParticle(App->particles->HOU_Shot, HOU_position.x + 9, HOU_position.y , COLLIDER_PLAYER_SHOT);
+		
+	}
+
+	App->particles->HOU_Shot.Speed.x = (7 * cos(HOU_Direction*PI / 180));
+	App->particles->HOU_Shot.Speed.y = (7 * sin(HOU_Direction*PI / 180));
+
+	colliderHUB->SetPos(HOU_position.x, HOU_position.y);
+	App->render->Blit(HOU_Texture, HOU_position.x, HOU_position.y, &current_animation->GetCurrentFrame());
+
+	
 	return UPDATE_CONTINUE;
 }
 

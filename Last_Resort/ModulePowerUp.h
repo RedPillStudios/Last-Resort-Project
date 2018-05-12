@@ -116,8 +116,20 @@ public:
 
 public:
 
-	int HOU_position_x;
-	int HOU_position_y;
+
+	int Angle;
+	float HOU_Direction;
+	float HOU_Speed=5;
+	iPoint shipCenter;
+	iPoint HOU_position;
+
+
+	bool Up;
+	bool Down;
+	bool Left;
+	bool Right;
+
+
 	bool fixed;
 
 	bool HOU_activated;
@@ -134,11 +146,19 @@ public:
 
 	//animation sequences HOU
 	Animation HOU_Front;
+	Animation HOU_Front_Up_Down;
 	Animation HOU_Front_Up;
+	Animation HOU_Front_Up_Up;
+	Animation HOU_Front_Down_Up;
 	Animation HOU_Front_Down;
+	Animation HOU_Front_Down_Down;
 	Animation HOU_Back;
+	Animation HOU_Back_Up_Up;
 	Animation HOU_Back_UP;
+	Animation HOU_Back_Up_Down;
+	Animation HOU_Back_Down_Down;
 	Animation HOU_Back_Down;
+	Animation HOU_Back_Down_Up;
 	Animation HOU_Down;
 	Animation HOU_UP;
 	Animation Charge;
