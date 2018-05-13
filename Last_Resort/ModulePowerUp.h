@@ -117,18 +117,24 @@ public:
 public:
 
 
-	int Angle;
+	//int Angle;
 	float HOU_Direction;
 	float HOU_Speed=5;
 	iPoint shipCenter;
 	iPoint HOU_position;
+	iPoint HOU_LastPosition;
+	int HOU_Charge;
 
 
 	bool Up;
 	bool Down;
 	bool Left;
 	bool Right;
-
+	bool Throw=false;
+	bool Throwing=false;
+	bool ReturnPosition=true;
+	bool HOUreachPosition=false;
+	
 
 	bool fixed;
 
@@ -162,6 +168,8 @@ public:
 	Animation HOU_Down;
 	Animation HOU_UP;
 	Animation Charge;
+	Animation Throw_Ball;
+
 
 	Animation *Power_Up_animation = nullptr;
 	Animation *current_animation = nullptr;
@@ -170,6 +178,9 @@ public:
 	bool AddPowerUp(POWERUP_TYPES type, int x, int y);
 	void OnCollision(Collider *c1, Collider *c2);
 	void spawnPowerUp(const PowerUpInfo &info);
+	void throwHOU();
+	void returnHOU();
+	void Hou_Movement();
 
 	PowerUpInfo queue[MAX_POWERUP];
 	powerUp* PowerUps[MAX_POWERUP];
