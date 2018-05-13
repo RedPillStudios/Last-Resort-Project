@@ -10,11 +10,12 @@
 #include "EnemyRhino.h"
 #include "EnemyWasp.h"
 #include "EnemyZicZac.h"
-#include "EnemySuicide.h"
+#include "EnemyLamella.h"
 #include "CarsToFast.h"
 #include "ModuleSceneLvl1.h"
 #include "ModulePlayer2.h"
 #include "ModulePowerUp.h"
+#include "ModuleUI.h"
 
 #define SPAWN_MARGIN 50
 
@@ -140,8 +141,8 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		enemies[i] = new EnemyZicZac(info.x, info.y,info.PowerUp);
 		break;
 		
-		case ENEMY_TYPES::ENEMY_SUICIDE:
-		enemies[i] = new EnemySuicide(info.x, info.y,info.PowerUp);
+		case ENEMY_TYPES::ENEMY_LAMELLA:
+		enemies[i] = new EnemyLamella(info.x, info.y,info.PowerUp);
 		break;
 		
 		case ENEMY_TYPES::CARS:
@@ -170,9 +171,9 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 				App->textures->Unload(enemies[i]->sprites);
 
 				if(c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT)
-					App->player->ScoreP1 += enemies[i]->score;
+					App->fonts->ScoreP1 += enemies[i]->score;
 				else if (c1->type == COLLIDER_PLAYER_SHOT2 || c2->type == COLLIDER_PLAYER_SHOT2)
-					App->player2->ScoreP2 += enemies[i]->score;
+					App->fonts->ScoreP2 += enemies[i]->score;
 
 				delete enemies[i];
 				enemies[i] = nullptr;

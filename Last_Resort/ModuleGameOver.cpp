@@ -44,7 +44,7 @@ bool ModuleGameOver::Start() {
 
 		LOG("Loading Game Over Screen");
 		graphics_GameOverImage = App->textures->Load("Images/Congrats/GameOver.png");
-		fontend = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
+		fontend = App->fonts->LoadFont("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
 
 
 		GameOver = App->sound->LoadMusic("Audio/Congrats/GameOver.ogg");
@@ -72,7 +72,7 @@ bool ModuleGameOver::CleanUp() {
 	LOG("Unloading Game Over Screen");
 	
 	App->textures->Unload(graphics_GameOverImage);
-	App->fonts->UnLoad(fontend);
+	App->fonts->UnLoadFont(fontend);
 
 	App->sound->UnloadMusic(GameOver);
 
@@ -90,10 +90,10 @@ update_status ModuleGameOver::Update() {
 
 	if (Score) {
 
-		sprintf_s(Score1_text, "%d", App->player->ScoreP1);
-		sprintf_s(Score2_text, "%d", App->player2->ScoreP2);
+		sprintf_s(Score1_text, "%d", App->fonts->ScoreP1);
+		sprintf_s(Score2_text, "%d", App->fonts->ScoreP2);
 
-		SumScore = App->player->ScoreP1 + App->player2->ScoreP2;
+		SumScore = App->fonts->ScoreP1 + App->fonts->ScoreP2;
 
 		sprintf_s(SumScore_text, "%d", SumScore);
 
