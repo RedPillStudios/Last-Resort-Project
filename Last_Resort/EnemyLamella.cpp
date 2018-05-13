@@ -4,17 +4,18 @@
 #include "Animation.h"
 #include "ModuleEnemies.h"
 #include "ModulePlayer.h"
+#include "ModuleParticles.h"
 
 
 
 EnemyLamella::EnemyLamella(int x, int y, bool powerUp) : Enemy(x, y) {
 
-	Enemy::sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
-
 	LamellaAnim.PushBack({0, 130, 31, 31});
 	LamellaAnim.PushBack({ 32, 129, 31, 31 });
 	LamellaAnim.PushBack({ 64, 130, 31, 30 });
 	LamellaAnim.PushBack({ 97, 131, 30, 29 }); //Have to make him appear
+
+	Enemy::sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
 
 	lastPosX = App->player->position.x;
 	lastPosY = App->player->position.y;

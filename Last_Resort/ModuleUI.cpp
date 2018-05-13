@@ -7,6 +7,7 @@
 #include "ModulePlayer.h"
 #include "ModulePlayer2.h"
 
+#include <iostream>
 #include<string.h>
 
 ModuleUI::ModuleUI() : Module() {}
@@ -23,6 +24,8 @@ bool ModuleUI::Start() {
 	//fonts
 	font = LoadFont("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
 
+	ScoreP1 = 0;
+	ScoreP2 = 0;
 	P1Life = 3;
 	P2Life = 3;
 
@@ -90,7 +93,7 @@ update_status ModuleUI::Update() {
 	App->fonts->BlitText((SCREEN_WIDTH - 107), 24, font, life2_text);
 
 	//TOP Score
-	if (App->player2->IsEnabled() == true) {
+	if (App->scene1background->IsEnabled() == true) {
 
 		uint MaxScore = ScoreP1 + ScoreP2;
 

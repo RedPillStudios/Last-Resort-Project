@@ -88,7 +88,7 @@ update_status ModuleEnemies::PostUpdate() {
 		
 		if (enemies[i] != nullptr) {
 			
-			if ((enemies[i]->position.x * SCREEN_SIZE < (App->render->camera.x) - 200) || (enemies[i]->position.x * SCREEN_SIZE)> App->render->camera.x + (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN + 20) {
+			if ((enemies[i]->position.x * SCREEN_SIZE) < (App->render->camera.x - 200) || (enemies[i]->position.x * SCREEN_SIZE) > (App->render->camera.x + (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN + 20)) {
 				LOG("DeSpawning enemy at %d", enemies[i]->position.x * SCREEN_SIZE);
 				App->textures->Unload(enemies[i]->sprites);
 				delete enemies[i];
@@ -156,25 +156,27 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 		
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 		
- if (enemies[i] != nullptr && (enemies[i]->GetCollider() == c1 || enemies[i]->GetCollider() == c2)) {
+		 if (enemies[i] != nullptr && (enemies[i]->GetCollider() == c1 || enemies[i]->GetCollider() == c2)) {
 
-			--(enemies[i]->life);
-		
+			 --(enemies[i]->life);
+
 			if (enemies[i]->life <= 0) {
+
 				if (enemies[i]->PowerUp == true) {
+
 					if(App->scene1background->randomPositionCars==1)
-					App->powerup->AddPowerUp(POWERUP_TYPES::LASER,enemies[i]->position.x,enemies[i]->position.y);
+						App->powerup->AddPowerUp(POWERUP_TYPES::LASER,enemies[i]->position.x,enemies[i]->position.y);
 					else if (App->scene1background->randomColorCars == 2) {
-					App->powerup->AddPowerUp(POWERUP_TYPES::RED, enemies[i]->position.x, enemies[i]->position.y);
+						App->powerup->AddPowerUp(POWERUP_TYPES::RED, enemies[i]->position.x, enemies[i]->position.y);
 					}
 				}
-				App->textures->Unload(enemies[i]->sprites);
 
 				if(c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT)
 					App->fonts->ScoreP1 += enemies[i]->score;
 				else if (c1->type == COLLIDER_PLAYER_SHOT2 || c2->type == COLLIDER_PLAYER_SHOT2)
 					App->fonts->ScoreP2 += enemies[i]->score;
 
+				App->textures->Unload(enemies[i]->sprites);
 				delete enemies[i];
 				enemies[i] = nullptr;
 				break;

@@ -236,12 +236,12 @@ void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 		
 		if (!GOD) {
 
-			--(App->fonts->P2Life);
 			LOG("TE QUITO UN COIN MAMASITA");
 			Dead = true;
 			current_animation2 = &DestroyShip;
 			ToBeDeleted = true;
 			Ship2Collider->to_delete = true;
+			--(App->fonts->P2Life);
 		}
 	}
 }

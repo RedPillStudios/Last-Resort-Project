@@ -2,6 +2,9 @@
 #define ENEMYLAMELLA_H
 
 #include "Enemy.h"
+#include "Animation.h"
+
+struct SDL_Texture;
 
 class EnemyLamella : public Enemy {
 

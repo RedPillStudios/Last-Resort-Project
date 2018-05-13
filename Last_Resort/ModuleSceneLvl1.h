@@ -4,7 +4,6 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
-#include <iostream>
 
 #include "SDL_mixer/include/SDL_mixer.h"
 #pragma comment(lib,"SDL_mixer/libx86/SDL2_mixer.lib")
@@ -24,10 +23,6 @@ public:
 	bool Start();
 	update_status Update();
 	bool CleanUp();
-
-public:
-
-	uint current_time = SDL_GetTicks();
 
 public:
 
