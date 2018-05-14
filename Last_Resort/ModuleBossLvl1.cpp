@@ -89,7 +89,6 @@ bool ModuleBossLvl1::Start() {
 	current_eye = &AnimClosedEye;
 
 	Boss = App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
-	font = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
 
 	//Add Colliders
 	Bot = App->collision->AddCollider({ position.x + 10, position.y + 95, 48, 18 }, COLLIDER_ENEMY);
@@ -123,7 +122,7 @@ bool ModuleBossLvl1::CleanUp() {
 	current_head = nullptr;
 
 	App->textures->Unload(Boss);
-	App->fonts->UnLoad(font);
+	App->fonts->UnLoadFont(font);
 	return true;
 }
 
@@ -173,8 +172,8 @@ void ModuleBossLvl1::OnCollision(Collider *c1, Collider *c2) {
 
 			--life;
 			if (life <= 0) {
-					App->player->ScoreP1 += 5000;
-					App->player2->ScoreP2 += 5000;
+					App->fonts->ScoreP1 += 5000;
+					App->fonts->ScoreP2 += 5000;
  					dead = true;
 		}
 		
@@ -195,8 +194,6 @@ void ModuleBossLvl1::Shooting() {
 			App->particles->AddParticle(App->particles->BossShoot, position.x + 20, position.y + 74, COLLIDER_ENEMY_SHOT, 500);
 			App->particles->AddParticle(App->particles->BossCoolDown, position.x - 20, position.y + 73, COLLIDER_NONE, 780);
 			App->particles->AddParticle(App->particles->BossShootExplosion, position.x - 10, position.y + 59, COLLIDER_NONE, 500);
-
-			
 
 			TimeCounter = false;
 			ShootSpawned = false;

@@ -11,11 +11,9 @@ class EnemyWasp : public Enemy {
 private:
   
 	Animation AnimWasp;
-	/*Collider *EnemyWaspCollider;*/
-	
 
 public:
-
+	
 	EnemyWasp(int x, int y,bool powerUp);
 	void Move();
 	

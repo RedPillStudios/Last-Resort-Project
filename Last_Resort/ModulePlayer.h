@@ -22,6 +22,7 @@ enum Shoots
 class ModulePlayer : public Module
 {
 public:
+
 	ModulePlayer();
 	~ModulePlayer();
 
@@ -32,21 +33,16 @@ public:
 	
 	bool AppearAnim;
 	bool Dead;
-	bool Spawned;
 
 	bool GOD = false;
 	bool ToBeDeleted = false;
-	bool TimeCounter = true;
-	uint AppearTime;
-	uint current_time=SDL_GetTicks();
-
+	
 public:
+
 	SDL_Rect Ship;
 	SDL_Rect UI_ship;
-	
 
 	SDL_Texture* graphicsp1 = nullptr;
-	SDL_Texture*UI_Main_Menu = nullptr;
 
 	Animation Up;
 	Animation Down;
@@ -61,27 +57,12 @@ public:
 
 	Collider *Ship1Collider;
 
-
-	//Font id
-	int font = -1;
-	int disappeartext = -1;
-	int missilePattern = 1;
-
-	//P1 Score
-	char score_text[10];
-	uint ScoreP1;
-
-	//Top Score
-	char top_score[10];
-	uint TopScore;
-
-	//P1 Life
-	char life_text[10];
 	//Timer
 	int ShootTimer1;
 	int ShootTimer2;
 	int ShootTimer3;
 	int ShootTimer4;
+
 public:
 	
 	bool startAnim = true;

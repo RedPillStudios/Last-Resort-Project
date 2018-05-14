@@ -11,19 +11,20 @@ struct SDL_Texture;
 struct Collider;
 struct Mix_Chunk;
 
-class ModulePlayer2 : public Module
-{
+class ModulePlayer2 : public Module {
+
 public:
+
 	ModulePlayer2();
 	~ModulePlayer2();
-
 	
 	update_status Update();
 	
 	void OnCollision(Collider *c1, Collider *c2);
 	
 
-public://bools
+public:
+
 	bool Start();
 	bool CleanUp();
 	bool AppearAnim;
@@ -32,16 +33,12 @@ public://bools
 	bool ToBeDeleted = false;
 	bool GOD = false;
 
-	int font2 = -1;
-
 public:
-
 
 	SDL_Rect Ship2;
 	SDL_Rect UI_ship2;
 
 	SDL_Texture* graphicsp2 = nullptr;
-	SDL_Texture*UI_Main_Menu = nullptr;
 
 	Animation Up;
 	Animation Down;
@@ -56,18 +53,8 @@ public:
 
 	Collider *Ship2Collider;
 
-	//Score
-	char score_text2[10];
-	uint ScoreP2;
-	char top_score[10];
-	uint TopScore;
-
-	//P2 Life
-	char life_text[10];
-
 public:
 
-	uint lives = 3;
 	bool startAnim = true;
 	bool shooted = false;
 

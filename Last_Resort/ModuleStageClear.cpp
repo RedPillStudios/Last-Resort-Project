@@ -43,7 +43,7 @@ bool ModuleStageClear::Start() {
 	}
 
 	graphics_StageClearImage = App->textures->Load("Images/Stage_Clear/All_Stage_Clears.png"); 
-	fontend = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
+	fontend = App->fonts->LoadFont("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
 
 	StageClear = App->sound->LoadMusic("Audio/Stage_Clear/Stage_Clear.ogg");
 
@@ -55,7 +55,7 @@ bool ModuleStageClear::CleanUp() {
 	
 	LOG("Unloading Stage Clear images");
 	App->textures->Unload(graphics_StageClearImage);
-	App->fonts->UnLoad(fontend);
+	App->fonts->UnLoadFont(fontend);
 
 	App->sound->UnloadMusic(StageClear);
 	return true;
@@ -66,10 +66,10 @@ update_status ModuleStageClear::Update() {
 	//Draw everything
 	App->render->Blit(graphics_StageClearImage, (SCREEN_WIDTH/2) - 106,(SCREEN_HEIGHT/2) - 40, &FirstPlaneImage, 0.0f, false);
 
-	sprintf_s(Score1_text, "%d", App->player->ScoreP1);
-	sprintf_s(Score2_text, "%d", App->player2->ScoreP2);
+	sprintf_s(Score1_text, "%d", App->fonts->ScoreP1);
+	sprintf_s(Score2_text, "%d", App->fonts->ScoreP2);
 	
-	SumScore = App->player->ScoreP1 + App->player2->ScoreP2;
+	SumScore = App->fonts->ScoreP1 + App->fonts->ScoreP2;
 
 	sprintf_s(SumScore_text, "%d", SumScore);
 

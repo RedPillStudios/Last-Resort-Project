@@ -17,6 +17,7 @@
 #include "ModuleEnemies.h"
 #include "ModulePowerUp.h"
 #include "ModuleBossLvl1.h"
+#include "ModuleUI.h"
 
 ModuleSceneLvl1::ModuleSceneLvl1()
 {
@@ -110,7 +111,6 @@ bool ModuleSceneLvl1::Start()
 	Laser_Sprites = App->textures->Load("Images/Background_Lvl1/Lasers_Sprite.png");
 	graphics_Streetlight = App->textures->Load("Images/Background_Lvl1/Farols_Animations.png");
 
-
 	//Music
 	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
 	Stage1_Boss_Music = App->sound->LoadMusic("Audio/Stage1/Stage1_Music_Boss.ogg");
@@ -118,21 +118,19 @@ bool ModuleSceneLvl1::Start()
 	Mix_PlayMusic(Stage1, -1);
 	Mix_Volume(-1, VOLUME_MUSIC);
 
-	P1Coins = 3;
-	P2Coins = 3;
-
 	if (IsEnabled()) {
+		App->fonts->Enable();
 		App->enemies->Enable();
 		App->powerup->Enable();
 		App->Boss->Enable();
 		App->collision->Enable();
 		App->particles->Enable();
 	}
-	if (App->player->IsEnabled() == false && App->scene1background->P1Coins > 0) {
+	if (App->player->IsEnabled() == false && App->fonts->P1Life > 0) {
 		App->player->Enable();
 		App->player->resetPosition();
 	}
-	if (App->player2->IsEnabled() == false && App->scene1background->P2Coins >0) {
+	if (App->player2->IsEnabled() == false && App->fonts->P2Life >0) {
 		App->player2->Enable();
 		App->player2->resetPosition2();
 	}
@@ -279,7 +277,8 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, 7560, 60, true);
 	App->powerup->AddPowerUp(POWERUP_TYPES::RED, 7560, 60);
 
-	
+	//Lamella
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, 500, 60, false);
 	
 	return true;
 }
@@ -322,11 +321,11 @@ update_status ModuleSceneLvl1::Update() {
 	position_min_limit++;
 
 	//Add player to the game
-	if (App->player->IsEnabled() == false && P1Coins > 0 && App->player->Dead == true) {
+	if (App->player->IsEnabled() == false && App->fonts->P1Life > 0 && App->player->Dead == true) {
 		App->player->Enable();
 		App->player->resetPosition();
 	}
-	if (App->player2->IsEnabled() == false && P2Coins > 0 && App->player2->Dead == true) {
+	if (App->player2->IsEnabled() == false && App->fonts->P2Life > 0 && App->player2->Dead == true) {
 		App->player2->Enable();
 		App->player2->resetPosition2();
 	}
@@ -338,8 +337,6 @@ update_status ModuleSceneLvl1::Update() {
 	//direct lose
 	if (App->input->keyboard[SDL_SCANCODE_F3])
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 3.0f);
-	
-
 
 
 	//camera Mov
@@ -394,16 +391,16 @@ update_status ModuleSceneLvl1::Update() {
 	//}
 	
 
-
 	// FADE IF NOT ENOUGHT COINS
-	if (P1Coins <= 0 && P2Coins <= 0 && App->player->Dead == true && App->player2->Dead == true) {
+	if (App->fonts->P1Life <= 0 && App->fonts->P2Life <= 0 && App->player->Dead == true && App->player2->Dead == true) {
 
+		App->fonts->Disable();
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f); 
 		Mix_FadeOutMusic(3000);
 		
 	}
 
-	//Boss Spwan
+	//Boss Spawn
 
 	if (App->player->position.x >= 9000-(SCREEN_WIDTH-20) || App->player2->positionp2.x >= 9000- (SCREEN_WIDTH - 20)) {
 		App->Boss->Enable();
@@ -416,8 +413,9 @@ update_status ModuleSceneLvl1::Update() {
 	//Fade if boss is dead
 	if(App->Boss->dead){
 
-  		App->player->TopScore += 10000;
+  		//App->player->TopScore += 10000;
 		App->Boss->Disable();
+		App->fonts->Disable();
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 1.0f);
 		
 		
@@ -426,7 +424,7 @@ update_status ModuleSceneLvl1::Update() {
 	return UPDATE_CONTINUE;
 }
 
-void ModuleSceneLvl1::StreetlightCreator() {
+void ModuleSceneLvl1::StreetlightCreator() { //DIOOOOOOS ROGER ENSERIO "MODUL"?
 	int pos = 39;
 	int modul = 0;
 	for (int i = 0; i < 27; i++) {
@@ -439,7 +437,4 @@ void ModuleSceneLvl1::StreetlightCreator() {
 		modul++;
 
 	}
-
-
-
 }
