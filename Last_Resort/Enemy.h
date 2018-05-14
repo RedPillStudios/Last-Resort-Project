@@ -29,6 +29,7 @@ public:
 	uint life;
 	uint score;
 	bool PowerUp;
+	fPoint toGo;
 
 public:
 

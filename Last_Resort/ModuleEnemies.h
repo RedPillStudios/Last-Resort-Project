@@ -2,6 +2,7 @@
 #define MODULEENEMIES_H
 
 #include "Module.h"
+#include "p2Point.h"
 
 //Include here Enemies modules
 
@@ -24,7 +25,7 @@ struct EnemyInfo {
 	ENEMY_TYPES type = ENEMY_TYPES::NO_TYPE;
 	int x, y;
 	bool PowerUp;
-	
+	fPoint toGo;
 };
 
 
@@ -42,7 +43,7 @@ public:
 	bool CleanUp(); 
 
 	void OnCollision(Collider *c1, Collider *c2);
-	bool AddEnemy(ENEMY_TYPES type, int x, int y,bool PowerUp);
+	bool AddEnemy(ENEMY_TYPES type, int x, int y, bool PowerUp, fPoint toGo = { 0,0 });
 	bool SpawnEnemyCheat = false;
 
 private:

@@ -10,11 +10,19 @@ class EnemyLamella : public Enemy {
 
 public:
 
-	EnemyLamella(int x, int y, bool powerUp);
+	EnemyLamella(int x, int y, bool powerUp,fPoint toGo);
 	void Move();
 
 private:
 
+	
+
+	bool reachPosition=false;
+	
+	iPoint PlayerPosition;
+
+	Animation Arriving;
+	Animation Apearing;
 	Animation LamellaAnim;
 	uint lastPosX;
 	uint lastPosY;

@@ -8,8 +8,21 @@
 
 
 
-EnemyLamella::EnemyLamella(int x, int y, bool powerUp) : Enemy(x, y) {
+EnemyLamella::EnemyLamella(int x, int y, bool powerUp,fPoint toGo) : Enemy(x, y) {
+	
+	int countx = 0;
+	int county = 0;
 
+	for (int i = 0; i < 36; i++) {
+		Apearing.PushBack({countx,county,32,32});
+		countx += 32;
+		if (countx >= 256) {
+			countx = 0;
+			county += 32;
+		}
+	}
+
+	Arriving.PushBack({ 39,189,10,10 });
 	LamellaAnim.PushBack({0, 130, 31, 31});
 	LamellaAnim.PushBack({ 32, 129, 31, 31 });
 	LamellaAnim.PushBack({ 64, 130, 31, 30 });
@@ -24,24 +37,41 @@ EnemyLamella::EnemyLamella(int x, int y, bool powerUp) : Enemy(x, y) {
 	score = 100;
 	LamellaAnim.speed = 1.0f;
 	LamellaAnim.loop = true;
-	animation = &LamellaAnim;
+	animation = &Arriving;
 
 	PowerUp = powerUp;
-	collider = App->collision->AddCollider({}, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);
+	collider = App->collision->AddCollider({0,0,32,32}, COLLIDER_TYPE::COLLIDER_NONE, (Module*)App->enemies);
 }
 
 void EnemyLamella::Move(){
 
-	while (position.x != lastPosX && position.y != lastPosY) {
+	//if (Apearing.Finished() == false) {
+	//	PlayerPosition = App->player->position;
+	//}
 
-		if (App->player->position.x <= position.x)
-			position.x++;
-		else
-			position.x--;
-
-		if (App->player->position.y >= position.y)
-			position.y++;
-		else
-			position.y--;
+	//if (Apearing.Finished() == true) {
+	//	//position.x++;
+	//	position.x -= 0.005*(PlayerPosition.x + position.x);
+	//	position.y -= 0.005*(PlayerPosition.y + position.y);
+	////
+	if (reachPosition == false) {
+		position.x--;
 	}
+	if (position == toGo) {
+		reachPosition = true;
+	}
+
+	//if (reachPosition == true) {
+	//	animation = &Apearing;
+	//}
+		//if (App->player->position.x <= position.x)
+		//	position.x++;
+
+		//else
+		//	position.x--;
+
+		//if (App->player->position.y >= position.y)
+		//	position.y++;
+		//else
+		//	position.y--;
 }

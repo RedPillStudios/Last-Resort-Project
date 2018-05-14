@@ -134,6 +134,7 @@ public:
 	bool Throwing=false;
 	bool ReturnPosition=true;
 	bool HOUreachPosition=false;
+	bool charging;
 	
 
 	bool fixed;

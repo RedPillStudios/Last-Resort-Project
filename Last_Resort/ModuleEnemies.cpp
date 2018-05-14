@@ -99,7 +99,7 @@ update_status ModuleEnemies::PostUpdate() {
 	return UPDATE_CONTINUE;
 }
 
-bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y,bool PowerUp) {
+bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, bool PowerUp, fPoint toGo ) {
 
 	bool ret = false;
 
@@ -111,6 +111,9 @@ bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y,bool PowerUp) {
 			queue[i].x = x;
 			queue[i].y = y;
 			queue[i].PowerUp=PowerUp;
+			//if (queue[i].type == ENEMY_TYPES::ENEMY_LAMELLA) {
+				queue[i].toGo == toGo;
+			//}
 			ret = true;
 			break;
 		}
@@ -142,7 +145,7 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		break;
 		
 		case ENEMY_TYPES::ENEMY_LAMELLA:
-		enemies[i] = new EnemyLamella(info.x, info.y,info.PowerUp);
+		enemies[i] = new EnemyLamella(info.x, info.y,info.PowerUp,info.toGo);
 		break;
 		
 		case ENEMY_TYPES::CARS:
