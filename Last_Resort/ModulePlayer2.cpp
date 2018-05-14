@@ -108,7 +108,7 @@ bool ModulePlayer2::Start() {
 	//fonts
 	font2 = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
 	//collider
-	Ship2Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
+	Ship2Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER2, this);
 	//sound
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
 
@@ -263,7 +263,6 @@ update_status ModulePlayer2::Update() {
 	//end anim of dead and disable
 	if (ToBeDeleted == true && current_animation2->Finished() == true) {
 		Disable();
-		App->textures->Unload(graphicsp2);
 	}
 
 	return UPDATE_CONTINUE;
@@ -271,7 +270,7 @@ update_status ModulePlayer2::Update() {
 
 void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 
-	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
+	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER2) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER2)&&!ToBeDeleted) {
 		
 		if (!GOD) {
 			App->fonts->SP2 = ScoreP2;
@@ -280,7 +279,7 @@ void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 			Dead = true;
 			current_animation2 = &DestroyShip;
 			ToBeDeleted = true;
-			Ship2Collider->to_delete = true;
+			//Ship2Collider->to_delete = true;
 		}
 	}
 }
