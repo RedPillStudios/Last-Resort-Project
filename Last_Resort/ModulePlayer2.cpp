@@ -104,7 +104,7 @@ bool ModulePlayer2::Start() {
 	//textures
 	graphicsp2 = App->textures->Load("Images/Player/Player2_Spirtes.png"); // arcade version
 	//collider
-	Ship2Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER, this);
+	Ship2Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER2, this);
 	//sound
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
 
@@ -224,7 +224,6 @@ update_status ModulePlayer2::Update() {
 	//end anim of dead and disable
 	if (ToBeDeleted == true && current_animation2->Finished() == true) {
 		Disable();
-		App->textures->Unload(graphicsp2);
 	}
 
 	return UPDATE_CONTINUE;
@@ -232,7 +231,7 @@ update_status ModulePlayer2::Update() {
 
 void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 
-	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
+	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER2) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER2)&&!ToBeDeleted) {
 		
 		if (!GOD) {
 
@@ -240,7 +239,7 @@ void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 			Dead = true;
 			current_animation2 = &DestroyShip;
 			ToBeDeleted = true;
-			Ship2Collider->to_delete = true;
+			//Ship2Collider->to_delete = true;
 			--(App->fonts->P2Life);
 		}
 	}

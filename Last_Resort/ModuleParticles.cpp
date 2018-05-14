@@ -176,6 +176,8 @@ bool ModuleParticles::Start() {
 	HOU_Shot.Anim.loop = true;
 	HOU_Shot.Sprites = Particle1;
 	HOU_Shot.Life = 2200;
+	HOU_Shot.Speed.x = 0;
+	HOU_Shot.Speed.y = 0;
 	
 
 	return true;

@@ -140,6 +140,7 @@ bool ModulePlayer::CleanUp() {
 
 	if (current_animation != nullptr) 
 		current_animation = nullptr;
+
 	App->powerup->HOU_activated = false;
 
 	App->textures->Unload(graphicsp1);
@@ -305,14 +306,14 @@ update_status ModulePlayer::Update() {
 		//end anim of dead and disable
 		if (ToBeDeleted == true && current_animation->Finished() == true) {
 			Disable();
-			App->textures->Unload(graphicsp1);
 		}
+
 	return UPDATE_CONTINUE;
 }
 
 void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 
-	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
+	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)&&!ToBeDeleted) {
 
 			if (!GOD) {
 
@@ -320,8 +321,9 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 				Dead = true;
 				ToBeDeleted = true;
 				current_animation = &DestroyShip;
-				Ship1Collider->to_delete = true;
+				//Ship1Collider->to_delete = true;
 				--(App->fonts->P1Life);
+
 		}
 	}
 }

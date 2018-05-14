@@ -139,6 +139,8 @@ bool ModuleSceneLvl1::Start()
 	//Enemies
 	//WASP->Wave1{
 	//troop1
+	App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 200, 150);
+
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60,false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 540, 75, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 580, 60, false);
