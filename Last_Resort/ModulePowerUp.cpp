@@ -311,11 +311,11 @@ update_status ModulePowerUp::Update() {
 			Throw = true;
 		}
 
-		if (charging) {
+		/*if (charging) {
 
 
 
-		}
+		}*/
 
 		if (!Throwing) {
 
@@ -548,7 +548,7 @@ void ModulePowerUp::Hou_Movement() {
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_REPEAT) {
 			HOU_Charge++;
 			if (HOU_Charge > 9) {
-				charging = true;
+				//charging = true;
 				App->render->Blit(Charge_texture, HOU_position.x - 10, HOU_position.y - 15, &Charge_animation->GetCurrentFrame());
 			}
 		}

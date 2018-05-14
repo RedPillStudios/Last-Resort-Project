@@ -280,7 +280,7 @@ bool ModuleSceneLvl1::Start()
 	App->powerup->AddPowerUp(POWERUP_TYPES::RED, 7560, 60);
 
 	//Lamella
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, 500, 60, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, 500, 60, false);
 	
 	return true;
 }
