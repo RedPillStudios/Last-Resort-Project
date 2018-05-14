@@ -88,7 +88,7 @@ bool ModuleParticles::Start() {
 	//___________________________
 
 	LaserBeam.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
-	LaserBeam.Anim.PushBack({ 23,296,112,3 });
+	LaserBeam.Anim.PushBack({ 23,296,66,3 });
 	LaserBeam.Anim.loop = true;
 	LaserBeam.Anim.speed = 0.1;
 	LaserBeam.Speed.x = 8;
@@ -127,7 +127,7 @@ bool ModuleParticles::Start() {
 	LaserBeamArea2.Life = 300;
 
 	LaserBeamArea3.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
-	LaserBeamArea3.Anim.PushBack({ 65,337,16,47 });
+	LaserBeamArea3.Anim.PushBack({ 66,254,47,31 });
 	LaserBeamArea3.Anim.loop = false;
 	LaserBeamArea3.Anim.speed = 0.1;
 	LaserBeamArea3.Speed.x = 8;
@@ -250,11 +250,14 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLID
 			p->Position.x = x;
 			p->Position.y = y;
 			p->Sprites = particle.Sprites;
-			if (collider_type != COLLIDER_NONE)
+			if (collider_type != COLLIDER_NONE ) {
 				p->collider = App->collision->AddCollider(p->Anim.GetCurrentFrame(), collider_type, this);
+			}
+			
 			active[i] = p;
 			break;
-		}
+			
+		}			
 	}
 }
 
@@ -262,6 +265,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
+
 		// DON'T DESTROY LASERBEAM WHEN COLLIDES
 		
 		if (active[i] != nullptr && active[i]->collider == c1 && c1->type == COLLIDER_PLAYER_LASERBEAM_SHOT) {
@@ -270,27 +274,16 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 				AddParticle(ImpactExplosion, active[i]->Position.x, active[i]->Position.y);
 			if (c2->type == COLLIDER_ENEMY) {
 				Mix_PlayChannel(-1, ImpactExplosionSound, 0);
-
-				//AREAS DISSAPEARING JUST 1 TIME!!!
-		
 				if (active[i]->TimesCollided == 0 ) {
 					active[i]->TimesCollided = 1;
-					
-					AddParticle(LaserBeamArea3, active[i]->Position.x + 90, active[i]->Position.y - 18, COLLIDER_NONE, 100 - 30);
-					AddParticle(LaserBeamArea3, active[i]->Position.x + 90, active[i]->Position.y - 18, COLLIDER_NONE, 150 - 30);
-					AddParticle(LaserBeamArea3, active[i]->Position.x + 90, active[i]->Position.y - 18, COLLIDER_NONE, 200 - 30);
-					
-					AddParticle(LaserBeamArea2, active[i]->Position.x + 160, active[i]->Position.y - 18, COLLIDER_NONE, 250 - 30);
-				}
-				
-				////_______
-				AddParticle(EnemyExplosion, active[i]->Position.x, active[i]->Position.y);
+						
+					//AÑADIR AQUI LA DESINTEGRACIÓN DE LAS AREAS DEL LASER CUANDO LOS SPRITES ESTÉN BIÉN (LASER AREA 2)
+				}						
 				AddParticle(EnemyExplosion, active[i]->Position.x + 80, active[i]->Position.y - 2, COLLIDER_NONE, 200);
 				AddParticle(EnemyExplosion, active[i]->Position.x - 80, active[i]->Position.y + 3, COLLIDER_NONE, 200);
 			}
 			break;
 		}
-
 		// Always destroy particles that collide AND AREN`T LASSER BEAM
 		if (active[i] != nullptr && active[i]->collider == c1 && c1->type != COLLIDER_PLAYER_LASERBEAM_SHOT) {
 			

@@ -85,7 +85,6 @@ ModulePlayer2::~ModulePlayer2() {}
 // Load assets
 bool ModulePlayer2::Start() {
 
-	ScoreP2 = App->fonts->SP2;
 	positionp2.x = App->scene1background->position_min_limit + 20;
 	positionp2.y = SCREEN_WIDTH/2;
 
@@ -104,18 +103,10 @@ bool ModulePlayer2::Start() {
 	Appear2.Reset();
 	//textures
 	graphicsp2 = App->textures->Load("Images/Player/Player2_Spirtes.png"); // arcade version
-	UI_Main_Menu= App->textures->Load("Images/Stage_Clear/All_Stage_Clears.png");
-	//fonts
-	font2 = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
 	//collider
 	Ship2Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER2, this);
 	//sound
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
-
-	//initializing
-	ScoreP2 = 0;
-	TopScore;
-
 
 	//bools
 	Dead = false;
@@ -133,7 +124,6 @@ bool ModulePlayer2::CleanUp() {
 
 	LOG("Cleaning Up Player 2 Module")
 	App->textures->Unload(graphicsp2);
-	App->textures->Unload(UI_Main_Menu);
 
 	if (current_animation2 != nullptr) 
 		current_animation2 = nullptr;
@@ -142,8 +132,6 @@ bool ModulePlayer2::CleanUp() {
 	if (Ship2Collider != nullptr) 
 		Ship2Collider->to_delete = true;
 	
-	App->fonts->UnLoad(font2);
-
 	App->sound->UnloadChunks(Shot_Sound);
 	
 	return true;
@@ -233,33 +221,6 @@ update_status ModulePlayer2::Update() {
 
 	Ship2Collider->SetPos(positionp2.x, positionp2.y);
 
-	//P2 Score
-	sprintf_s(score_text2, "%7d", ScoreP2);
-	App->fonts->BlitText((SCREEN_WIDTH - 65), 16, App->player->font, score_text2);
-	App->fonts->BlitText((SCREEN_WIDTH - 76), 11, App->player->font, "_");
-	App->fonts->BlitText((SCREEN_WIDTH - 76), 15, App->player->font, "_");
-	App->fonts->BlitText((SCREEN_WIDTH - 92), 16, App->player->font, "P2");
-
-	App->render->Blit(UI_Main_Menu,237,24,&UI_ship2,0.0f,false); //Mini_UI_Ships->Player2
-
-	//P2 Life
-	sprintf_s(life_text, "%7d", App->scene1background->P2Coins);
-	App->fonts->BlitText((SCREEN_WIDTH - 75), 24, App->player->font, "X0");
-	App->fonts->BlitText((SCREEN_WIDTH - 107), 24, App->player->font, life_text);
-
-	if (App->player->Dead == true && App->player->IsEnabled() == false) {
-		
-		if (App->player->IsEnabled() == true)
-			TopScore = App->fonts->TopScore(App->player->ScoreP1, ScoreP2, TopScore);
-		else
-			TopScore = App->fonts->TopScoreP1(App->player->ScoreP1, TopScore);
-
-		sprintf_s(top_score, "%7d", TopScore);
-		App->fonts->BlitText((SCREEN_WIDTH / 2) - 41, 16, font2, "T0P");
-		App->fonts->BlitText((SCREEN_WIDTH / 2) - 9, 16, font2, top_score);
-	}
-
-
 	//end anim of dead and disable
 	if (ToBeDeleted == true && current_animation2->Finished() == true) {
 		Disable();
@@ -273,13 +234,13 @@ void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER2) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER2)&&!ToBeDeleted) {
 		
 		if (!GOD) {
-			App->fonts->SP2 = ScoreP2;
-			App->scene1background->P2Coins -= 1;
+
 			LOG("TE QUITO UN COIN MAMASITA");
 			Dead = true;
 			current_animation2 = &DestroyShip;
 			ToBeDeleted = true;
 			//Ship2Collider->to_delete = true;
+			--(App->fonts->P2Life);
 		}
 	}
 }

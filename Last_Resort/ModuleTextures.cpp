@@ -95,12 +95,12 @@ bool ModuleTextures::Unload(SDL_Texture* texture)
 
 	for (uint i = 0; i < MAX_TEXTURES; ++i)
 	{
-		if (texture == textures[i])
-		{
-			SDL_DestroyTexture(textures[i]);
-			textures[i] = nullptr;
-			ret = true;
-			break;
+		if (texture == textures[i]) {
+
+				SDL_DestroyTexture(textures[i]);
+				textures[i] = nullptr;
+				ret = true;
+				break;
 		}
 	}
 
@@ -120,8 +120,8 @@ SDL_Texture* ModuleTextures::LoadSurface(SDL_Surface* surface)
 	{
 		for (uint i = 0; i < MAX_TEXTURES; ++i)
 		{
-			if (textures[i] == nullptr)
-			{
+			if (textures[i] == nullptr) {
+
 				textures[i] = texture;
 				break;
 			}

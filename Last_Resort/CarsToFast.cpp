@@ -14,11 +14,6 @@
 CarsToFast::CarsToFast(int x, int y): Enemy(x,y){
 	
 	randomColorCars = rand() % 3 + 1;
-	for (int i = 0; i < 100; i++) {
-		LOG("%u", rand());
-
-
-	}
 
 	CarRed.PushBack({ 0,184,21,11 });
 	CarRed.PushBack({ 21,184,21,11 });
