@@ -15,7 +15,8 @@ enum Shoots
 {
 	BASICSHOOT,
 	LASERSHOOT,
-	MISSILES
+	LASERSHOOTAREA,
+	MISSILES,
 };
 
 class ModulePlayer : public Module
@@ -60,6 +61,7 @@ public:
 	int ShootTimer1;
 	int ShootTimer2;
 	int ShootTimer3;
+	int ShootTimer4;
 
 public:
 	

@@ -21,6 +21,7 @@ enum TYPE {
 	NO_PARTICLE,
 	PARTICLE_1,
 	PARTICLE_2
+	
 };
 
 struct Particle {
@@ -98,6 +99,12 @@ public:
 
 	uint Enemies_Weapon = 0;
 	uint Enemies_Speed = 0;
+
+	//this  function is to store info to destroy particles when it is necessary.
+	uint Destroy1 = 999999;
+	uint Destroy2 = 999999;
+	uint Destroy3 = 999999;
+
 
 
 };
