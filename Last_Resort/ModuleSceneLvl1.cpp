@@ -172,7 +172,7 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1095, 95, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1075, 65, true);
 
-	App->powerup->AddPowerUp(POWERUP_TYPES::RED, 1075, 65);
+	App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 1075, 65);
 
 	//troop5
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1155, 20, false);
@@ -211,7 +211,7 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3280, 90, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3320, 75, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3310, 145, true);
-	App->powerup->AddPowerUp(POWERUP_TYPES::RED, 3310, 145);
+	App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 3310, 145);
 	//}
 
 	//WASP->wave4
@@ -265,7 +265,7 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5700, 77, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5740, 77, false);
 
-	App->powerup->AddPowerUp(POWERUP_TYPES::RED, 5740, 77);
+	App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 5740, 77);
   
 	 //wave3
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5860, 60, false);//these are not well located!!!!!!!!!!!!!!!!!!!!!!!!
@@ -275,9 +275,9 @@ bool ModuleSceneLvl1::Start()
 
 	//ZICZAC
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,3560, 145, true);
-	App->powerup->AddPowerUp(POWERUP_TYPES::RED, 3560, 145);
+	App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 3560, 145);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, 7560, 60, true);
-	App->powerup->AddPowerUp(POWERUP_TYPES::RED, 7560, 60);
+	App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 7560, 60);
 
 	//Lamella
 	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, 500, 60, false);

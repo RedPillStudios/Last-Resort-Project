@@ -23,9 +23,9 @@ struct SDL_Texture;
 enum POWERUP_TYPES {
 	NON,
 	BLUE,
-	RED,
 	LASER,
-	SPEED
+	SPEED,
+	MISSILES_P
 };
 
 struct PowerUpInfo {
@@ -71,15 +71,15 @@ public:
 
 
 
-class powerUp_red : public powerUp {
+class powerUp_Missiles : public powerUp {
 public:
 
-	powerUp_red(int x, int y);
-	~powerUp_red() {};
+	powerUp_Missiles(int x, int y);
+	~powerUp_Missiles() {};
 	
 	void OnCollision(Collider *c1) {};
 	
-	Animation Red;
+	Animation ChangeColor1;
 	fPoint position;
 
 

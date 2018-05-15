@@ -14,9 +14,11 @@ struct Mix_Chunk;
 enum Shoots
 {
 	BASICSHOOT,
+	BASICLASERSHOOT,
 	LASERSHOOT,
-	LASERSHOOTAREA,
 	MISSILES,
+	LASERSHOOTAREA
+	
 };
 
 class ModulePlayer : public Module
@@ -103,6 +105,9 @@ public:
 		}
 		else if (shoot == LASERSHOOT) {
 			WeaponType = 2;
+		}
+		else if (shoot == MISSILES) {
+			WeaponType = 3;
 		}
 	};
 };
