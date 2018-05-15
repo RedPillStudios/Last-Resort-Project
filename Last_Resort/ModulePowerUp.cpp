@@ -228,8 +228,14 @@ bool ModulePowerUp::Start() {
 
 	PickUpSpeed = App->sound->LoadChunk("Audio/General/005_PowerUpSpeed.wav");
 	PickUpWeapon = App->sound->LoadChunk("Audio/General/006_PowerUpWeapon.wav");
+
+	ChargeHOUSound = App->sound->LoadChunk("Audio/General/Charging_shot.wav");
+	ReleasedChargeHOUSound = App->sound->LoadChunk("Audio/General/Releasing_charged_shot.wav");
+
 	HOU_Texture = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
 	Charge_texture = App->textures->Load("Images/Player/Charge_Ball.png");
+	
+	Mix_VolumeChunk(ReleasedChargeHOUSound, MIX_MAX_VOLUME / 2);
 
 	HOU_activated = false;
 	fixed = false;
@@ -270,6 +276,8 @@ bool ModulePowerUp::CleanUp() {
 
 	App->sound->UnloadChunks(PickUpSpeed);
 	App->sound->UnloadChunks(PickUpWeapon);
+	App->sound->UnloadChunks(ChargeHOUSound);
+	App->sound->UnloadChunks(ReleasedChargeHOUSound);
 
 	return true;
 }
@@ -480,6 +488,9 @@ void ModulePowerUp::spawnPowerUp(const PowerUpInfo &info)
 }
 
 void ModulePowerUp::throwHOU() {
+	Mix_FadeOutChannel(1, 400);//fading out channel
+	Mix_PlayChannel(-1, ReleasedChargeHOUSound, 0);//releasing sound
+
 	HOU_position.x++;
  	HOU_position.x += (10 * cos(HOU_Direction*PI / 180));
 	HOU_position.y += (10 * sin(HOU_Direction*PI / 180));
@@ -544,16 +555,32 @@ void ModulePowerUp::Hou_Movement() {
 			App->particles->AddParticle(App->particles->HOU_Shot, HOU_position.x + 9, HOU_position.y, COLLIDER_PLAYER_SHOT);
 			//Throwing = true;
 			//Throw = true;
+			Charging_Sound_HOU = true;
 		}
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_REPEAT) {
 			HOU_Charge++;
 			if (HOU_Charge > 9) {
 				charging = true;
 				App->render->Blit(Charge_texture, HOU_position.x - 10, HOU_position.y - 15, &Charge_animation->GetCurrentFrame());
+				
+				if (Charging_Sound_HOU) {
+					Mix_PlayChannelTimed(1, ChargeHOUSound, 0, 2000);
+					
+				}
+				if (timeSoundCharge = SDL_GetTicks() + 2000){
+					Charging_Sound_HOU =false;
+				}
+				
 			}
 		}
+
+
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP) {
+			
 			HOU_Charge = 0;
+			Mix_FadeOutChannel(1,400); //fading out channel
+		/*if(Charging_Sound_HOU = false)
+			Mix_PlayChannel(-1, ReleasedChargeHOUSound,0);*/
 		}
 	}
 }
