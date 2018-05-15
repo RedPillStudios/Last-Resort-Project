@@ -5,7 +5,7 @@
 
 //Include here Enemies modules
 
-#define MAX_ENEMIES 100
+#define MAX_ENEMIES 1000
 
 enum ENEMY_TYPES {
 
@@ -13,7 +13,7 @@ enum ENEMY_TYPES {
 	ENEMY_WASP,
 	ENEMY_RHINO,
 	ENEMY_ZICZAC,
-	ENEMY_SUICIDE,
+	ENEMY_LAMELLA,
 	CARS
 };
 

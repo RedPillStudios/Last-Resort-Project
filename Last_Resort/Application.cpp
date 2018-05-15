@@ -38,9 +38,9 @@ Application::Application()
 	modules[i++] = stageclear = new ModuleStageClear();
 	modules[i++] = player = new ModulePlayer();
 	modules[i++] = player2 = new ModulePlayer2();
+	modules[i++] = powerup = new ModulePowerUp();
 	modules[i++] = fade = new ModuleFadeToBlack();
 	modules[i++] = particles = new ModuleParticles();
-	modules[i++] = powerup = new ModulePowerUp();
 	modules[i++] = collision = new ModuleCollision();
 	modules[i++] = fonts = new ModuleUI();
 	modules[i++] = Boss = new ModuleBossLvl1();
@@ -69,6 +69,7 @@ bool Application::Init()
 	powerup->Disable();
 	player2->Disable();
 	App->Boss->Disable();
+	App->fonts->Disable();
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();

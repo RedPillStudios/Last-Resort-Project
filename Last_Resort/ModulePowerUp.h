@@ -116,8 +116,26 @@ public:
 
 public:
 
-	int HOU_position_x;
-	int HOU_position_y;
+
+	//int Angle;
+	float HOU_Direction;
+	float HOU_Speed=5;
+	iPoint shipCenter;
+	iPoint HOU_position;
+	iPoint HOU_LastPosition;
+	int HOU_Charge;
+
+
+	bool Up;
+	bool Down;
+	bool Left;
+	bool Right;
+	bool Throw=false;
+	bool Throwing=false;
+	bool ReturnPosition=true;
+	bool HOUreachPosition=false;
+	
+
 	bool fixed;
 
 	bool HOU_activated;
@@ -134,14 +152,24 @@ public:
 
 	//animation sequences HOU
 	Animation HOU_Front;
+	Animation HOU_Front_Up_Down;
 	Animation HOU_Front_Up;
+	Animation HOU_Front_Up_Up;
+	Animation HOU_Front_Down_Up;
 	Animation HOU_Front_Down;
+	Animation HOU_Front_Down_Down;
 	Animation HOU_Back;
+	Animation HOU_Back_Up_Up;
 	Animation HOU_Back_UP;
+	Animation HOU_Back_Up_Down;
+	Animation HOU_Back_Down_Down;
 	Animation HOU_Back_Down;
+	Animation HOU_Back_Down_Up;
 	Animation HOU_Down;
 	Animation HOU_UP;
 	Animation Charge;
+	Animation Throw_Ball;
+
 
 	Animation *Power_Up_animation = nullptr;
 	Animation *current_animation = nullptr;
@@ -150,6 +178,9 @@ public:
 	bool AddPowerUp(POWERUP_TYPES type, int x, int y);
 	void OnCollision(Collider *c1, Collider *c2);
 	void spawnPowerUp(const PowerUpInfo &info);
+	void throwHOU();
+	void returnHOU();
+	void Hou_Movement();
 
 	PowerUpInfo queue[MAX_POWERUP];
 	powerUp* PowerUps[MAX_POWERUP];
