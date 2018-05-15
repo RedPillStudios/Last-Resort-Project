@@ -116,7 +116,7 @@ bool ModuleSceneLvl1::Start()
 	Stage1_Boss_Music = App->sound->LoadMusic("Audio/Stage1/Stage1_Music_Boss.ogg");
 
 	Mix_PlayMusic(Stage1, -1);
-	Mix_Volume(-1, VOLUME_MUSIC);
+	Mix_VolumeMusic(MIX_MAX_VOLUME/2);
 
 	if (IsEnabled()) {
 		App->fonts->Enable();
@@ -282,7 +282,7 @@ bool ModuleSceneLvl1::Start()
 	App->powerup->AddPowerUp(POWERUP_TYPES::RED, 7560, 60);
 
 	//Lamella
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, 500, 60, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, 500, 60, false);
 	
 	return true;
 }

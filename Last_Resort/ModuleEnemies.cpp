@@ -144,9 +144,9 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		enemies[i] = new EnemyZicZac(info.x, info.y,info.PowerUp);
 		break;
 		
-		case ENEMY_TYPES::ENEMY_LAMELLA:
+	/*	case ENEMY_TYPES::ENEMY_LAMELLA:
 		enemies[i] = new EnemyLamella(info.x, info.y,info.PowerUp,info.toGo);
-		break;
+		break;*/
 		
 		case ENEMY_TYPES::CARS:
 		enemies[i] = new CarsToFast(info.x, info.y);
