@@ -27,8 +27,8 @@ EnemyLamella::EnemyLamella(int x, int y, bool powerUp,fPoint toGo) : Enemy(x, y)
 	LamellaAnim.PushBack({ 32, 129, 31, 31 });
 	LamellaAnim.PushBack({ 64, 130, 31, 30 });
 	LamellaAnim.PushBack({ 97, 131, 30, 29 }); //Have to make him appear
-
-	Enemy::sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
+	LamellaAnim.speed = 0.4f;
+	sprites = App->enemies->sprites;
 
 	lastPosX = App->player->position.x;
 	lastPosY = App->player->position.y;
@@ -37,29 +37,34 @@ EnemyLamella::EnemyLamella(int x, int y, bool powerUp,fPoint toGo) : Enemy(x, y)
 	score = 100;
 	LamellaAnim.speed = 1.0f;
 	LamellaAnim.loop = true;
-	animation = &Arriving;
+	animation = &Apearing;
 
 	PowerUp = powerUp;
 	collider = App->collision->AddCollider({0,0,32,32}, COLLIDER_TYPE::COLLIDER_NONE, (Module*)App->enemies);
 }
 
 void EnemyLamella::Move(){
+	position.x++;
 
-	//if (Apearing.Finished() == false) {
-	//	PlayerPosition = App->player->position;
-	//}
-
+	/*if (Apearing.Finished() == false) {
+		PlayerPosition = App->player->position;
+		animation = &LamellaAnim;
+	}
+*/
 	//if (Apearing.Finished() == true) {
 	//	//position.x++;
-	//	position.x -= 0.005*(PlayerPosition.x + position.x);
-	//	position.y -= 0.005*(PlayerPosition.y + position.y);
-	////
-	if (reachPosition == false) {
-		position.x--;
-	}
-	if (position == toGo) {
-		reachPosition = true;
-	}
+	//	position.x += 0.05*(PlayerPosition.x - position.x);
+	//	position.y += 0.05*(PlayerPosition.y - position.y);
+	//	}
+	//
+
+
+	//if (reachPosition == false) {
+	//	position.x--;
+	//}
+	//if (position == toGo) {
+	//	reachPosition = true;
+	//}
 
 	//if (reachPosition == true) {
 	//	animation = &Apearing;

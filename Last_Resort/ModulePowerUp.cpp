@@ -282,10 +282,9 @@ update_status ModulePowerUp::PreUpdate() {
 		if (queue[i].type != POWERUP_TYPES::NON) {
 
 			if (queue[i].x * SCREEN_SIZE < App->render->camera.x + (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN) {
-
 				spawnPowerUp(queue[i]);
 				queue[i].type = POWERUP_TYPES::NON;
-				LOG("Spawning enemy at %d", queue[i].x * SCREEN_SIZE);
+				LOG("Spawning powerUp at %d", queue[i].x * SCREEN_SIZE);
 			}
 		}
 	}

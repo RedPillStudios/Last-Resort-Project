@@ -35,6 +35,7 @@ public:
 
 	ModuleEnemies();
 	~ModuleEnemies();
+	SDL_Texture *sprites;
 
 	bool Start();
 	update_status PreUpdate();

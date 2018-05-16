@@ -23,12 +23,14 @@ ModuleEnemies::ModuleEnemies() {
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 		enemies[i] = nullptr;
+
 }
 
 ModuleEnemies::~ModuleEnemies() {}
 
 bool ModuleEnemies::Start() {
 
+	sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
 	LOG("Starting Module Enemies");
 	return true;
 }

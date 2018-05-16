@@ -346,6 +346,20 @@ update_status ModuleSceneLvl1::Update() {
 	//camera Mov
 	App->render->camera.x += 1*SCREEN_SIZE;
 
+
+	if (App->render->camera.x == SCREEN_WIDTH * 2)
+	{
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 33, 26  , false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 33, 74, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 33, 123, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 33, 171, false);
+
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 260, 26, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 260, 74, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 260, 123, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 260, 171, false);
+
+	}
 	
 	//background
 	App->render->Blit(graphics_Crater_Boss_Zone, 0, 0, &CraterBossZone, 0.0f);
