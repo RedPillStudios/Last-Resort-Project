@@ -54,6 +54,8 @@ public:
 	int randomPositionCars = 0;
 	int randomColorCars = 0;
 
+
+
 	void StreetlightCreator();
 
 	//Music

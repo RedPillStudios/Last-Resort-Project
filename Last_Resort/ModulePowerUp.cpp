@@ -488,7 +488,7 @@ void ModulePowerUp::spawnPowerUp(const PowerUpInfo &info)
 }
 
 void ModulePowerUp::throwHOU() {
-	Mix_FadeOutChannel(1, 400);//fading out channel
+	Mix_FadeOutChannel(2, 400);//fading out channel
 	Mix_PlayChannel(-1, ReleasedChargeHOUSound, 0);//releasing sound
 
 	HOU_position.x++;
@@ -564,7 +564,7 @@ void ModulePowerUp::Hou_Movement() {
 				App->render->Blit(Charge_texture, HOU_position.x - 10, HOU_position.y - 15, &Charge_animation->GetCurrentFrame());
 				
 				if (Charging_Sound_HOU) {
-					Mix_PlayChannelTimed(1, ChargeHOUSound, 0, 2000);
+					Mix_PlayChannel(2, ChargeHOUSound, 0);
 					
 				}
 				if (timeSoundCharge = SDL_GetTicks() + 2000){
@@ -578,9 +578,8 @@ void ModulePowerUp::Hou_Movement() {
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP) {
 			
 			HOU_Charge = 0;
-			Mix_FadeOutChannel(1,400); //fading out channel
-		/*if(Charging_Sound_HOU = false)
-			Mix_PlayChannel(-1, ReleasedChargeHOUSound,0);*/
+			Mix_FadeOutChannel(2,400); //fading out channel
+	
 		}
 	}
 }
