@@ -113,7 +113,12 @@ bool ModulePlayer2::Start() {
 	AppearAnim = true;
 	ToBeDeleted = false;
 	
-
+	//Timer
+	ShootTimer1 = 0;
+	ShootTimer2 = 0;
+	ShootTimer3 = 0;
+	ShootTimer4 = 0;
+	//_____
 	DestroyShip.Reset();
 	current_animation2 = &Appear2;
 
@@ -198,15 +203,58 @@ update_status ModulePlayer2::Update() {
 		if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)
 				GOD = !GOD;
 			
-		/*Shoot*/
-		if (App->input->keyboard[SDL_SCANCODE_RCTRL] == KEY_STATE::KEY_DOWN) {
 
-			App->particles->AddParticle(App->particles->Laser, setFirePos2().x, setFirePos2().y, COLLIDER_PLAYER_SHOT2);
-			App->particles->AddParticle(App->particles->ShootExplosion, setFirePos2().x, setFirePos2().y);
-			Mix_PlayChannel(-1, Shot_Sound, 0);
+
+
+
+		/*Shoot*/
+		if (App->input->keyboard[SDL_SCANCODE_M] == KEY_STATE::KEY_DOWN) {
+			if (ShootTimer1 < SDL_GetTicks() - 150) {
+
+				App->particles->AddParticle(App->particles->Laser, setFirePos2().x - 10, setFirePos2().y, COLLIDER_PLAYER_SHOT);
+				App->particles->AddParticle(App->particles->ShootExplosion, setFirePos2().x, setFirePos2().y);
+
+				//Mix_PlayChannel(-1, Shot_Sound, 0);
+
+				ShootTimer1 = SDL_GetTicks();
+
+			}
+			if (WeaponTypeP2 == ShootsP2::MISSILESP2 && ShootTimer2 < SDL_GetTicks() - 600) {
+
+				App->particles->AddParticle(App->particles->MissilePower, positionp2.x - 5, positionp2.y + 10, COLLIDER_PLAYER_SHOT, 200);
+				App->particles->AddParticle(App->particles->MissilePower, positionp2.x - 5, positionp2.y - 10, COLLIDER_PLAYER_SHOT, 200);
+
+				//Mix_PlayChannel(-1, MissilePower_Sound, 0);
+				ShootTimer2 = SDL_GetTicks();
+
+			}
+
+			if (WeaponTypeP2 == ShootsP2::LASERSHOOTP2 && ShootTimer3 < SDL_GetTicks() - 650) {
+
+				App->particles->AddParticle(App->particles->LaserBeam, setFirePos2().x - 16, setFirePos2().y + 3, COLLIDER_PLAYER_LASERBEAM_SHOT);
+
+				App->particles->AddParticle(App->particles->LaserBeamExplosion, setFirePos2().x, setFirePos2().y, COLLIDER_NONE);
+
+				App->particles->AddParticle(App->particles->LaserBeamArea1, setFirePos2().x + 5, setFirePos2().y - 10, COLLIDER_NONE);
+
+				for (int i = SDL_GetTicks(); i > SDL_GetTicks() + 50; i++) {
+
+				}
+				App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos2().x, setFirePos2().y - 11, COLLIDER_PLAYER_LASERBEAM_AREA_SHOT, 100 - 30);
+
+
+			//	Mix_PlayChannel(-1, LasserBeam_Sound, 0);
+
+				ShootTimer3 = SDL_GetTicks();
+			}
 		}
 	}
 
+
+
+
+
+	Ship2Collider->SetPos(positionp2.x, positionp2.y);
 	/* Draw everything --------------------------------------*/
 
 	if (current_animation2 == &Appear2) {
@@ -219,7 +267,7 @@ update_status ModulePlayer2::Update() {
 		App->render->Blit(graphicsp2, positionp2.x, positionp2.y, &(current_animation2->GetCurrentFrame()));
 	}
 
-	Ship2Collider->SetPos(positionp2.x, positionp2.y);
+	
 
 	//end anim of dead and disable
 	if (ToBeDeleted == true && current_animation2->Finished() == true) {

@@ -253,7 +253,7 @@ update_status ModulePlayer::Update() {
 
 			//Shoot with timer:
 			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN ) {
-				if (ShootTimer1 < SDL_GetTicks() - 200) {
+				if (ShootTimer1 < SDL_GetTicks() - 150) {
 
 					App->particles->AddParticle(App->particles->Laser, setFirePos().x - 10, setFirePos().y, COLLIDER_PLAYER_SHOT);
 					App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
@@ -263,7 +263,7 @@ update_status ModulePlayer::Update() {
 					ShootTimer1 = SDL_GetTicks();
 				
 				}
-					if (WeaponType == Shoots::MISSILES && ShootTimer2 < SDL_GetTicks() - 450) {
+					if (WeaponType == Shoots::MISSILES && ShootTimer2 < SDL_GetTicks() - 600) {
 
 						App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y + 10, COLLIDER_PLAYER_SHOT, 200);
 						App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y - 10, COLLIDER_PLAYER_SHOT, 200);

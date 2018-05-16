@@ -124,21 +124,26 @@ public:
 	iPoint HOU_position;
 	iPoint HOU_LastPosition;
 	int HOU_Charge;
-
+	int HOU2_Charge;
 
 	bool Up;
 	bool Down;
 	bool Left;
 	bool Right;
 	bool Throw=false;
+	bool Throw2 = false;
 	bool Throwing=false;
+	bool Throwing2 = false;
 	bool ReturnPosition=true;
+	bool ReturnPosition2 = true;
 	bool HOUreachPosition=false;
+	bool HOUreachPosition2 = false;
 	
 
 	bool fixed;
 
 	bool HOU_activated;
+	bool HOU2_activated;
 	//void PowerUpAppear();
 
 	SDL_Texture *HOU_Texture;

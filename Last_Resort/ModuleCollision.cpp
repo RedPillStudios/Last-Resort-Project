@@ -105,7 +105,6 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_POWER_UP][COLLIDER_PLAYER_SHOT] = false;
 	matrix[COLLIDER_POWER_UP][COLLIDER_PLAYER_SHOT2] =false;
 	matrix[COLLIDER_POWER_UP][COLLIDER_ENEMY_SHOT] = false;
-	matrix[COLLIDER_POWER_UP][COLLIDER_POWER_UP] = false;
 	matrix[COLLIDER_POWER_UP][COLLIDER_HOU] = false;
 	matrix[COLLIDER_POWER_UP][COLLIDER_PLAYER2] = true;
 	matrix[COLLIDER_POWER_UP][COLLIDER_PLAYER_LASERBEAM_SHOT] = false;
@@ -251,7 +250,7 @@ void ModuleCollision::DebugDraw()
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
 		case COLLIDER_PLAYER2:
-			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			App->render->DrawQuad(colliders[i]->rect, 0, 100, 0, alpha);
 			break;
 		case COLLIDER_ENEMY: // red
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0, alpha);
@@ -266,7 +265,7 @@ void ModuleCollision::DebugDraw()
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 255, alpha);
 			break;
 		case COLLIDER_POWER_UP: //Orange
-			App->render->DrawQuad(colliders[i]->rect, 255, 255, 255, alpha);
+			App->render->DrawQuad(colliders[i]->rect, 255, 0, 128, alpha);
 			break;
 		case COLLIDER_HOU://Pink
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 255, alpha);

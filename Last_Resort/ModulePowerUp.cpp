@@ -4,6 +4,7 @@
 #include "ModuleRender.h"
 #include "ModuleCollision.h"
 #include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include "ModuleEnemies.h"
 #include "ModuleParticles.h"
 #include "ModuleInput.h"
@@ -310,7 +311,7 @@ update_status ModulePowerUp::Update() {
 			Throwing = true;
 			Throw = true;
 		}
-
+		
 		/*if (charging) {
 
 
@@ -414,30 +415,63 @@ update_status ModulePowerUp::Update() {
 
 		App->render->Blit(HOU_Texture, HOU_position.x, HOU_position.y, &current_animation->GetCurrentFrame());
 	}
-	
+	/*if (HOU2_activated) {
+		if (HOU2_Direction >= 360) {
+			HOU2_Direction = 0;
+		}
+		if (HOU2_Charge > 40 && App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP&&ThrowingP2 == false) {
+			Throwing2 = true;
+			Throw2 = true;
+		}*/
 	return UPDATE_CONTINUE;
 }
 
 void ModulePowerUp::OnCollision(Collider *c1, Collider *c2) {
 
 	for (uint i = 0; i < MAX_POWERUP; ++i) {
-
+		if(c2->type == COLLIDER_PLAYER){
 		if (PowerUps[i] != nullptr && PowerUps[i]->GetCollider() == c1) {
-			HOU_activated = true;
+			if(HOU_activated == false){
+				HOU_activated = true;
+			}	
 			PowerUps[i]->OnCollision(c2);
 			if (PowerUps[i]->type == POWERUP_TYPES::MISSILES_P) {
-				App->player->WeaponType = 0;
+				
 				App->player->WeaponType = 3;
+				LOG("MISSILES FOR PLAYER_1");
 			}
-			if (PowerUps[i]->type == POWERUP_TYPES::LASER) {
-		    	App->player->WeaponType = 0;
+			else if (PowerUps[i]->type == POWERUP_TYPES::LASER) {
+				
 				App->player->WeaponType = 2;
+				LOG("LASERS FOR PLAYER_1");
+			}
+		}
+			//ADD HERE App.player.score += score;
+			delete PowerUps[i];
+			PowerUps[i] = nullptr;
+			break;
+		}
+		else if (c2->type == COLLIDER_PLAYER2) {
+			if (PowerUps[i] != nullptr && PowerUps[i]->GetCollider() == c1) {
+				HOU2_activated = true;
+				PowerUps[i]->OnCollision(c2);
+				if (PowerUps[i]->type == POWERUP_TYPES::MISSILES_P) {
+					
+					App->player2->WeaponTypeP2 = 3;
+					LOG("MISSILES FOR PLAYER_2");
+				}
+				else if (PowerUps[i]->type == POWERUP_TYPES::LASER) {
+					
+ 					App->player2->WeaponTypeP2 = 2;
+					LOG("MISSILES FOR PLAYER_2");
+				}
 			}
 			//ADD HERE App.player.score += score;
 			delete PowerUps[i];
 			PowerUps[i] = nullptr;
 			break;
 		}
+		
 	}
 }
 
