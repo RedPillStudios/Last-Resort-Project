@@ -279,8 +279,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 						
 					//AÑADIR AQUI LA DESINTEGRACIÓN DE LAS AREAS DEL LASER CUANDO LOS SPRITES ESTÉN BIÉN (LASER AREA 2)
 				}						
-				AddParticle(EnemyExplosion, active[i]->Position.x + 80, active[i]->Position.y - 2, COLLIDER_NONE, 200);
-				AddParticle(EnemyExplosion, active[i]->Position.x - 80, active[i]->Position.y + 3, COLLIDER_NONE, 200);
+			
 			}
 			break;
 		}

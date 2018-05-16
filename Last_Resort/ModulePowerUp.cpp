@@ -425,7 +425,7 @@ void ModulePowerUp::OnCollision(Collider *c1, Collider *c2) {
 			HOU_activated = true;
 			PowerUps[i]->OnCollision(c2);
 			if (PowerUps[i]->type == POWERUP_TYPES::RED)
-				App->player->WeaponType = 2;
+				App->player->WeaponType = 3;
 			if (PowerUps[i]->type == POWERUP_TYPES::LASER)
 				App->player->WeaponType = 1;
 			//ADD HERE App.player.score += score;

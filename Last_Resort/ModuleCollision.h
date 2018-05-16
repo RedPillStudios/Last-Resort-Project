@@ -43,6 +43,10 @@ struct Collider
 	}
 
 	bool CheckCollision(const SDL_Rect& r) const;
+
+	void changeCollider(COLLIDER_TYPE type_) {
+		type = type_;
+	}
 };
 
 class ModuleCollision : public Module
