@@ -383,14 +383,19 @@ update_status ModuleSceneLvl1::Update() {
 	
 	//BOSS Music
 
-	if (position_max_limit ==8900) {
+	if (position_max_limit == 8900) {
+		
+		timeFadeInt = SDL_GetTicks();
 		
 		Mix_FadeOutMusic(3000);
-		Mix_FadeInMusic(Stage1_Boss_Music,-1,3000);
-	
-
 	}
 	
+	if (position_max_limit > 8900 && timeFadeInt < SDL_GetTicks() - 3300) {
+			
+		Mix_FadeInMusic(Stage1_Boss_Music, -1, 3000);
+
+		timeFadeInt = SDL_GetTicks() + 10000;//parchear boysss (bool)
+	}
 
 	// FADE IF NOT ENOUGHT COINS
 	if (App->fonts->P1Life <= 0 && App->fonts->P2Life <= 0 && App->player->Dead == true && App->player2->Dead == true) {
