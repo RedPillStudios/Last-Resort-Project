@@ -388,13 +388,15 @@ update_status ModuleSceneLvl1::Update() {
 		timeFadeInt = SDL_GetTicks();
 		
 		Mix_FadeOutMusic(3000);
+
+		switchMusic = true;
 	}
 	
-	if (position_max_limit > 8900 && timeFadeInt < SDL_GetTicks() - 3300) {
+	if (position_max_limit > 8900 && timeFadeInt < SDL_GetTicks() - 3300 && switchMusic == true) {
 			
 		Mix_FadeInMusic(Stage1_Boss_Music, -1, 3000);
 
-		timeFadeInt = SDL_GetTicks() + 10000;//parchear boysss (bool)
+		switchMusic = false;
 	}
 
 	// FADE IF NOT ENOUGHT COINS

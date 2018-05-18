@@ -85,6 +85,7 @@
     <ClCompile Include="ModuleGameControllers.cpp">
       <Filter>Modules\Base</Filter>
     </ClCompile>
+    <ClCompile Include="Iron_Craw.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h" />
@@ -178,6 +179,7 @@
     <ClInclude Include="ModuleGameControllers.h">
       <Filter>Modules\Base</Filter>
     </ClInclude>
+    <ClInclude Include="Iron_Craw.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">

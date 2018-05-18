@@ -55,7 +55,7 @@ public:
 	int randomPositionCars = 0;
 	int randomColorCars = 0;
 
-
+	bool switchMusic = false;
 
 	void StreetlightCreator();
 
