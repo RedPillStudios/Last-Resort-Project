@@ -106,8 +106,9 @@ bool ModulePlayer2::Start() {
 	//collider
 	Ship2Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER2, this);
 	//sound
-	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
-
+	Shot_SoundP2 = App->sound->LoadChunk("Audio/Shot_Sound.wav");
+	MissilePower_SoundP2 = App->sound->LoadChunk("Audio/General/016_Rocket _Launcher.wav");
+	LasserBeam_SoundP2 = App->sound->LoadChunk("Audio/General/015_Lasser_3.wav");
 	//bools
 	Dead = false;
 	AppearAnim = true;
@@ -132,7 +133,9 @@ bool ModulePlayer2::CleanUp() {
 	if (Ship2Collider != nullptr) 
 		Ship2Collider->to_delete = true;
 	
-	App->sound->UnloadChunks(Shot_Sound);
+	App->sound->UnloadChunks(Shot_SoundP2);
+	App->sound->UnloadChunks(MissilePower_SoundP2);
+	App->sound->UnloadChunks(LasserBeam_SoundP2);
 	
 	return true;
 }
@@ -203,7 +206,7 @@ update_status ModulePlayer2::Update() {
 
 			App->particles->AddParticle(App->particles->Laser, setFirePos2().x, setFirePos2().y, COLLIDER_PLAYER_SHOT2);
 			App->particles->AddParticle(App->particles->ShootExplosion, setFirePos2().x, setFirePos2().y);
-			Mix_PlayChannel(-1, Shot_Sound, 0);
+			Mix_PlayChannel(-1, Shot_SoundP2,0);
 		}
 	}
 

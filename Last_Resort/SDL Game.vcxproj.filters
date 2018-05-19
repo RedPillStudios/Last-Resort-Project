@@ -85,6 +85,7 @@
     <ClCompile Include="ModuleGameControllers.cpp">
       <Filter>Modules\Base</Filter>
     </ClCompile>
+    <ClCompile Include="Iron_Craw.cpp" />
     <ClCompile Include="EnemyBee.cpp">
       <Filter>Modules\Enemies\Bee</Filter>
     </ClCompile>
@@ -181,6 +182,7 @@
     <ClInclude Include="ModuleGameControllers.h">
       <Filter>Modules\Base</Filter>
     </ClInclude>
+    <ClInclude Include="Iron_Craw.h" />
     <ClInclude Include="EnemyBee.h">
       <Filter>Modules\Enemies\Bee</Filter>
     </ClInclude>

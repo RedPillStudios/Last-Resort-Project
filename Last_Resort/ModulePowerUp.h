@@ -142,12 +142,19 @@ public:
 	bool HOU_activated;
 	//void PowerUpAppear();
 
+	bool Charging_Sound_HOU = true;
+
+	int timeSoundCharge;
+
 	SDL_Texture *HOU_Texture;
 
 	SDL_Texture *Charge_texture;
 
 	Mix_Chunk *PickUpSpeed;
 	Mix_Chunk *PickUpWeapon;
+
+	Mix_Chunk *ChargeHOUSound;
+	Mix_Chunk *ReleasedChargeHOUSound;
 
 	Collider *colliderHUB = nullptr;
 

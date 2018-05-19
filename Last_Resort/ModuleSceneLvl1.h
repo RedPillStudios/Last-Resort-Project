@@ -28,6 +28,7 @@ public:
 
 	int position_max_limit = SCREEN_WIDTH;
 	int position_min_limit = 0;
+	int timeFadeInt = SDL_GetTicks();
 
 public:
 	
@@ -53,6 +54,8 @@ public:
 	int posCars = 0;
 	int randomPositionCars = 0;
 	int randomColorCars = 0;
+
+	bool switchMusic = false;
 
 	void StreetlightCreator();
 

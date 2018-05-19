@@ -7,8 +7,8 @@
 #include "ModuleParticles.h"
 #include "ModulePlayer.h"
 #include "ModuleSceneLvl1.h"
-
 #include "SDL/include/SDL_timer.h"
+#include <cstdlib>
 
 ModuleParticles::ModuleParticles() {
 
@@ -17,6 +17,8 @@ ModuleParticles::ModuleParticles() {
 		active[i] = nullptr;
 	}
 
+
+	srand(2);
 }
 
 ModuleParticles::~ModuleParticles() {}
@@ -31,6 +33,9 @@ bool ModuleParticles::Start() {
 	Particle3= App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
 
 	ImpactExplosionSound = App->sound->LoadChunk("Audio/General/007_Enemy_Explosion_Standard.wav");
+	ImpactExplosionSound2 = App->sound->LoadChunk("Audio/General/Explosion2.wav");
+	Mix_VolumeChunk(ImpactExplosionSound,MIX_MAX_VOLUME/2.5f);
+	Mix_VolumeChunk(ImpactExplosionSound2, MIX_MAX_VOLUME / 2);
 
 	ShootExplosion.Anim.PushBack({ 82, 239, 12, 12 });
 	ShootExplosion.Anim.PushBack({ 94, 241, 11, 9 });
@@ -180,6 +185,8 @@ bool ModuleParticles::Start() {
 	HOU_Shot.Speed.y = 0;
 	
 
+	
+
 	return true;
 
 }
@@ -198,6 +205,7 @@ bool ModuleParticles::CleanUp() {
 	}
 
 	App->sound->UnloadChunks(ImpactExplosionSound);
+	App->sound->UnloadChunks(ImpactExplosionSound2);
 
 	App->textures->Unload(Particle1);
 	App->textures->Unload(Particle2);
@@ -259,6 +267,8 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLID
 			
 		}			
 	}
+
+	randomExplosionSound = rand() % 2 + 1;
 }
 
 void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
@@ -273,7 +283,14 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			if (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_WALL)
 				AddParticle(ImpactExplosion, active[i]->Position.x, active[i]->Position.y);
 			if (c2->type == COLLIDER_ENEMY) {
-				Mix_PlayChannel(-1, ImpactExplosionSound, 0);
+				
+				if (randomExplosionSound == 1) {
+					Mix_PlayChannel(-1, ImpactExplosionSound, 0);
+				}
+				else if (randomExplosionSound == 2) {
+					Mix_PlayChannel(-1, ImpactExplosionSound2, 0);
+				}
+				
 				if (active[i]->TimesCollided == 0 ) {
 					active[i]->TimesCollided = 1;
 						
@@ -289,7 +306,14 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			if (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_WALL)
 					AddParticle(ImpactExplosion,active[i]->Position.x, active[i]->Position.y);
 			if (c2->type == COLLIDER_ENEMY) {
+				
+				if (randomExplosionSound == 1) {
 					Mix_PlayChannel(-1, ImpactExplosionSound, 0);
+				}
+				else if (randomExplosionSound == 2) {
+					Mix_PlayChannel(-1, ImpactExplosionSound2, 0);
+				}
+				
 					AddParticle(EnemyExplosion, active[i]->Position.x, active[i]->Position.y);
 					AddParticle(EnemyExplosion, active[i]->Position.x + 3, active[i]->Position.y -2, COLLIDER_NONE, 200);
 					AddParticle(EnemyExplosion, active[i]->Position.x - 3, active[i]->Position.y +2, COLLIDER_NONE, 200);

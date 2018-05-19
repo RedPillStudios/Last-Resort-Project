@@ -49,8 +49,9 @@ bool ModuleGameOver::Start() {
 
 		GameOver = App->sound->LoadMusic("Audio/Congrats/GameOver.ogg");
 		
-		Mix_Volume(-1,VOLUME_MUSIC);
+	
 		Mix_PlayMusic(GameOver, 0);
+
 
 		if (IsEnabled()) {
 			if (App->player->IsEnabled()) 

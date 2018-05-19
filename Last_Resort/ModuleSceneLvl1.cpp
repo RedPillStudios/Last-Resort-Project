@@ -113,10 +113,10 @@ bool ModuleSceneLvl1::Start()
 
 	//Music
 	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
-	Stage1_Boss_Music = App->sound->LoadMusic("Audio/Stage1/Stage1_Music_Boss.ogg");
+	Stage1_Boss_Music = App->sound->LoadMusic("Audio/Stage1/Stage1_Boss_Music.ogg");
 
 	Mix_PlayMusic(Stage1, -1);
-	Mix_Volume(-1, VOLUME_MUSIC);
+	//Mix_VolumeMusic(MIX_MAX_VOLUME/3);
 
 	if (IsEnabled()) {
 		App->fonts->Enable();
@@ -279,8 +279,6 @@ bool ModuleSceneLvl1::Start()
 	App->powerup->AddPowerUp(POWERUP_TYPES::RED, 3560, 145);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, 7560, 60, true);
 	App->powerup->AddPowerUp(POWERUP_TYPES::RED, 7560, 60);
-
-
 	
 	return true;
 }
@@ -463,17 +461,21 @@ update_status ModuleSceneLvl1::Update() {
 	
 	//BOSS Music
 
-	//if (App->player->position.x >= 600) {
-	//	Mix_FadeOutMusic(3000);
-	//
-	//	while (Mix_FadeOutMusic(3000)<3000 && Mix_PlayingMusic()) {
-	//		// wait for any fades to complete
-	//		SDL_Delay(100);
-	//	}	
-	//	//Mix_FadeInMusciPos();
+	if (position_max_limit == 8900) {
+		
+		timeFadeInt = SDL_GetTicks();
+		
+		Mix_FadeOutMusic(3000);
 
-	//}
+		switchMusic = true;
+	}
 	
+	if (position_max_limit > 8900 && timeFadeInt < SDL_GetTicks() - 3300 && switchMusic == true) {
+			
+		Mix_FadeInMusic(Stage1_Boss_Music, -1, 3000);
+
+		switchMusic = false;
+	}
 
 	// FADE IF NOT ENOUGHT COINS
 	if (App->fonts->P1Life <= 0 && App->fonts->P2Life <= 0 && App->player->Dead == true && App->player2->Dead == true) {

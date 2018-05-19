@@ -96,6 +96,9 @@ public:
 
 
 	Mix_Chunk *ImpactExplosionSound;
+	Mix_Chunk *ImpactExplosionSound2;
+
+	int randomExplosionSound;
 
 	uint Enemies_Weapon = 0;
 	uint Enemies_Speed = 0;

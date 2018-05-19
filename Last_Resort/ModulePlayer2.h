@@ -53,12 +53,15 @@ public:
 
 	Collider *Ship2Collider;
 
+	Mix_Chunk*Shot_SoundP2 = nullptr;
+	Mix_Chunk*MissilePower_SoundP2 = nullptr;
+	Mix_Chunk*LasserBeam_SoundP2 = nullptr;
+
 public:
 
 	bool startAnim = true;
 	bool shooted = false;
 
-	Mix_Chunk*Shot_Sound = nullptr;
 
 
 public:

@@ -44,6 +44,8 @@ bool ModuleMainMenu::Start() {
 	Insert_Coin = App->sound->LoadChunk("Audio/Main_Menu/Insert_Coin.wav");
 
 	Mix_PlayMusic(Main_Menu, 0);
+	Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
+	Mix_VolumeChunk(Insert_Coin, MIX_MAX_VOLUME / 2);
 
 	App->render->camera.x = App->render->camera.y = 0;
 

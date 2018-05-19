@@ -87,27 +87,23 @@ void EnemyLamella::Move(){
 		reached = true;
 	}
 	
-	//
+/*  if (reachPosition == false) 
+  	  position.x--;
+	
+  	if (position == toGo) 
+	  	reachPosition = true;
 
+	  if (reachPosition == true)
+	  	animation = &Apearing;
 
-	//if (reachPosition == false) {
-	//	position.x--;
-	//}
-	//if (position == toGo) {
-	//	reachPosition = true;
-	//}
+		if (App->player->position.x <= position.x)
+			position.x++;
 
-	//if (reachPosition == true) {
-	//	animation = &Apearing;
-	//}
-		//if (App->player->position.x <= position.x)
-		//	position.x++;
+		else
+			position.x--;
 
-		//else
-		//	position.x--;
-
-		//if (App->player->position.y >= position.y)
-		//	position.y++;
-		//else
-		//	position.y--;
+		if (App->player->position.y >= position.y)
+			position.y++;
+		else
+			position.y--; */
 }
