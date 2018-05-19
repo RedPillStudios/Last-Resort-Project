@@ -15,6 +15,7 @@ enum ENEMY_TYPES {
 	ENEMY_RHINO,
 	ENEMY_ZICZAC,
 	ENEMY_LAMELLA,
+	ENEMY_BEE,
 	CARS
 };
 
@@ -35,6 +36,9 @@ public:
 
 	ModuleEnemies();
 	~ModuleEnemies();
+	SDL_Texture *sprites;
+	SDL_Texture* carSprites;
+	SDL_Texture* CommonEnemyes;
 
 	bool Start();
 	update_status PreUpdate();
@@ -43,7 +47,7 @@ public:
 	bool CleanUp(); 
 
 	void OnCollision(Collider *c1, Collider *c2);
-	bool AddEnemy(ENEMY_TYPES type, int x, int y, bool PowerUp, fPoint toGo = { 0,0 });
+	bool AddEnemy(ENEMY_TYPES type, int x, int y, bool PowerUp);
 	bool SpawnEnemyCheat = false;
 
 private:

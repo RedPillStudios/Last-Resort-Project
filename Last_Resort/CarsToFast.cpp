@@ -11,8 +11,11 @@
 
 
 
-CarsToFast::CarsToFast(int x, int y): Enemy(x,y){
+CarsToFast::CarsToFast(int x, int y,ENEMY_TYPES type_): Enemy(x,y){
 	
+
+	type = type_;
+
 	randomColorCars = rand() % 3 + 1;
 
 	CarRed.PushBack({ 0,184,21,11 });

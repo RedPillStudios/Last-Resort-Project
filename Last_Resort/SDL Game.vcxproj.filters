@@ -86,6 +86,9 @@
       <Filter>Modules\Base</Filter>
     </ClCompile>
     <ClCompile Include="Iron_Craw.cpp" />
+    <ClCompile Include="EnemyBee.cpp">
+      <Filter>Modules\Enemies\Bee</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h" />
@@ -180,6 +183,9 @@
       <Filter>Modules\Base</Filter>
     </ClInclude>
     <ClInclude Include="Iron_Craw.h" />
+    <ClInclude Include="EnemyBee.h">
+      <Filter>Modules\Enemies\Bee</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -220,6 +226,9 @@
     </Filter>
     <Filter Include="Modules\Enemies\Lamella">
       <UniqueIdentifier>{945560fc-dc97-4053-a6e9-47c5b5a871fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\Bee">
+      <UniqueIdentifier>{ced922fa-7929-4704-9ecf-955285ecd699}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

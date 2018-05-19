@@ -290,10 +290,9 @@ update_status ModulePowerUp::PreUpdate() {
 		if (queue[i].type != POWERUP_TYPES::NON) {
 
 			if (queue[i].x * SCREEN_SIZE < App->render->camera.x + (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN) {
-
 				spawnPowerUp(queue[i]);
 				queue[i].type = POWERUP_TYPES::NON;
-				LOG("Spawning enemy at %d", queue[i].x * SCREEN_SIZE);
+				LOG("Spawning powerUp at %d", queue[i].x * SCREEN_SIZE);
 			}
 		}
 	}
@@ -434,7 +433,7 @@ void ModulePowerUp::OnCollision(Collider *c1, Collider *c2) {
 			HOU_activated = true;
 			PowerUps[i]->OnCollision(c2);
 			if (PowerUps[i]->type == POWERUP_TYPES::RED)
-				App->player->WeaponType = 2;
+				App->player->WeaponType = 3;
 			if (PowerUps[i]->type == POWERUP_TYPES::LASER)
 				App->player->WeaponType = 1;
 			//ADD HERE App.player.score += score;

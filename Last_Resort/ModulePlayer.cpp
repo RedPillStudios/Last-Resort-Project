@@ -163,12 +163,13 @@ update_status ModulePlayer::Update() {
 	int speed = 2;
 
 	if (current_animation == &Appear) {
-		
+		Ship1Collider->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
 		position.x=App->scene1background->position_min_limit+2;
 		
 		if (Appear.Finished() && current_animation!=&Standard) {
 			position.x = App->scene1background->position_min_limit + 32;
 			current_animation = &Standard;
+			Ship1Collider->changeCollider(COLLIDER_TYPE::COLLIDER_PLAYER);
 		}
 	}
 		if (current_animation != &DestroyShip && Appear.Finished()&& (current_animation != &Up ))
