@@ -31,6 +31,7 @@ bool ModuleParticles::Start() {
 	Particle1 = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
 	Particle2 = App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
 	Particle3= App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
+	Particle4 = App->textures->Load("Images/Player/Charge_Ball.png");
 
 	ImpactExplosionSound = App->sound->LoadChunk("Audio/General/007_Enemy_Explosion_Standard.wav");
 	ImpactExplosionSound2 = App->sound->LoadChunk("Audio/General/Explosion2.wav");
@@ -204,7 +205,16 @@ bool ModuleParticles::Start() {
 	BeeShot.Speed.x = 0;
 	BeeShot.Speed.y= 0;
 
+	Red_ThrowBall_pl1.Anim.PushBack({0,0,32,32});
+	Red_ThrowBall_pl1.Anim.PushBack({ 32,0,32,32 });
+	Red_ThrowBall_pl1.Anim.PushBack({ 64,0,32,32 });
+	Red_ThrowBall_pl1.Anim.PushBack({ 96,0,32,32 });
+	Red_ThrowBall_pl1.Anim.loop = true;
 
+	Red_ThrowBall_pl1.Anim.speed = 0.2f;
+	Red_ThrowBall_pl1.Sprites = Particle4;
+	Red_ThrowBall_pl1.Speed.x = 0;
+	Red_ThrowBall_pl1.Speed.x = 0;
 	return true;
 
 }

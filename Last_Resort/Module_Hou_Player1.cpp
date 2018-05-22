@@ -555,6 +555,7 @@ update_status ModuleHouPlayer1::Update() {
 			Animation* Sup = current_animation;
 			if (Blue) {
 				current_animation = &Blue_Throw_Ball;
+
 			}
 			else {
 				current_animation = &Red_Throw_Ball;
@@ -602,10 +603,19 @@ void ModuleHouPlayer1::OnCollision(Collider *c1, Collider *c2) {
 void ModuleHouPlayer1::throwHOU() {
 	Mix_FadeOutChannel(2, 400);//fading out channel
 	Mix_PlayChannel(-1, ReleasedChargeHOUSound, 0);//releasing sound
-
+	particlesTimmer++;
 	HOU_position.x++;
 	HOU_position.x += (10 * cos(HOU_Direction*PI / 180));
 	HOU_position.y += (10 * sin(HOU_Direction*PI / 180));
+	App->particles->Red_ThrowBall_pl1.Speed.x = (1 * cos(HOU_Direction*PI / 180));
+	App->particles->Red_ThrowBall_pl1.Speed.x++;
+	App->particles->Red_ThrowBall_pl1.Speed.y = (1 * sin(HOU_Direction*PI / 180));
+
+
+	if (particlesTimmer >= 3) {
+		App->particles->AddParticle(App->particles->Red_ThrowBall_pl1, HOU_position.x, HOU_position.y, COLLIDER_NONE);
+		particlesTimmer = 0;
+	}
 
 }
 

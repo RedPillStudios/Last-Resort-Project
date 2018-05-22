@@ -104,7 +104,7 @@ public:
 
 	Animation Redball_charging;
 
-
+	int particlesTimmer;
 
 
 

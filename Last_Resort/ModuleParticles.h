@@ -85,12 +85,13 @@ public:
 	Particle LaserBeamArea2;
 	Particle LaserBeamArea3; 
 	Particle BeeShot;
+	Particle Red_ThrowBall_pl1;
 
 	SDL_Texture *particle0 = nullptr;
 	SDL_Texture *Particle1 = nullptr;
 	SDL_Texture *Particle2 = nullptr;
 	SDL_Texture *Particle3 = nullptr;
-
+	SDL_Texture *Particle4 = nullptr;
 	//Boss Shoot
 	Particle BossShoot;
 	Particle BossCoolDown;
