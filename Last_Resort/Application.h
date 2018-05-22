@@ -3,7 +3,7 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 19
+#define NUM_MODULES 21
 
 //Scene 2 is not here!!
 
@@ -28,6 +28,8 @@ class ModulePowerUp;
 class ModuleUI;
 class ModuleBossLvl1;
 class ModulePlayer2;
+class ModuleHouPlayer1;
+class ModuleHouPlayer2;
 
 class Application
 {
@@ -53,7 +55,8 @@ public:
 	ModulePlayer2 *player2;
 	ModuleUI *fonts;
 	ModuleBossLvl1 *Boss;
-	
+	ModuleHouPlayer1 * HOU_Player1;
+	ModuleHouPlayer2 * HOU_Player2;
 
 public:
 

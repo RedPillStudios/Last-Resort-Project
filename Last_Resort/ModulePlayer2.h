@@ -10,6 +10,15 @@
 struct SDL_Texture;
 struct Collider;
 struct Mix_Chunk;
+enum ShootsP2
+{
+	BASICSHOOTP2,
+	BASICLASERSHOOTP2,
+	LASERSHOOTP2,
+	MISSILESP2,
+	LASERSHOOTAREAP2
+
+};
 
 class ModulePlayer2 : public Module {
 
@@ -17,11 +26,11 @@ public:
 
 	ModulePlayer2();
 	~ModulePlayer2();
-	
+
 	update_status Update();
-	
+
 	void OnCollision(Collider *c1, Collider *c2);
-	
+
 
 public:
 
@@ -32,7 +41,12 @@ public:
 	bool Player2Activated = false;
 	bool ToBeDeleted = false;
 	bool GOD = false;
-
+public:
+	//Timer
+	int ShootTimer1;
+	int ShootTimer2;
+	int ShootTimer3;
+	int ShootTimer4;
 public:
 
 	SDL_Rect Ship2;
@@ -53,15 +67,12 @@ public:
 
 	Collider *Ship2Collider;
 
-	Mix_Chunk*Shot_SoundP2 = nullptr;
-	Mix_Chunk*MissilePower_SoundP2 = nullptr;
-	Mix_Chunk*LasserBeam_SoundP2 = nullptr;
-
 public:
 
 	bool startAnim = true;
 	bool shooted = false;
 
+	Mix_Chunk*Shot_Sound = nullptr;
 
 
 public:
@@ -80,6 +91,21 @@ public:
 		positionp2.x = App->scene1background->position_min_limit + 20;
 		positionp2.y = SCREEN_HEIGHT / 4;
 
+	};
+
+	//shoot selector here
+	int WeaponTypeP2 = 0;
+
+	void ShootSelector(uint shoot) {
+		if (shoot == BASICSHOOTP2) {
+			WeaponTypeP2 = 0;
+		}
+		else if (shoot == LASERSHOOTP2) {
+			WeaponTypeP2 = 2;
+		}
+		else if (shoot == MISSILESP2) {
+			WeaponTypeP2 = 3;
+		}
 	};
 };
 

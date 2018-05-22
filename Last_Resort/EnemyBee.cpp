@@ -77,7 +77,7 @@ void Enemy_Bee::Move() {
 
 	radians = atan2((position.y-PlayerPosition.y), (position.x-PlayerPosition.x));
 	radians2 = atan2((PlayerPosition.y+2-position.y), (PlayerPosition.x+6-position.x));
-	
+
 	angle2 = radians2*(180 / PI);
 	if (radians2 < 0) {
 		angle2 += 360;
@@ -152,7 +152,7 @@ void Enemy_Bee::Move() {
 		App->particles->BeeShot.Speed.x = 3* (cos(angle2*PI/180));
 		App->particles->BeeShot.Speed.x++;
 		App->particles->BeeShot.Speed.y = 3 * (sin(angle2*PI/180));
-		App->particles->AddParticle(App->particles->BeeShot, position.x+20, position.y, COLLIDER_ENEMY_SHOT);
+		App->particles->AddParticle(App->particles->BeeShot, position.x+20, position.y,COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
 		
 		counter = 0;
 	}

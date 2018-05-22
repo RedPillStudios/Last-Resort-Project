@@ -14,7 +14,7 @@
 #include "ModuleEnemies.h"
 #include "ModuleSceneLvl1.h"
 #include "ModuleStageClear.h"
-
+#include "Module_Hou_Player1.h"
 #include <stdio.h>
 
 ModulePlayer::ModulePlayer()
@@ -141,7 +141,7 @@ bool ModulePlayer::CleanUp() {
 	if (current_animation != nullptr) 
 		current_animation = nullptr;
 
-	App->powerup->HOU_activated = false;
+	App->HOU_Player1->HOU_activated = false;
 
 	App->textures->Unload(graphicsp1);
 	

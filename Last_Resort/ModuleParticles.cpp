@@ -183,6 +183,15 @@ bool ModuleParticles::Start() {
 	HOU_Shot.Life = 2200;
 	HOU_Shot.Speed.x = 0;
 	HOU_Shot.Speed.y = 0;
+
+
+	HOU_Shot_p2.Anim.PushBack({ 117,250,13,13 });
+	HOU_Shot_p2.Anim.speed = 0.2f;
+	HOU_Shot_p2.Anim.loop = true;
+	HOU_Shot_p2.Sprites = Particle1;
+	HOU_Shot_p2.Life = 2200;
+	HOU_Shot_p2.Speed.x = 0;
+	HOU_Shot_p2.Speed.y = 0;
 	
 	BeeShot.Anim.PushBack({261,270,5,5});
 	BeeShot.Anim.PushBack({266,270,5,5});

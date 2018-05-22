@@ -18,6 +18,8 @@
 #include "ModuleUI.h"
 #include "ModuleBossLvl1.h"
 #include "ModuleGameControllers.h"
+#include "Module_Hou_Player1.h"
+#include "Module_Hou_Player2.h"
 #include <time.h>
 
 Application::Application()
@@ -36,6 +38,8 @@ Application::Application()
 	modules[i++] = enemies = new ModuleEnemies();
 	modules[i++] = gameover = new ModuleGameOver();
 	modules[i++] = stageclear = new ModuleStageClear();
+	modules[i++] = HOU_Player2 = new ModuleHouPlayer2();
+	modules[i++] = HOU_Player1 = new ModuleHouPlayer1();
 	modules[i++] = player = new ModulePlayer();
 	modules[i++] = player2 = new ModulePlayer2();
 	modules[i++] = powerup = new ModulePowerUp();
