@@ -17,6 +17,7 @@
 #include "ModulePlayer2.h"
 #include "ModuleUI.h"
 #include "ModuleBossLvl1.h"
+#include "ModuleTank.h"
 #include "ModuleGameControllers.h"
 #include <time.h>
 
@@ -44,6 +45,7 @@ Application::Application()
 	modules[i++] = collision = new ModuleCollision();
 	modules[i++] = fonts = new ModuleUI();
 	modules[i++] = Boss = new ModuleBossLvl1();
+	modules[i++] = BossTank = new ModuleTank();
 
 }	
 

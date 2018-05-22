@@ -141,143 +141,143 @@ bool ModuleSceneLvl1::Start()
 	//troop1
 	App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 200, 150);
 
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60,false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 540, 75, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 580, 60, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 580, 145, true);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60,false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 540, 75, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 580, 60, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 580, 145, true);
 
-	//troop2
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 630, 20, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 650, 145, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 670, 20, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 710, 20, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 750, 20, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 790, 20, true);
+	////troop2
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 630, 20, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 650, 145, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 670, 20, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 710, 20, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 750, 20, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 790, 20, true);
 
-	App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 790, 20);
+	//App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 790, 20);
 
-	//troop3
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 795, 145, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 835, 145, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 875, 145, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 915, 145, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 955, 145, true);
+	////troop3
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 795, 145, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 835, 145, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 875, 145, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 915, 145, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 955, 145, true);
 
-	//troop4
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 970, 110, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 995, 135, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 995, 75, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1035, 115, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1035, 85, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1095, 95, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1075, 65, true);
+	////troop4
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 970, 110, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 995, 135, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 995, 75, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1035, 115, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1035, 85, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1095, 95, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1075, 65, true);
 
-	App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 1075, 65);
+	//App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 1075, 65);
 
-	//troop5
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1155, 20, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1195, 20, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1235, 20, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1275, 20, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1315, 20, true);
+	////troop5
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1155, 20, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1195, 20, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1235, 20, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1275, 20, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1315, 20, true);
 
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1155, 145, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1195, 145, true);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1235, 145, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1275, 145, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1315, 145, true);
-
-
-	App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 1315, 145);
-	// }
-
-	//WASP->Wave2{
-	//troop1
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1900, 30, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1940, 60, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1980, 90, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2020, 120, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2060, 150, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2100, 150, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2140, 150, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2180, 150, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2220, 150, true);
-	//}
-
-	//WASP->Wave3{
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP,3200, 112, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3240, 145, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3265, 112, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3280, 90, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3320, 75, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3310, 145, true);
-	App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 3310, 145);
-	//}
-
-	//WASP->wave4
-
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3700, 145, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3740, 115, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3780, 85, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3820, 55, true);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3860, 55, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3900, 55, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3940, 55, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3980, 55, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 4020, 55, false);
-
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7640, 50, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7640, 130, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7650, 150, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7660, 160, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8000, 165, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8040, 160, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8080, 160, true);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8120, 170, false);
-
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8150, 50, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1155, 145, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1195, 145, true);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1235, 145, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1275, 145, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1315, 145, true);
 
 
+	//App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 1315, 145);
+	//// }
 
-	//Rhino->Wave1
-	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 525, 75);
-		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 570, 75);*/
+	////WASP->Wave2{
+	////troop1
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1900, 30, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1940, 60, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1980, 90, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2020, 120, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2060, 150, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2100, 150, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2140, 150, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2180, 150, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2220, 150, true);
+	////}
 
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2425,75, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2470, 75, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2515, 75, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2560, 75, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2605, 75, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2650, 75, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2695, 75, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2740, 75, true);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2785, 75, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2830, 75, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2875, 75, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2920, 75, false);
+	////WASP->Wave3{
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP,3200, 112, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3240, 145, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3265, 112, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3280, 90, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3320, 75, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3310, 145, true);
+	//App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 3310, 145);
+	////}
 
-	//Wave2
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5500, 77, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5540, 77, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5580, 77, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5620, 77, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5660, 77, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5700, 77, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5740, 77, false);
+	////WASP->wave4
 
-	App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 5740, 77);
-  
-	 //wave3
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5860, 60, false);//these are not well located!!!!!!!!!!!!!!!!!!!!!!!!
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6960, 60, true);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 7060, 60, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 7160, 60, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3700, 145, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3740, 115, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3780, 85, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3820, 55, true);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3860, 55, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3900, 55, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3940, 55, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3980, 55, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 4020, 55, false);
 
-	//ZICZAC
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,3560, 145, true);
-	App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 3560, 145);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, 7560, 60, true);
-	App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 7560, 60);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7640, 50, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7640, 130, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7650, 150, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7660, 160, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8000, 165, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8040, 160, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8080, 160, true);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8120, 170, false);
+
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8150, 50, false);
+
+
+
+	////Rhino->Wave1
+	///*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 525, 75);
+	//	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 570, 75);*/
+
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2425,75, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2470, 75, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2515, 75, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2560, 75, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2605, 75, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2650, 75, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2695, 75, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2740, 75, true);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2785, 75, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2830, 75, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2875, 75, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2920, 75, false);
+
+	////Wave2
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5500, 77, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5540, 77, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5580, 77, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5620, 77, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5660, 77, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5700, 77, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5740, 77, false);
+
+	//App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 5740, 77);
+ // 
+	// //wave3
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5860, 60, false);//these are not well located!!!!!!!!!!!!!!!!!!!!!!!!
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6960, 60, true);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 7060, 60, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 7160, 60, false);
+
+	////ZICZAC
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,3560, 145, true);
+	//App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 3560, 145);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, 7560, 60, true);
+	//App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 7560, 60);
 
 	//Lamella
 	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, 500, 60, false);

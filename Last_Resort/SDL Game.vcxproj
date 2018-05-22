@@ -86,6 +86,7 @@
     <ClInclude Include="ModuleBossLvl1.h" />
     <ClInclude Include="ModuleCollision.h" />
     <ClInclude Include="ModuleEnemies.h" />
+    <ClInclude Include="ModuleTank.h" />
     <ClInclude Include="ModuleUI.h" />
     <ClInclude Include="ModuleGameControllers.h" />
     <ClInclude Include="ModuleGameOver.h" />
@@ -117,6 +118,7 @@
     <ClCompile Include="ModuleBossLvl1.cpp" />
     <ClCompile Include="ModuleCollision.cpp" />
     <ClCompile Include="ModuleEnemies.cpp" />
+    <ClCompile Include="ModuleTank.cpp" />
     <ClCompile Include="ModuleUI.cpp" />
     <ClCompile Include="ModuleGameControllers.cpp" />
     <ClCompile Include="ModuleGameOver.cpp" />

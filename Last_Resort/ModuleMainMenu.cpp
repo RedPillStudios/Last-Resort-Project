@@ -34,6 +34,8 @@ bool ModuleMainMenu::Start() {
 			App->player->Disable();
 			App->player2->Disable();
 			App->particles->Disable();
+			/*App->Boss->Disable();
+			App->BossTank->Disable();*/
 	}
 
 	LOG("Loading Main Menu");
