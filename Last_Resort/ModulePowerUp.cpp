@@ -552,8 +552,7 @@ void ModulePowerUp::Hou_Movement() {
 	if (!Throwing) {
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
 			App->particles->AddParticle(App->particles->HOU_Shot, HOU_position.x + 9, HOU_position.y, COLLIDER_PLAYER_SHOT);
-			//Throwing = true;
-			//Throw = true;
+
 			Charging_Sound_HOU = true;
 		}
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_REPEAT) {

@@ -82,7 +82,8 @@ public:
 	Particle LaserBeamExplosion;
 	Particle LaserBeamArea1;
 	Particle LaserBeamArea2;
-	Particle LaserBeamArea3;
+	Particle LaserBeamArea3; 
+	Particle BeeShot;
 
 	SDL_Texture *particle0 = nullptr;
 	SDL_Texture *Particle1 = nullptr;
