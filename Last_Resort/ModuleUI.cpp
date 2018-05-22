@@ -162,13 +162,24 @@ update_status ModuleUI::Update() {
 		char NewName[3];
 
 		BlitText((SCREEN_WIDTH - 75), 24, font, "NAME");
-		scanf_s("%s", NewName);
+		scanf_s("%s", &NewName);
 
-		Ranking = fopen("Ranking.txt", "w");
+		Ranking = fopen("Images/Ranking.txt", "w");
 
 		if (Ranking != NULL) {
 
-			for (int i = 0; i < 9; i++) {
+			int a = countFile(Ranking, "Images/Ranking.txt");
+
+			if (a == 0) {
+
+				for (int i = 0; i < 10; i++) {
+					
+					fprintf(Ranking, "%s", ranking[i].name);
+					fprintf(Ranking, "%d", ranking[i].score);
+				}
+			}
+
+			/*for (int i = 0; i < 9; i++) {
 
 				fscanf(Ranking, "%d", &ranking[i].score);
 				fscanf(Ranking, "%s", &ranking[i].name);
@@ -192,7 +203,7 @@ update_status ModuleUI::Update() {
 			}
 
 			for (int i = 0; i < 9; i++)
-				fprintf(Ranking, "\n %s %d \n", ranking[i].name, ranking[i].score);
+				fprintf(Ranking, "\n %s %d \n", ranking[i].name, ranking[i].score);*/
 
 			fclose(Ranking);
 		}
@@ -288,5 +299,24 @@ void ModuleUI::BlitText(int x, int y, int font_id, const char* text) const
 		rect.y = row * fonts->char_h;
 
 		App->render->Blit(font->graphic, x + i*font->char_w, y, &rect, 1.0f, false);
+	}
+}
+
+int ModuleUI::countFile(FILE *pFile, char *path) {
+
+	int counter = 0;
+	pFile = fopen(path, "r");
+
+	if (pFile == NULL) { LOG("error opening file");	}
+	else {
+
+		LOG("Reading file, path: %s", path);
+		while (fgetc(pFile) != EOF) { ++counter; }
+
+		if (feof(pFile)) { LOG("End-of-File reached."); }
+		else { LOG("End-of-File was not reached."); }
+
+		return counter;
+
 	}
 }

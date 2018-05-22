@@ -23,8 +23,8 @@ struct Font {
 
 struct rank {
 
-	char name[3];
-	int score;
+	char name[4] = "NON";
+	int score = 0;
 };
 
 class ModuleUI : public Module {
@@ -90,6 +90,7 @@ public:
 
 	//RANKING
 	FILE *Ranking;
+	int countFile(FILE *pFile, char *path);
 	
 
 private:
