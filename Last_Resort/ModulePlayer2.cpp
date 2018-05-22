@@ -198,8 +198,14 @@ update_status ModulePlayer2::Update() {
 				break;
 			}
 		}
-		if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)
-				GOD = !GOD;
+		if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {
+
+			if (GOD == true)
+				GOD = false;
+			else
+				GOD = true;
+			//GOD = !GOD;
+		}
 			
 		/*Shoot*/
 		if (App->input->keyboard[SDL_SCANCODE_RCTRL] == KEY_STATE::KEY_DOWN) {
@@ -238,7 +244,7 @@ void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 		
 		if (!GOD) {
 
-			LOG("TE QUITO UN COIN MAMASITA");
+			LOG("P2LIFE MINUS ONE");
 			Dead = true;
 			current_animation2 = &DestroyShip;
 			ToBeDeleted = true;

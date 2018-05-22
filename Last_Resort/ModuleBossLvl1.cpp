@@ -122,7 +122,6 @@ bool ModuleBossLvl1::CleanUp() {
 	current_head = nullptr;
 
 	App->textures->Unload(Boss);
-	App->fonts->UnLoadFont(font);
 	return true;
 }
 
@@ -150,15 +149,10 @@ update_status ModuleBossLvl1::Update() {
 		ShootSpawned = true;
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN)
+	if (App->input->keyboard[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN) {
+
 		boss1life = true;
-	
-
-	if (boss1life) {
-
 		life = 1;
-		App->fonts->BlitText((SCREEN_WIDTH/2)-32, SCREEN_HEIGHT - 10, font, "B0SS");
-		App->fonts->BlitText((SCREEN_WIDTH/2), SCREEN_HEIGHT - 10, font, "1LIFE");
 	}
 
 	return UPDATE_CONTINUE;

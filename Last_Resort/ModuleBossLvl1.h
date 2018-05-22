@@ -80,6 +80,7 @@ public:
 	uint current_time = SDL_GetTicks();
 
 	bool BossMoves = false;
+	bool boss1life = false;
 
 private:
 
@@ -87,8 +88,7 @@ private:
 	bool ChargeAttack = false;
 	bool Left = false;
 	bool Right = false;
-
-	bool boss1life = false;
+	
 	int font = -1;
 
 	//Attack Functions

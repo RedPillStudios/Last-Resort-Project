@@ -4,10 +4,13 @@
 #include "Module.h"
 #include "SDL/include/SDL_pixels.h"
 
+#include "SDL_mixer/include/SDL_mixer.h"
+#pragma comment(lib,"SDL_mixer/libx86/SDL2_mixer.lib")
+#include <stdio.h>
+#include <cstdio>
+
 #define MAX_FONTS 10
 #define MAX_FONT_CHARS 256
-
-
 
 struct SDL_Texture;
 
@@ -18,6 +21,11 @@ struct Font {
 	uint rows, len, char_w, char_h, row_chars;
 };
 
+struct rank {
+
+	char name[3];
+	int score;
+};
 
 class ModuleUI : public Module {
 
@@ -35,7 +43,8 @@ public:
 	int LoadFont(const char* texture_path, const char *characters, uint rows = 1);
 	void UnLoadFont(int font_id);
 	void BlitText(int x, int y, int bmp_font_id, const char *text) const;
-	
+
+	Mix_Chunk *Insert_Coin = nullptr;	
 
 public:
 
@@ -71,6 +80,17 @@ public:
 	//P2 Life
 	char life2_text[10];
 	uint P2Life;
+
+	//Coins
+	int coins;
+	char coins_text[10];
+
+	//Checkpoints
+	bool Checkpoint1 = false;
+
+	//RANKING
+	FILE *Ranking;
+	
 
 private:
 

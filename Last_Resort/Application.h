@@ -34,16 +34,16 @@ class Application
 public:
 
 	Module* modules[NUM_MODULES];
-	ModuleWindow* window;
+	ModuleWindow *window;
 	ModuleMainMenu *menu;
-	ModuleRender* render;
-	ModuleInput* input;
-	ModuleGameControllers*controllers;
-	ModuleTextures* textures;
-	ModuleSceneLvl1* scene1background;
+	ModuleRender *render;
+	ModuleInput *input;
+	ModuleGameControllers *controllers;
+	ModuleTextures *textures;
+	ModuleSceneLvl1 *scene1background;
 	ModuleStageClear *stageclear;
-	ModulePlayer* player;
-	ModuleSound* sound;
+	ModulePlayer *player;
+	ModuleSound *sound;
 	ModuleFadeToBlack *fade;
 	ModuleGameOver *gameover;
 	ModuleParticles *particles;
@@ -67,6 +67,6 @@ public:
 };
 
 // Global var made extern for Application ---
-extern Application* App;
+extern Application *App;
 
 #endif // __APPLICATION_H__

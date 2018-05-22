@@ -69,7 +69,7 @@ bool Application::Init()
 	powerup->Disable();
 	player2->Disable();
 	App->Boss->Disable();
-	App->fonts->Disable();
+	App->fonts->Enable();
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();
