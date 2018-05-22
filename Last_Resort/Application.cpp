@@ -18,6 +18,7 @@
 #include "ModuleUI.h"
 #include "ModuleBossLvl1.h"
 #include "ModuleGameControllers.h"
+#include "Iron_Craw.h"
 #include <time.h>
 
 Application::Application()
@@ -44,7 +45,7 @@ Application::Application()
 	modules[i++] = collision = new ModuleCollision();
 	modules[i++] = fonts = new ModuleUI();
 	modules[i++] = Boss = new ModuleBossLvl1();
-
+	modules[i++] = MiniBoss = new Iron_Craw();
 }	
 
 Application::~Application()
@@ -70,6 +71,7 @@ bool Application::Init()
 	player2->Disable();
 	App->Boss->Disable();
 	App->fonts->Disable();
+	MiniBoss->Disable();
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)
 		ret = modules[i]->Init();
