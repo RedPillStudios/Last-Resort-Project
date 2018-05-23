@@ -309,7 +309,8 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->particles->Disable();
 	App->enemies->Disable();
 
-	if(App->Boss->IsEnabled())
+	if (App->Boss->IsEnabled())
+		App->MiniBoss->Disable();
 		App->Boss->Disable();
 
 	App->Boss->BossMoves = false;

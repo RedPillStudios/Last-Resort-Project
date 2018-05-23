@@ -31,6 +31,7 @@ bool ModuleParticles::Start() {
 	Particle1 = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
 	Particle2 = App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
 	Particle3= App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
+	Particle4 = App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
 
 	ImpactExplosionSound = App->sound->LoadChunk("Audio/General/007_Enemy_Explosion_Standard.wav");
 	ImpactExplosionSound2 = App->sound->LoadChunk("Audio/General/Explosion2.wav");
@@ -174,6 +175,21 @@ bool ModuleParticles::Start() {
 	BossShootExplosion.Anim.PushBack({ 384, 255, 64, 56 });
 	BossShootExplosion.Anim.speed = 0.15f;
 
+
+	GreenBomb.Sprites = Particle4;
+	GreenBomb.Anim.PushBack({235,0,18,17});
+	GreenBomb.Anim.PushBack({235,19,17,17});
+	GreenBomb.Anim.PushBack({236,37,17,17});
+	GreenBomb.Anim.PushBack({235,55,18,17});
+	GreenBomb.Anim.PushBack({ 236,72,17,18});
+	GreenBomb.Anim.PushBack({236,91,17,18});
+	GreenBomb.Anim.PushBack({234,109,18,17});
+	GreenBomb.Anim.PushBack({235,129,18,16});
+	GreenBomb.Anim.loop = true;
+	GreenBomb.Speed.x = 1;
+	GreenBomb.Anim.speed = 0.2f;
+
+
 	HOU_Shot.Anim.PushBack({ 117,250,13,13 });
 
 	//HOU_Shot.Anim.PushBack({117,263,13,13});
@@ -210,6 +226,7 @@ bool ModuleParticles::CleanUp() {
 	App->textures->Unload(Particle1);
 	App->textures->Unload(Particle2);
 	App->textures->Unload(Particle3);
+	App->textures->Unload(Particle4);
 	App->textures->Unload(LaserBeam.Sprites);
 	App->textures->Unload(ImpactExplosion.Sprites);
 	App->textures->Unload(LaserBeamExplosion.Sprites);

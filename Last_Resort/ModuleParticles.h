@@ -84,15 +84,18 @@ public:
 	Particle LaserBeamArea2;
 	Particle LaserBeamArea3;
 
+
 	SDL_Texture *particle0 = nullptr;
 	SDL_Texture *Particle1 = nullptr;
 	SDL_Texture *Particle2 = nullptr;
 	SDL_Texture *Particle3 = nullptr;
+	SDL_Texture*Particle4 = nullptr;
 
 	//Boss Shoot
 	Particle BossShoot;
 	Particle BossCoolDown;
 	Particle BossShootExplosion;
+	Particle GreenBomb;
 
 
 	Mix_Chunk *ImpactExplosionSound;

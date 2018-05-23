@@ -12,6 +12,11 @@
 #include <stdlib.h>
 #include "ModuleSceneLvl1.h"
 
+
+#define MAX_HEIGHT_MINIBOSS 20
+#define MIN_HEIGHT_MINIBOSS 85
+
+
 struct Collider;
 struct SDL_Texture;
 
@@ -58,7 +63,12 @@ public:
 public:
 
 	uint life;
+	uint movingTiming;
+	uint moving_waiting;
+
+	bool moving_Down = false;
 	bool dead = false;
+	bool moveIron_Craw =false;
 
 	void bombs();
 	void Move();

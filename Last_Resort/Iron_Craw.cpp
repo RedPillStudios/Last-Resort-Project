@@ -128,6 +128,8 @@ update_status Iron_Craw::Update() {
 
 	}
 
+	Move();
+
 	if (life < 30)
 		Current_AnimationBody = &idle_Damage;
 	
@@ -171,9 +173,32 @@ bool Iron_Craw::CleanUp() {
 
 void Iron_Craw::Move() {
 
+	movingTiming = SDL_GetTicks();
+	moveIron_Craw = true;
 
+	if ( moveIron_Craw == true && moving_Down==false) {
+	
+		position.y--;
+		
+		if (position.y == MAX_HEIGHT_MINIBOSS) {
+			position.y = position.y;
+			moving_waiting = SDL_GetTicks();
+			moving_Down = true;
+		}
 
+	}
 
+	
+	if (moving_Down == true && moveIron_Craw == true) {
+		position.y++;
+
+		if (position.y == MIN_HEIGHT_MINIBOSS) {
+			position.y = position.y;
+			moving_Down = false;
+			moveIron_Craw = false;
+		}
+
+	}
 
 
 
