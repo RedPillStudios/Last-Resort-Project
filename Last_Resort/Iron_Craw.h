@@ -61,14 +61,24 @@ public:
 	iPoint position;
 
 public:
-
+	iPoint PlayerPosition;
 	uint life;
 	uint movingTiming;
 	uint moving_waiting;
+	
+	int counter = 0;
+	int LArmPosition;
+	int RArmPosition;
+	int YarmsPos;
 
+	bool Rarmfalling;
+	bool LArmfallinf;
 	bool moving_Down = false;
 	bool dead = false;
 	bool moveIron_Craw =false;
+	bool bombsOut;
+	bool armsOut;
+	bool armsOut2;
 
 	void bombs();
 	void Move();

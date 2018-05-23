@@ -32,6 +32,7 @@ bool ModuleParticles::Start() {
 	Particle2 = App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
 	Particle3= App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
 	Particle4 = App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
+	Particle5 = App->textures->Load("Images/Particles/Explosion.png");
 
 	ImpactExplosionSound = App->sound->LoadChunk("Audio/General/007_Enemy_Explosion_Standard.wav");
 	ImpactExplosionSound2 = App->sound->LoadChunk("Audio/General/Explosion2.wav");
@@ -189,6 +190,23 @@ bool ModuleParticles::Start() {
 	GreenBomb.Speed.x = 1;
 	GreenBomb.Anim.speed = 0.2f;
 
+	FogExplosion.Sprites = Particle5;
+	FogExplosion.Anim.PushBack({29,0,14,16 });
+	FogExplosion.Anim.PushBack({45,0,16,16});
+	FogExplosion.Anim.PushBack({63,0,15,14});
+	FogExplosion.Anim.PushBack({80,0,21,16 });
+	FogExplosion.Anim.PushBack({103,0,21,24 });
+	FogExplosion.Anim.PushBack({0,26,27,29});
+	FogExplosion.Anim.PushBack({29,26,28,31  });
+	FogExplosion.Anim.PushBack({61,26,30,32 });
+	FogExplosion.Anim.PushBack({95,26,31,32});
+	FogExplosion.Anim.PushBack({0,60,31,32});
+	FogExplosion.Anim.PushBack({34,60,31,31 });
+	FogExplosion.Anim.PushBack({67,74,31,16});
+	FogExplosion.Anim.PushBack({0,94,31,16 });
+	FogExplosion.Anim.PushBack({35,98,17,11});
+	FogExplosion.Anim.loop = false;
+	FogExplosion.Anim.speed = 0.3f;
 
 	HOU_Shot.Anim.PushBack({ 117,250,13,13 });
 
