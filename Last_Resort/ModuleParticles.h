@@ -85,7 +85,6 @@ public:
 	Particle LaserBeamArea1;
 	Particle LaserBeamArea2;
 	Particle LaserBeamArea3; 
-	Particle BeeShot;
 	Particle Red_ThrowBall_pl1;
 
 

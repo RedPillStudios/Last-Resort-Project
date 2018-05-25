@@ -3,7 +3,7 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 25
+#define NUM_MODULES 23
 
 
 //Scene 2 is not here!!

@@ -31,7 +31,6 @@ bool ModuleUI::Start() {
 	//fonts
 	font = LoadFont("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
 	Insert_Coin = App->sound->LoadChunk("Audio/Main_Menu/Insert_Coin.wav");
-	Mix_VolumeChunk(Insert_Coin, MIX_MAX_VOLUME / 2);
 
 	/*Ranking = fopen("Images/Ranking.txt", "r");
 

@@ -152,38 +152,39 @@ update_status ModulePowerUp::Update() {
 void ModulePowerUp::OnCollision(Collider *c1, Collider *c2) {
 
 	for (uint i = 0; i < MAX_POWERUP; ++i) {
-		if(c2->type == COLLIDER_PLAYER){
-		if (PowerUps[i] != nullptr && PowerUps[i]->GetCollider() == c1) {
-		
-			PowerUps[i]->OnCollision(c2);
-			if (c2->type == COLLIDER_PLAYER) {
-				App->HOU_Player1->HOU_activated = true;
-				if (PowerUps[i]->ColorBlue==true) {
-					App->HOU_Player1->Blue = true;
-					App->HOU_Player1->Red = false;
+		if (c2->type == COLLIDER_PLAYER) {
+			if (PowerUps[i] != nullptr && PowerUps[i]->GetCollider() == c1) {
+
+				PowerUps[i]->OnCollision(c2);
+				if (c2->type == COLLIDER_PLAYER) {
+					App->HOU_Player1->HOU_activated = true;
+					if (PowerUps[i]->ColorBlue == true) {
+						App->HOU_Player1->Blue = true;
+						App->HOU_Player1->Red = false;
+					}
+					else if (PowerUps[i]->ColorRed == true) {
+						App->HOU_Player1->Blue = false;
+						App->HOU_Player1->Red = true;
+					}
+					if (PowerUps[i]->type == POWERUP_TYPES::MISILES)
+						App->player->WeaponType = 3;
+					if (PowerUps[i]->type == POWERUP_TYPES::LASER)
+						App->player->WeaponType = 1;
 				}
-				else if (PowerUps[i]->ColorRed==true) {
-					App->HOU_Player1->Blue = false;
-					App->HOU_Player1->Red = true;
+				if (c2->type == COLLIDER_PLAYER2) {
+					App->HOU_Player2->HOU_activated = true;
+					if (PowerUps[i]->type == POWERUP_TYPES::MISILES)
+						App->player2->WeaponTypeP2 = 3;
+					if (PowerUps[i]->type == POWERUP_TYPES::LASER)
+						App->player2->WeaponTypeP2 = 1;
 				}
-				if (PowerUps[i]->type == POWERUP_TYPES::MISILES)
-					App->player->WeaponType = 3;
-				if (PowerUps[i]->type == POWERUP_TYPES::LASER)
-					App->player->WeaponType = 1;
+				//ADD HERE App.player.score += score;
+				delete PowerUps[i];
+				PowerUps[i] = nullptr;
+				break;
 			}
-			if (c2->type == COLLIDER_PLAYER2) {
-				App->HOU_Player2->HOU_activated = true;
-				if (PowerUps[i]->type == POWERUP_TYPES::MISILES)
-					App->player2->WeaponTypeP2 = 3;
-				if (PowerUps[i]->type == POWERUP_TYPES::LASER)
-					App->player2->WeaponTypeP2 = 1;
-			}
-			//ADD HERE App.player.score += score;
-			delete PowerUps[i];
-			PowerUps[i] = nullptr;
-			break;
+
 		}
-		
 	}
 }
 
