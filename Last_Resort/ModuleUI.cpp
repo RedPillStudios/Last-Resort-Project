@@ -33,12 +33,22 @@ bool ModuleUI::Start() {
 	Insert_Coin = App->sound->LoadChunk("Audio/Main_Menu/Insert_Coin.wav");
 	Mix_VolumeChunk(Insert_Coin, MIX_MAX_VOLUME / 2);
 
-	ScoreP1 = 0;
-	ScoreP2 = 0;
-	P1Life = 3;
-	P2Life = 3;
-	coins = 0;
+	/*Ranking = fopen("Images/Ranking.txt", "r");
 
+	if (Ranking != NULL) {
+
+		for (int i = 0; i < 9; i++) {
+
+			fscanf(Ranking, "%c", &ranking[i].name[0]);
+			fscanf(Ranking, "%c", &ranking[i].name[1]);
+			fscanf(Ranking, "%c", &ranking[i].name[2]);
+			fscanf(Ranking, "%d", &ranking[i].score);
+		}
+
+		fclose(Ranking);
+	}*/
+
+	coins = 0;
 	return true;
 }
 
@@ -156,58 +166,8 @@ update_status ModuleUI::Update() {
 		}
 	}
 
-	if (App->gameover->IsEnabled() || App->stageclear->IsEnabled()) {
-
-		struct rank ranking[10];
-		char NewName[3];
-
-		BlitText((SCREEN_WIDTH - 75), 24, font, "NAME");
-		scanf_s("%s", &NewName);
-
-		Ranking = fopen("Images/Ranking.txt", "w");
-
-		if (Ranking != NULL) {
-
-			int a = countFile(Ranking, "Images/Ranking.txt");
-
-			if (a == 0) {
-
-				for (int i = 0; i < 10; i++) {
-					
-					fprintf(Ranking, "%s", ranking[i].name);
-					fprintf(Ranking, "%d", ranking[i].score);
-				}
-			}
-
-			/*for (int i = 0; i < 9; i++) {
-
-				fscanf(Ranking, "%d", &ranking[i].score);
-				fscanf(Ranking, "%s", &ranking[i].name);
-
-				if (TopScore >= ranking[i].score) {
-
-					for (int j = 8; j >= i; j--) {
-
-						ranking[j + 1].score = ranking[j].score;
-						ranking[j + 1].name[1] = ranking[j].name[1];
-						ranking[j + 1].name[2] = ranking[j].name[2];
-						ranking[j + 1].name[3] = ranking[j].name[3];
-					}
-
-					ranking[i].score = TopScore;
-					ranking[i].name[1] = NewName[1];
-					ranking[i].name[2] = NewName[2];
-					ranking[i].name[3] = NewName[3];
-					break;
-				}
-			}
-
-			for (int i = 0; i < 9; i++)
-				fprintf(Ranking, "\n %s %d \n", ranking[i].name, ranking[i].score);*/
-
-			fclose(Ranking);
-		}
-	}
+	//if ((App->gameover->IsEnabled() || App->stageclear->IsEnabled()))
+	//	ChangeRanking(Ranking, "Images/Ranking.txt", TopScore);
 
 	return UPDATE_CONTINUE;
 }
@@ -317,6 +277,46 @@ int ModuleUI::countFile(FILE *pFile, char *path) {
 		else { LOG("End-of-File was not reached."); }
 
 		return counter;
+	}
+}
 
+void ModuleUI::ChangeRanking(FILE *pFile, char *path, int Score) {
+
+	for (int i = 0; i < 9; i++) {
+
+		//Changing Array ranking
+		if (Score >= ranking[i].score) {
+
+			for (int j = 8; j >= i; j--) {
+
+				ranking[j + 1].score = ranking[j].score;
+				ranking[j + 1].name[0] = ranking[j].name[0];
+				ranking[j + 1].name[1] = ranking[j].name[1];
+				ranking[j + 1].name[2] = ranking[j].name[2];
+			}
+		}
+
+			char NewName[] = "NEY";
+			/*BlitText((SCREEN_WIDTH - 75), 24, font, "NAME");
+			scanf_s("%s", &NewName);*/
+			
+			ranking[i].score = Score;
+			ranking[i].name[0] = NewName[0];
+			ranking[i].name[1] = NewName[1];
+			ranking[i].name[2] = NewName[2];
+			break;
+	}
+
+	pFile = fopen(path, "w+");
+
+	if (pFile != NULL) {
+
+		for (int i = 0; i < 9; i++) {
+
+			fprintf_s(pFile, "%s", ranking[i].name);
+			fprintf_s(pFile, "%d", ranking[i].score);
+		}
+
+		fclose(pFile);
 	}
 }

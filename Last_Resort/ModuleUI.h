@@ -90,7 +90,9 @@ public:
 
 	//RANKING
 	FILE *Ranking;
+	struct rank ranking[9];
 	int countFile(FILE *pFile, char *path);
+	void ChangeRanking(FILE *pFile, char *path, int Score);
 	
 
 private:

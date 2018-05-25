@@ -82,14 +82,12 @@ public:
 	bool BossMoves = false;
 	bool boss1life = false;
 
-private:
+public:
 
 	//Booleans for charge attack
 	bool ChargeAttack = false;
 	bool Left = false;
 	bool Right = false;
-	
-	int font = -1;
 
 	//Attack Functions
 	void Charge();

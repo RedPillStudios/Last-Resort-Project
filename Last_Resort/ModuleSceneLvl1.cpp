@@ -126,6 +126,11 @@ bool ModuleSceneLvl1::Start()
 	Mix_PlayMusic(Stage1, -1);
 	//Mix_VolumeMusic(MIX_MAX_VOLUME/3);
 
+	App->fonts->P1Life = 3;
+	App->fonts->P2Life = 3;
+	App->fonts->ScoreP1 = 0;
+	App->fonts->ScoreP2 = 0;
+
 	if (IsEnabled()) {
 		App->enemies->Enable();
 		App->powerup->Enable();
