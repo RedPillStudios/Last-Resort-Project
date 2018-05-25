@@ -21,6 +21,7 @@ enum TYPE {
 	NO_PARTICLE,
 	PARTICLE_1,
 	PARTICLE_2
+	
 };
 
 struct Particle {
@@ -74,6 +75,7 @@ public:
 	Particle Laser2;
 	Particle ShootExplosionLaser2; // estas dos son para el segundo tipo de disparo
 	Particle HOU_Shot;
+	Particle HOU_Shot_p2;
 	Particle MissilePower;
 	Particle MissilePowerPatter2;
 
@@ -81,13 +83,15 @@ public:
 	Particle LaserBeamExplosion;
 	Particle LaserBeamArea1;
 	Particle LaserBeamArea2;
-	Particle LaserBeamArea3;
+	Particle LaserBeamArea3; 
+	Particle BeeShot;
+	Particle Red_ThrowBall_pl1;
 
 	SDL_Texture *particle0 = nullptr;
 	SDL_Texture *Particle1 = nullptr;
 	SDL_Texture *Particle2 = nullptr;
 	SDL_Texture *Particle3 = nullptr;
-
+	SDL_Texture *Particle4 = nullptr;
 	//Boss Shoot
 	Particle BossShoot;
 	Particle BossCoolDown;
@@ -95,9 +99,18 @@ public:
 
 
 	Mix_Chunk *ImpactExplosionSound;
+	Mix_Chunk *ImpactExplosionSound2;
+
+	int randomExplosionSound;
 
 	uint Enemies_Weapon = 0;
 	uint Enemies_Speed = 0;
+
+	//this  function is to store info to destroy particles when it is necessary.
+	uint Destroy1 = 999999;
+	uint Destroy2 = 999999;
+	uint Destroy3 = 999999;
+
 
 
 };

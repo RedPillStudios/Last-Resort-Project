@@ -14,7 +14,7 @@
 #include "ModuleEnemies.h"
 #include "ModuleSceneLvl1.h"
 #include "ModuleStageClear.h"
-
+#include "Module_Hou_Player1.h"
 #include <stdio.h>
 
 ModulePlayer::ModulePlayer()
@@ -75,9 +75,6 @@ ModulePlayer::ModulePlayer()
 	UI_ship.y=9;
 	UI_ship.w=16;
 	UI_ship.h=8;
-
-	
-
 }
 
 ModulePlayer::~ModulePlayer() {}
@@ -85,7 +82,6 @@ ModulePlayer::~ModulePlayer() {}
 // Load assets
 bool ModulePlayer::Start() {
 
-	ScoreP1 = App->fonts->SP1;
 	position.x = App->scene1background->position_min_limit + 20;
 	position.y = SCREEN_HEIGHT / 2;
 
@@ -100,10 +96,12 @@ bool ModulePlayer::Start() {
 		if (App->powerup->IsEnabled() == false)
 			App->powerup->Enable();
 	}
-	//timer
+
+	//Timer
 	ShootTimer1 = 0;
 	ShootTimer2 = 0;
     ShootTimer3 = 0;
+	ShootTimer4 = 0;
 	//ScoreP1 = 0;
 
 	Appear.Reset();
@@ -112,11 +110,6 @@ bool ModulePlayer::Start() {
 	LOG("Loading player 1 textures");
 	//textures
 	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
-	UI_Main_Menu = App->textures->Load("Images/Stage_Clear/All_Stage_Clears.png");
-
-	//fonts
-	font = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
-	disappeartext = App->fonts->Load("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
 
 	//audio
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
@@ -147,12 +140,10 @@ bool ModulePlayer::CleanUp() {
 
 	if (current_animation != nullptr) 
 		current_animation = nullptr;
-	App->powerup->HOU_activated = false;
 
-	App->textures->Unload(UI_Main_Menu);
+	App->HOU_Player1->HOU_activated = false;
+
 	App->textures->Unload(graphicsp1);
-	App->fonts->UnLoad(font);
-	App->fonts->UnLoad(disappeartext);
 	
 	App->sound->UnloadChunks(Shot_Sound);
 	App->sound->UnloadChunks(MissilePower_Sound);
@@ -169,16 +160,16 @@ update_status ModulePlayer::Update() {
 	
 	position.x += 1;
 
-	int speed = 2;
-
+	int speed = 4;
 
 	if (current_animation == &Appear) {
-		
+		Ship1Collider->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
 		position.x=App->scene1background->position_min_limit+2;
 		
 		if (Appear.Finished() && current_animation!=&Standard) {
 			position.x = App->scene1background->position_min_limit + 32;
 			current_animation = &Standard;
+			Ship1Collider->changeCollider(COLLIDER_TYPE::COLLIDER_PLAYER);
 		}
 	}
 		if (current_animation != &DestroyShip && Appear.Finished()&& (current_animation != &Up ))
@@ -200,9 +191,6 @@ update_status ModulePlayer::Update() {
 					position.y = 2;
 					break;
 				}
-				
-				
-
 			}
 			else { current_animation = &Standard; }
 			//Movement Down
@@ -240,43 +228,34 @@ update_status ModulePlayer::Update() {
 		
 			if (App->input->keyboard[SDL_SCANCODE_F6] == KEY_STATE::KEY_DOWN) {
 				 App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, (App->player->position.x) + 200, App->player->position.y, false);
-				 Spawned = true;
+				 App->fonts->Spawned = true;
 			}
 			if (App->input->keyboard[SDL_SCANCODE_F7] == KEY_STATE::KEY_DOWN) {
 				App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, (App->player->position.x) + 200, App->player->position.y, false);
-				Spawned = true;
+				App->fonts->Spawned = true;
 			}
 			if (App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) {
-				App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, (App->player->position.x) + 200, App->player->position.y, false);
-				Spawned = true;
+				//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, (App->player->position.x) + 200, App->player->position.y, false);
+				App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, (App->player->position.x) + 200, App->player->position.y, false);
+				App->fonts->Spawned = true;
 			}
 			if (App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) {
-				App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_SUICIDE, (App->player->position.x) + 200, App->player->position.y, false);
-				Spawned = true;
+				App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, (App->player->position.x) + 200, App->player->position.y, false);
+				App->fonts->Spawned = true;
 			}
+
 			//GOD MODE
-			if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) 
-				GOD = !GOD;
+			if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN){
 
-			if (GOD) {
-
-				App->fonts->BlitText(13, SCREEN_HEIGHT - 10, font, "G0D");
-				App->fonts->BlitText(39, SCREEN_HEIGHT - 10, font, "M0DE");
-			}
-			if (Spawned){
-			//PUT FONT
-			if(TimeCounter){
-				AppearTime = SDL_GetTicks() + 2000;
-				TimeCounter = false;
+				//GOD = !GOD;
+				if (GOD == true)
+					GOD = false;
+				else
+					GOD = true;
 			}
 				
-			App->fonts->BlitText((SCREEN_WIDTH - 98), (SCREEN_HEIGHT - 10), disappeartext, "ENEMY");
-			App->fonts->BlitText((SCREEN_WIDTH - 56), (SCREEN_HEIGHT - 10), disappeartext, "SPAWNED");
-			if (SDL_GetTicks() >= AppearTime) {
-				TimeCounter = true;
-				Spawned = false;
-			}
-		}
+
+		
 
 			//Shoot with timer:
 			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN ) {
@@ -299,17 +278,20 @@ update_status ModulePlayer::Update() {
 						ShootTimer2 = SDL_GetTicks();
 						
 					}
-				
 					
 					if (WeaponType == Shoots::LASERSHOOT && ShootTimer3 < SDL_GetTicks() - 500) {
 
 						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x -16, setFirePos().y + 3, COLLIDER_PLAYER_LASERBEAM_SHOT);
+
 						App->particles->AddParticle(App->particles->LaserBeamExplosion, setFirePos().x, setFirePos().y, COLLIDER_NONE);
 
-						App->particles->AddParticle(App->particles->LaserBeamArea1, setFirePos().x + -5, setFirePos().y - 10, COLLIDER_NONE);
-						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 100 - 30);
-						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 150 - 30);
-						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x + 25, setFirePos().y - 18, COLLIDER_NONE, 200 - 30);
+						App->particles->AddParticle(App->particles->LaserBeamArea1, setFirePos().x + 5, setFirePos().y - 10, COLLIDER_NONE);
+
+						for (int i = SDL_GetTicks(); i > SDL_GetTicks() + 50; i++) {
+							
+						}
+						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x, setFirePos().y - 11, COLLIDER_PLAYER_LASERBEAM_AREA_SHOT, 100 - 30);
+						
 						
 						Mix_PlayChannel(-1, LasserBeam_Sound, 0);
 						
@@ -319,68 +301,35 @@ update_status ModulePlayer::Update() {
 		}
 		
 		Ship1Collider->SetPos(position.x, position.y);
-	// Draw everything --------------------------------------
+		// Draw everything --------------------------------------
 		if (current_animation == &Appear) 
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
 		else if (current_animation == &DestroyShip)
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
 		else 
 			App->render->Blit(graphicsp1, position.x, position.y, &(current_animation->GetCurrentFrame()));
-	
-
-		//P1 Score
-		sprintf_s(score_text, "%7d", ScoreP1);
-		App->fonts->BlitText(40, 16, font, score_text);
-		App->fonts->BlitText(13, 16, font, "P1");
-		App->fonts->BlitText(29, 11, font, "_");
-		App->fonts->BlitText(29, 15, font, "_");
-
-		App->render->Blit(UI_Main_Menu,13 ,24,&UI_ship,0.0f,false); //Mini_UI_Ships->Player1
-		
-
-		//P1 Life
-		sprintf_s(life_text, "%7d", App->scene1background->P1Coins);
-		App->fonts->BlitText(30, 24, font, "X0");
-		App->fonts->BlitText(-2, 24, font, life_text);
-
-		if (App->player2->Dead == false && App->player2->IsEnabled() == false) {
-			App->fonts->BlitText((SCREEN_WIDTH - 76), 16, font, "INSERT");
-			App->fonts->BlitText((SCREEN_WIDTH - 74), 24, font, "COIN");
-		}
-
-		//TOP Score
-		if (App->player2->IsEnabled() == true)
-			TopScore = App->fonts->TopScore(ScoreP1, App->player2->ScoreP2, TopScore);
-		/*else
-			TopScore = App->fonts->TopScoreP1(ScoreP1, TopScore);*/
-
-		sprintf_s(top_score, "%7d", TopScore);
-		
-		App->fonts->BlitText((SCREEN_WIDTH / 2) - 41, 16, font, "T0P");
-		App->fonts->BlitText((SCREEN_WIDTH / 2) -9, 16, font, top_score);
-
 
 		//end anim of dead and disable
 		if (ToBeDeleted == true && current_animation->Finished() == true) {
 			Disable();
-			App->textures->Unload(graphicsp1);
 		}
+
 	return UPDATE_CONTINUE;
 }
 
 void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 
-	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)) {
+	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)&&!ToBeDeleted) {
 
 			if (!GOD) {
 
-				App->fonts->SP1 = ScoreP1;
-				--(App->scene1background->P1Coins);
-				LOG("TE QUITO UN COIN PAPITO");
+				LOG("P1LIFE MINUS ONE");
 				Dead = true;
 				ToBeDeleted = true;
 				current_animation = &DestroyShip;
-				Ship1Collider->to_delete = true;
+				//Ship1Collider->to_delete = true;
+				--(App->fonts->P1Life);
+
 		}
 	}
 }

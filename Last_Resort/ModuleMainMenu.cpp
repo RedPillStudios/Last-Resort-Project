@@ -41,10 +41,10 @@ bool ModuleMainMenu::Start() {
 	graphics_Background = App->textures->Load("Images/Main_Menu/Last_Resort_Intro.png");
 
 	Main_Menu = App->sound->LoadMusic("Audio/Main_Menu/Title.ogg");
-	Insert_Coin = App->sound->LoadChunk("Audio/Main_Menu/Insert_Coin.wav");
 
 	Mix_PlayMusic(Main_Menu, 0);
-
+	Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
+	
 	App->render->camera.x = App->render->camera.y = 0;
 
 	return true;
@@ -54,7 +54,6 @@ bool ModuleMainMenu::CleanUp() {
 
 	LOG("Unloading Main Menu");
 	App->textures->Unload(graphics_Background);
-	App->sound->UnloadChunks(Insert_Coin);
 	App->sound->UnloadMusic(Main_Menu);
 	return true;
 
@@ -64,10 +63,8 @@ update_status ModuleMainMenu::Update() {
 
 	App->render->Blit(graphics_Background, 0, 0, &Background, 0); // game menu
 
-	if (App->input->keyboard[SDL_SCANCODE_SPACE]) {
+	if (App->input->keyboard[SDL_SCANCODE_SPACE] && App->fonts->coins > 0)
 		App->fade->FadeToBlack(App->menu, App->scene1background, 1.0f);
-		Mix_PlayChannel(-1, Insert_Coin, 0);
-	}
   
 	return UPDATE_CONTINUE;
 }

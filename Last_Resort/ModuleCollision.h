@@ -10,6 +10,7 @@ enum COLLIDER_TYPE
 	COLLIDER_NONE = -1,
 	COLLIDER_WALL,
 	COLLIDER_PLAYER,
+	COLLIDER_PLAYER2,
 	COLLIDER_ENEMY,
 	COLLIDER_PLAYER_SHOT,
 	COLLIDER_PLAYER_SHOT2,
@@ -42,6 +43,10 @@ struct Collider
 	}
 
 	bool CheckCollision(const SDL_Rect& r) const;
+
+	void changeCollider(COLLIDER_TYPE type_) {
+		type = type_;
+	}
 };
 
 class ModuleCollision : public Module

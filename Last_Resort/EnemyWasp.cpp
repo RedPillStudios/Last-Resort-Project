@@ -13,6 +13,7 @@ EnemyWasp::EnemyWasp(int x, int y,bool powerUp) : Enemy(x, y) {
 	AnimWasp.PushBack({ 0, 209, 32, 15 });
 	AnimWasp.PushBack({ 0, 225, 32, 15 });
 	AnimWasp.PushBack({ 0, 240, 32, 15 });
+
 	Enemy::sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
 
 	life = 1;

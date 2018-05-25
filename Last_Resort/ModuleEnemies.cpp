@@ -8,13 +8,15 @@
 #include "ModulePlayer.h"
 #include "Enemy.h"
 #include "EnemyRhino.h"
+#include "EnemyBee.h"
 #include "EnemyWasp.h"
 #include "EnemyZicZac.h"
-#include "EnemySuicide.h"
+#include "EnemyLamella.h"
 #include "CarsToFast.h"
 #include "ModuleSceneLvl1.h"
 #include "ModulePlayer2.h"
 #include "ModulePowerUp.h"
+#include "ModuleUI.h"
 
 #define SPAWN_MARGIN 50
 
@@ -22,12 +24,14 @@ ModuleEnemies::ModuleEnemies() {
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 		enemies[i] = nullptr;
+
 }
 
 ModuleEnemies::~ModuleEnemies() {}
 
 bool ModuleEnemies::Start() {
-
+	carSprites= App->textures->Load("Images/General/Car_Sprites.png");
+	sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
 	LOG("Starting Module Enemies");
 	return true;
 }
@@ -87,7 +91,15 @@ update_status ModuleEnemies::PostUpdate() {
 		
 		if (enemies[i] != nullptr) {
 			
-			if ((enemies[i]->position.x * SCREEN_SIZE < (App->render->camera.x) - 200) || (enemies[i]->position.x * SCREEN_SIZE)> App->render->camera.x + (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN + 20) {
+			if ((enemies[i]->position.x * SCREEN_SIZE) < (App->render->camera.x - 200) || (enemies[i]->position.x * SCREEN_SIZE) > (App->render->camera.x + (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN + 20)) {
+				LOG("DeSpawning enemy at %d", enemies[i]->position.x * SCREEN_SIZE);
+			
+				App->textures->Unload(enemies[i]->sprites);
+				//AddParticle(EnemyExplosion, active[i]->Position.x - 80, active[i]->Position.y + 3, COLLIDER_NONE, 200);
+				delete enemies[i];
+				enemies[i] = nullptr;
+			}
+			else if (enemies[i]->reached == true) {
 				LOG("DeSpawning enemy at %d", enemies[i]->position.x * SCREEN_SIZE);
 				App->textures->Unload(enemies[i]->sprites);
 				delete enemies[i];
@@ -98,7 +110,7 @@ update_status ModuleEnemies::PostUpdate() {
 	return UPDATE_CONTINUE;
 }
 
-bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y,bool PowerUp) {
+bool ModuleEnemies::AddEnemy(ENEMY_TYPES type, int x, int y, bool PowerUp ) {
 
 	bool ret = false;
 
@@ -129,8 +141,8 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		switch (info.type)
 		{
 		case ENEMY_TYPES::ENEMY_RHINO:
-			enemies[i] = new Enemy_Rhino(info.x, info.y,info.PowerUp);
-			break;
+		enemies[i] = new Enemy_Rhino(info.x, info.y,info.PowerUp);
+		break;
 		
 		case ENEMY_TYPES::ENEMY_WASP:
 	  	enemies[i] = new EnemyWasp(info.x, info.y,info.PowerUp);
@@ -140,12 +152,16 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		enemies[i] = new EnemyZicZac(info.x, info.y,info.PowerUp);
 		break;
 		
-		case ENEMY_TYPES::ENEMY_SUICIDE:
-		enemies[i] = new EnemySuicide(info.x, info.y,info.PowerUp);
+		case ENEMY_TYPES::ENEMY_LAMELLA:
+		enemies[i] = new EnemyLamella(info.x, info.y,info.PowerUp);
 		break;
 		
 		case ENEMY_TYPES::CARS:
-		enemies[i] = new CarsToFast(info.x, info.y);
+		enemies[i] = new CarsToFast(info.x, info.y,info.type);
+		break;
+
+		case ENEMY_TYPES::ENEMY_BEE:
+		enemies[i] = new Enemy_Bee(info.x, info.y,info.PowerUp);
 		break;
 		}
 	}
@@ -155,25 +171,33 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 		
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 		
- if (enemies[i] != nullptr && (enemies[i]->GetCollider() == c1 || enemies[i]->GetCollider() == c2)) {
+		 if (enemies[i] != nullptr && (enemies[i]->GetCollider() == c1 || enemies[i]->GetCollider() == c2)) {
 
-			--(enemies[i]->life);
-		
+			 --(enemies[i]->life);
+
 			if (enemies[i]->life <= 0) {
+
+				
+
 				if (enemies[i]->PowerUp == true) {
+
 					if(App->scene1background->randomPositionCars==1)
-					App->powerup->AddPowerUp(POWERUP_TYPES::LASER,enemies[i]->position.x,enemies[i]->position.y);
+						App->powerup->AddPowerUp(POWERUP_TYPES::LASER,enemies[i]->position.x,enemies[i]->position.y);
 					else if (App->scene1background->randomColorCars == 2) {
-					App->powerup->AddPowerUp(POWERUP_TYPES::RED, enemies[i]->position.x, enemies[i]->position.y);
+						App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, enemies[i]->position.x, enemies[i]->position.y);
 					}
 				}
-				App->textures->Unload(enemies[i]->sprites);
 
 				if(c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT)
-					App->player->ScoreP1 += enemies[i]->score;
+					App->fonts->ScoreP1 += enemies[i]->score;
 				else if (c1->type == COLLIDER_PLAYER_SHOT2 || c2->type == COLLIDER_PLAYER_SHOT2)
-					App->player2->ScoreP2 += enemies[i]->score;
+					App->fonts->ScoreP2 += enemies[i]->score;
 
+				if (enemies[i]->type != ENEMY_TYPES::CARS) {
+					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 8, enemies[i]->position.y - 2, COLLIDER_NONE, 200);
+					//App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 8, enemies[i]->position.y + 3, COLLIDER_NONE, 200);
+				}
+				App->textures->Unload(enemies[i]->sprites);
 				delete enemies[i];
 				enemies[i] = nullptr;
 				break;

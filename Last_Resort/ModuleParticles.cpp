@@ -7,8 +7,8 @@
 #include "ModuleParticles.h"
 #include "ModulePlayer.h"
 #include "ModuleSceneLvl1.h"
-
 #include "SDL/include/SDL_timer.h"
+#include <cstdlib>
 
 ModuleParticles::ModuleParticles() {
 
@@ -17,6 +17,8 @@ ModuleParticles::ModuleParticles() {
 		active[i] = nullptr;
 	}
 
+
+	srand(2);
 }
 
 ModuleParticles::~ModuleParticles() {}
@@ -29,8 +31,12 @@ bool ModuleParticles::Start() {
 	Particle1 = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
 	Particle2 = App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
 	Particle3= App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
+	Particle4 = App->textures->Load("Images/Player/Charge_Ball.png");
 
 	ImpactExplosionSound = App->sound->LoadChunk("Audio/General/007_Enemy_Explosion_Standard.wav");
+	ImpactExplosionSound2 = App->sound->LoadChunk("Audio/General/Explosion2.wav");
+	Mix_VolumeChunk(ImpactExplosionSound,MIX_MAX_VOLUME/2.5f);
+	Mix_VolumeChunk(ImpactExplosionSound2, MIX_MAX_VOLUME / 2);
 
 	ShootExplosion.Anim.PushBack({ 82, 239, 12, 12 });
 	ShootExplosion.Anim.PushBack({ 94, 241, 11, 9 });
@@ -88,7 +94,7 @@ bool ModuleParticles::Start() {
 	//___________________________
 
 	LaserBeam.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
-	LaserBeam.Anim.PushBack({ 23,296,112,3 });
+	LaserBeam.Anim.PushBack({ 23,296,66,3 });
 	LaserBeam.Anim.loop = true;
 	LaserBeam.Anim.speed = 0.1;
 	LaserBeam.Speed.x = 8;
@@ -127,7 +133,7 @@ bool ModuleParticles::Start() {
 	LaserBeamArea2.Life = 300;
 
 	LaserBeamArea3.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
-	LaserBeamArea3.Anim.PushBack({ 65,337,16,47 });
+	LaserBeamArea3.Anim.PushBack({ 66,254,47,31 });
 	LaserBeamArea3.Anim.loop = false;
 	LaserBeamArea3.Anim.speed = 0.1;
 	LaserBeamArea3.Speed.x = 8;
@@ -176,8 +182,39 @@ bool ModuleParticles::Start() {
 	HOU_Shot.Anim.loop = true;
 	HOU_Shot.Sprites = Particle1;
 	HOU_Shot.Life = 2200;
-	
+	HOU_Shot.Speed.x = 0;
+	HOU_Shot.Speed.y = 0;
 
+
+	HOU_Shot_p2.Anim.PushBack({ 117,250,13,13 });
+	HOU_Shot_p2.Anim.speed = 0.2f;
+	HOU_Shot_p2.Anim.loop = true;
+	HOU_Shot_p2.Sprites = Particle1;
+	HOU_Shot_p2.Life = 2200;
+	HOU_Shot_p2.Speed.x = 0;
+	HOU_Shot_p2.Speed.y = 0;
+	
+	BeeShot.Anim.PushBack({261,270,5,5});
+	BeeShot.Anim.PushBack({266,270,5,5});
+	BeeShot.Anim.PushBack({271,270,5,5});
+	BeeShot.Anim.PushBack({276,270,5,5});
+	BeeShot.Anim.loop = true;
+	BeeShot.Life = 3000;
+	BeeShot.Anim.speed = 0.2f;
+	BeeShot.Sprites = Particle2;
+	BeeShot.Speed.x = 0;
+	BeeShot.Speed.y= 0;
+
+	Red_ThrowBall_pl1.Anim.PushBack({0,0,32,32});
+	Red_ThrowBall_pl1.Anim.PushBack({ 32,0,32,32 });
+	Red_ThrowBall_pl1.Anim.PushBack({ 64,0,32,32 });
+	Red_ThrowBall_pl1.Anim.PushBack({ 96,0,32,32 });
+	Red_ThrowBall_pl1.Anim.loop = true;
+
+	Red_ThrowBall_pl1.Anim.speed = 0.2f;
+	Red_ThrowBall_pl1.Sprites = Particle4;
+	Red_ThrowBall_pl1.Speed.x = 0;
+	Red_ThrowBall_pl1.Speed.x = 0;
 	return true;
 
 }
@@ -196,6 +233,7 @@ bool ModuleParticles::CleanUp() {
 	}
 
 	App->sound->UnloadChunks(ImpactExplosionSound);
+	App->sound->UnloadChunks(ImpactExplosionSound2);
 
 	App->textures->Unload(Particle1);
 	App->textures->Unload(Particle2);
@@ -248,18 +286,24 @@ void ModuleParticles::AddParticle(const Particle& particle, int x, int y, COLLID
 			p->Position.x = x;
 			p->Position.y = y;
 			p->Sprites = particle.Sprites;
-			if (collider_type != COLLIDER_NONE)
+			if (collider_type != COLLIDER_NONE ) {
 				p->collider = App->collision->AddCollider(p->Anim.GetCurrentFrame(), collider_type, this);
+			}
+			
 			active[i] = p;
 			break;
-		}
+			
+		}			
 	}
+
+	randomExplosionSound = rand() % 2 + 1;
 }
 
 void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
+
 		// DON'T DESTROY LASERBEAM WHEN COLLIDES
 		
 		if (active[i] != nullptr && active[i]->collider == c1 && c1->type == COLLIDER_PLAYER_LASERBEAM_SHOT) {
@@ -267,35 +311,37 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			if (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_WALL)
 				AddParticle(ImpactExplosion, active[i]->Position.x, active[i]->Position.y);
 			if (c2->type == COLLIDER_ENEMY) {
-				Mix_PlayChannel(-1, ImpactExplosionSound, 0);
-
-				//AREAS DISSAPEARING JUST 1 TIME!!!
-		
-				if (active[i]->TimesCollided == 0 ) {
-					active[i]->TimesCollided = 1;
-					
-					AddParticle(LaserBeamArea3, active[i]->Position.x + 90, active[i]->Position.y - 18, COLLIDER_NONE, 100 - 30);
-					AddParticle(LaserBeamArea3, active[i]->Position.x + 90, active[i]->Position.y - 18, COLLIDER_NONE, 150 - 30);
-					AddParticle(LaserBeamArea3, active[i]->Position.x + 90, active[i]->Position.y - 18, COLLIDER_NONE, 200 - 30);
-					
-					AddParticle(LaserBeamArea2, active[i]->Position.x + 160, active[i]->Position.y - 18, COLLIDER_NONE, 250 - 30);
+				
+				if (randomExplosionSound == 1) {
+					Mix_PlayChannel(-1, ImpactExplosionSound, 0);
+				}
+				else if (randomExplosionSound == 2) {
+					Mix_PlayChannel(-1, ImpactExplosionSound2, 0);
 				}
 				
-				////_______
-				AddParticle(EnemyExplosion, active[i]->Position.x, active[i]->Position.y);
-				AddParticle(EnemyExplosion, active[i]->Position.x + 80, active[i]->Position.y - 2, COLLIDER_NONE, 200);
-				AddParticle(EnemyExplosion, active[i]->Position.x - 80, active[i]->Position.y + 3, COLLIDER_NONE, 200);
+				if (active[i]->TimesCollided == 0 ) {
+					active[i]->TimesCollided = 1;
+						
+					//AÑADIR AQUI LA DESINTEGRACIÓN DE LAS AREAS DEL LASER CUANDO LOS SPRITES ESTÉN BIÉN (LASER AREA 2)
+				}						
+			
 			}
 			break;
 		}
-
 		// Always destroy particles that collide AND AREN`T LASSER BEAM
 		if (active[i] != nullptr && active[i]->collider == c1 && c1->type != COLLIDER_PLAYER_LASERBEAM_SHOT) {
 			
 			if (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_WALL)
 					AddParticle(ImpactExplosion,active[i]->Position.x, active[i]->Position.y);
 			if (c2->type == COLLIDER_ENEMY) {
+				
+				if (randomExplosionSound == 1) {
 					Mix_PlayChannel(-1, ImpactExplosionSound, 0);
+				}
+				else if (randomExplosionSound == 2) {
+					Mix_PlayChannel(-1, ImpactExplosionSound2, 0);
+				}
+				
 					AddParticle(EnemyExplosion, active[i]->Position.x, active[i]->Position.y);
 					AddParticle(EnemyExplosion, active[i]->Position.x + 3, active[i]->Position.y -2, COLLIDER_NONE, 200);
 					AddParticle(EnemyExplosion, active[i]->Position.x - 3, active[i]->Position.y +2, COLLIDER_NONE, 200);

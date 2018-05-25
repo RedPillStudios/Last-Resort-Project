@@ -4,6 +4,7 @@
 #include "p2Point.h"
 #include "Animation.h"
 #include "ModuleTextures.h"
+#include "ModuleEnemies.h"
 
 struct SDL_Textures;
 struct Collider;
@@ -26,9 +27,13 @@ public:
 
 	const Collider* GetCollider() const;
 
+
+	ENEMY_TYPES type;
+	bool reached;
 	uint life;
 	uint score;
 	bool PowerUp;
+	fPoint toGo;
 
 public:
 
