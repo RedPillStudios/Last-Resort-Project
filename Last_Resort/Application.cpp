@@ -41,11 +41,12 @@ Application::Application()
 	modules[i++] = player2 = new ModulePlayer2();
 	modules[i++] = powerup = new ModulePowerUp();
 	modules[i++] = fade = new ModuleFadeToBlack();
+	modules[i++] = BossTank = new ModuleTank();
 	modules[i++] = particles = new ModuleParticles();
 	modules[i++] = collision = new ModuleCollision();
 	modules[i++] = fonts = new ModuleUI();
 	modules[i++] = Boss = new ModuleBossLvl1();
-	modules[i++] = BossTank = new ModuleTank();
+	
 
 }	
 

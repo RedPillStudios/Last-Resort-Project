@@ -26,8 +26,10 @@ public:
 
 	bool Start();
 	update_status Update();
-	update_status PostUpdate();
+	//update_status PostUpdate();
 	bool CleanUp();
+	void OnCollision(Collider *c1, Collider *c2);
+
 
 	Animation CorriendoAlTrote;
 	Animation WaitingPos;
@@ -62,6 +64,7 @@ public:
 public:
 	fPoint TankPosition;
 	iPoint PlayerPos;
+	iPoint Player2Pos;
 public:
 	uint life;
 	float UpDatePos = 0;
@@ -76,6 +79,8 @@ public:
 	uint P1Posy;
 	uint P2Posx;
 	uint P2Posy;
+	uint count = 0;
+	uint count2 = 0;
 
 	double Radiants1;
 	float Angle1;
@@ -83,7 +88,7 @@ public:
 	float Angle2;
 	int TimerShoot = 0;
 	int TimerShoot2 = 0;
-
+	int BossLife = 80;
 public:
 	bool Movement = false;
 	bool TroteInPos = false;
@@ -91,9 +96,16 @@ public:
 	bool ReachPos2 = false;
 	bool LimitReached = false;
 	bool AngleNotValid = false;
+	bool Dead = false;
+	bool CleanUpDone = false;
+	bool DestroyTurret = false;
+	bool DestroyTank = false;
 public:
-	//Control the position using the time;
-	int TimeOnMovement;
+	Collider * TankCollider1 = nullptr;
+	Collider * TankCollider2 = nullptr;
+	Collider * TankCollider3 = nullptr;
+	Collider * TankCollider4 = nullptr;
+	Collider * TankCollider5 = nullptr;
 };
 
 #endif

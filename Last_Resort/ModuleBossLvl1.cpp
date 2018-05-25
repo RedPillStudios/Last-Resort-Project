@@ -166,7 +166,7 @@ update_status ModuleBossLvl1::Update() {
 
 void ModuleBossLvl1::OnCollision(Collider *c1, Collider *c2) {
 
-	beAttacked = true; //GUYS THIS IS TO MADE THE BOSS ALLWAYS ATTACKABLE JUST FOR DEBUGGING, THIS MUST BE DELETED FOR THE GAME (could be a great debug functionality)
+ 	beAttacked = true; //GUYS THIS IS TO MADE THE BOSS ALLWAYS ATTACKABLE JUST FOR DEBUGGING, THIS MUST BE DELETED FOR THE GAME (could be a great debug functionality)
 
 	if (beAttacked && (c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT || c1->type == COLLIDER_PLAYER_SHOT2 || c2->type == COLLIDER_PLAYER_SHOT2)) {
 

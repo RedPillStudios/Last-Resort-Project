@@ -291,6 +291,9 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
+		//BOSS TANK LIFE HERE XDDDD
+		if(c1->type == COLLIDER_PLAYER_SHOT)
+
 
 		// DON'T DESTROY LASERBEAM WHEN COLLIDES
 		
