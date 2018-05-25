@@ -78,6 +78,7 @@ public:
 	Particle HOU_Shot_p2;
 	Particle MissilePower;
 	Particle MissilePowerPatter2;
+	Particle FogExplosion;
 
 	Particle LaserBeam;
 	Particle LaserBeamExplosion;
@@ -87,16 +88,20 @@ public:
 	Particle BeeShot;
 	Particle Red_ThrowBall_pl1;
 
+
 	SDL_Texture *particle0 = nullptr;
 	SDL_Texture *Particle1 = nullptr;
 	SDL_Texture *Particle2 = nullptr;
 	SDL_Texture *Particle3 = nullptr;
 	SDL_Texture *Particle4 = nullptr;
+	SDL_Texture *Particle5 = nullptr;
+  SDL_Texture *Particle6 = nullptr;
+
 	//Boss Shoot
 	Particle BossShoot;
 	Particle BossCoolDown;
 	Particle BossShootExplosion;
-
+	Particle GreenBomb;
 
 	Mix_Chunk *ImpactExplosionSound;
 	Mix_Chunk *ImpactExplosionSound2;

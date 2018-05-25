@@ -17,6 +17,7 @@
 #include "ModuleEnemies.h"
 #include "ModulePowerUp.h"
 #include "ModuleBossLvl1.h"
+#include "Iron_Craw.h"
 #include "ModuleUI.h"
 
 ModuleSceneLvl1::ModuleSceneLvl1()
@@ -58,7 +59,7 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	YellowLight.PushBack({ 312,0,81,143 });
 	YellowLight.PushBack({ 393,0,99,143 });
 	YellowLight.PushBack({ 0,144,121,289 });
-	YellowLight.PushBack({ 121,144,142,289 });//
+	YellowLight.PushBack({ 121,144,142,289 });
 	YellowLight.PushBack({ 0,144,121,289 });
 	YellowLight.PushBack({ 393,0,99,143 });
 	YellowLight.PushBack({ 312,0,81,143 });
@@ -137,6 +138,7 @@ bool ModuleSceneLvl1::Start()
 		App->Boss->Enable();
 		App->collision->Enable();
 		App->particles->Enable();
+		App->MiniBoss->Enable();
 	}
 	if (App->player->IsEnabled() == false && App->fonts->P1Life > 0) {
 		App->player->Enable();
@@ -153,7 +155,12 @@ bool ModuleSceneLvl1::Start()
 	//troop1
 	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 200, 150);
 
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);
+  //Bees
+	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
+  App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);
+  
+ //Wasps
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60,false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 540, 75, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 580, 60, false);
@@ -315,7 +322,8 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->particles->Disable();
 	App->enemies->Disable();
 
-	if(App->Boss->IsEnabled())
+	if (App->Boss->IsEnabled())
+		App->MiniBoss->Disable();
 		App->Boss->Disable();
 
 	App->Boss->BossMoves = false;
