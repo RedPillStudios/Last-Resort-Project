@@ -24,7 +24,7 @@ ModulePlayer2::ModulePlayer2()
 	positionp2.x = 20;
 	positionp2.y = SCREEN_HEIGHT / 4;
 
-	Standard.PushBack({32,0,32,11});
+	Standard.PushBack({ 32,0,32,11 });
 
 	Up.PushBack({ 128,0,32,11 });
 	Up.PushBack({ 160,0,32,11 });
@@ -43,7 +43,7 @@ ModulePlayer2::ModulePlayer2()
 	Appear2.PushBack({ 241,102,57,25 });
 	Appear2.PushBack({ 298,102,56,25 });
 	Appear2.PushBack({ 353,102,36,19 });
-	Appear2.PushBack({390,102,32,15 });
+	Appear2.PushBack({ 390,102,32,15 });
 	/*Appear.PushBack({ 128,139,64,19 });
 	Appear.PushBack({ 128,158,64,19 });*/
 	Appear2.speed = 0.2f;
@@ -51,25 +51,25 @@ ModulePlayer2::ModulePlayer2()
 
 	DestroyShip.PushBack({ 352,0,32,11 });
 	DestroyShip.PushBack({ 384,0,32,12 });
-	DestroyShip.PushBack({416,0,40,15});
-	DestroyShip.PushBack({459,0,32,18 });
-	DestroyShip.PushBack({ 0,18,45,19});
-	DestroyShip.PushBack({45,18,51,20 });
-	DestroyShip.PushBack({96,18,59,21});
-	DestroyShip.PushBack({155,18,63,23  });
-	DestroyShip.PushBack({221,18,60,24 });
-	DestroyShip.PushBack({283,18,64,23  });
-	DestroyShip.PushBack({350,18,57,23 });
-	DestroyShip.PushBack({410,17,55,24 });
+	DestroyShip.PushBack({ 416,0,40,15 });
+	DestroyShip.PushBack({ 459,0,32,18 });
+	DestroyShip.PushBack({ 0,18,45,19 });
+	DestroyShip.PushBack({ 45,18,51,20 });
+	DestroyShip.PushBack({ 96,18,59,21 });
+	DestroyShip.PushBack({ 155,18,63,23 });
+	DestroyShip.PushBack({ 221,18,60,24 });
+	DestroyShip.PushBack({ 283,18,64,23 });
+	DestroyShip.PushBack({ 350,18,57,23 });
+	DestroyShip.PushBack({ 410,17,55,24 });
 
-	DestroyShip.PushBack({0,42,58,25});
-	DestroyShip.PushBack({58,42,54,26});
-	DestroyShip.PushBack({112,42,59,27});
-	DestroyShip.PushBack({174,42,57,28});
-	DestroyShip.PushBack({230,42,57,28 });
-	DestroyShip.PushBack({288,42,58,27});
-	DestroyShip.PushBack({352,42,42,21 });
-	DestroyShip.PushBack({399,42,38,16 });
+	DestroyShip.PushBack({ 0,42,58,25 });
+	DestroyShip.PushBack({ 58,42,54,26 });
+	DestroyShip.PushBack({ 112,42,59,27 });
+	DestroyShip.PushBack({ 174,42,57,28 });
+	DestroyShip.PushBack({ 230,42,57,28 });
+	DestroyShip.PushBack({ 288,42,58,27 });
+	DestroyShip.PushBack({ 352,42,42,21 });
+	DestroyShip.PushBack({ 399,42,38,16 });
 
 	DestroyShip.speed = 0.3f;
 	DestroyShip.loop = false;
@@ -78,6 +78,9 @@ ModulePlayer2::ModulePlayer2()
 	UI_ship2.y = 25;
 	UI_ship2.w = 17;
 	UI_ship2.h = 6;
+
+
+
 }
 
 ModulePlayer2::~ModulePlayer2() {}
@@ -86,16 +89,16 @@ ModulePlayer2::~ModulePlayer2() {}
 bool ModulePlayer2::Start() {
 
 	positionp2.x = App->scene1background->position_min_limit + 20;
-	positionp2.y = SCREEN_WIDTH/2;
+	positionp2.y = SCREEN_WIDTH / 2;
 
 	if (IsEnabled()) {
 		if (App->fonts->IsEnabled() == false)
 			App->fonts->Enable();
-		if (App->particles->IsEnabled() == false) 
+		if (App->particles->IsEnabled() == false)
 			App->particles->Enable();
-		if (App->collision->IsEnabled() == false) 
+		if (App->collision->IsEnabled() == false)
 			App->collision->Enable();
-		if (App->powerup->IsEnabled() == false) 
+		if (App->powerup->IsEnabled() == false)
 			App->powerup->Enable();
 	}
 
@@ -103,18 +106,22 @@ bool ModulePlayer2::Start() {
 	Appear2.Reset();
 	//textures
 	graphicsp2 = App->textures->Load("Images/Player/Player2_Spirtes.png"); // arcade version
-	//collider
+																		   //collider
 	Ship2Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER2, this);
 	//sound
-	Shot_SoundP2 = App->sound->LoadChunk("Audio/Shot_Sound.wav");
-	MissilePower_SoundP2 = App->sound->LoadChunk("Audio/General/016_Rocket _Launcher.wav");
-	LasserBeam_SoundP2 = App->sound->LoadChunk("Audio/General/015_Lasser_3.wav");
+	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
+
 	//bools
 	Dead = false;
 	AppearAnim = true;
 	ToBeDeleted = false;
-	
 
+	//Timer
+	ShootTimer1 = 0;
+	ShootTimer2 = 0;
+	ShootTimer3 = 0;
+	ShootTimer4 = 0;
+	//_____
 	DestroyShip.Reset();
 	current_animation2 = &Appear2;
 
@@ -124,19 +131,17 @@ bool ModulePlayer2::Start() {
 bool ModulePlayer2::CleanUp() {
 
 	LOG("Cleaning Up Player 2 Module")
-	App->textures->Unload(graphicsp2);
+		App->textures->Unload(graphicsp2);
 
-	if (current_animation2 != nullptr) 
+	if (current_animation2 != nullptr)
 		current_animation2 = nullptr;
-	
-	
-	if (Ship2Collider != nullptr) 
+
+
+	if (Ship2Collider != nullptr)
 		Ship2Collider->to_delete = true;
-	
-	App->sound->UnloadChunks(Shot_SoundP2);
-	App->sound->UnloadChunks(MissilePower_SoundP2);
-	App->sound->UnloadChunks(LasserBeam_SoundP2);
-	
+
+	App->sound->UnloadChunks(Shot_Sound);
+
 	return true;
 }
 
@@ -169,7 +174,7 @@ update_status ModulePlayer2::Update() {
 				positionp2.y = 2;
 				break;
 			}
-		
+
 		}
 		/*Movement Down*/
 		if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT) {
@@ -179,7 +184,7 @@ update_status ModulePlayer2::Update() {
 				positionp2.y = SCREEN_HEIGHT - 15;
 				break;
 			}
-		
+
 		}
 
 		/*Movement Right*/
@@ -199,17 +204,60 @@ update_status ModulePlayer2::Update() {
 			}
 		}
 		if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN)
-				GOD = !GOD;
-			
-		/*Shoot*/
-		if (App->input->keyboard[SDL_SCANCODE_RCTRL] == KEY_STATE::KEY_DOWN) {
+			GOD = !GOD;
 
-			App->particles->AddParticle(App->particles->Laser, setFirePos2().x, setFirePos2().y, COLLIDER_PLAYER_SHOT2);
-			App->particles->AddParticle(App->particles->ShootExplosion, setFirePos2().x, setFirePos2().y);
-			Mix_PlayChannel(-1, Shot_SoundP2,0);
+
+
+
+
+		/*Shoot*/
+		if (App->input->keyboard[SDL_SCANCODE_M] == KEY_STATE::KEY_DOWN) {
+			if (ShootTimer1 < SDL_GetTicks() - 150) {
+
+				App->particles->AddParticle(App->particles->Laser, setFirePos2().x - 10, setFirePos2().y, COLLIDER_PLAYER_SHOT);
+				App->particles->AddParticle(App->particles->ShootExplosion, setFirePos2().x, setFirePos2().y);
+
+				//Mix_PlayChannel(-1, Shot_Sound, 0);
+
+				ShootTimer1 = SDL_GetTicks();
+
+			}
+			if (WeaponTypeP2 == ShootsP2::MISSILESP2 && ShootTimer2 < SDL_GetTicks() - 600) {
+
+				App->particles->AddParticle(App->particles->MissilePower, positionp2.x - 5, positionp2.y + 10, COLLIDER_PLAYER_SHOT, 200);
+				App->particles->AddParticle(App->particles->MissilePower, positionp2.x - 5, positionp2.y - 10, COLLIDER_PLAYER_SHOT, 200);
+
+				//Mix_PlayChannel(-1, MissilePower_Sound, 0);
+				ShootTimer2 = SDL_GetTicks();
+
+			}
+
+			if (WeaponTypeP2 == ShootsP2::LASERSHOOTP2 && ShootTimer3 < SDL_GetTicks() - 650) {
+
+				App->particles->AddParticle(App->particles->LaserBeam, setFirePos2().x - 16, setFirePos2().y + 3, COLLIDER_PLAYER_LASERBEAM_SHOT);
+
+				App->particles->AddParticle(App->particles->LaserBeamExplosion, setFirePos2().x, setFirePos2().y, COLLIDER_NONE);
+
+				App->particles->AddParticle(App->particles->LaserBeamArea1, setFirePos2().x + 5, setFirePos2().y - 10, COLLIDER_NONE);
+
+				for (int i = SDL_GetTicks(); i > SDL_GetTicks() + 50; i++) {
+
+				}
+				App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos2().x, setFirePos2().y - 11, COLLIDER_PLAYER_LASERBEAM_AREA_SHOT, 100 - 30);
+
+
+				//	Mix_PlayChannel(-1, LasserBeam_Sound, 0);
+
+				ShootTimer3 = SDL_GetTicks();
+			}
 		}
 	}
 
+
+
+
+
+	Ship2Collider->SetPos(positionp2.x, positionp2.y);
 	/* Draw everything --------------------------------------*/
 
 	if (current_animation2 == &Appear2) {
@@ -222,7 +270,7 @@ update_status ModulePlayer2::Update() {
 		App->render->Blit(graphicsp2, positionp2.x, positionp2.y, &(current_animation2->GetCurrentFrame()));
 	}
 
-	Ship2Collider->SetPos(positionp2.x, positionp2.y);
+
 
 	//end anim of dead and disable
 	if (ToBeDeleted == true && current_animation2->Finished() == true) {
@@ -234,8 +282,8 @@ update_status ModulePlayer2::Update() {
 
 void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 
-	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER2) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER2)&&!ToBeDeleted) {
-		
+	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER2) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER2) && !ToBeDeleted) {
+
 		if (!GOD) {
 
 			LOG("TE QUITO UN COIN MAMASITA");

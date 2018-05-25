@@ -14,6 +14,13 @@ private:
 
 public:
 
+	int angle;
+	double radians;
+	int counter;
+	double radians2;
+	int angle2;
+	fPoint shoot;
+
 	Animation Front;
 	Animation Front_left;
 	Animation Front_mid_Left;

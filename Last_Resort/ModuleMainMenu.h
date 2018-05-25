@@ -21,11 +21,7 @@ public:
 	bool CleanUp();
 
 	SDL_Texture *graphics_Background = nullptr;
-
 	SDL_Rect Background;
-
-	Mix_Chunk *Insert_Coin = nullptr;
-
 	Mix_Music *Main_Menu = nullptr;
 
 };

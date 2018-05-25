@@ -21,7 +21,7 @@ private:
 
 	COLLIDER_TYPE type;
 
-	bool reachPosition=false;
+	bool reachPosition = false;
 	
 	iPoint PlayerPosition;
 

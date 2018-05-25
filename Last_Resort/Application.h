@@ -3,7 +3,8 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 20
+#define NUM_MODULES 22
+
 
 //Scene 2 is not here!!
 
@@ -29,22 +30,24 @@ class ModuleUI;
 class ModuleBossLvl1;
 class ModulePlayer2;
 class Iron_Craw;
+class ModuleHouPlayer1;
+class ModuleHouPlayer2;
 
 class Application
 {
 public:
 
 	Module* modules[NUM_MODULES];
-	ModuleWindow* window;
+	ModuleWindow *window;
 	ModuleMainMenu *menu;
-	ModuleRender* render;
-	ModuleInput* input;
-	ModuleGameControllers*controllers;
-	ModuleTextures* textures;
-	ModuleSceneLvl1* scene1background;
+	ModuleRender *render;
+	ModuleInput *input;
+	ModuleGameControllers *controllers;
+	ModuleTextures *textures;
+	ModuleSceneLvl1 *scene1background;
 	ModuleStageClear *stageclear;
-	ModulePlayer* player;
-	ModuleSound* sound;
+	ModulePlayer *player;
+	ModuleSound *sound;
 	ModuleFadeToBlack *fade;
 	ModuleGameOver *gameover;
 	ModuleParticles *particles;
@@ -54,7 +57,9 @@ public:
 	ModulePlayer2 *player2;
 	ModuleUI *fonts;
 	ModuleBossLvl1 *Boss;
-	Iron_Craw*MiniBoss;
+	Iron_Craw *MiniBoss;
+	ModuleHouPlayer1 *HOU_Player1;
+	ModuleHouPlayer2 *HOU_Player2;
 
 public:
 
@@ -68,6 +73,6 @@ public:
 };
 
 // Global var made extern for Application ---
-extern Application* App;
+extern Application *App;
 
 #endif // __APPLICATION_H__

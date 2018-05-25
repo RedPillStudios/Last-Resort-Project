@@ -31,8 +31,9 @@ bool ModuleParticles::Start() {
 	Particle1 = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
 	Particle2 = App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
 	Particle3= App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
-	Particle4 = App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
+	Particle4 = App->textures->Load("Images/Player/Charge_Ball.png");
 	Particle5 = App->textures->Load("Images/Particles/Explosion.png");
+  Particle6 = App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
 
 	ImpactExplosionSound = App->sound->LoadChunk("Audio/General/007_Enemy_Explosion_Standard.wav");
 	ImpactExplosionSound2 = App->sound->LoadChunk("Audio/General/Explosion2.wav");
@@ -141,7 +142,6 @@ bool ModuleParticles::Start() {
 	LaserBeamArea3.Life = 1000;
 
 
-
 	EnemyExplosion.Anim.PushBack({ 0, 396, 32, 32 });
 	EnemyExplosion.Anim.PushBack({67, 396, 32, 32});
 	EnemyExplosion.Anim.PushBack({100, 396, 32, 32 });
@@ -149,6 +149,7 @@ bool ModuleParticles::Start() {
 	EnemyExplosion.Anim.speed = 0.3f;
 	EnemyExplosion.Anim.loop = false;
 	EnemyExplosion.Sprites = Particle2;
+  
 	//Boss
 	BossShoot.Sprites = Particle3;
 	BossShoot.Anim.PushBack({ 129,256, 63, 32 });
@@ -176,8 +177,7 @@ bool ModuleParticles::Start() {
 	BossShootExplosion.Anim.PushBack({ 384, 255, 64, 56 });
 	BossShootExplosion.Anim.speed = 0.15f;
 
-
-	GreenBomb.Sprites = Particle4;
+	GreenBomb.Sprites = Particle6;
 	GreenBomb.Anim.PushBack({235,0,18,17});
 	GreenBomb.Anim.PushBack({235,19,17,17});
 	GreenBomb.Anim.PushBack({236,37,17,17});
@@ -217,10 +217,37 @@ bool ModuleParticles::Start() {
 	HOU_Shot.Life = 2200;
 	HOU_Shot.Speed.x = 0;
 	HOU_Shot.Speed.y = 0;
-	
 
-	
 
+	HOU_Shot_p2.Anim.PushBack({ 117,250,13,13 });
+	HOU_Shot_p2.Anim.speed = 0.2f;
+	HOU_Shot_p2.Anim.loop = true;
+	HOU_Shot_p2.Sprites = Particle1;
+	HOU_Shot_p2.Life = 2200;
+	HOU_Shot_p2.Speed.x = 0;
+	HOU_Shot_p2.Speed.y = 0;
+	
+	BeeShot.Anim.PushBack({261,270,5,5});
+	BeeShot.Anim.PushBack({266,270,5,5});
+	BeeShot.Anim.PushBack({271,270,5,5});
+	BeeShot.Anim.PushBack({276,270,5,5});
+	BeeShot.Anim.loop = true;
+	BeeShot.Life = 3000;
+	BeeShot.Anim.speed = 0.2f;
+	BeeShot.Sprites = Particle2;
+	BeeShot.Speed.x = 0;
+	BeeShot.Speed.y= 0;
+
+	Red_ThrowBall_pl1.Anim.PushBack({0,0,32,32});
+	Red_ThrowBall_pl1.Anim.PushBack({ 32,0,32,32 });
+	Red_ThrowBall_pl1.Anim.PushBack({ 64,0,32,32 });
+	Red_ThrowBall_pl1.Anim.PushBack({ 96,0,32,32 });
+	Red_ThrowBall_pl1.Anim.loop = true;
+
+	Red_ThrowBall_pl1.Anim.speed = 0.2f;
+	Red_ThrowBall_pl1.Sprites = Particle4;
+	Red_ThrowBall_pl1.Speed.x = 0;
+	Red_ThrowBall_pl1.Speed.x = 0;
 	return true;
 
 }
@@ -329,7 +356,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 				if (active[i]->TimesCollided == 0 ) {
 					active[i]->TimesCollided = 1;
 						
-					//AÑADIR AQUI LA DESINTEGRACIÓN DE LAS AREAS DEL LASER CUANDO LOS SPRITES ESTÉN BIÉN (LASER AREA 2)
+					//AÃ‘ADIR AQUI LA DESINTEGRACIÃ“N DE LAS AREAS DEL LASER CUANDO LOS SPRITES ESTÃ‰N BIÃ‰N (LASER AREA 2)
 				}						
 			
 			}

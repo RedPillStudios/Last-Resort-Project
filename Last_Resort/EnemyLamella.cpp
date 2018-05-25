@@ -5,8 +5,8 @@
 #include "ModuleEnemies.h"
 #include "ModulePlayer.h"
 #include "ModuleParticles.h"
-
-
+#include "ModuleRender.h"
+#include "ModulePlayer2.h"
 
 EnemyLamella::EnemyLamella(int x, int y, bool powerUp) : Enemy(x, y) {
 
@@ -41,8 +41,24 @@ EnemyLamella::EnemyLamella(int x, int y, bool powerUp) : Enemy(x, y) {
 	LamellaAnim.PushBack({ 32, 129, 31, 31 });
 	LamellaAnim.PushBack({ 64, 130, 31, 30 });
 	LamellaAnim.PushBack({ 97, 131, 30, 29 }); //Have to make him appear
+	
+	if(App->player->Dead == false){
 
-	sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
+		if (App->player->position.x > position.x)
+			sprites = App->textures->Load("Images/General/Common_enemies_SpriteFlipped.png");
+		else
+			sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
+	}
+	else {
+
+		if (App->player2->positionp2.x > position.x)
+			sprites = App->textures->Load("Images/General/Common_enemies_SpriteFlipped.png");
+		else
+			sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
+	}
+
+
+	
 
 	lastPosX = App->player->position.x;
 	lastPosY = App->player->position.y;
@@ -54,14 +70,22 @@ EnemyLamella::EnemyLamella(int x, int y, bool powerUp) : Enemy(x, y) {
 	animation = &Apearing;
 	type = COLLIDER_ENEMY;
 	PowerUp = powerUp;
-	//collider = App->collision->AddCollider({0,0,32,32}, type, (Module*)App->enemies);
+
 }
 
 void EnemyLamella::Move(){
+
 	position.x++;
 	
 	if (Apearing.Finished() == false) {
-		PlayerPosition = App->player->position;
+
+		if (App->player->Dead == false) {
+
+			PlayerPosition = App->player->position;
+		}
+		else {
+			PlayerPosition = App->player2->positionp2;
+		}
 		
 	}
 	PlayerPosition.x++;
@@ -86,24 +110,4 @@ void EnemyLamella::Move(){
 	if (reachPosition&&Despawing.Finished()==true) {
 		reached = true;
 	}
-	
-/*  if (reachPosition == false) 
-  	  position.x--;
-	
-  	if (position == toGo) 
-	  	reachPosition = true;
-
-	  if (reachPosition == true)
-	  	animation = &Apearing;
-
-		if (App->player->position.x <= position.x)
-			position.x++;
-
-		else
-			position.x--;
-
-		if (App->player->position.y >= position.y)
-			position.y++;
-		else
-			position.y--; */
 }
