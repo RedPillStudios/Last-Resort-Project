@@ -26,11 +26,11 @@ public:
 
 	ModulePlayer2();
 	~ModulePlayer2();
-	
+
 	update_status Update();
-	
+
 	void OnCollision(Collider *c1, Collider *c2);
-	
+
 
 public:
 
@@ -95,7 +95,7 @@ public:
 
 	//shoot selector here
 	int WeaponTypeP2 = 0;
-	
+
 	void ShootSelector(uint shoot) {
 		if (shoot == BASICSHOOTP2) {
 			WeaponTypeP2 = 0;

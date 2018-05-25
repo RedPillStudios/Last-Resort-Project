@@ -2,6 +2,7 @@
 #define MODULEENEMIES_H
 
 #include "Module.h"
+#include "p2Point.h"
 
 //Include here Enemies modules
 
@@ -14,6 +15,7 @@ enum ENEMY_TYPES {
 	ENEMY_RHINO,
 	ENEMY_ZICZAC,
 	ENEMY_LAMELLA,
+	ENEMY_BEE,
 	CARS
 };
 
@@ -24,7 +26,7 @@ struct EnemyInfo {
 	ENEMY_TYPES type = ENEMY_TYPES::NO_TYPE;
 	int x, y;
 	bool PowerUp;
-	
+	fPoint toGo;
 };
 
 
@@ -34,6 +36,9 @@ public:
 
 	ModuleEnemies();
 	~ModuleEnemies();
+	SDL_Texture *sprites;
+	SDL_Texture* carSprites;
+	SDL_Texture* CommonEnemyes;
 
 	bool Start();
 	update_status PreUpdate();
@@ -42,7 +47,7 @@ public:
 	bool CleanUp(); 
 
 	void OnCollision(Collider *c1, Collider *c2);
-	bool AddEnemy(ENEMY_TYPES type, int x, int y,bool PowerUp);
+	bool AddEnemy(ENEMY_TYPES type, int x, int y, bool PowerUp);
 	bool SpawnEnemyCheat = false;
 
 private:

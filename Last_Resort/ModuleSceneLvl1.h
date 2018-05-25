@@ -5,7 +5,9 @@
 #include "Animation.h"
 #include "Globals.h"
 
+#include "SDL/include/SDL_timer.h"
 #include "SDL_mixer/include/SDL_mixer.h"
+#include "SDL/include/SDL.h"
 #pragma comment(lib,"SDL_mixer/libx86/SDL2_mixer.lib")
 
 
@@ -28,6 +30,7 @@ public:
 
 	int position_max_limit = SCREEN_WIDTH;
 	int position_min_limit = 0;
+	int timeFadeInt = SDL_GetTicks();
 
 public:
 	
@@ -53,6 +56,8 @@ public:
 	int posCars = 0;
 	int randomPositionCars = 0;
 	int randomColorCars = 0;
+
+	bool switchMusic = false;
 
 	void StreetlightCreator();
 

@@ -3,10 +3,9 @@ DEBUG FUNCTIONALITIES:
 F1 - Collision Boxes
 F2 - Direct Win
 F3 - Direct Lose
-
+F4 - Boss 1 life
 F5 - God Mode (active/unactive)
 F6 - Wasp Spawn
 F7 - Rhino Spawn
 F8 - ZigZag Spawn
 F9 - Suicide Spawn
-F10 - Boss 1 life
