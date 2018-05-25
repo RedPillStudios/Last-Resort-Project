@@ -14,11 +14,7 @@
 #define ENEMIES_SPEED 5
 #define MAX_POWERUP 10
 
-
-
 struct SDL_Texture;
-
-
 
 enum POWERUP_TYPES {
 	NON,
@@ -44,6 +40,7 @@ public:
 		if (collider != nullptr)
 			collider->to_delete = true;
 	}
+  
 	Animation *animation = nullptr;
 	bool ColorRed;
 	bool ColorBlue;
@@ -69,11 +66,7 @@ public:
 	virtual void OnCollision(Collider *c1) {};
 	fPoint position;
 	POWERUP_TYPES type;
-
-
 };
-
-
 
 class powerUp_Misiles : public powerUp {
 public:
@@ -82,7 +75,6 @@ public:
 	~powerUp_Misiles() {};
 	
 	void OnCollision(Collider *c1) {};
-
 	void Update();
 
 	Animation Red;
@@ -90,9 +82,6 @@ public:
 	fPoint position;
 
 	int timing;
-
-	
-
 };
 
 class powerUp_Laser : public powerUp {

@@ -41,7 +41,6 @@ void powerUp_Misiles::Update() {
 		}
 		timing = 0;
 	}
-
 };
 
 powerUp_Laser::powerUp_Laser(int x, int y) : powerUp(x, y) {
@@ -147,58 +146,47 @@ update_status ModulePowerUp::Update() {
 	for (uint i = 0; i < MAX_POWERUP; ++i)
 		if (PowerUps[i] != nullptr)PowerUps[i]->Draw(PowerUps[i]->sprite);
 
-	//timing++;
-	//if (timing >= 10) {
-	//	if (Module animation == &Red) {
-	//		animation = &Blue;
-	//	}
-	//	else {
-	//		animation = &Red;
-	//	}
-	//	timing = 0;
-	//}
-
 	return UPDATE_CONTINUE;
 }
 
 void ModulePowerUp::OnCollision(Collider *c1, Collider *c2) {
 
 	for (uint i = 0; i < MAX_POWERUP; ++i) {
+		if (c2->type == COLLIDER_PLAYER) {
+			if (PowerUps[i] != nullptr && PowerUps[i]->GetCollider() == c1) {
 
-		if (PowerUps[i] != nullptr && PowerUps[i]->GetCollider() == c1) {
-		
-			PowerUps[i]->OnCollision(c2);
-			if (c2->type == COLLIDER_PLAYER) {
-				App->HOU_Player1->HOU_activated = true;
-				if (PowerUps[i]->ColorBlue==true) {
-					App->HOU_Player1->Blue = true;
-					App->HOU_Player1->Red = false;
+				PowerUps[i]->OnCollision(c2);
+				if (c2->type == COLLIDER_PLAYER) {
+					App->HOU_Player1->HOU_activated = true;
+					if (PowerUps[i]->ColorBlue == true) {
+						App->HOU_Player1->Blue = true;
+						App->HOU_Player1->Red = false;
+					}
+					else if (PowerUps[i]->ColorRed == true) {
+						App->HOU_Player1->Blue = false;
+						App->HOU_Player1->Red = true;
+					}
+					if (PowerUps[i]->type == POWERUP_TYPES::MISILES)
+						App->player->WeaponType = 3;
+					if (PowerUps[i]->type == POWERUP_TYPES::LASER)
+						App->player->WeaponType = 1;
 				}
-				else if (PowerUps[i]->ColorRed==true) {
-					App->HOU_Player1->Blue = false;
-					App->HOU_Player1->Red = true;
+				if (c2->type == COLLIDER_PLAYER2) {
+					App->HOU_Player2->HOU_activated = true;
+					if (PowerUps[i]->type == POWERUP_TYPES::MISILES)
+						App->player2->WeaponTypeP2 = 3;
+					if (PowerUps[i]->type == POWERUP_TYPES::LASER)
+						App->player2->WeaponTypeP2 = 1;
 				}
-				if (PowerUps[i]->type == POWERUP_TYPES::MISILES)
-					App->player->WeaponType = 3;
-				if (PowerUps[i]->type == POWERUP_TYPES::LASER)
-					App->player->WeaponType = 1;
+				//ADD HERE App.player.score += score;
+				delete PowerUps[i];
+				PowerUps[i] = nullptr;
+				break;
 			}
-			if (c2->type == COLLIDER_PLAYER2) {
-				App->HOU_Player2->HOU_activated = true;
-				if (PowerUps[i]->type == POWERUP_TYPES::MISILES)
-					App->player2->WeaponTypeP2 = 3;
-				if (PowerUps[i]->type == POWERUP_TYPES::LASER)
-					App->player2->WeaponTypeP2 = 1;
-			}
-			//ADD HERE App.player.score += score;
-			delete PowerUps[i];
-			PowerUps[i] = nullptr;
-			break;
+
 		}
 	}
 }
-
-
 
 bool ModulePowerUp::AddPowerUp(POWERUP_TYPES type, int x, int y) {
 
@@ -219,7 +207,6 @@ bool ModulePowerUp::AddPowerUp(POWERUP_TYPES type, int x, int y) {
 	return ret;
 }
 
-
 void ModulePowerUp::spawnPowerUp(const PowerUpInfo &info)
 {
 	// find room for the new enemy
@@ -228,8 +215,8 @@ void ModulePowerUp::spawnPowerUp(const PowerUpInfo &info)
 
 	if (i != MAX_POWERUP)
 	{
-		switch (info.type)
-		{
+		switch (info.type)	{
+        
 		case POWERUP_TYPES::MISILES:
 			PowerUps[i] = new powerUp_Misiles(info.x, info.y);
 			break;
