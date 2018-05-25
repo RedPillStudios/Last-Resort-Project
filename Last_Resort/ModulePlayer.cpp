@@ -14,7 +14,7 @@
 #include "ModuleEnemies.h"
 #include "ModuleSceneLvl1.h"
 #include "ModuleStageClear.h"
-
+#include "Module_Hou_Player1.h"
 #include <stdio.h>
 
 ModulePlayer::ModulePlayer()
@@ -141,7 +141,7 @@ bool ModulePlayer::CleanUp() {
 	if (current_animation != nullptr) 
 		current_animation = nullptr;
 
-	App->powerup->HOU_activated = false;
+	App->HOU_Player1->HOU_activated = false;
 
 	App->textures->Unload(graphicsp1);
 	
@@ -160,7 +160,7 @@ update_status ModulePlayer::Update() {
 	
 	position.x += 1;
 
-	int speed = 2;
+	int speed = 4;
 
 	if (current_animation == &Appear) {
 		Ship1Collider->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
@@ -235,7 +235,8 @@ update_status ModulePlayer::Update() {
 				App->fonts->Spawned = true;
 			}
 			if (App->input->keyboard[SDL_SCANCODE_F8] == KEY_STATE::KEY_DOWN) {
-				App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, (App->player->position.x) + 200, App->player->position.y, false);
+				//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, (App->player->position.x) + 200, App->player->position.y, false);
+				App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, (App->player->position.x) + 200, App->player->position.y, false);
 				App->fonts->Spawned = true;
 			}
 			if (App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) {

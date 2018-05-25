@@ -89,6 +89,12 @@
     <ClCompile Include="EnemyBee.cpp">
       <Filter>Modules\Enemies\Bee</Filter>
     </ClCompile>
+    <ClCompile Include="Module_Hou_Player1.cpp">
+      <Filter>Modules\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Module_Hou_Player2.cpp">
+      <Filter>Modules\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Module.h" />
@@ -185,6 +191,12 @@
     <ClInclude Include="Iron_Craw.h" />
     <ClInclude Include="EnemyBee.h">
       <Filter>Modules\Enemies\Bee</Filter>
+    </ClInclude>
+    <ClInclude Include="Module_Hou_Player1.h">
+      <Filter>Modules\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Module_Hou_Player2.h">
+      <Filter>Modules\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
