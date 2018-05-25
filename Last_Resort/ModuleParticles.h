@@ -89,6 +89,9 @@ public:
 	Particle Red_ThrowBall_pl1;
 
 
+	Particle BeeShot;
+	Particle TankBigShoot;
+
 	SDL_Texture *particle0 = nullptr;
 	SDL_Texture *Particle1 = nullptr;
 	SDL_Texture *Particle2 = nullptr;

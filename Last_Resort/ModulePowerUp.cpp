@@ -41,7 +41,6 @@ void powerUp_Misiles::Update() {
 		}
 		timing = 0;
 	}
-
 };
 
 powerUp_Laser::powerUp_Laser(int x, int y) : powerUp(x, y) {
@@ -147,24 +146,13 @@ update_status ModulePowerUp::Update() {
 	for (uint i = 0; i < MAX_POWERUP; ++i)
 		if (PowerUps[i] != nullptr)PowerUps[i]->Draw(PowerUps[i]->sprite);
 
-	//timing++;
-	//if (timing >= 10) {
-	//	if (Module animation == &Red) {
-	//		animation = &Blue;
-	//	}
-	//	else {
-	//		animation = &Red;
-	//	}
-	//	timing = 0;
-	//}
-
 	return UPDATE_CONTINUE;
 }
 
 void ModulePowerUp::OnCollision(Collider *c1, Collider *c2) {
 
 	for (uint i = 0; i < MAX_POWERUP; ++i) {
-
+		if(c2->type == COLLIDER_PLAYER){
 		if (PowerUps[i] != nullptr && PowerUps[i]->GetCollider() == c1) {
 		
 			PowerUps[i]->OnCollision(c2);
@@ -195,10 +183,9 @@ void ModulePowerUp::OnCollision(Collider *c1, Collider *c2) {
 			PowerUps[i] = nullptr;
 			break;
 		}
+		
 	}
 }
-
-
 
 bool ModulePowerUp::AddPowerUp(POWERUP_TYPES type, int x, int y) {
 
@@ -219,7 +206,6 @@ bool ModulePowerUp::AddPowerUp(POWERUP_TYPES type, int x, int y) {
 	return ret;
 }
 
-
 void ModulePowerUp::spawnPowerUp(const PowerUpInfo &info)
 {
 	// find room for the new enemy
@@ -228,8 +214,8 @@ void ModulePowerUp::spawnPowerUp(const PowerUpInfo &info)
 
 	if (i != MAX_POWERUP)
 	{
-		switch (info.type)
-		{
+		switch (info.type)	{
+        
 		case POWERUP_TYPES::MISILES:
 			PowerUps[i] = new powerUp_Misiles(info.x, info.y);
 			break;

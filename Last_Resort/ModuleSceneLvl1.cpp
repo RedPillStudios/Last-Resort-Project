@@ -19,6 +19,7 @@
 #include "ModuleBossLvl1.h"
 #include "Iron_Craw.h"
 #include "ModuleUI.h"
+#include "ModuleTank.h"
 
 ModuleSceneLvl1::ModuleSceneLvl1()
 {
@@ -191,7 +192,7 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1035, 85, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1095, 95, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1075, 65, true);
-
+  
 	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 1075, 65);
 
 	//troop5
@@ -234,11 +235,9 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3320, 75, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3310, 145, true);
 	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3310, 145);
-
 	}
 
 	//WASP->wave4
-
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3700, 145, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3740, 115, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3780, 85, false);
@@ -282,7 +281,7 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6050, 77, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6090, 77, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6130, 77, false);
-  
+
 	// //wave3
 	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5860, 60, false);		WE HAVE TO LOCATE THEM
 	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6960, 60, true);
@@ -293,13 +292,13 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,3560, 145, true);
 	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3560, 145);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, 7560, 60, true);
+  
 	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 7560, 60);
 	
 	return true;
 }
 
 //Unload Assets
-
 bool ModuleSceneLvl1::CleanUp() {
 
 	LOG("Unloaded Lvl 1 Scene  ERROR: ", SDL_GetError());
@@ -491,6 +490,11 @@ update_status ModuleSceneLvl1::Update() {
 
 		if (App->Boss->position.x > App->scene1background->position_min_limit && App->Boss->position.x < App->scene1background->position_max_limit-100)
 			App->Boss->BossMoves = true;
+	}
+	//Tank boos disable
+
+	if (App->BossTank->DestroyTank == true) {
+		App->BossTank->Disable();
 	}
 
 	//Fade if boss is dead

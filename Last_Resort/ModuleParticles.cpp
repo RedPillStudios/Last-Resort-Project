@@ -217,8 +217,34 @@ bool ModuleParticles::Start() {
 	HOU_Shot.Life = 2200;
 	HOU_Shot.Speed.x = 0;
 	HOU_Shot.Speed.y = 0;
+  
+	BeeShot.Anim.PushBack({ 261,270,5,5 });
+	BeeShot.Anim.PushBack({ 266,270,5,5 });
+	BeeShot.Anim.PushBack({ 271,270,5,5 });
+	BeeShot.Anim.PushBack({ 276,270,5,5 });
+	BeeShot.Anim.loop = true;
+	BeeShot.Life = 3000;
+	BeeShot.Anim.speed = 0.2f;
+	BeeShot.Sprites = Particle2;
+	BeeShot.Speed.x = 0;
+	BeeShot.Speed.y = 0;
 
+	TankBigShoot.Anim.PushBack({ 286,266,13,13 });
+	TankBigShoot.Anim.PushBack({ 299,266,13,13 });
+	TankBigShoot.Anim.PushBack({ 312,266,13,13 });
+	TankBigShoot.Anim.PushBack({ 325,266,13,13 });
+	TankBigShoot.Anim.PushBack({ 338,266,13,13 });
+	TankBigShoot.Anim.PushBack({ 351,266,13,13 });
+	TankBigShoot.Anim.PushBack({ 364,266,13,13 });
+	TankBigShoot.Anim.PushBack({ 377,266,13,13 });
+	TankBigShoot.Life = 3000;
+	TankBigShoot.Speed.x = 0;
+	TankBigShoot.Speed.y = 0;
+	TankBigShoot.Anim.loop = true;
+	TankBigShoot.Anim.speed = 0.3;
+	TankBigShoot.Sprites = Particle2;
 
+  //HOU
 	HOU_Shot_p2.Anim.PushBack({ 117,250,13,13 });
 	HOU_Shot_p2.Anim.speed = 0.2f;
 	HOU_Shot_p2.Anim.loop = true;
@@ -337,6 +363,9 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 {
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i)
 	{
+		//BOSS TANK LIFE HERE XDDDD
+		if(c1->type == COLLIDER_PLAYER_SHOT)
+
 
 		// DON'T DESTROY LASERBEAM WHEN COLLIDES
 		
