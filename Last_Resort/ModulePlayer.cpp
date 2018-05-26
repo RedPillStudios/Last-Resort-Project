@@ -160,7 +160,7 @@ update_status ModulePlayer::Update() {
 	
 	position.x += 1;
 
-	int speed = 4;
+	int speed = 2;
 
 	if (current_animation == &Appear) {
 		Ship1Collider->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);

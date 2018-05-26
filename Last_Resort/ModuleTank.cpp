@@ -76,7 +76,7 @@ ModuleTank::~ModuleTank() {}
 
 bool ModuleTank::Start() {
 	//Spawn pos
-	TankPosition = { (400.0), 157.0 };
+	TankPosition = { (3000.0), 157.0 };
 	//anim declarated
 	CorriendoAlTroteAnim = &CorriendoAlTrote;
 	WaitingPosAnim = &WaitingPos;
@@ -173,7 +173,7 @@ update_status ModuleTank::Update() {
 	if (TankPosition.x <= App->scene1background->position_min_limit + 20 && !LimitReached ) {
 		ReachPos1 = true;
 	}
-	if (TankPosition.x > 10000) {
+	if (TankPosition.x > 3600) {
 		LimitReached = true;
 	}
 	if (ReachPos1) {
@@ -414,7 +414,7 @@ void ModuleTank::OnCollision(Collider *c1, Collider *c2) {
 
 		--BossLife;
 		LOG("BOSS LIFE    - 1");
-		if (BossLife < 40 && count == 0) {
+		if (BossLife < 25 && count == 0) {
 			DestroyTurret = true;
 		}
 		if (BossLife <= 0 && count2 ==0) {

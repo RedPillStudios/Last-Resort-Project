@@ -492,7 +492,9 @@ update_status ModuleSceneLvl1::Update() {
 			App->Boss->BossMoves = true;
 	}
 	//Tank boos disable
-
+	if (App->player->IsEnabled() == false && App->player2->IsEnabled() == false) {
+		App->BossTank->DestroyTank == true;
+	}
 	if (App->BossTank->DestroyTank == true) {
 		App->BossTank->Disable();
 	}
