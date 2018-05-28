@@ -17,6 +17,7 @@
 #include "ModuleEnemies.h"
 #include "ModulePowerUp.h"
 #include "ModuleBossLvl1.h"
+#include "Iron_Craw.h"
 #include "ModuleUI.h"
 #include "ModuleTank.h"
 
@@ -59,7 +60,7 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	YellowLight.PushBack({ 312,0,81,143 });
 	YellowLight.PushBack({ 393,0,99,143 });
 	YellowLight.PushBack({ 0,144,121,289 });
-	YellowLight.PushBack({ 121,144,142,289 });//
+	YellowLight.PushBack({ 121,144,142,289 });
 	YellowLight.PushBack({ 0,144,121,289 });
 	YellowLight.PushBack({ 393,0,99,143 });
 	YellowLight.PushBack({ 312,0,81,143 });
@@ -97,12 +98,20 @@ bool ModuleSceneLvl1::Start()
 {
 	LOG("Loading background assets");
 
-	position_max_limit = SCREEN_WIDTH;
-	position_min_limit = 0;
+	if (App->fonts->Checkpoint1 == false) {
 
-	posCars = 0;
+		position_max_limit = SCREEN_WIDTH;
+		position_min_limit = 0;
+		App->render->camera.x = 0;
+		posCars = 0;
+	}
+	else if (App->fonts->Checkpoint1 == true) {
 
-	App->render->camera.x = 0;
+		App->render->camera.x = 9510;
+		App->scene1background->position_max_limit = 3500;
+		App->scene1background->position_min_limit = 3170;
+	}
+
 	//order of position in the game
 	graphics_Crater_Boss_Zone = App->textures->Load("Images/Background_Lvl1/Boss_Static_Background.png");
 	graphics_ThirdPlaneBackground = App->textures->Load("Images/Background_Lvl1/ThirdPlaneBackground.png");
@@ -114,35 +123,46 @@ bool ModuleSceneLvl1::Start()
 
 	//Music
 	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
-	Stage1_Boss_Music = App->sound->LoadMusic("Audio/Stage1/Stage1_Music_Boss.ogg");
+	Stage1_Boss_Music = App->sound->LoadMusic("Audio/Stage1/Stage1_Boss_Music.ogg");
 
 	Mix_PlayMusic(Stage1, -1);
-	Mix_Volume(-1, VOLUME_MUSIC);
+	//Mix_VolumeMusic(MIX_MAX_VOLUME/3);
+
+	App->fonts->P1Life = 3;
+	App->fonts->P2Life = 3;
+	App->fonts->ScoreP1 = 0;
+	App->fonts->ScoreP2 = 0;
 
 	if (IsEnabled()) {
-		App->fonts->Enable();
 		App->enemies->Enable();
 		App->powerup->Enable();
 		App->Boss->Enable();
 		App->collision->Enable();
 		App->particles->Enable();
+		App->MiniBoss->Enable();
 	}
 	if (App->player->IsEnabled() == false && App->fonts->P1Life > 0) {
 		App->player->Enable();
 		App->player->resetPosition();
 	}
-	if (App->player2->IsEnabled() == false && App->fonts->P2Life >0) {
+	if (App->player2->IsEnabled() == false && App->fonts->P2Life > 0) {
 		App->player2->Enable();
 		App->player2->resetPosition2();
 	}
-	
+
 
 	//Enemies
 	//WASP->Wave1{
 	//troop1
-	App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 200, 150);
+	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 200, 150);
 
+  //Bees
+	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
+  App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);
+  
+ //Wasps
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60,false);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 540, 75, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 580, 60, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 580, 145, true);
@@ -172,8 +192,8 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1035, 85, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1095, 95, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1075, 65, true);
-
-	App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 1075, 65);
+  
+	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 1075, 65);
 
 	//troop5
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1155, 20, false);
@@ -206,17 +226,18 @@ bool ModuleSceneLvl1::Start()
 	//}
 
 	//WASP->Wave3{
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP,3200, 112, false);
+	if(App->fonts->Checkpoint1 == false){
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3200, 112, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3240, 145, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3265, 112, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3280, 90, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3320, 75, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3310, 145, true);
-	App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 3310, 145);
-	//}
+	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3310, 145);
+	}
 
 	//WASP->wave4
-
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3700, 145, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3740, 115, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3780, 85, false);
@@ -238,12 +259,7 @@ bool ModuleSceneLvl1::Start()
 
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8150, 50, false);
 
-
-
 	//Rhino->Wave1
-	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 525, 75);
-		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 570, 75);*/
-
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2425,75, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2470, 75, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2515, 75, false);
@@ -258,36 +274,31 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2920, 75, false);
 
 	//Wave2
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5500, 77, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5540, 77, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5580, 77, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5620, 77, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5660, 77, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5700, 77, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5740, 77, false);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5890, 77, false);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5930, 77, false);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5970, 77, false);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6010, 77, false);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6050, 77, false);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6090, 77, false);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6130, 77, false);
 
-	App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 5740, 77);
-  
-	 //wave3
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5860, 60, false);//these are not well located!!!!!!!!!!!!!!!!!!!!!!!!
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6960, 60, true);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 7060, 60, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 7160, 60, false);
+	// //wave3
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5860, 60, false);		WE HAVE TO LOCATE THEM
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6960, 60, true);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 7060, 60, false);
+	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 7160, 60, false);
 
 	//ZICZAC
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,3560, 145, true);
-	App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 3560, 145);
+	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3560, 145);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, 7560, 60, true);
-	App->powerup->AddPowerUp(POWERUP_TYPES::MISSILES_P, 7560, 60);
-
-	////Lamella
-	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, 500, 60, false);
+  
+	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 7560, 60);
 	
 	return true;
 }
 
 //Unload Assets
-
 bool ModuleSceneLvl1::CleanUp() {
 
 	LOG("Unloaded Lvl 1 Scene  ERROR: ", SDL_GetError());
@@ -310,7 +321,8 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->particles->Disable();
 	App->enemies->Disable();
 
-	if(App->Boss->IsEnabled())
+	if (App->Boss->IsEnabled())
+		App->MiniBoss->Disable();
 		App->Boss->Disable();
 
 	App->Boss->BossMoves = false;
@@ -341,10 +353,75 @@ update_status ModuleSceneLvl1::Update() {
 	if (App->input->keyboard[SDL_SCANCODE_F3])
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 3.0f);
 
-
 	//camera Mov
-	App->render->camera.x += 1*SCREEN_SIZE;
+	App->render->camera.x += SCREEN_SIZE;
 
+	//LAMELLA SPAWNERS
+	if (position_min_limit == 3950)
+	{
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 33, 26, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 33, 74, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 33, 123, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 33, 171, false);
+
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 260, 26, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 260, 74, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 260, 123, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 260, 171, false);
+
+	}
+
+	if (position_min_limit == 4400)
+	{
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 40, 97, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 56, 52, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 104, 32, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 152, 24, false);
+
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 202, 32, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 250, 52, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 266, 97, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 250, 142, false);
+
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 200, 162, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 152, 170 , false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 104, 162, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 56, 142, false);
+
+	}
+
+	if (position_min_limit == 4850)
+	{
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 39, 25, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 87, 33, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 136, 57, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 200, 82, false);
+
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 249, 65, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 265, 25, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 265, 170, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 216, 162, false);
+
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 168, 138, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 103, 114, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 55, 130, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 39, 170, false);
+
+	}
+
+	if (position_min_limit == 5300)
+	{
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 33, 26, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 33, 74, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 33, 123, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 33, 171, false);
+
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 260, 26, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 260, 74, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 260, 123, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, position_min_limit + 260, 171, false);
+
+	}
 	
 	//background
 	App->render->Blit(graphics_Crater_Boss_Zone, 0, 0, &CraterBossZone, 0.0f);
@@ -381,23 +458,25 @@ update_status ModuleSceneLvl1::Update() {
 
 	
 	//BOSS Music
+	if (position_max_limit == 8900) {
+		
+		timeFadeInt = SDL_GetTicks();
+		
+		Mix_FadeOutMusic(3000);
 
-	//if (App->player->position.x >= 600) {
-	//	Mix_FadeOutMusic(3000);
-	//
-	//	while (Mix_FadeOutMusic(3000)<3000 && Mix_PlayingMusic()) {
-	//		// wait for any fades to complete
-	//		SDL_Delay(100);
-	//	}	
-	//	//Mix_FadeInMusciPos();
-
-	//}
+		switchMusic = true;
+	}
 	
+	if (position_max_limit > 8900 && timeFadeInt < SDL_GetTicks() - 3300 && switchMusic == true) {
+			
+		Mix_FadeInMusic(Stage1_Boss_Music, -1, 3000);
 
-	// FADE IF NOT ENOUGHT COINS
+		switchMusic = false;
+	}
+
+	// FADE IF NO MORE LIVES
 	if (App->fonts->P1Life <= 0 && App->fonts->P2Life <= 0 && App->player->Dead == true && App->player2->Dead == true) {
 
-		App->fonts->Disable();
 		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f); 
 		Mix_FadeOutMusic(3000);
 		
@@ -413,7 +492,9 @@ update_status ModuleSceneLvl1::Update() {
 			App->Boss->BossMoves = true;
 	}
 	//Tank boos disable
-
+	if (App->player->IsEnabled() == false && App->player2->IsEnabled() == false) {
+		App->BossTank->DestroyTank == true;
+	}
 	if (App->BossTank->DestroyTank == true) {
 		App->BossTank->Disable();
 	}
@@ -423,14 +504,14 @@ update_status ModuleSceneLvl1::Update() {
 
   		//App->player->TopScore += 10000;
 		App->Boss->Disable();
-		App->fonts->Disable();
 		App->fade->FadeToBlack(App->scene1background, App->stageclear, 1.0f);
 		
-		
 	}
-	if(App->BossTank->CleanUpDone == true){
-		App->BossTank->Disable();
-	}
+
+	//Checkpoints
+	if (position_max_limit == 3500)
+		App->fonts->Checkpoint1 = true;
+
 	return UPDATE_CONTINUE;
 }
 

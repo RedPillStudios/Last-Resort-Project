@@ -3,6 +3,7 @@
 
 #include "Enemy.h"
 #include "Animation.h"
+#include "ModuleCollision.h"
 
 struct SDL_Texture;
 
@@ -15,9 +16,22 @@ public:
 
 private:
 
+	int StartAttack;
+	int changeCollider;
+
+	COLLIDER_TYPE type;
+
+	bool reachPosition = false;
+	
+	iPoint PlayerPosition;
+
+	Animation Despawing;
+	Animation Arriving;
+	Animation Apearing;
 	Animation LamellaAnim;
 	uint lastPosX;
 	uint lastPosY;
 };
 
 #endif
+

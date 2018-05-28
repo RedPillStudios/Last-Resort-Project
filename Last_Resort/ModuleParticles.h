@@ -75,14 +75,18 @@ public:
 	Particle Laser2;
 	Particle ShootExplosionLaser2; // estas dos son para el segundo tipo de disparo
 	Particle HOU_Shot;
+	Particle HOU_Shot_p2;
 	Particle MissilePower;
 	Particle MissilePowerPatter2;
+	Particle FogExplosion;
 
 	Particle LaserBeam;
 	Particle LaserBeamExplosion;
 	Particle LaserBeamArea1;
 	Particle LaserBeamArea2;
-	Particle LaserBeamArea3;
+	Particle LaserBeamArea3; 
+	Particle Red_ThrowBall_pl1;
+
 
 	Particle BeeShot;
 	Particle TankBigShoot;
@@ -91,14 +95,20 @@ public:
 	SDL_Texture *Particle1 = nullptr;
 	SDL_Texture *Particle2 = nullptr;
 	SDL_Texture *Particle3 = nullptr;
+	SDL_Texture *Particle4 = nullptr;
+	SDL_Texture *Particle5 = nullptr;
+  SDL_Texture *Particle6 = nullptr;
 
 	//Boss Shoot
 	Particle BossShoot;
 	Particle BossCoolDown;
 	Particle BossShootExplosion;
-
+	Particle GreenBomb;
 
 	Mix_Chunk *ImpactExplosionSound;
+	Mix_Chunk *ImpactExplosionSound2;
+
+	int randomExplosionSound;
 
 	uint Enemies_Weapon = 0;
 	uint Enemies_Speed = 0;

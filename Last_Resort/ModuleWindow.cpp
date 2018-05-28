@@ -43,7 +43,7 @@ bool ModuleWindow::Init()
 		if(WIN_FULLSCREEN_DESKTOP == true)
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 
-		window = SDL_CreateWindow("LAST RESORT v0.7", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_RESIZABLE);
+		window = SDL_CreateWindow("LAST RESORT v0.8", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_RESIZABLE);
 
 		if(window == NULL) {
 			LOG("Window could not be created! SDL_Error: %s\n", SDL_GetError());

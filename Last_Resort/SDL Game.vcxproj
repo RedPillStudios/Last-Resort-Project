@@ -76,11 +76,13 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="CarsToFast.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyBee.h" />
     <ClInclude Include="EnemyLamella.h" />
     <ClInclude Include="EnemyRhino.h" />
     <ClInclude Include="EnemyWasp.h" />
     <ClInclude Include="EnemyZicZac.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="Iron_Craw.h" />
     <ClInclude Include="MemLeaks.h" />
     <ClInclude Include="Module.h" />
     <ClInclude Include="ModuleBossLvl1.h" />
@@ -103,17 +105,21 @@
     <ClInclude Include="ModuleStageClear.h" />
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="ModuleWindow.h" />
+    <ClInclude Include="Module_Hou_Player1.h" />
+    <ClInclude Include="Module_Hou_Player2.h" />
     <ClInclude Include="p2Point.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="CarsToFast.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyBee.cpp" />
     <ClCompile Include="EnemyLamella.cpp" />
     <ClCompile Include="EnemyRhino.cpp" />
     <ClCompile Include="EnemyWasp.cpp" />
     <ClCompile Include="EnemyZicZac.cpp" />
     <ClCompile Include="Globals.cpp" />
+    <ClCompile Include="Iron_Craw.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="ModuleBossLvl1.cpp" />
     <ClCompile Include="ModuleCollision.cpp" />
@@ -135,6 +141,8 @@
     <ClCompile Include="ModuleStageClear.cpp" />
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
+    <ClCompile Include="Module_Hou_Player1.cpp" />
+    <ClCompile Include="Module_Hou_Player2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

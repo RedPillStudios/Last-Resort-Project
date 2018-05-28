@@ -19,7 +19,7 @@ public:
 	Animation CarBlue;
 	int randomColorCars = 0;
 
-	CarsToFast(int x, int y);
+	CarsToFast(int x, int y,ENEMY_TYPES type_);
 	void Move();
 };
 

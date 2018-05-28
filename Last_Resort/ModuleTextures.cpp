@@ -64,7 +64,7 @@ SDL_Texture* const ModuleTextures::Load(const char* path)
 	}
 	else
 	{
-		texture = SDL_CreateTextureFromSurface(App->render->renderer, surface);
+	texture = SDL_CreateTextureFromSurface(App->render->renderer, surface);
 
 		if (texture == nullptr)
 		{
@@ -97,7 +97,7 @@ bool ModuleTextures::Unload(SDL_Texture* texture)
 	{
 		if (texture == textures[i]) {
 
-				SDL_DestroyTexture(textures[i]);
+ 				SDL_DestroyTexture(textures[i]);
 				textures[i] = nullptr;
 				ret = true;
 				break;

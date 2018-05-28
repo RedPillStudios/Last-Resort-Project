@@ -14,18 +14,14 @@
 #define ENEMIES_SPEED 5
 #define MAX_POWERUP 10
 
-
-
 struct SDL_Texture;
-
-
 
 enum POWERUP_TYPES {
 	NON,
 	BLUE,
+	MISILES,
 	LASER,
-	SPEED,
-	MISSILES_P
+	SPEED
 };
 
 struct PowerUpInfo {
@@ -44,13 +40,18 @@ public:
 		if (collider != nullptr)
 			collider->to_delete = true;
 	}
+  
 	Animation *animation = nullptr;
+	bool ColorRed;
+	bool ColorBlue;
+
 	Collider *collider = nullptr;
 
 
 	const Collider* GetCollider() const {
 		return collider;
 	}
+
 
 	virtual void Draw(SDL_Texture *sprites) {
 
@@ -61,30 +62,26 @@ public:
 			App->render->Blit(sprites, position.x, position.y, &(animation->GetCurrentFrame()));
 	};
 
-	virtual void Move() {};
+	virtual void Update() {};
 	virtual void OnCollision(Collider *c1) {};
 	fPoint position;
 	POWERUP_TYPES type;
-
-
 };
 
-
-
-class powerUp_Missiles : public powerUp {
+class powerUp_Misiles : public powerUp {
 public:
 
-	powerUp_Missiles(int x, int y);
-	~powerUp_Missiles() {};
+	powerUp_Misiles(int x, int y);
+	~powerUp_Misiles() {};
 	
 	void OnCollision(Collider *c1) {};
-	
-	Animation ChangeColor1;
+	void Update();
+
+	Animation Red;
+	Animation Blue;
 	fPoint position;
 
-
-	
-
+	int timing;
 };
 
 class powerUp_Laser : public powerUp {
@@ -94,9 +91,14 @@ public:
 	~powerUp_Laser() {};
 	
 	void OnCollision(Collider *c1) {};
+	Animation Red;
+	Animation Blue;
 	Animation ChangeColor;
 	fPoint position;
 
+	void Update();
+
+	int timing;
 
 
 };
@@ -116,76 +118,15 @@ public:
 
 public:
 
-
-	//int Angle;
-	float HOU_Direction;
-	float HOU_Speed=5;
-	iPoint shipCenter;
-	iPoint HOU_position;
-	iPoint HOU_LastPosition;
-	int HOU_Charge;
-	int HOU2_Charge;
-
-	bool Up;
-	bool Down;
-	bool Left;
-	bool Right;
-	bool Throw=false;
-	bool Throw2 = false;
-	bool Throwing=false;
-	bool Throwing2 = false;
-	bool ReturnPosition=true;
-	bool ReturnPosition2 = true;
-	bool HOUreachPosition=false;
-	bool HOUreachPosition2 = false;
-	
-
-	bool fixed;
-
-	bool HOU_activated;
-	bool HOU2_activated;
-	//void PowerUpAppear();
-
-	SDL_Texture *HOU_Texture;
-
-	SDL_Texture *Charge_texture;
-
 	Mix_Chunk *PickUpSpeed;
 	Mix_Chunk *PickUpWeapon;
 
-	Collider *colliderHUB = nullptr;
-
-	//animation sequences HOU
-	Animation HOU_Front;
-	Animation HOU_Front_Up_Down;
-	Animation HOU_Front_Up;
-	Animation HOU_Front_Up_Up;
-	Animation HOU_Front_Down_Up;
-	Animation HOU_Front_Down;
-	Animation HOU_Front_Down_Down;
-	Animation HOU_Back;
-	Animation HOU_Back_Up_Up;
-	Animation HOU_Back_UP;
-	Animation HOU_Back_Up_Down;
-	Animation HOU_Back_Down_Down;
-	Animation HOU_Back_Down;
-	Animation HOU_Back_Down_Up;
-	Animation HOU_Down;
-	Animation HOU_UP;
-	Animation Charge;
-	Animation Throw_Ball;
-
-
 	Animation *Power_Up_animation = nullptr;
 	Animation *current_animation = nullptr;
-	Animation *Charge_animation = nullptr;
 
 	bool AddPowerUp(POWERUP_TYPES type, int x, int y);
 	void OnCollision(Collider *c1, Collider *c2);
 	void spawnPowerUp(const PowerUpInfo &info);
-	void throwHOU();
-	void returnHOU();
-	void Hou_Movement();
 
 	PowerUpInfo queue[MAX_POWERUP];
 	powerUp* PowerUps[MAX_POWERUP];

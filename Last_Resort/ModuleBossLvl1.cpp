@@ -78,7 +78,7 @@ ModuleBossLvl1::ModuleBossLvl1() {
 	AnimPotbelly.speed = 0.2f;
 
 }
-
+ 
 ModuleBossLvl1::~ModuleBossLvl1() {}
 
 bool ModuleBossLvl1::Start() {
@@ -122,7 +122,6 @@ bool ModuleBossLvl1::CleanUp() {
 	current_head = nullptr;
 
 	App->textures->Unload(Boss);
-	App->fonts->UnLoadFont(font);
 	return true;
 }
 
@@ -134,9 +133,9 @@ update_status ModuleBossLvl1::Update() {
 	Left_Arm->SetPos(position.x - 14, position.y + 8);
 	Body->SetPos(position.x, position.y);
 
-	if (BossMoves){
+	if (BossMoves)
 		position.x++;
-}
+
 	App->render->Blit(Boss, position.x + 10, position.y + 79, &current_eye->GetCurrentFrame());
 	App->render->Blit(Boss, position.x + 8, position.y - 20, &current_head->GetCurrentFrame());
 	App->render->Blit(Boss, position.x - 14, position.y + 8, &AnimArm.GetCurrentFrame());
@@ -145,20 +144,16 @@ update_status ModuleBossLvl1::Update() {
 
 	Shooting();
 	//Charge();
+
 	if (SDL_GetTicks() >= AppearTime) {
 		TimeCounter = true;
 		ShootSpawned = true;
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN)
+	if (App->input->keyboard[SDL_SCANCODE_F4] == KEY_STATE::KEY_DOWN) {
+
 		boss1life = true;
-	
-
-	if (boss1life) {
-
 		life = 1;
-		App->fonts->BlitText((SCREEN_WIDTH/2)-32, SCREEN_HEIGHT - 10, font, "B0SS");
-		App->fonts->BlitText((SCREEN_WIDTH/2), SCREEN_HEIGHT - 10, font, "1LIFE");
 	}
 
 	return UPDATE_CONTINUE;
@@ -176,7 +171,6 @@ void ModuleBossLvl1::OnCollision(Collider *c1, Collider *c2) {
 					App->fonts->ScoreP2 += 5000;
  					dead = true;
 		}
-		
 	}
 }
 
@@ -213,14 +207,9 @@ void ModuleBossLvl1::Charge() {
 			TimeCounter = false;
 		}
 
-		if (SDL_GetTicks() >= AppearTime2) {
+		if (SDL_GetTicks() <= AppearTime2) {
 
 			Left = true;
-
-			if (Left)
-				position.x -= Speed;
-			if (Right)
-				position.x += Speed;
 
 			if (position.x <= (100 + App->scene1background->position_min_limit) && Left) {
 				Left = false;
@@ -228,6 +217,11 @@ void ModuleBossLvl1::Charge() {
 			}
 			if (Right && position.x == (220 + App->scene1background->position_min_limit))
 				Right = false;
+
+			if (Left)
+				position.x -= Speed;
+			if (Right)
+				position.x += Speed;
 		}
 	}
 	

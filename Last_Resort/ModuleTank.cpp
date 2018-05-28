@@ -77,6 +77,7 @@ ModuleTank::~ModuleTank() {}
 bool ModuleTank::Start() {
 	//Spawn pos
 	TankPosition = { (3400.0), 157.0 };
+
 	//anim declarated
 	CorriendoAlTroteAnim = &CorriendoAlTrote;
 	WaitingPosAnim = &WaitingPos;
@@ -164,7 +165,7 @@ update_status ModuleTank::Update() {
 		if (!DestroyTurret) {
 			App->render->Blit(BossTank, TankPosition.x + 47, TankPosition.y - 3 + Trote, &BigTurretPos1Anim->GetCurrentFrame()); // torreta grande
 		}
-		App->render->Blit(BossTank, TankPosition.x + 83, TankPosition.y + 3 + Trote, &LittleTurretPos1Anim->GetCurrentFrame()); // torreta pequeÒa
+		App->render->Blit(BossTank, TankPosition.x + 83, TankPosition.y + 3 + Trote, &LittleTurretPos1Anim->GetCurrentFrame()); // torreta peque√±a
 		if (TankPosition.x <= App->scene1background->position_min_limit + 100) {
 			//App->render->Blit(BossTank, Position.x + 13, Position.y + 22 + Trote, &LidoaTankEngineAnim->GetCurrentFrame());
 		}
@@ -173,7 +174,7 @@ update_status ModuleTank::Update() {
 	if (TankPosition.x <= App->scene1background->position_min_limit + 20 && !LimitReached ) {
 		ReachPos1 = true;
 	}
-	if (TankPosition.x > 10000) {
+	if (TankPosition.x > 3600) {
 		LimitReached = true;
 	}
 	if (ReachPos1) {
@@ -414,7 +415,7 @@ void ModuleTank::OnCollision(Collider *c1, Collider *c2) {
 
 		--BossLife;
 		LOG("BOSS LIFE    - 1");
-		if (BossLife < 40 && count == 0) {
+		if (BossLife < 25 && count == 0) {
 			DestroyTurret = true;
 		}
 		if (BossLife <= 0 && count2 ==0) {
