@@ -99,17 +99,7 @@ public:
 	//shoot selector here
 	int WeaponType = 0;
 
-	void ShootSelector(uint shoot) {
-		if (shoot == BASICSHOOT) {
-			WeaponType = 1;
-		}
-		else if (shoot == LASERSHOOT) {
-			WeaponType = 2;
-		}
-		else if (shoot == MISSILES) {
-			WeaponType = 3;
-		}
-	};
+	void ShootSelector(uint shoot);
 };
 
 #endif

@@ -279,3 +279,15 @@ void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 		}
 	}
 }
+
+void ModulePlayer2::ShootSelector(uint shoot) {
+	if (shoot == BASICSHOOTP2) {
+		WeaponTypeP2 = 0;
+	}
+	else if (shoot == LASERSHOOTP2) {
+		WeaponTypeP2 = 2;
+	}
+	else if (shoot == MISSILESP2) {
+		WeaponTypeP2 = 3;
+	}
+}

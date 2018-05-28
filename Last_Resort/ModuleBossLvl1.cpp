@@ -179,15 +179,25 @@ void ModuleBossLvl1::Shooting() {
 	if (ShootSpawned) {
 		if (TimeCounter) {
 
+			current_eye = &AnimOpenEye;
 			AppearTime = SDL_GetTicks() + 5000;
+			beAttacked = true;
 
-			App->particles->AddParticle(App->particles->BossShoot, position.x + 20, position.y + 74, COLLIDER_ENEMY_SHOT);
-			App->particles->AddParticle(App->particles->BossCoolDown, position.x - 20, position.y + 73, COLLIDER_NONE, 280);
-			App->particles->AddParticle(App->particles->BossShootExplosion, position.x - 10, position.y + 59);
+			if (AnimOpenEye.Finished() == true) {
 
-			App->particles->AddParticle(App->particles->BossShoot, position.x + 20, position.y + 74, COLLIDER_ENEMY_SHOT, 500);
-			App->particles->AddParticle(App->particles->BossCoolDown, position.x - 20, position.y + 73, COLLIDER_NONE, 780);
-			App->particles->AddParticle(App->particles->BossShootExplosion, position.x - 10, position.y + 59, COLLIDER_NONE, 500);
+				App->particles->AddParticle(App->particles->BossShoot, position.x + 20, position.y + 74, COLLIDER_ENEMY_SHOT);
+				App->particles->AddParticle(App->particles->BossCoolDown, position.x - 20, position.y + 73, COLLIDER_NONE, 280);
+				App->particles->AddParticle(App->particles->BossShootExplosion, position.x - 10, position.y + 59);
+
+				App->particles->AddParticle(App->particles->BossShoot, position.x + 20, position.y + 74, COLLIDER_ENEMY_SHOT, 500);
+				App->particles->AddParticle(App->particles->BossCoolDown, position.x - 20, position.y + 73, COLLIDER_NONE, 780);
+				App->particles->AddParticle(App->particles->BossShootExplosion, position.x - 10, position.y + 59, COLLIDER_NONE, 500);
+			}
+
+			current_eye = &AnimCloseEye;
+
+			if (AnimCloseEye.Finished()  == true)
+				current_eye = &AnimClosedEye;
 
 			TimeCounter = false;
 			ShootSpawned = false;

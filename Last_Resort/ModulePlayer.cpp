@@ -174,7 +174,6 @@ update_status ModulePlayer::Update() {
 	}
 		if (current_animation != &DestroyShip && Appear.Finished()&& (current_animation != &Up ))
 			current_animation = &Standard;
-		
 
 		if (!Dead&& current_animation != &Appear) {
 			//Movement Up
@@ -282,16 +281,9 @@ update_status ModulePlayer::Update() {
 					if (WeaponType == Shoots::LASERSHOOT && ShootTimer3 < SDL_GetTicks() - 650) {
 
 						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x -16, setFirePos().y + 3, COLLIDER_PLAYER_LASERBEAM_SHOT);
-
 						App->particles->AddParticle(App->particles->LaserBeamExplosion, setFirePos().x, setFirePos().y, COLLIDER_NONE);
-
 						App->particles->AddParticle(App->particles->LaserBeamArea1, setFirePos().x + 5, setFirePos().y - 10, COLLIDER_NONE);
-
-						for (int i = SDL_GetTicks(); i > SDL_GetTicks() + 50; i++) {
-							
-						}
 						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x, setFirePos().y - 11, COLLIDER_PLAYER_LASERBEAM_AREA_SHOT, 100 - 30);
-						
 						
 						Mix_PlayChannel(-1, LasserBeam_Sound, 0);
 						
@@ -331,5 +323,17 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 				--(App->fonts->P1Life);
 
 		}
+	}
+}
+
+void ModulePlayer::ShootSelector(uint shoot) {
+	if (shoot == BASICSHOOT) {
+		WeaponType = 1;
+	}
+	else if (shoot == LASERSHOOT) {
+		WeaponType = 2;
+	}
+	else if (shoot == MISSILES) {
+		WeaponType = 3;
 	}
 }
