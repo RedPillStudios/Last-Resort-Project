@@ -76,7 +76,8 @@ ModuleTank::~ModuleTank() {}
 
 bool ModuleTank::Start() {
 	//Spawn pos
-	TankPosition = { (3000.0), 157.0 };
+	TankPosition = { (3400.0), 157.0 };
+
 	//anim declarated
 	CorriendoAlTroteAnim = &CorriendoAlTrote;
 	WaitingPosAnim = &WaitingPos;
@@ -164,7 +165,7 @@ update_status ModuleTank::Update() {
 		if (!DestroyTurret) {
 			App->render->Blit(BossTank, TankPosition.x + 47, TankPosition.y - 3 + Trote, &BigTurretPos1Anim->GetCurrentFrame()); // torreta grande
 		}
-		App->render->Blit(BossTank, TankPosition.x + 83, TankPosition.y + 3 + Trote, &LittleTurretPos1Anim->GetCurrentFrame()); // torreta pequeÒa
+		App->render->Blit(BossTank, TankPosition.x + 83, TankPosition.y + 3 + Trote, &LittleTurretPos1Anim->GetCurrentFrame()); // torreta peque√±a
 		if (TankPosition.x <= App->scene1background->position_min_limit + 100) {
 			//App->render->Blit(BossTank, Position.x + 13, Position.y + 22 + Trote, &LidoaTankEngineAnim->GetCurrentFrame());
 		}
