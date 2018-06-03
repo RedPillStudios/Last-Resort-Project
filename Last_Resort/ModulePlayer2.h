@@ -96,6 +96,16 @@ public:
 	//shoot selector here
 	int WeaponTypeP2 = 0;
 	void ShootSelector(uint shoot);
+
+	//POWERUP Levels
+	bool Lvl0 = true;
+	bool Lvl1 = false;
+
+	bool Lvl2_Laser = false;
+	bool Lvl3_Laser = false;
+
+	bool Lvl2_Missile = false;
+	bool Lvl3_Missile = false;
 };
 
 #endif

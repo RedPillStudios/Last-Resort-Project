@@ -258,14 +258,103 @@ void ModulePowerUp::OnCollision(Collider *c1, Collider *c2) {
 
 				}
 
+				//PLAYER 2
 				if (c2->type == COLLIDER_PLAYER2) {
 
-					App->HOU_Player2->HOU_activated = true;
+					//LVL 0 (HAVING NOTHING) --> HOU ACTIVATED
+					if (App->player2->Lvl0) {
 
-					if (PowerUps[i]->type == POWERUP_TYPES::MISILES)
-						App->player2->WeaponTypeP2 = 3;
-					if (PowerUps[i]->type == POWERUP_TYPES::LASER)
-						App->player2->WeaponTypeP2 = 2;
+						App->HOU_Player2->HOU_activated = true;
+
+						if (PowerUps[i]->ColorBlue == true) {
+							App->HOU_Player2->Blue = true;
+							App->HOU_Player2->Red = false;
+						}
+
+						else if (PowerUps[i]->ColorRed == true) {
+
+							App->HOU_Player2->Blue = false;
+							App->HOU_Player2->Red = true;
+						}
+
+						App->player2->Lvl0 = false;
+						App->player2->Lvl1 = true;
+					}
+
+					//LVL 1 (HAVING HOU) --> LVL2 Missiles OR LVL2 Laser ACTIVATED
+					else if (App->player2->Lvl1) {
+
+						if (PowerUps[i]->type == POWERUP_TYPES::MISILES) {
+							App->player2->WeaponTypeP2 = 3;
+							App->player2->Lvl1 = false;
+							App->player2->Lvl2_Missile = true;
+						}
+
+						else if (PowerUps[i]->type == POWERUP_TYPES::LASER) {
+
+							App->player2->WeaponTypeP2 = 2;
+							App->player2->Lvl1 = false;
+							App->player2->Lvl2_Laser = true;
+						}
+					}
+
+					//LVL2 LASER --> LVL3 Laser OR LVL2 Missiles ACTIVATED
+					else if (App->player2->Lvl2_Laser) {
+
+						if (PowerUps[i]->type == POWERUP_TYPES::LASER) {
+
+							App->player2->WeaponTypeP2 = 2;
+							App->player2->Lvl3_Laser = true;
+							App->player2->Lvl2_Laser = false;
+						}
+
+						else if (PowerUps[i]->type == POWERUP_TYPES::MISILES) {
+
+							App->player2->WeaponTypeP2 = 3;
+							App->player2->Lvl2_Missile = true;
+							App->player2->Lvl2_Laser = false;
+						}
+					}
+
+					//LVL2 MISSILE --> LVL3 Missile OR LVL2 Laser ACTIVATED
+					else if (App->player2->Lvl2_Missile) {
+
+						if (PowerUps[i]->type == POWERUP_TYPES::LASER) {
+
+							App->player2->WeaponTypeP2 = 2;
+							App->player2->Lvl2_Laser = true;
+							App->player2->Lvl2_Missile = false;
+						}
+
+						else if (PowerUps[i]->type == POWERUP_TYPES::MISILES) {
+
+							App->player2->WeaponTypeP2 = 3;
+							App->player2->Lvl3_Missile = true;
+							App->player2->Lvl2_Missile = false;
+						}
+					}
+
+					//LVL3 LASER --> LVL2 Missile ACTIVATED
+					else if (App->player2->Lvl3_Laser) {
+
+						if (PowerUps[i]->type == POWERUP_TYPES::MISILES) {
+
+							App->player2->WeaponTypeP2 = 3;
+							App->player2->Lvl2_Missile = true;
+							App->player2->Lvl3_Laser = false;
+						}
+					}
+
+					//LVL3 MISSILE --> LVL2 Laser ACTIVATED
+					else if (App->player2->Lvl3_Missile) {
+
+						if (PowerUps[i]->type == POWERUP_TYPES::LASER) {
+
+							App->player2->WeaponTypeP2 = 2;
+							App->player2->Lvl3_Missile = false;
+							App->player2->Lvl2_Laser = true;
+						}
+					}
 				}
 
 				delete PowerUps[i];
