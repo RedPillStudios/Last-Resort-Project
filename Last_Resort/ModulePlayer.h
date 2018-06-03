@@ -17,8 +17,8 @@ enum Shoots
 	BASICLASERSHOOT,
 	LASERSHOOT,
 	MISSILES,
-	LASERSHOOTAREA
-	
+	LASERSHOOTAREA,
+	BASICMISSILES
 };
 
 class ModulePlayer : public Module
@@ -96,10 +96,20 @@ public:
 			int position_min_limit = 0;
 		}
 public:
+
 	//shoot selector here
 	int WeaponType = 0;
-
 	void ShootSelector(uint shoot);
+
+	//POWERUP Levels
+	bool Lvl0 = true;
+	bool Lvl1 = false;
+
+	bool Lvl2_Laser = false;
+	bool Lvl3_Laser = false;
+
+	bool Lvl2_Missile = false;
+	bool Lvl3_Missile = false;
 };
 
 #endif

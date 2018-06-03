@@ -148,7 +148,7 @@ bool ModulePlayer::CleanUp() {
 	App->sound->UnloadChunks(Shot_Sound);
 	App->sound->UnloadChunks(MissilePower_Sound);
 	App->sound->UnloadChunks(LasserBeam_Sound);
-
+	
 	if (GOD)
 		GOD = !GOD;
 
@@ -253,9 +253,6 @@ update_status ModulePlayer::Update() {
 					GOD = true;
 			}
 				
-
-		
-
 			//Shoot with timer:
 			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN ) {
 				if (ShootTimer1 < SDL_GetTicks() - 150) {
@@ -327,13 +324,12 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 }
 
 void ModulePlayer::ShootSelector(uint shoot) {
-	if (shoot == BASICSHOOT) {
+
+	if (shoot == BASICSHOOT) 
 		WeaponType = 1;
-	}
-	else if (shoot == LASERSHOOT) {
+	else if (shoot == LASERSHOOT) 
 		WeaponType = 2;
-	}
-	else if (shoot == MISSILES) {
+	else if (shoot == MISSILES) 
 		WeaponType = 3;
-	}
+
 }
