@@ -15,6 +15,7 @@
 #include "SDL/include/SDL.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 
 
@@ -118,6 +119,9 @@ bool Iron_Craw::Start() {
 	armsOut = true;
 	armsOut2 = true;
 	moving_Down = true;
+	LArmfallinf = false;
+	Rarmfalling = false;
+
 	return true;
 }
 
@@ -163,7 +167,7 @@ update_status Iron_Craw::Update() {
 	if (life < 30)
 		Current_AnimationBody = &idle_Damage;
 
-	if (life == 10) {
+	if (life <= 10 && life>5) {
 	
 		Rarmfalling = true;
 		if (armsOut) {
@@ -181,7 +185,11 @@ update_status Iron_Craw::Update() {
 	
 	}
 	
-	Move();
+	if (!dead) {
+		
+		Move();
+		bombs();
+	}
 
 
 	if (Rarmfalling) {
@@ -232,11 +240,9 @@ update_status Iron_Craw::Update() {
 	
 
 
-		if (position.y > SCREEN_HEIGHT) {
-
 			dead = true;
 		
-		}
+		
 	}
 	App->render->Blit(Mini_Boss, position.x - 9, position.y + 18, &blueCircle.GetCurrentFrame());
 	App->render->Blit(Mini_Boss, position.x + 20, position.y + 18, &blueCircle.GetCurrentFrame());
@@ -287,10 +293,14 @@ bool Iron_Craw::CleanUp() {
 void Iron_Craw::Move() {
 
 	if (moving_Down == true) {
-		if(position.y<MIN_HEIGHT_MINIBOSS)
+		if (position.y < MIN_HEIGHT_MINIBOSS) {
 			position.y++;
-		RArmPosition++;
-		LArmPosition++;
+			if (!Rarmfalling)
+				RArmPosition++;
+			if(!LArmfallinf)
+				LArmPosition++;
+			
+		}
 		if (position.y >= MIN_HEIGHT_MINIBOSS) {
 			counterIron++;
 			if (counterIron >= 300) {
@@ -302,10 +312,13 @@ void Iron_Craw::Move() {
 		}
 	}
 	if (moving_Up == true) {
-		if (position.y >MAX_HEIGHT_MINIBOSS)
-		position.y--;
-		RArmPosition--;
-		LArmPosition--;
+		if (position.y > MAX_HEIGHT_MINIBOSS) {
+			position.y--;
+			if (!Rarmfalling)
+			RArmPosition--;
+			if (!LArmfallinf)
+			LArmPosition--;
+		}
 		if (position.y<=MAX_HEIGHT_MINIBOSS) {
 			counterIron++;
 			if (counterIron >= 300) {
@@ -319,53 +332,39 @@ void Iron_Craw::Move() {
 
 	}
 
-	/*if (counterIron == 0) {
-		MoveTiming = SDL_GetTicks();
-		counterIron++;
-	}
-
-	if (position.y == 55 && MoveTiming<=SDL_GetTicks()-3000 && moving_Up) {
-
-		if (position.y > MAX_HEIGHT_MINIBOSS) {
-			position.y++;
-		}
-		
-	}
-
-	if (position.y== MAX_HEIGHT_MINIBOSS) {
-		position.y = position.y;
-		MoveTiming2 = SDL_GetTicks();
-		moving_Up = false;
-		moving_Down = true;
-
-	}
-
 	
-
-	if (position.y == MAX_HEIGHT_MINIBOSS && moving_Down && MoveTiming2 <=SDL_GetTicks() - 3000) {
-		
-		position.y++;
-
-		
-	}
-
-	if (position.y == PRESET_POSITION_IRON && moving_Down) {
-		
-		position.y = position.y;
-		moving_Up = true;
-		moving_Down = false;
-		counterIron = 0;
-
-	}
-*/
 
 }
 
 void Iron_Craw::bombs() {
+	counterGreenBomb++;
+	PlayerPosition = App->player->position;
+	if (counterGreenBomb>=70) {
+
+	
+	
+		
+		App->particles->AddParticle(App->particles->GreenBomb, position.x + 20, position.y-20, COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
+
 	
 
 
+		counterGreenBomb = 0;
 	}
+	
+	angleBomb = radians * (180 / PI);
+	radians = atan2((PlayerPosition.y - position.y), (PlayerPosition.x - position.x));
+
+
+	App->particles->GreenBomb.Speed.x = 3 * (cos(angleBomb*PI / 180));
+	App->particles->GreenBomb.Speed.x++;
+	App->particles->GreenBomb.Speed.y = 3 * (sin(angleBomb*PI / 180));
+
+
+	
+
+
+}
 	
 
 	

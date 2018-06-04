@@ -187,8 +187,10 @@ bool ModuleParticles::Start() {
 	GreenBomb.Anim.PushBack({234,109,18,17});
 	GreenBomb.Anim.PushBack({235,129,18,16});
 	GreenBomb.Anim.loop = true;
-	GreenBomb.Speed.x = 1;
+	GreenBomb.Speed.x = 0;
+	GreenBomb.Speed.y = 0;
 	GreenBomb.Anim.speed = 0.2f;
+	GreenBomb.Life = 5000;
 
 	FogExplosion.Sprites = Particle5;
 	FogExplosion.Anim.PushBack({29,0,14,16 });

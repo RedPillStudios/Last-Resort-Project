@@ -74,8 +74,13 @@ public:
 	int YarmsPos;
 	int explosionTiming;
 	int counterIron;
+	int counterGreenBomb;
 	int MoveTiming;
 	int MoveTiming2;
+	int angleBomb;
+
+
+	double radians;
 
 	bool Rarmfalling;
 	bool LArmfallinf;
