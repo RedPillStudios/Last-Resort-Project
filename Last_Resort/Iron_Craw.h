@@ -15,6 +15,7 @@
 
 #define MAX_HEIGHT_MINIBOSS 20
 #define MIN_HEIGHT_MINIBOSS 85
+#define PRESET_POSITION_IRON 55
 
 
 struct Collider;
@@ -72,17 +73,20 @@ public:
 	int RArmPosition;
 	int YarmsPos;
 	int explosionTiming;
-	
+	int counterIron;
+	int MoveTiming;
+	int MoveTiming2;
 
 	bool Rarmfalling;
 	bool LArmfallinf;
-	bool moving_Down = false;
 	bool dead = false;
 	bool moveIron_Craw =false;
 	bool bombsOut;
 	bool armsOut;
 	bool armsOut2;
 	bool dyingParticles = true;
+	bool moving_Down;
+	bool moving_Up ;
 
 	void bombs();
 	void Move();

@@ -96,7 +96,7 @@ Iron_Craw::~Iron_Craw()
 
 bool Iron_Craw::Start() {
 
-	position = {(150), 55 };
+	position = {(150),55 };
 
 	Mini_Boss= App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
 
@@ -117,7 +117,7 @@ bool Iron_Craw::Start() {
 
 	armsOut = true;
 	armsOut2 = true;
-
+	moving_Down = true;
 	return true;
 }
 
@@ -178,13 +178,12 @@ update_status Iron_Craw::Update() {
 			armsOut = false;
 		}
 		
-
 	
-		
-		
-
 	}
 	
+	Move();
+
+
 	if (Rarmfalling) {
 		RArmPosition++;
 		
@@ -248,6 +247,11 @@ update_status Iron_Craw::Update() {
 	App->render->Blit(Mini_Boss, position.x - 44, LArmPosition, &Left_Arm.GetCurrentFrame());
 
 
+
+
+
+
+
 	return UPDATE_CONTINUE;
 }
 
@@ -282,13 +286,78 @@ bool Iron_Craw::CleanUp() {
 
 void Iron_Craw::Move() {
 
+	if (moving_Down == true) {
+		if(position.y<MIN_HEIGHT_MINIBOSS)
+			position.y++;
+		RArmPosition++;
+		LArmPosition++;
+		if (position.y >= MIN_HEIGHT_MINIBOSS) {
+			counterIron++;
+			if (counterIron >= 300) {
+				moving_Up = true;
+				moving_Down = false;
+				counterIron = 0;
+			}
+
+		}
+	}
+	if (moving_Up == true) {
+		if (position.y >MAX_HEIGHT_MINIBOSS)
+		position.y--;
+		RArmPosition--;
+		LArmPosition--;
+		if (position.y<=MAX_HEIGHT_MINIBOSS) {
+			counterIron++;
+			if (counterIron >= 300) {
+				moving_Up = false;
+				moving_Down = true;
+				counterIron = 0;
+			}
+		
+		}
 
 
+	}
 
+	/*if (counterIron == 0) {
+		MoveTiming = SDL_GetTicks();
+		counterIron++;
+	}
 
+	if (position.y == 55 && MoveTiming<=SDL_GetTicks()-3000 && moving_Up) {
 
+		if (position.y > MAX_HEIGHT_MINIBOSS) {
+			position.y++;
+		}
+		
+	}
 
+	if (position.y== MAX_HEIGHT_MINIBOSS) {
+		position.y = position.y;
+		MoveTiming2 = SDL_GetTicks();
+		moving_Up = false;
+		moving_Down = true;
 
+	}
+
+	
+
+	if (position.y == MAX_HEIGHT_MINIBOSS && moving_Down && MoveTiming2 <=SDL_GetTicks() - 3000) {
+		
+		position.y++;
+
+		
+	}
+
+	if (position.y == PRESET_POSITION_IRON && moving_Down) {
+		
+		position.y = position.y;
+		moving_Up = true;
+		moving_Down = false;
+		counterIron = 0;
+
+	}
+*/
 
 }
 
