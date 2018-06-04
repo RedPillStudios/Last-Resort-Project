@@ -369,7 +369,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 
 		// DON'T DESTROY LASERBEAM WHEN COLLIDES
 		
-		if (active[i] != nullptr && active[i]->collider == c1 && c1->type == COLLIDER_PLAYER_LASERBEAM_SHOT) {
+		if (active[i] != nullptr && active[i]->collider == c1 && (c1->type == COLLIDER_PLAYER_LASERBEAM_SHOT || c1->type == COLLIDER_PLAYER_LASERBEAM_SHOT2)) {
 
 			if (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_WALL)
 				AddParticle(ImpactExplosion, active[i]->Position.x, active[i]->Position.y);
@@ -392,7 +392,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			break;
 		}
 		// Always destroy particles that collide AND AREN`T LASSER BEAM
-		if (active[i] != nullptr && active[i]->collider == c1 && c1->type != COLLIDER_PLAYER_LASERBEAM_SHOT) {
+		if (active[i] != nullptr && active[i]->collider == c1 && (c1->type != COLLIDER_PLAYER_LASERBEAM_SHOT || c1->type != COLLIDER_PLAYER_LASERBEAM_SHOT2)) {
 			
 			if (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_WALL)
 					AddParticle(ImpactExplosion,active[i]->Position.x, active[i]->Position.y);

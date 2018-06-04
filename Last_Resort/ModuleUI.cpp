@@ -44,8 +44,10 @@ bool ModuleUI::Start() {
 			fscanf(Ranking, "%d", &ranking[i].score);
 		}
 
-		fclose(Ranking);
-	}*/
+		
+	}
+
+	fclose(Ranking);*/
 
 	coins = 0;
 	return true;
@@ -152,10 +154,9 @@ update_status ModuleUI::Update() {
 			App->fonts->BlitText((SCREEN_WIDTH / 2) - 32, SCREEN_HEIGHT - 10, font, "B0SS");
 			App->fonts->BlitText((SCREEN_WIDTH / 2), SCREEN_HEIGHT - 10, font, "1LIFE");
 		}
-
 	}
 
-	if (Checkpoint1 == true && App->gameover->IsEnabled()) {
+	/*if (Checkpoint1 == true && App->gameover->IsEnabled()) {
 
 		if (App->input->keyboard[SDL_SCANCODE_P] == KEY_STATE::KEY_DOWN) {
 
@@ -163,10 +164,16 @@ update_status ModuleUI::Update() {
 			P1Life = 3;
 			P2Life = 3;
 		}
-	}
+	}*/
 
-	//if ((App->gameover->IsEnabled() || App->stageclear->IsEnabled()))
-	//	ChangeRanking(Ranking, "Images/Ranking.txt", TopScore);
+	
+	/*if (((App->gameover->IsEnabled() == true) || (App->stageclear->IsEnabled() == true)) && counterRanking == 0) {
+
+		uint MaxScore = ScoreP1 + ScoreP2;
+		ChangeRanking(Ranking, "Images/Ranking.txt", MaxScore);
+		counterRanking++;
+	}*/
+	
 
 	return UPDATE_CONTINUE;
 }
@@ -284,7 +291,7 @@ void ModuleUI::ChangeRanking(FILE *pFile, char *path, int Score) {
 	for (int i = 0; i < 9; i++) {
 
 		//Changing Array ranking
-		if (Score >= ranking[i].score) {
+		if (TopScore >= ranking[i].score) {
 
 			for (int j = 8; j >= i; j--) {
 
@@ -292,30 +299,32 @@ void ModuleUI::ChangeRanking(FILE *pFile, char *path, int Score) {
 				ranking[j + 1].name[0] = ranking[j].name[0];
 				ranking[j + 1].name[1] = ranking[j].name[1];
 				ranking[j + 1].name[2] = ranking[j].name[2];
+
 			}
-		}
 
 			char NewName[] = "NEY";
 			/*BlitText((SCREEN_WIDTH - 75), 24, font, "NAME");
 			scanf_s("%s", &NewName);*/
-			
-			ranking[i].score = Score;
+
+			ranking[i].score = TopScore;
 			ranking[i].name[0] = NewName[0];
 			ranking[i].name[1] = NewName[1];
 			ranking[i].name[2] = NewName[2];
+
+			Ranking = fopen("Images/Ranking.txt", "w+");
+
+			if (Ranking != NULL) {
+
+				for (int i = 0; i < 9; i++) {
+
+					fprintf_s(Ranking, "%s", ranking[i].name);
+					fprintf_s(Ranking, "%d", ranking[i].score);
+				}
+
+				fclose(Ranking);
+			}
+
 			break;
-	}
-
-	pFile = fopen(path, "w+");
-
-	if (pFile != NULL) {
-
-		for (int i = 0; i < 9; i++) {
-
-			fprintf_s(pFile, "%s", ranking[i].name);
-			fprintf_s(pFile, "%d", ranking[i].score);
 		}
-
-		fclose(pFile);
 	}
 }

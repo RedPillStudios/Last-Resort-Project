@@ -98,6 +98,8 @@ bool ModuleSceneLvl1::Start()
 {
 	LOG("Loading background assets");
 
+	App->fonts->counterRanking = 0;
+
 	if (App->fonts->Checkpoint1 == false) {
 
 		position_max_limit = SCREEN_WIDTH;

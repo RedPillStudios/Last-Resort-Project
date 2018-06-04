@@ -203,7 +203,7 @@ void ModulePowerUp::OnCollision(Collider *c1, Collider *c2) {
 
 						if (PowerUps[i]->type == POWERUP_TYPES::LASER) {
 
-							App->player->WeaponType = 2;
+							App->player->WeaponType = 5;
 							App->player->Lvl3_Laser = true;
 							App->player->Lvl2_Laser = false;
 						}
@@ -228,7 +228,7 @@ void ModulePowerUp::OnCollision(Collider *c1, Collider *c2) {
 
 						else if (PowerUps[i]->type == POWERUP_TYPES::MISILES) {
 
-							App->player->WeaponType = 3;
+							App->player->WeaponType = 4;
 							App->player->Lvl3_Missile = true;
 							App->player->Lvl2_Missile = false;
 						}
@@ -303,7 +303,7 @@ void ModulePowerUp::OnCollision(Collider *c1, Collider *c2) {
 
 						if (PowerUps[i]->type == POWERUP_TYPES::LASER) {
 
-							App->player2->WeaponTypeP2 = 2;
+							App->player2->WeaponTypeP2 = 5;
 							App->player2->Lvl3_Laser = true;
 							App->player2->Lvl2_Laser = false;
 						}
@@ -321,7 +321,7 @@ void ModulePowerUp::OnCollision(Collider *c1, Collider *c2) {
 
 						if (PowerUps[i]->type == POWERUP_TYPES::LASER) {
 
-							App->player2->WeaponTypeP2 = 2;
+							App->player2->WeaponTypeP2 = 4;
 							App->player2->Lvl2_Laser = true;
 							App->player2->Lvl2_Missile = false;
 						}

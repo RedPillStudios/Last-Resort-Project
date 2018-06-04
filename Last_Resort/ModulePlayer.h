@@ -18,7 +18,7 @@ enum Shoots
 	LASERSHOOT,
 	MISSILES,
 	LASERSHOOTAREA,
-	BASICMISSILES
+	MISSILES2
 };
 
 class ModulePlayer : public Module

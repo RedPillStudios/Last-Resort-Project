@@ -23,7 +23,7 @@ struct Font {
 
 struct rank {
 
-	char name[4] = "NON";
+	char name[3];
 	int score = 0;
 };
 
@@ -69,6 +69,9 @@ public:
 	char score_text2[10];
 	uint ScoreP2;
 
+	//Score for Ranking
+	uint Score_Ranking;
+
 	//Top Score
 	char top_score[10];
 	uint TopScore;
@@ -86,13 +89,14 @@ public:
 	char coins_text[10];
 
 	//Checkpoints
-	bool Checkpoint1 = false;
+	//bool Checkpoint1 = false;
 
 	//RANKING
 	FILE *Ranking;
 	struct rank ranking[9];
 	int countFile(FILE *pFile, char *path);
 	void ChangeRanking(FILE *pFile, char *path, int Score);
+	uint counterRanking;
 	
 
 private:

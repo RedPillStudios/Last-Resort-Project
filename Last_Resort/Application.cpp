@@ -77,7 +77,6 @@ bool Application::Init()
 	powerup->Disable();
 	player2->Disable();
 	App->Boss->Disable();
-	App->fonts->Disable();
 	MiniBoss->Disable();
 	App->fonts->Enable();
 
