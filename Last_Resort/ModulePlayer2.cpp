@@ -254,7 +254,7 @@ update_status ModulePlayer2::Update() {
 				Mix_PlayChannel(-1, LasserBeam_Sound, 0);
 				ShootTimer3 = SDL_GetTicks();
 			}
-			if (WeaponTypeP2 == 5 && ShootTimer3 < SDL_GetTicks() - 650) {
+			if (WeaponTypeP2 == 5 && ShootTimer3 < SDL_GetTicks() - 1200) {
 
 				App->particles->AddParticle(App->particles->LaserBeam, setFirePos2().x - 16, setFirePos2().y + 3, COLLIDER_PLAYER_LASERBEAM_SHOT2);
 				App->particles->AddParticle(App->particles->LaserBeamExplosion, setFirePos2().x, setFirePos2().y, COLLIDER_NONE);
@@ -263,6 +263,10 @@ update_status ModulePlayer2::Update() {
 
 				Mix_PlayChannel(-1, LasserBeam_Sound, 0);
 				ShootTimer3 = SDL_GetTicks();
+			}
+			if (WeaponTypeP2 == 6 && ShootTimer3 < SDL_GetTicks() - 650) {
+				App->particles->AddParticle(App->particles->HipopotamoBomba, setFirePos2().x, setFirePos2().y + 3, COLLIDER_PLAYER_SHOT2);
+				App->particles->AddParticle(App->particles->HipopotamoBomba2, setFirePos2().x, setFirePos2().y - 3, COLLIDER_PLAYER_SHOT2);
 			}
 		}
 	}
@@ -307,10 +311,16 @@ void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 void ModulePlayer2::ShootSelector(uint shoot) {
 
 	if (shoot == BASICSHOOTP2) 
-		WeaponTypeP2 = 0;
+		WeaponTypeP2 = 1;
 	else if (shoot == LASERSHOOTP2) 
 		WeaponTypeP2 = 2;
 	else if (shoot == MISSILESP2) 
 		WeaponTypeP2 = 3;
+	else if (shoot == MISSILES2P2)
+		WeaponTypeP2 = 4;
+	else if (shoot == BASICLASERSHOOT)
+		WeaponTypeP2 = 4;
+	else if (shoot == BOMBSHOOTP2)
+		WeaponTypeP2 = 6;
 	
 }

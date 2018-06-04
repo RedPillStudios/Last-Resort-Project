@@ -18,7 +18,8 @@ enum Shoots
 	LASERSHOOT,
 	MISSILES,
 	LASERSHOOTAREA,
-	MISSILES2
+	MISSILES2,
+	BOMBSHOOT
 };
 
 class ModulePlayer : public Module
@@ -63,7 +64,7 @@ public:
 	int ShootTimer1;
 	int ShootTimer2;
 	int ShootTimer3;
-	int ShootTimer4;
+
 
 public:
 	
@@ -104,12 +105,8 @@ public:
 	//POWERUP Levels
 	bool Lvl0 = true;
 	bool Lvl1 = false;
-
-	bool Lvl2_Laser = false;
-	bool Lvl3_Laser = false;
-
-	bool Lvl2_Missile = false;
-	bool Lvl3_Missile = false;
+	bool Lvl2 = false;
+	bool Lvl3 = false;
 };
 
 #endif

@@ -15,6 +15,7 @@
 #include "ModuleSceneLvl1.h"
 #include "ModuleStageClear.h"
 #include "Module_Hou_Player1.h"
+#include "ModuleParticles.h"
 #include <stdio.h>
 
 ModulePlayer::ModulePlayer()
@@ -101,8 +102,6 @@ bool ModulePlayer::Start() {
 	ShootTimer1 = 0;
 	ShootTimer2 = 0;
     ShootTimer3 = 0;
-	ShootTimer4 = 0;
-	//ScoreP1 = 0;
 
 	Appear.Reset();
 	DestroyShip.Reset();
@@ -262,7 +261,6 @@ update_status ModulePlayer::Update() {
 					App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
 
 					Mix_PlayChannel(-1, Shot_Sound, 0);
-
 					ShootTimer1 = SDL_GetTicks();
 				
 				}
@@ -311,6 +309,13 @@ update_status ModulePlayer::Update() {
 						Mix_PlayChannel(-1, LasserBeam_Sound, 0);
 						ShootTimer3 = SDL_GetTicks();
 					}	
+					if (WeaponType == 6 && ShootTimer2 < SDL_GetTicks() - 1200) {
+
+						App->particles->AddParticle(App->particles->HipopotamoBomba, setFirePos().x, setFirePos().y + 3, COLLIDER_PLAYER_SHOT);
+						App->particles->AddParticle(App->particles->HipopotamoBomba2, setFirePos().x, setFirePos().y - 3, COLLIDER_PLAYER_SHOT);
+						ShootTimer2 = SDL_GetTicks();
+
+					}
 			}
 		}
 		
@@ -360,5 +365,7 @@ void ModulePlayer::ShootSelector(uint shoot) {
 		WeaponType = 4;
 	else if (shoot == BASICLASERSHOOT)
 		WeaponType = 5;
+	else if (shoot == BOMBSHOOT)
+		WeaponType = 6;
 
 }

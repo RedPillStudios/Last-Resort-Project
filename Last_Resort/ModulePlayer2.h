@@ -16,7 +16,9 @@ enum ShootsP2
 	BASICLASERSHOOTP2,
 	LASERSHOOTP2,
 	MISSILESP2,
-	LASERSHOOTAREAP2
+	LASERSHOOTAREAP2,
+	MISSILES2P2,
+	BOMBSHOOTP2
 
 };
 
@@ -101,12 +103,8 @@ public:
 	//POWERUP Levels
 	bool Lvl0 = true;
 	bool Lvl1 = false;
-
-	bool Lvl2_Laser = false;
-	bool Lvl3_Laser = false;
-
-	bool Lvl2_Missile = false;
-	bool Lvl3_Missile = false;
+	bool Lvl2 = false;
+	bool Lvl3 = false;
 };
 
 #endif
