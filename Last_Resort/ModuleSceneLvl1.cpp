@@ -140,15 +140,16 @@ bool ModuleSceneLvl1::Start()
 		App->collision->Enable();
 		App->particles->Enable();
 		App->MiniBoss->Enable();
+		App->BossTank->Enable();
 	}
 	if (App->player->IsEnabled() == false && App->fonts->P1Life > 0) {
 		App->player->Enable();
 		App->player->resetPosition();
 	}
-	if (App->player2->IsEnabled() == false && App->fonts->P2Life > 0) {
+	/*if (App->player2->IsEnabled() == false && App->fonts->P2Life > 0) {
 		App->player2->Enable();
 		App->player2->resetPosition2();
-	}
+	}*/
 
 
 	//Enemies
@@ -158,7 +159,7 @@ bool ModuleSceneLvl1::Start()
 
   //Bees
 	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
-  App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);
+  App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 1300, 60, false);
   
  //Wasps
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60,false);
@@ -473,14 +474,24 @@ update_status ModuleSceneLvl1::Update() {
 
 		switchMusic = false;
 	}
+	//PLAYER 2 APPEAR
+	if (App->input->keyboard[SDL_SCANCODE_P]) {
+		if (App->player2->IsEnabled() == false && App->fonts->P2Life > 0) {
+		App->player2->Enable();
+		App->player2->resetPosition2();
+		}
+	}
 
 	// FADE IF NO MORE LIVES
-	if (App->fonts->P1Life <= 0 && App->fonts->P2Life <= 0 && App->player->Dead == true && App->player2->Dead == true) {
-
-		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f); 
+	if (App->player2->IsEnabled() == false && App->fonts->P1Life <= 0) {
+		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
 		Mix_FadeOutMusic(3000);
-		
 	}
+	else if (App->player2->IsEnabled() == true && App->fonts->P1Life <= 0 && App->fonts->P2Life <= 0) {
+		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
+		Mix_FadeOutMusic(3000);
+	}
+	
 
 	//Boss Spawn
 
