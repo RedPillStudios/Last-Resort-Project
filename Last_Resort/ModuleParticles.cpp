@@ -205,8 +205,11 @@ bool ModuleParticles::Start() {
 	FogExplosion.Anim.PushBack({67,74,31,16});
 	FogExplosion.Anim.PushBack({0,94,31,16 });
 	FogExplosion.Anim.PushBack({35,98,17,11});
-	FogExplosion.Anim.loop = false;
+
+
+	FogExplosion.Anim.loop = true;
 	FogExplosion.Anim.speed = 0.3f;
+	FogExplosion.Speed.y =1;
 
 	HOU_Shot.Anim.PushBack({ 117,250,13,13 });
 

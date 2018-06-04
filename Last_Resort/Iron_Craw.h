@@ -49,6 +49,7 @@ public:
 	Animation leg1;
 	Animation leg2;
 	Animation blueCircle;
+	Animation FirstIdle;
 
 	Animation*Current_AnimationBody;
 
@@ -70,6 +71,8 @@ public:
 	int LArmPosition;
 	int RArmPosition;
 	int YarmsPos;
+	int explosionTiming;
+	
 
 	bool Rarmfalling;
 	bool LArmfallinf;
@@ -79,6 +82,7 @@ public:
 	bool bombsOut;
 	bool armsOut;
 	bool armsOut2;
+	bool dyingParticles = true;
 
 	void bombs();
 	void Move();
