@@ -49,7 +49,7 @@ bool ModuleMainMenu::Start() {
 
 	Mix_PlayMusic(Main_Menu, 0);
 	Mix_VolumeMusic(MIX_MAX_VOLUME / 3);
-	
+
 	App->render->camera.x = App->render->camera.y = 0;
 
 	return true;

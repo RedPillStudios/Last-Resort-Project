@@ -21,6 +21,10 @@
 #include "GreenBombIron.h"
 #include "Enemy_Tears.h"
 #include "Module_Hou_Player1.h"
+#include "BossLamella.h"
+
+#include <time.h>
+#include <iostream>
 
 #define SPAWN_MARGIN 50
 
@@ -169,14 +173,21 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		case ENEMY_TYPES::ENEMY_BEE:
 		enemies[i] = new Enemy_Bee(info.x, info.y,info.PowerUp);
 		break;
+
 		case ENEMY_TYPES::HUMAN:
-			enemies[i] = new Humans(info.x,info.y);
-			break;
+		enemies[i] = new Humans(info.x,info.y);
+		break;
+
 		case ENEMY_TYPES::GREENBOMB:
 			enemies[i] = new GreenBombIron(info.x, info.y,info.type);
       break;
+
 		case ENEMY_TYPES::BOSS_TEARS:
 		enemies[i] = new Enemy_BossTears(info.x, info.y, info.PowerUp);
+		break;
+
+		case ENEMY_TYPES::BOSSLAMELLA:
+		enemies[i] = new EnemyBossLamella(info.x, info.y, info.PowerUp);
 		break;
         
 		}
@@ -188,7 +199,6 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 		
 		if (enemies[i] != nullptr && (enemies[i]->GetCollider() == c1 || enemies[i]->GetCollider() == c2)) {
-	
 			if (c2->type == COLLIDER_TYPE::COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_TYPE::COLLIDER_PLAYER_SHOT2)
  			--(enemies[i]->life);
 			else if (c2->type == COLLIDER_TYPE::COLLIDER_HOU) {
@@ -246,5 +256,27 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 	}		
 } 
 
+	/*	if (enemies[i]->PowerUp == true) {
+
+					randomPowerUps = rand() % 3 + 1;
+					if (randomPowerUps == 1 && !bo) {
+						App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, enemies[i]->position.x, enemies[i]->position.y);
+						miss = false;
+						bo = true;
+						las = false;
+					}
+					else if (randomPowerUps == 2 && !las) {
+						App->powerup->AddPowerUp(POWERUP_TYPES::LASER, enemies[i]->position.x, enemies[i]->position.y);
+						miss = false;
+						bo = false;
+						las = true;
+					}
+					else if (randomPowerUps == 3 && !miss) {
+						App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, enemies[i]->position.x, enemies[i]->position.y);
+						miss = true;
+						bo = false;
+						las = false;
+					}
+				}*/
 
 

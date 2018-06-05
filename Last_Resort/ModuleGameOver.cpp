@@ -118,6 +118,7 @@ update_status ModuleGameOver::Update() {
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE]) {
 
+		//App->fonts->Checkpoint1 = false;
 		if (App->fonts->coins > 0 && SubstractCoins == true) {
 
 			App->fonts->coins--;

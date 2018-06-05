@@ -100,7 +100,9 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	minispaceships.PushBack({ 77,0,9,4 });
 	minispaceships.speed = 0.1;
 	minispaceships.loop = true;
-	srand(2);
+
+	//srand(2);
+
 
 }
 
@@ -114,19 +116,19 @@ bool ModuleSceneLvl1::Start()
 
 	App->fonts->counterRanking = 0;
 
-	if (App->fonts->Checkpoint1 == false) {
+	//if (App->fonts->Checkpoint1 == false) {
 
 		position_max_limit = SCREEN_WIDTH;
 		position_min_limit = 0;
 		App->render->camera.x = 0;
 		posCars = 0;
-	}
-	else if (App->fonts->Checkpoint1 == true) {
+	//}
+	/*else if (App->fonts->Checkpoint1 == true) {
 
 		App->render->camera.x = 9510;
 		App->scene1background->position_max_limit = 3500;
 		App->scene1background->position_min_limit = 3170;
-	}
+	}*/
 
 	//order of position in the game
 	graphics_Crater_Boss_Zone = App->textures->Load("Images/Background_Lvl1/Boss_Static_Background.png");
@@ -152,7 +154,7 @@ bool ModuleSceneLvl1::Start()
 	if (IsEnabled()) {
 		App->enemies->Enable();
 		App->powerup->Enable();
-		App->Boss->Enable();
+	/*	App->Boss->Enable();*/
 		App->collision->Enable();
 		App->particles->Enable();
 		//App->MiniBoss->Enable();
@@ -172,7 +174,6 @@ bool ModuleSceneLvl1::Start()
 	//Enemies
 	//WASP->Wave1{
 	//troop1
-
  //Wasps
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60,false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60);
@@ -188,7 +189,16 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 750, 20);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 790, 20, true);
 
-	App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 790, 20);
+	/*App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 200, 150);
+	App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 250, 150);*/
+
+  //Bees
+	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
+	/* App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
+	// App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);
+	App->enemies->AddEnemy(ENEMY_TYPES::BOSSLAMELLA, 300, 60, false);
+
+	//App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 790, 20);
 
 	//troop3
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 795, 145);
@@ -206,8 +216,8 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1095, 95);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1075, 65, true);
   
-	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 1075, 65);
-	App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 1025, 65);
+	/*App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 1075, 65);
+	App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 1025, 65);*/
 
 	//troop5
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1155, 20);
@@ -222,7 +232,7 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1275, 145);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1315, 145, true);
 
-	App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 1315, 145);
+//	App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 1315, 145);
 	// }
 
 	//WASP->Wave2{
@@ -239,16 +249,15 @@ bool ModuleSceneLvl1::Start()
 	//}
 
 	//WASP->Wave3{
-	if(App->fonts->Checkpoint1 == false){
-
+	//if(App->fonts->Checkpoint1 == false){
 		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3200, 112);
 		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3240, 145);
 		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3265, 112);
 		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3280, 90);
 		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3320, 75);
 		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3310, 145, true);
-		App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3310, 145);
-	}
+		//App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3310, 145);
+//	}
 
 	//WASP->wave4
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3700, 145);
@@ -267,6 +276,7 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7660, 160);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8000, 165);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8040, 160);
+
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8080, 160, true);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8120, 170);
 
@@ -303,12 +313,12 @@ bool ModuleSceneLvl1::Start()
 
 	//ZICZAC
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,3560, 145, true);
-	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3560, 145);
+	//App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3560, 145);
 	App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 3610, 145);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, 7560, 60, true);
   
-	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 7560, 60);
-	App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 7610, 60);
+	//App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 7560, 60);
+	//App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 7610, 60);
 
 	return true;
 }
@@ -549,8 +559,26 @@ update_status ModuleSceneLvl1::Update() {
 	if (App->player->IsEnabled() == false && App->player2->IsEnabled() == false) {
 		App->BossTank->DestroyTank == true;
 	}
-	if (App->BossTank->DestroyTank == true) {
+	if (App->BossTank->DestroyTank == true && App->BossTank->IsEnabled() == true) {
 		App->BossTank->Disable();
+		LOG(" Tank disabled");
+	}
+	// iron craw disable
+
+	if (App->player->IsEnabled() == false && App->player2->IsEnabled() == false) {
+		App->MiniBoss->disablingIronCraw == true;
+	}
+	if (App->MiniBoss->disablingIronCraw == true && App->MiniBoss->IsEnabled()) {
+		App->MiniBoss->Disable();
+		LOG(" Iron disabled");
+		
+
+	}
+
+	////second Iron Spawn
+	//if (App->scene1background->position_max_limit >= 7700) {
+	//	IronCraw2 = true;
+	//	App->MiniBoss->Enable();
 	}
 
 	//Fade if boss is dead
@@ -563,8 +591,8 @@ update_status ModuleSceneLvl1::Update() {
 	}
 
 	//Checkpoints
-	if (position_max_limit == 3500)
-		App->fonts->Checkpoint1 = true;
+	/*if (position_max_limit == 3500 && App->fonts->coins > 0)
+		App->fonts->Checkpoint1 = true;*/
 
 	return UPDATE_CONTINUE;
 }

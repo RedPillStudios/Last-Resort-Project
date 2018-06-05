@@ -74,6 +74,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="BossLamella.h" />
     <ClInclude Include="CarsToFast.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyBee.h" />
@@ -115,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="BossLamella.cpp" />
     <ClCompile Include="CarsToFast.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyBee.cpp" />

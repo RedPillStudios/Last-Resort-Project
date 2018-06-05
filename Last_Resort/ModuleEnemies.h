@@ -20,7 +20,8 @@ enum ENEMY_TYPES {
 	CARS,
 	HUMAN,
 	GREENBOMB,
-	BOSS_TEARS
+	BOSS_TEARS,
+	BOSSLAMELLA
 };
 
 class Enemy;
@@ -38,6 +39,7 @@ class ModuleEnemies : public Module {
 
 public:
 
+
 	ModuleEnemies();
 	~ModuleEnemies();
 	SDL_Texture *sprites;
@@ -54,6 +56,12 @@ public:
 	bool AddEnemy(ENEMY_TYPES type, int x, int y, bool PowerUp=false);
 	bool SpawnEnemyCheat = false;
 	int counter_Damage = 0;
+
+	int randomPowerUps = 0;
+
+	bool miss = false;
+	bool las = false;
+	bool bo = false;
 
 private:
 

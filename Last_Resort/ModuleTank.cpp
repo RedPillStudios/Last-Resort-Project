@@ -193,7 +193,7 @@ update_status ModuleTank::Update() {
 	if (TankPosition.x <= App->scene1background->position_min_limit + 20 && !LimitReached ) {
 		ReachPos1 = true;
 	}
-	if (TankPosition.x > 10600) {
+	if (TankPosition.x > 8200) {
 		LimitReached = true;
 	}
 	if (ReachPos1) {

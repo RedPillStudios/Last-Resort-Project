@@ -90,6 +90,7 @@ update_status ModuleStageClear::Update() {
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE]) 
 		App->fade->FadeToBlack(App->stageclear, App->HighScore, 3.0f);
+
 	
 
 	return UPDATE_CONTINUE;

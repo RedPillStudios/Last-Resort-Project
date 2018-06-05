@@ -11,6 +11,7 @@
 #include <cstdlib>
 #include <math.h>
 
+
 ModuleParticles::ModuleParticles() {
 
 	for (uint i = 0; i < MAX_ACTIVE_PARTICLES; ++i) {
@@ -19,7 +20,8 @@ ModuleParticles::ModuleParticles() {
 	}
 
 
-	srand(2);
+//	srand(2);
+
 }
 
 ModuleParticles::~ModuleParticles() {}
@@ -35,6 +37,7 @@ bool ModuleParticles::Start() {
 	Particle4 = App->textures->Load("Images/Player/Charge_Ball.png");
 	Particle5 = App->textures->Load("Images/Particles/Explosion.png");
 	Particle6 = App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
+	particleMiniBoss = App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
 	Explosion_Texture = App->textures->Load("Images/Particles/Explosion_Good.png");
 //	Particle6 = App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
 
@@ -53,7 +56,7 @@ bool ModuleParticles::Start() {
 	HipopotamoBomba.Anim.speed = 0.1f;
 	HipopotamoBomba.Sprites = Particle1;
 	HipopotamoBomba.Life = 1200;
-	HipopotamoBomba.Speed.y = 2.5f;
+	HipopotamoBomba.Speed.y = 3;
 	HipopotamoBomba.Speed.x = (HipopotamoBomba.Position.x ^ 2);
 
 	HipopotamoBomba2.Anim.PushBack({ 0, 306, 16, 6 });
@@ -63,7 +66,7 @@ bool ModuleParticles::Start() {
 	HipopotamoBomba2.Anim.loop = false;
 	HipopotamoBomba2.Anim.speed = 0.1f;
 	HipopotamoBomba2.Sprites = Particle1;
-	HipopotamoBomba2.Life = 1200;
+	HipopotamoBomba2.Life = 1800;
 	HipopotamoBomba2.Speed.y = -(2.5f);
 	HipopotamoBomba2.Speed.x = (HipopotamoBomba2.Position.x ^ 2);
 
@@ -265,6 +268,22 @@ bool ModuleParticles::Start() {
 	MaleTears.Speed.y = 2;
 	//MaleTears.Speed.y = 0.01*((3*MaleTears.Position.x ^ 3)+2*(MaleTears.Position.x)+3);
 
+	GreenBombAnimDestr.Sprites = particleMiniBoss;
+	GreenBombAnimDestr.Anim.PushBack({ 2,190,22,24 });
+	GreenBombAnimDestr.Anim.PushBack({ 27,190,22,24 });
+	GreenBombAnimDestr.Anim.PushBack({ 51,191,22,22 });
+	GreenBombAnimDestr.Anim.PushBack({ 73,191,24,22 });
+	GreenBombAnimDestr.Anim.PushBack({ 99,190,22,22 });
+	GreenBombAnimDestr.Anim.PushBack({ 122,190,22,24 });
+	GreenBombAnimDestr.Anim.PushBack({ 141,190,22,24 });
+	GreenBombAnimDestr.Anim.PushBack({ 193,190,22,24 });
+	GreenBombAnimDestr.Anim.PushBack({ 218,90,16,24 });
+	GreenBombAnimDestr.Anim.PushBack({ 243,193,13,14 });
+	GreenBombAnimDestr.Anim.loop = false;
+	GreenBombAnimDestr.Anim.speed = 0.3f;
+	GreenBombAnimDestr.Life = 2000;
+
+
 
 	//HOU_Shot.Anim.PushBack({117,263,13,13});
 	HOU_Shot.Anim.speed = 0.2f;
@@ -390,6 +409,7 @@ bool ModuleParticles::CleanUp() {
 	App->textures->Unload(Particle4);
 	App->textures->Unload(Particle5);
 	App->textures->Unload(Particle6);
+	App->textures->Unload(particleMiniBoss);
 	App->textures->Unload(Explosion_Texture);
 	App->textures->Unload(LaserBeam.Sprites);
 	App->textures->Unload(ImpactExplosion.Sprites);
