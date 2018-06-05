@@ -93,11 +93,26 @@ public:
 
 	//RANKING
 	FILE *Ranking;
+	uint a = 0;
 	struct rank ranking[9];
-	struct rank support[9];
+	char name1;
+	char name2;
+	char name3;
+	bool cpressed = false;
+	bool c2pressed = false;
+	bool c3pressed = false;
+	bool ccompleted = false;
+	char NewName[4] = "RCK";
+	char New[4];
 //	int countFile(FILE *pFile, char *path);
 	void ChangeRanking(FILE *pFile, char *path, int Score);
 	uint counterRanking;
+	char *abecedary = "ABCDEFGHIJKLMN0PQRSTUVWXYZ";
+	char *abecedary2 = "ABCDEFGHIJKLMN0PQRSTUVWXYZ";
+	char *abecedary3 = "ABCDEFGHIJKLMN0PQRSTUVWXYZ";
+	int selector = 0;
+	int selector2 = 0;
+	int selector3 = 0;
 	
 
 private:
