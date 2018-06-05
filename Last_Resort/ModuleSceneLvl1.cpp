@@ -570,7 +570,7 @@ update_status ModuleSceneLvl1::Update() {
 	}
 
 	//Checkpoints
-	if (position_max_limit == 3500)
+	if (position_max_limit == 3500 && App->fonts->coins > 0)
 		App->fonts->Checkpoint1 = true;
 
 	return UPDATE_CONTINUE;

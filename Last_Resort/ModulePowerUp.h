@@ -138,7 +138,7 @@ public:
 
 public:
 
-	Mix_Chunk *PickUpSpeed;
+	//Mix_Chunk *PickUpSpeed;
 	Mix_Chunk *PickUpWeapon;
 
 	Animation *Power_Up_animation = nullptr;
