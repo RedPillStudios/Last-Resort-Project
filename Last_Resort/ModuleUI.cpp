@@ -97,7 +97,6 @@ update_status ModuleUI::Update() {
 				if (selector3 > 25)
 					selector3 = 0;
 			}
-
 		}
 		if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_DOWN) {
 
@@ -143,11 +142,10 @@ update_status ModuleUI::Update() {
 
 					New[i] = NewName[i];
 				}
-				
 			}
-
 		}
 	}
+
 	BlitText((SCREEN_WIDTH / 2) + 130, (SCREEN_HEIGHT / 2), font, &name1);
 	/*BlitText((SCREEN_WIDTH / 2) + 10, (SCREEN_HEIGHT / 2), font, &c2);
 	BlitText((SCREEN_WIDTH / 2) + 20, (SCREEN_HEIGHT / 2), font, &c3);*/
@@ -254,21 +252,8 @@ update_status ModuleUI::Update() {
 		counterRanking++;
 		uint MaxScore = ScoreP1 + ScoreP2;
 		ChangeRanking(Ranking, "Images/Ranking.txt", MaxScore);
-		Ranking = fopen("Images/Ranking.txt", "r");
 
-		if (Ranking != NULL) {
-
-			
-			for (int i = 0; i < 9; i++) {
-
-				fscanf(Ranking, "%c", &ranking[i].name[0]);
-				fscanf(Ranking, "%c", &ranking[i].name[1]);
-				fscanf(Ranking, "%c", &ranking[i].name[2]);
-				fscanf(Ranking, "%d", &ranking[i].score);
-			}
-		}
 		TopScore = ranking[0].score;
-		fclose(Ranking);
 
 		selector = 0;
 		selector2 = 0;
@@ -280,7 +265,6 @@ update_status ModuleUI::Update() {
 
 	}
 	
-
 	return UPDATE_CONTINUE;
 }
 
@@ -394,6 +378,7 @@ void ModuleUI::BlitText(int x, int y, int font_id, const char* text) const
 
 void ModuleUI::ChangeRanking(FILE *pFile, char *path, int Score) {
 
+	int j = 5;
 	for (int i = 0; i < 9; i++) {
 
 		//Changing Array ranking
