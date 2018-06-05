@@ -53,22 +53,26 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	Bluelight.speed = 0.03f;
 
 
-	YellowLight.PushBack({ 132,0,25,143 });
-	YellowLight.PushBack({ 156,0,25,143 });
-	YellowLight.PushBack({ 195,0,25,143 });
-	YellowLight.PushBack({ 247,0,65,143 });
-	YellowLight.PushBack({ 312,0,81,143 });
-	YellowLight.PushBack({ 393,0,99,143 });
-	YellowLight.PushBack({ 0,144,121,289 });
-	YellowLight.PushBack({ 121,144,142,289 });
-	YellowLight.PushBack({ 0,144,121,289 });
-	YellowLight.PushBack({ 393,0,99,143 });
-	YellowLight.PushBack({ 312,0,81,143 });
-	YellowLight.PushBack({ 247,0,65,143 });
-	YellowLight.PushBack({ 195,0,25,143 });
-	YellowLight.PushBack({ 156,0,25,143 });
+	YellowLight.PushBack({ 132,0,25,143 });//
+	YellowLight.PushBack({ 157,0,38,143 });//
+	YellowLight.PushBack({ 157,0,38,143 });//----white
+	YellowLight.PushBack({ 195,0,52,143 });//
+	YellowLight.PushBack({ 247,0,65,143 });//
+	YellowLight.PushBack({ 312,0,81,143 });//
+	YellowLight.PushBack({ 393,0,99,143 });// 
+	YellowLight.PushBack({ 0,145,121,289 });//
+	YellowLight.PushBack({ 121,145,142,289 });//
+	//marcha atras
+	YellowLight.PushBack({ 121,145,142,289 });//
+	YellowLight.PushBack({ 0,145,121,289 });//
+	YellowLight.PushBack({ 393,0,99,143 });// 
+	YellowLight.PushBack({ 312,0,81,143 });//
+	YellowLight.PushBack({ 247,0,65,143 });//
+	YellowLight.PushBack({ 195,0,52,143 });//
+	YellowLight.PushBack({ 157,0,38,143 });//
+	YellowLight.PushBack({ 132,0,25,143 });//
 	YellowLight.loop = true;
-	YellowLight.speed = 0.1f;
+	YellowLight.speed = 0.05f;
 
 	Streetlight.PushBack({ 0,0,53,69 });
 	Streetlight.PushBack({ 53,0,53,69 });
@@ -86,6 +90,16 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 
 	Streetlight2.speed = 0.008f;
 
+	minispaceships.PushBack({ 0 ,0,9,4 });
+	minispaceships.PushBack({ 11,0,9,4 });
+	minispaceships.PushBack({ 22,0,9,4 });
+	minispaceships.PushBack({ 33,0,9,4 });
+	minispaceships.PushBack({ 44,0,9,3 });
+	minispaceships.PushBack({ 55,0,9,4 });
+	minispaceships.PushBack({ 66,0,9,4 });
+	minispaceships.PushBack({ 77,0,9,4 });
+	minispaceships.speed = 0.1;
+	minispaceships.loop = true;
 	srand(2);
 
 }
@@ -97,6 +111,8 @@ ModuleSceneLvl1::~ModuleSceneLvl1()
 bool ModuleSceneLvl1::Start()
 {
 	LOG("Loading background assets");
+
+	App->fonts->counterRanking = 0;
 
 	if (App->fonts->Checkpoint1 == false) {
 
@@ -120,7 +136,7 @@ bool ModuleSceneLvl1::Start()
 	graphics = App->textures->Load("Images/Player/Ship&Ball_Sprite.png"); // arcade version
 	Laser_Sprites = App->textures->Load("Images/Background_Lvl1/Lasers_Sprite.png");
 	graphics_Streetlight = App->textures->Load("Images/Background_Lvl1/Farols_Animations.png");
-
+	Minispaceship_texture = App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
 	//Music
 	Stage1 = App->sound->LoadMusic("Audio/Stage1/Jack_to_the_Metro_Stage1.ogg");
 	Stage1_Boss_Music = App->sound->LoadMusic("Audio/Stage1/Stage1_Boss_Music.ogg");
@@ -139,22 +155,25 @@ bool ModuleSceneLvl1::Start()
 		App->Boss->Enable();
 		App->collision->Enable();
 		App->particles->Enable();
-		App->MiniBoss->Enable();
+    App->MiniBoss->Enable();
+		App->BossTank->Enable();
+
 	}
 	if (App->player->IsEnabled() == false && App->fonts->P1Life > 0) {
 		App->player->Enable();
 		App->player->resetPosition();
 	}
-	if (App->player2->IsEnabled() == false && App->fonts->P2Life > 0) {
+	/*if (App->player2->IsEnabled() == false && App->fonts->P2Life > 0) {
 		App->player2->Enable();
 		App->player2->resetPosition2();
-	}
+	}*/
 
 
 	//Enemies
 	//WASP->Wave1{
 	//troop1
 	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 200, 150);
+	App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 250, 150);
 
   //Bees
 	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
@@ -194,6 +213,7 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1075, 65, true);
   
 	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 1075, 65);
+	App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 1025, 65);
 
 	//troop5
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1155, 20, false);
@@ -207,7 +227,6 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1235, 145, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1275, 145, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1315, 145, true);
-
 
 	App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 1315, 145);
 	// }
@@ -228,13 +247,13 @@ bool ModuleSceneLvl1::Start()
 	//WASP->Wave3{
 	if(App->fonts->Checkpoint1 == false){
 
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3200, 112, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3240, 145, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3265, 112, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3280, 90, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3320, 75, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3310, 145, true);
-	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3310, 145);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3200, 112, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3240, 145, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3265, 112, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3280, 90, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3320, 75, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3310, 145, true);
+		App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3310, 145);
 	}
 
 	//WASP->wave4
@@ -291,10 +310,12 @@ bool ModuleSceneLvl1::Start()
 	//ZICZAC
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,3560, 145, true);
 	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3560, 145);
+	App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 3610, 145);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, 7560, 60, true);
   
 	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 7560, 60);
-	
+	App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 7610, 60);
+
 	return true;
 }
 
@@ -310,6 +331,7 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->textures->Unload(graphics);
 	App->textures->Unload(Laser_Sprites);
 	App->textures->Unload(graphics_Streetlight);
+	App->textures->Unload(Minispaceship_texture);
 
 	App->sound->UnloadMusic(Stage1);
 	App->sound->UnloadMusic(Stage1_Boss_Music);
@@ -425,18 +447,46 @@ update_status ModuleSceneLvl1::Update() {
 	
 	//background
 	App->render->Blit(graphics_Crater_Boss_Zone, 0, 0, &CraterBossZone, 0.0f);
+
+	
+
 	App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
 
-	//lights
+	App->render->Blit(Minispaceship_texture, -10 + xxx, yyy + 5, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -20 + xxx, yyy + 10, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -30 + xxx, yyy + 15, &minispaceships.GetCurrentFrame(), 0.3f);
 
+	App->render->Blit(Minispaceship_texture, -290 + xxx, yyy + 40, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -300 + xxx, yyy + 45, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -310 + xxx, yyy + 50, &minispaceships.GetCurrentFrame(), 0.3f);
+
+
+	App->render->Blit(Minispaceship_texture, -630 + xxx, yyy + 40, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -650 + xxx, yyy + 45, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -640 + xxx, yyy + 50, &minispaceships.GetCurrentFrame(), 0.3f);
+
+	App->render->Blit(Minispaceship_texture, -1190 + xxx, yyy + 5, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -1210 + xxx, yyy + 10, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, - 1200+ xxx, yyy + 15, &minispaceships.GetCurrentFrame(), 0.3f);
+
+	App->render->Blit(Minispaceship_texture, -1630 + xxx, yyy + 40, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -1650 + xxx, yyy + 45, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -1640 + xxx, yyy + 50, &minispaceships.GetCurrentFrame(), 0.3f);
+
+	//lights
 	App->render->Blit(Laser_Sprites, 400, 0, &YellowLight.GetCurrentFrame(), 0.3f);
 	App->render->Blit(Laser_Sprites, 196, -17, &Bluelight.GetCurrentFrame(), 0.3f);
 	App->render->Blit(Laser_Sprites, 710, -17, &Bluelight.GetCurrentFrame(), 0.3f);
-	App->render->Blit(Laser_Sprites, 790, 0, &Bluelight.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Laser_Sprites, 800, 0, &YellowLight.GetCurrentFrame(), 0.3f);
 	App->render->Blit(Laser_Sprites, 855, -15, &Bluelight.GetCurrentFrame(), 0.3f);
-
+	App->render->Blit(Laser_Sprites, 1200, 0, &YellowLight.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Laser_Sprites, 1600, 0, &YellowLight.GetCurrentFrame(), 0.3f);
+	//minidetails
+	xxx++;
+	yyy = 60;
+	
+	
 	//background
-
 	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
 	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL, 0.5f); // FIRST PLANE BACKGROUND
 	StreetlightCreator();
@@ -473,14 +523,24 @@ update_status ModuleSceneLvl1::Update() {
 
 		switchMusic = false;
 	}
+	//PLAYER 2 APPEAR
+	if (App->input->keyboard[SDL_SCANCODE_P]) {
+		if (App->player2->IsEnabled() == false && App->fonts->P2Life > 0) {
+		App->player2->Enable();
+		App->player2->resetPosition2();
+		}
+	}
 
 	// FADE IF NO MORE LIVES
-	if (App->fonts->P1Life <= 0 && App->fonts->P2Life <= 0 && App->player->Dead == true && App->player2->Dead == true) {
-
-		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f); 
+	if (App->player2->IsEnabled() == false && App->fonts->P1Life <= 0) {
+		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
 		Mix_FadeOutMusic(3000);
-		
 	}
+	else if (App->player2->IsEnabled() == true && App->fonts->P1Life <= 0 && App->fonts->P2Life <= 0) {
+		App->fade->FadeToBlack(App->scene1background, App->gameover, 1.0f);
+		Mix_FadeOutMusic(3000);
+	}
+	
 
 	//Boss Spawn
 

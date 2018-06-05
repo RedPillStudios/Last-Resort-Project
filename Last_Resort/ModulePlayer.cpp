@@ -15,6 +15,7 @@
 #include "ModuleSceneLvl1.h"
 #include "ModuleStageClear.h"
 #include "Module_Hou_Player1.h"
+#include "ModuleParticles.h"
 #include <stdio.h>
 
 ModulePlayer::ModulePlayer()
@@ -101,8 +102,6 @@ bool ModulePlayer::Start() {
 	ShootTimer1 = 0;
 	ShootTimer2 = 0;
     ShootTimer3 = 0;
-	ShootTimer4 = 0;
-	//ScoreP1 = 0;
 
 	Appear.Reset();
 	DestroyShip.Reset();
@@ -153,7 +152,7 @@ bool ModulePlayer::CleanUp() {
 	App->sound->UnloadChunks(Shot_Sound);
 	App->sound->UnloadChunks(MissilePower_Sound);
 	App->sound->UnloadChunks(LasserBeam_Sound);
-
+	
 	if (GOD)
 		GOD = !GOD;
 
@@ -180,6 +179,7 @@ update_status ModulePlayer::Update() {
 			Ship1Collider->changeCollider(COLLIDER_TYPE::COLLIDER_PLAYER);
 		}
 	}
+
 	if (current_animation != &DestroyShip && Appear.Finished())
 		current_animation = &Standard;
 		
@@ -276,22 +276,19 @@ update_status ModulePlayer::Update() {
 					GOD = true;
 			}
 				
-
-		
-
 			//Shoot with timer:
 			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN ) {
+
 				if (ShootTimer1 < SDL_GetTicks() - 150) {
 
 					App->particles->AddParticle(App->particles->Laser, setFirePos().x - 10, setFirePos().y, COLLIDER_PLAYER_SHOT);
 					App->particles->AddParticle(App->particles->ShootExplosion, setFirePos().x, setFirePos().y);
 
 					Mix_PlayChannel(-1, Shot_Sound, 0);
-
 					ShootTimer1 = SDL_GetTicks();
 				
 				}
-					if (WeaponType == Shoots::MISSILES && ShootTimer2 < SDL_GetTicks() - 600) {
+					if (WeaponType == Shoots::MISSILES && ShootTimer2 < SDL_GetTicks() - 1200) {
 
 						App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y + 10, COLLIDER_PLAYER_SHOT, 200);
 						App->particles->AddParticle(App->particles->MissilePower, position.x - 5, position.y - 10, COLLIDER_PLAYER_SHOT, 200);
@@ -300,25 +297,49 @@ update_status ModulePlayer::Update() {
 						ShootTimer2 = SDL_GetTicks();
 						
 					}
+					if (WeaponType == 4 && ShootTimer2 < SDL_GetTicks() - 1500) {
+
+						App->particles->AddParticle(App->particles->MissilePower, position.x - 10, position.y + 10, COLLIDER_PLAYER_SHOT, 200);
+						App->particles->AddParticle(App->particles->MissilePower, position.x - 10, position.y - 10, COLLIDER_PLAYER_SHOT, 200);
+
+						App->particles->AddParticle(App->particles->MissilePower, position.x - 35, position.y + 25, COLLIDER_PLAYER_SHOT, 200);
+						App->particles->AddParticle(App->particles->MissilePower, position.x - 35, position.y - 25, COLLIDER_PLAYER_SHOT, 200);
+
+						App->particles->AddParticle(App->particles->MissilePower, position.x - 60, position.y + 35, COLLIDER_PLAYER_SHOT, 200);
+						App->particles->AddParticle(App->particles->MissilePower, position.x - 60, position.y - 35, COLLIDER_PLAYER_SHOT, 200);
+
+						Mix_PlayChannel(-1, MissilePower_Sound, 0);
+						ShootTimer2 = SDL_GetTicks();
+
+					}
 					
 					if (WeaponType == Shoots::LASERSHOOT && ShootTimer3 < SDL_GetTicks() - 650) {
 
-						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x -16, setFirePos().y + 3, COLLIDER_PLAYER_LASERBEAM_SHOT);
+							App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x - 16, setFirePos().y + 3, COLLIDER_PLAYER_LASERBEAM_SHOT);
+							App->particles->AddParticle(App->particles->LaserBeamExplosion, setFirePos().x, setFirePos().y, COLLIDER_NONE);
+							App->particles->AddParticle(App->particles->LaserBeamArea1, setFirePos().x + 5, setFirePos().y - 10, COLLIDER_NONE);
+							//App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x, setFirePos().y - 11, COLLIDER_PLAYER_LASERBEAM_AREA_SHOT, 100 - 30);
 
-						App->particles->AddParticle(App->particles->LaserBeamExplosion, setFirePos().x, setFirePos().y, COLLIDER_NONE);
-
-						App->particles->AddParticle(App->particles->LaserBeamArea1, setFirePos().x + 5, setFirePos().y - 10, COLLIDER_NONE);
-
-						for (int i = SDL_GetTicks(); i > SDL_GetTicks() + 50; i++) {
-							
-						}
-						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x, setFirePos().y - 11, COLLIDER_PLAYER_LASERBEAM_AREA_SHOT, 100 - 30);
-						
 						
 						Mix_PlayChannel(-1, LasserBeam_Sound, 0);
-						
 						ShootTimer3 = SDL_GetTicks();
-					}											
+					}										
+					if (WeaponType == 5 && ShootTimer3 < SDL_GetTicks() - 650) {
+						App->particles->AddParticle(App->particles->LaserBeam, setFirePos().x - 16, setFirePos().y + 3, COLLIDER_PLAYER_LASERBEAM_SHOT);
+						App->particles->AddParticle(App->particles->LaserBeamExplosion, setFirePos().x, setFirePos().y, COLLIDER_NONE);
+						App->particles->AddParticle(App->particles->LaserBeamArea1, setFirePos().x + 5, setFirePos().y - 10, COLLIDER_NONE);
+						App->particles->AddParticle(App->particles->LaserBeamArea3, setFirePos().x, setFirePos().y - 11, COLLIDER_PLAYER_LASERBEAM_AREA_SHOT, 100 - 30);
+					
+						Mix_PlayChannel(-1, LasserBeam_Sound, 0);
+						ShootTimer3 = SDL_GetTicks();
+					}	
+					if (WeaponType == 6 && ShootTimer2 < SDL_GetTicks() - 1200) {
+
+						App->particles->AddParticle(App->particles->HipopotamoBomba, setFirePos().x, setFirePos().y + 3, COLLIDER_PLAYER_SHOT);
+						App->particles->AddParticle(App->particles->HipopotamoBomba2, setFirePos().x, setFirePos().y - 3, COLLIDER_PLAYER_SHOT);
+						ShootTimer2 = SDL_GetTicks();
+
+					}
 			}
 		}
 		
@@ -354,4 +375,21 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 
 		}
 	}
+}
+
+void ModulePlayer::ShootSelector(uint shoot) {
+
+	if (shoot == BASICSHOOT) 
+		WeaponType = 1;
+	else if (shoot == LASERSHOOT) 
+		WeaponType = 2;
+	else if (shoot == MISSILES) 
+		WeaponType = 3;
+	else if (shoot == MISSILES2)
+		WeaponType = 4;
+	else if (shoot == BASICLASERSHOOT)
+		WeaponType = 5;
+	else if (shoot == BOMBSHOOT)
+		WeaponType = 6;
+
 }

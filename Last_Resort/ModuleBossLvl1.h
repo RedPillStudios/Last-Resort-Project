@@ -21,6 +21,12 @@ enum Attack {
 	BODY,
 	NONE
 };
+enum STAGES {
+
+	Stage1,
+	Stage2,
+	Stage3
+};
 
 class ModuleBossLvl1 : public Module {
 
@@ -34,6 +40,9 @@ public:
 	bool CleanUp();
 
 public:
+	STAGES Stage;
+public:
+
 
 	//All colliders and animations
 	Collider *Bot = nullptr;
@@ -65,33 +74,62 @@ public:
 	iPoint position;
 	
 public:
-
-	bool beAttacked;
-	void OnCollision(Collider *c1, Collider *c2);
-	uint life;
-	bool dead;
-
-	bool ShootSpawned;
-	bool TimeCounter = true;
-	bool TimeCounter2 = true;
-
-	uint AppearTime;
-	uint AppearTime2;
-	uint current_time = SDL_GetTicks();
-
 	bool BossMoves = false;
 	bool boss1life = false;
-
-public:
-
+	bool beAttacked;
+	void OnCollision(Collider *c1, Collider *c2);
+	bool dead;
+	bool EyeBool = true;
+	bool TimeCounter = true;
+	bool TimeCounter2 = true;
+	//booleans for movement
+	bool ReachPos = false;
 	//Booleans for charge attack
 	bool ChargeAttack = false;
 	bool Left = false;
 	bool Right = false;
+	bool Shooted = false;
+	bool Forward = false;
+	bool Backward = false;
+	bool EndCharge = false;
+
+public:
+	uint life;
+	uint AppearTime;
+	uint AppearTime2;
+	uint current_time = SDL_GetTicks();
+	uint BossTrote = 1;
+	uint TearShoot = 1;
+	uint EnemyAddController = 0;
+	int BossTroteDelay;
+	int TearShootDelay;
+	int Time1 = 0;
+	int Time2 = 0;
+	int Time3 = 0;
+	int Time4 = 0;
+	int Time5 = 0;
+	int Time6 = 0;
+	int Time7 = 0;
+	int Time8 = 0;
+	int Restartcontroller = 0;
+	int Restartcontroller2 = 0;
+	int Restartcontroller3 = 0;
+	int Restartcontroller4 = 0;
+	int Restartcontroller5 = 0;
+	int Restartcontroller6 = 0;
+	int Restartcontroller7 = 0;
+	int ShootCounter = 0;
+	int cicle = 2;
+	int MaleTears;
+	int randnum = 0;
+public:
+
+	
 
 	//Attack Functions
 	void Charge();
 	void Shooting();
+	void LluviaDorada();
 	
 
 	 

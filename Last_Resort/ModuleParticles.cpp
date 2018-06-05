@@ -9,6 +9,7 @@
 #include "ModuleSceneLvl1.h"
 #include "SDL/include/SDL_timer.h"
 #include <cstdlib>
+#include <math.h>
 
 ModuleParticles::ModuleParticles() {
 
@@ -30,17 +31,42 @@ bool ModuleParticles::Start() {
 	particle0 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
 	Particle1 = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
 	Particle2 = App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
-	Particle3= App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
+	Particle3 = App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
 	Particle4 = App->textures->Load("Images/Player/Charge_Ball.png");
 	Particle5 = App->textures->Load("Images/Particles/Explosion.png");
 	Particle6 = App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
 	Explosion_Texture = App->textures->Load("Images/Particles/Explosion_Good.png");
-
+//	Particle6 = App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
 
 	ImpactExplosionSound = App->sound->LoadChunk("Audio/General/007_Enemy_Explosion_Standard.wav");
 	ImpactExplosionSound2 = App->sound->LoadChunk("Audio/General/Explosion2.wav");
+
 	Mix_VolumeChunk(ImpactExplosionSound,MIX_MAX_VOLUME/2.5f);
 	Mix_VolumeChunk(ImpactExplosionSound2, MIX_MAX_VOLUME / 2);
+
+	//BOOOOOOOOOOOOOOOOOOOOOOOOOOOMBAAAA un movimiento muy sexy: se-xy, un movimiento muy sensual: sen-sual
+	HipopotamoBomba.Anim.PushBack({ 0, 306, 16, 6 });
+	HipopotamoBomba.Anim.PushBack({ 17, 303, 15, 10 });
+	HipopotamoBomba.Anim.PushBack({ 34, 301, 10, 15 });
+
+	HipopotamoBomba.Anim.loop = false;
+	HipopotamoBomba.Anim.speed = 0.1f;
+	HipopotamoBomba.Sprites = Particle1;
+	HipopotamoBomba.Life = 1200;
+	HipopotamoBomba.Speed.y = 2.5f;
+	HipopotamoBomba.Speed.x = (HipopotamoBomba.Position.x ^ 2);
+
+	HipopotamoBomba2.Anim.PushBack({ 0, 306, 16, 6 });
+	HipopotamoBomba2.Anim.PushBack({ 45, 302, 15, 10 });
+	HipopotamoBomba2.Anim.PushBack({ 62, 301, 11, 15 });
+
+	HipopotamoBomba2.Anim.loop = false;
+	HipopotamoBomba2.Anim.speed = 0.1f;
+	HipopotamoBomba2.Sprites = Particle1;
+	HipopotamoBomba2.Life = 1200;
+	HipopotamoBomba2.Speed.y = -(2.5f);
+	HipopotamoBomba2.Speed.x = (HipopotamoBomba2.Position.x ^ 2);
+
 
 	ShootExplosion.Anim.PushBack({ 82, 239, 12, 12 });
 	ShootExplosion.Anim.PushBack({ 94, 241, 11, 9 });
@@ -71,10 +97,11 @@ bool ModuleParticles::Start() {
 
 	
 	MissilePower.Anim.speed = 0.3f;
-	MissilePower.Speed.x = 4;
 	MissilePower.Anim.loop = true;
+	MissilePower.Speed.x = 4;
 	MissilePower.Life = 3000;
 	MissilePower.Sprites = particle0;
+
 	////pattern2
 	//MissilePowerPatter2.Anim.PushBack({ 14,237,30,16 });
 	//MissilePowerPatter2.Anim.PushBack({ 0,290,74,6 });
@@ -97,14 +124,14 @@ bool ModuleParticles::Start() {
 
 	//___________________________
 
-	LaserBeam.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeam.Sprites = Particle1; //App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
 	LaserBeam.Anim.PushBack({ 23,296,66,3 });
 	LaserBeam.Anim.loop = true;
 	LaserBeam.Anim.speed = 0.1;
 	LaserBeam.Speed.x = 8;
 	LaserBeam.Life = 1000;
 
-	LaserBeamExplosion.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeamExplosion.Sprites = Particle1;
 	LaserBeamExplosion.Anim.PushBack({ 0,317,13,13 });
 	LaserBeamExplosion.Anim.PushBack({ 0,334,27,9 });
 	LaserBeamExplosion.Anim.PushBack({ 0,348,30,7 });
@@ -116,7 +143,7 @@ bool ModuleParticles::Start() {
 	LaserBeamExplosion.Anim.speed = 0.3;
 	LaserBeamExplosion.Speed.x = 1;
 
-	LaserBeamArea1.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeamArea1.Sprites = Particle1;
 	LaserBeamArea1.Anim.PushBack({ 48,264 - 10,4,8 + 21 });  //264
 	LaserBeamArea1.Anim.PushBack({ 57,261 - 5,6,15 + 15 });  //261
 	LaserBeamArea1.Anim.PushBack({ 66,254,11,31 });  //254
@@ -124,7 +151,7 @@ bool ModuleParticles::Start() {
 	LaserBeamArea1.Anim.speed = 0.3f;
 	LaserBeamArea1.Speed.x = 2;
 
-	LaserBeamArea2.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeamArea2.Sprites = Particle1;
 	LaserBeamArea2.Anim.PushBack({ 65,337,16,47 });
 	LaserBeamArea2.Anim.PushBack({ 85,337,20,47 });
 	LaserBeamArea2.Anim.PushBack({ 106,337,20,47 });
@@ -136,7 +163,7 @@ bool ModuleParticles::Start() {
 	LaserBeamArea2.Speed.x = 2.0f;
 	LaserBeamArea2.Life = 300;
 
-	LaserBeamArea3.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeamArea3.Sprites = Particle1;
 	LaserBeamArea3.Anim.PushBack({ 66,254,47,31 });
 	LaserBeamArea3.Anim.loop = false;
 	LaserBeamArea3.Anim.speed = 0.1;
@@ -165,7 +192,7 @@ bool ModuleParticles::Start() {
 	BossShoot.Anim.PushBack({ 194,260, 63, 32 });
 	BossShoot.Anim.loop = true;
 	BossShoot.Life = 1300;
-	BossShoot.Speed.x = -2;
+	BossShoot.Speed.x = -4;
 	BossShoot.Anim.speed = 0.1f;
 
 	BossCoolDown.Sprites = Particle3;
@@ -186,18 +213,8 @@ bool ModuleParticles::Start() {
 	BossShootExplosion.Anim.PushBack({ 384, 255, 64, 56 });
 	BossShootExplosion.Anim.speed = 0.15f;
 
-	GreenBomb.Sprites = Particle6;
-	GreenBomb.Anim.PushBack({235,0,18,17});
-	GreenBomb.Anim.PushBack({235,19,17,17});
-	GreenBomb.Anim.PushBack({236,37,17,17});
-	GreenBomb.Anim.PushBack({235,55,18,17});
-	GreenBomb.Anim.PushBack({ 236,72,17,18});
-	GreenBomb.Anim.PushBack({236,91,17,18});
-	GreenBomb.Anim.PushBack({234,109,18,17});
-	GreenBomb.Anim.PushBack({235,129,18,16});
-	GreenBomb.Anim.loop = true;
-	GreenBomb.Speed.x = 1;
-	GreenBomb.Anim.speed = 0.2f;
+	
+
 
 	FogExplosion.Sprites = Particle5;
 	FogExplosion.Anim.PushBack({29,0,14,16 });
@@ -214,10 +231,40 @@ bool ModuleParticles::Start() {
 	FogExplosion.Anim.PushBack({67,74,31,16});
 	FogExplosion.Anim.PushBack({0,94,31,16 });
 	FogExplosion.Anim.PushBack({35,98,17,11});
-	FogExplosion.Anim.loop = false;
+
+
+	FogExplosion.Anim.loop = true;
 	FogExplosion.Anim.speed = 0.3f;
+	FogExplosion.Speed.y =1;
 
 	HOU_Shot.Anim.PushBack({ 117,250,13,13 });
+	MaleTears.Sprites = Particle3;
+	MaleTears.Anim.PushBack({ 5,344,1,1});
+	MaleTears.Anim.PushBack({ 14,344,2,1 });
+	MaleTears.Anim.PushBack({ 23,344,3,2 }); 
+	MaleTears.Anim.PushBack({ 33,343,4,3});
+	MaleTears.Anim.PushBack({ 43,342,4,4 });
+	MaleTears.Anim.PushBack({ 53,342,4,4 });
+	MaleTears.Anim.PushBack({ 63,342,5,5});
+	MaleTears.Anim.PushBack({ 72,342,6,5 });
+	MaleTears.Anim.PushBack({ 82,342,6,5 });
+	MaleTears.Anim.PushBack({ 92,341,6,6 });
+	MaleTears.Anim.PushBack({ 102,341,7,6 });
+	MaleTears.Anim.PushBack({ 111,341,8,7 });
+	MaleTears.Anim.PushBack({ 120,340,9,9 });
+	MaleTears.Anim.PushBack({ 130,339,10,10 });
+	MaleTears.Anim.PushBack({ 2,350,9,12 });
+	MaleTears.Anim.PushBack({ 15,350,11,13 });
+	MaleTears.Anim.PushBack({ 29,350,11,12 });
+	MaleTears.Anim.PushBack({ 43,350,13,13 });
+	MaleTears.Anim.PushBack({ 56,349,14,12 });
+	MaleTears.Anim.loop = false;
+	MaleTears.Anim.speed = 0.3f;
+	MaleTears.Speed.x = -1;
+	MaleTears.Life = 5000;
+	MaleTears.Speed.y = 2;
+	//MaleTears.Speed.y = 0.01*((3*MaleTears.Position.x ^ 3)+2*(MaleTears.Position.x)+3);
+
 
 	//HOU_Shot.Anim.PushBack({117,263,13,13});
 	HOU_Shot.Anim.speed = 0.2f;
@@ -381,7 +428,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 
 		// DON'T DESTROY LASERBEAM WHEN COLLIDES
 		
-		if (active[i] != nullptr && active[i]->collider == c1 && c1->type == COLLIDER_PLAYER_LASERBEAM_SHOT) {
+		if (active[i] != nullptr && active[i]->collider == c1 && (c1->type == COLLIDER_PLAYER_LASERBEAM_SHOT || c1->type == COLLIDER_PLAYER_LASERBEAM_SHOT2)) {
 
 			if (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_WALL)
 				//AddParticle(ImpactExplosion, active[i]->Position.x, active[i]->Position.y);
@@ -404,7 +451,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			break;
 		}
 		// Always destroy particles that collide AND AREN`T LASSER BEAM
-		if (active[i] != nullptr && active[i]->collider == c1 && c1->type != COLLIDER_PLAYER_LASERBEAM_SHOT) {
+		if (active[i] != nullptr && active[i]->collider == c1 && (c1->type != COLLIDER_PLAYER_LASERBEAM_SHOT || c1->type != COLLIDER_PLAYER_LASERBEAM_SHOT2)) {
 			
 			if (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_WALL)
 				//	AddParticle(ImpactExplosion,active[i]->Position.x, active[i]->Position.y);
