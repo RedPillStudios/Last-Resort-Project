@@ -17,6 +17,7 @@
 #include "ModulePlayer2.h"
 #include "ModulePowerUp.h"
 #include "ModuleUI.h"
+#include "Humans.h"
 
 #define SPAWN_MARGIN 50
 
@@ -163,6 +164,9 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		case ENEMY_TYPES::ENEMY_BEE:
 		enemies[i] = new Enemy_Bee(info.x, info.y,info.PowerUp);
 		break;
+		case ENEMY_TYPES::HUMAN:
+			enemies[i] = new Humans(info.x,info.y);
+			break;
 		}
 	}
 }
@@ -196,7 +200,9 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 				if (enemies[i]->type != ENEMY_TYPES::CARS) {
 					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 8, enemies[i]->position.y - 2, COLLIDER_NONE, 200);
 					//App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 8, enemies[i]->position.y + 3, COLLIDER_NONE, 200);
+					App->enemies->AddEnemy(ENEMY_TYPES::HUMAN, enemies[i]->position.x, enemies[i]->position.y,false);
 				}
+				
 				App->textures->Unload(enemies[i]->sprites);
 				delete enemies[i];
 				enemies[i] = nullptr;

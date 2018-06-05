@@ -100,6 +100,9 @@
     <ClCompile Include="ModuleTextures.cpp">
       <Filter>Modules\Base\Screen</Filter>
     </ClCompile>
+    <ClCompile Include="Humans.cpp">
+      <Filter>Modules\Enemies\Human</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -210,6 +213,9 @@
     <ClInclude Include="ModuleTextures.h">
       <Filter>Modules\Base\Screen</Filter>
     </ClInclude>
+    <ClInclude Include="Humans.h">
+      <Filter>Modules\Enemies\Human</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -268,6 +274,9 @@
     </Filter>
     <Filter Include="Modules\Base\Controllers">
       <UniqueIdentifier>{8219d022-a29b-460f-88ee-81c6b439fd53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\Human">
+      <UniqueIdentifier>{777a0938-04c2-4e83-a67c-7ed84cd690da}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
