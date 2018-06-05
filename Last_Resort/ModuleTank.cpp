@@ -77,7 +77,7 @@ ModuleTank::~ModuleTank() {}
 bool ModuleTank::Start() {
 	//Spawn pos
 	//TankPosition = { (3330.0), 157.0 };
-	TankPosition = { (120), 157.0 };
+	TankPosition = { (3290.0), 157.0 };
 
 	//anim declarated
 	CorriendoAlTroteAnim = &CorriendoAlTrote;

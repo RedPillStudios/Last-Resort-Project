@@ -96,10 +96,10 @@ Iron_Craw::~Iron_Craw()
 
 bool Iron_Craw::Start() {
 
-	if (App->scene1background->IronCraw2==false)
-		SpawnPos = 200;
+	if (App->scene1background->IronCraw2 == false)
+		SpawnPos = 1300;
 	else
-		SpawnPos = 7700;
+		SpawnPos = 8000;
 
 	position = {(SpawnPos),-10.0};
 
@@ -350,14 +350,16 @@ update_status Iron_Craw::Update() {
 
 		}
 
-		App->render->Blit(Mini_Boss, position.x - 9, position.y + 18, &blueCircle.GetCurrentFrame());
-		App->render->Blit(Mini_Boss, position.x + 20, position.y + 18, &blueCircle.GetCurrentFrame());
-		App->render->Blit(Mini_Boss, position.x - 3, position.y + 33, &leg1.GetCurrentFrame());
-		App->render->Blit(Mini_Boss, position.x + 27, position.y + 33, &leg2.GetCurrentFrame());
-		App->render->Blit(Mini_Boss, position.x, position.y, &Current_AnimationBody->GetCurrentFrame());
-		App->render->Blit(Mini_Boss, position.x + 38, RArmPosition, &Right_Arm.GetCurrentFrame());
-		App->render->Blit(Mini_Boss, position.x - 44, LArmPosition, &Left_Arm.GetCurrentFrame());
+	
 	}
+	App->render->Blit(Mini_Boss, position.x - 9, position.y + 18, &blueCircle.GetCurrentFrame());
+	App->render->Blit(Mini_Boss, position.x + 20, position.y + 18, &blueCircle.GetCurrentFrame());
+	App->render->Blit(Mini_Boss, position.x - 3, position.y + 33, &leg1.GetCurrentFrame());
+	App->render->Blit(Mini_Boss, position.x + 27, position.y + 33, &leg2.GetCurrentFrame());
+	App->render->Blit(Mini_Boss, position.x, position.y, &Current_AnimationBody->GetCurrentFrame());
+	App->render->Blit(Mini_Boss, position.x + 38, RArmPosition, &Right_Arm.GetCurrentFrame());
+	App->render->Blit(Mini_Boss, position.x - 44, LArmPosition, &Left_Arm.GetCurrentFrame());
+
 	return UPDATE_CONTINUE;
 }
 
@@ -383,6 +385,9 @@ bool Iron_Craw::CleanUp() {
 	App->textures->Unload(Damaged);
 
 	Current_AnimationBody = nullptr;
+	
+	if(!disablingIronCraw)
+		disablingIronCraw = true;
 
 	return true;
 }
@@ -407,9 +412,9 @@ void Iron_Craw::spawn() {
 	}
 
 	if (spawnMovementDown == true) {
-        position.y += 0.5f;
-		RArmPosition += 0.5f;
-		LArmPosition += 0.5f;
+        position.y += 0.2f;
+		RArmPosition += 0.2f;
+		LArmPosition += 0.2;
 		
 		if (position.y <=55) {
 			spawnMovementDown = false;
@@ -435,7 +440,7 @@ void Iron_Craw::Move() {
 		}
 		if (position.y >= MIN_HEIGHT_MINIBOSS) {
 			counterIron++;
-			if (counterIron >= 300) {
+			if (counterIron >= 250) {
 				moving_Up = true;
 				moving_Down = false;
 				counterIron = 0;
@@ -453,7 +458,7 @@ void Iron_Craw::Move() {
 		}
 		if (position.y<=MAX_HEIGHT_MINIBOSS) {
 			counterIron++;
-			if (counterIron >= 300) {
+			if (counterIron >=250) {
 				moving_Up = false;
 				moving_Down = true;
 				counterIron = 0;
