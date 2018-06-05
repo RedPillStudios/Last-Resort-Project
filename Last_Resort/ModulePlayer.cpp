@@ -368,8 +368,8 @@ update_status ModulePlayer::Update() {
 
 void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 
-	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL|| c1->type == COLLIDER_TYPE::COLLIDER_ENEMY_SHOT) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL || c2->type == COLLIDER_TYPE::COLLIDER_ENEMY_SHOT) && c1->type == COLLIDER_PLAYER )&&!ToBeDeleted) {
-
+	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL|| c1->type == COLLIDER_TYPE::COLLIDER_ENEMY_SHOT || c1->type == COLLIDER_TYPE::COLLIDER_BOSS_SHOOT) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL || c2->type == COLLIDER_TYPE::COLLIDER_ENEMY_SHOT || c2->type == COLLIDER_TYPE::COLLIDER_BOSS_SHOOT) && c1->type == COLLIDER_PLAYER )&&!ToBeDeleted) {
+		LOG("enter");
 			if (!(App->fonts->GOD)&&!flickering) {
 
 				LOG("P1LIFE MINUS ONE");

@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "Animation.h"
 #include "Globals.h"
+#include "ModuleUI.h"
+#include "Application.h"
 
 #include "SDL_mixer/include/SDL_mixer.h"
 #pragma comment(lib,"SDL_mixer/libx86/SDL2_mixer.lib")
@@ -35,6 +37,8 @@ public:
 	char Score2_text[10];
 	char SumScore_text[10];
 	int fontend;
+
+	bool RankBlitted = false;
 
 	bool SubstractCoins = true;
 

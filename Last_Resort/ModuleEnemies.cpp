@@ -206,7 +206,7 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 					enemies[i]->life -= App->HOU_Player1->Damage;	
 				}
 			}
-
+			
 			if (enemies[i]->life <= 0) {
 				
 				if (enemies[i]->PowerUp == true) {

@@ -32,6 +32,8 @@ bool ModuleMainMenu::Start() {
 	if (App->fonts->IsEnabled() == false)
 		App->fonts->Enable();
 
+	App->fonts->ccompleted = false;
+
 	if (App->menu->IsEnabled()) {
 
 			App->player->Disable();

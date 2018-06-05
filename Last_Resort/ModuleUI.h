@@ -129,7 +129,9 @@ public:
 	char New[4];
 //	int countFile(FILE *pFile, char *path);
 	void ChangeRanking(FILE *pFile, char *path, int Score);
+
 	uint counterRanking;
+
 	char *abecedary = "ABCDEFGHIJKLMN0PQRSTUVWXYZ";
 	char *abecedary2 = "ABCDEFGHIJKLMN0PQRSTUVWXYZ";
 	char *abecedary3 = "ABCDEFGHIJKLMN0PQRSTUVWXYZ";
@@ -137,6 +139,9 @@ public:
 	int selector2 = 0;
 	int selector3 = 0;
 	
+
+	void BlitRanking(struct rank array[9]);
+	void WriteName();
 
 private:
 
