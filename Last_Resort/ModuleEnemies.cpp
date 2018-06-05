@@ -212,7 +212,6 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 					App->fonts->ScoreP1 += enemies[i]->score;
 				else if (c1->type == COLLIDER_PLAYER_SHOT2 || c2->type == COLLIDER_PLAYER_SHOT2)
 					App->fonts->ScoreP2 += enemies[i]->score;
-				}
 
 				if (enemies[i]->type != ENEMY_TYPES::CARS) {
  					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 8, enemies[i]->position.y - 2, COLLIDER_NONE, 0);
@@ -237,10 +236,12 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 					enemies[i] = nullptr;
 					break;
 				}
+				else {
+					enemies[i]->OnCollision(c2);
+				}
 			}
-			 else {
-				 enemies[i]->OnCollision(c2);
-			 }
+			
 		} 
 	}
-}
+
+
