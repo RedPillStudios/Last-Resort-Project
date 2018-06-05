@@ -90,12 +90,15 @@ update_status ModuleUI::Update() {
 			GOD = false;
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_C] == KEY_STATE::KEY_DOWN && coins < 100) {
+	if (App->input->keyboard[SDL_SCANCODE_C] == KEY_STATE::KEY_DOWN && coins < 99) {
 		coins++;
 		Mix_PlayChannel(-1, Insert_Coin, 0);
 	}
 	if (App->HighScore->IsEnabled() == true) {
+
+		
 		if (!ccompleted) {
+
 			if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_DOWN) {
 
 				if (cpressed == false && c2pressed == false && c3pressed == false) {
@@ -160,18 +163,19 @@ update_status ModuleUI::Update() {
 
 					NewName[2] = name3;
 					c3pressed = true;
+					ccompleted = true;
 					
 					for (int i = 0; i < 3; ++i) {
 
 						New[i] = NewName[i];
 					}
-					ccompleted = true;
 				}
 			}
-			
+
+			BlitText(215, 50, font, &name1);
 		}
 
-		BlitText(215, 50, font, &name1);
+		
 		/*BlitText((SCREEN_WIDTH / 2) + 10, (SCREEN_HEIGHT / 2), font, &c2);
 		BlitText((SCREEN_WIDTH / 2) + 20, (SCREEN_HEIGHT / 2), font, &c3);*/
 	}
@@ -310,7 +314,7 @@ update_status ModuleUI::Update() {
 			BlitText(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 10, font, "FOR");
 			BlitText(SCREEN_WIDTH / 2 + 24, SCREEN_HEIGHT - 10, font, "CONTINUE");
 		}*/
-		counterRanking++;
+		
 		uint MaxScore = ScoreP1 + ScoreP2;
 		ChangeRanking(Ranking, "Images/Ranking.txt", MaxScore);
 
@@ -323,6 +327,7 @@ update_status ModuleUI::Update() {
 		c2pressed = false;
 		c3pressed = false;
 		cpressed = false;
+		counterRanking++;
 
 	}
 	
@@ -444,7 +449,7 @@ void ModuleUI::ChangeRanking(FILE *pFile, char *path, int Score) {
 		//Changing Array ranking
 		if (Score >= ranking[i].score) {
 
-			for (int j = 8; j >= i; j--) {
+			for (int j = 7; j >= i; j--) {
 
 				ranking[j + 1].score = ranking[j].score;
 				ranking[j + 1].name[0] = ranking[j].name[0];
