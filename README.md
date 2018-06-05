@@ -1,4 +1,6 @@
+<img src="Wiki Files/RedPill Logo Redimensioned.png" alt="hi" class="inline"/>
 #             RedPill Studios
+
 ###          Project Last Resort
 
 Welcome to the official webpage of [Project Last Resort](https://goo.gl/SZiUkG) from RedPill Studios!
