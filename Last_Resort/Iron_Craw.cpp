@@ -188,6 +188,11 @@ update_status Iron_Craw::Update() {
 	
 	}
 	
+	if (counterGreenBomb >= 100 && counterGreenBomb <= 101) {
+		launchBombs = true;
+		counterGreenBomb = 0;
+	}
+
 	if (!dead) {
 		
 		Move();
@@ -261,7 +266,7 @@ update_status Iron_Craw::Update() {
 	App->render->Blit(Mini_Boss, position.x - 44, LArmPosition, &Left_Arm.GetCurrentFrame());
 
 
-
+	counterGreenBomb++;
 
 
 
@@ -299,6 +304,7 @@ bool Iron_Craw::CleanUp() {
 
 
 void Iron_Craw::Move() {
+	
 
 	if (moving_Down == true) {
 		if (position.y < MIN_HEIGHT_MINIBOSS) {
@@ -346,11 +352,14 @@ void Iron_Craw::Move() {
 
 void Iron_Craw::bombs() {
 	
+
+	
+
 	
 	App->enemies->AddEnemy(ENEMY_TYPES::GREENBOMB, position.x+20, position.y+20,COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
 	App->enemies->AddEnemy(ENEMY_TYPES::GREENBOMB, position.x - 20, position.y + 20, COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
-	App->enemies->AddEnemy(ENEMY_TYPES::GREENBOMB, position.x + 20, position.y - 20, COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
-	App->enemies->AddEnemy(ENEMY_TYPES::GREENBOMB, position.x - 20, position.y -20, COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
+	App->enemies->AddEnemy(ENEMY_TYPES::GREENBOMB, position.x + 20, position.y , COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
+	App->enemies->AddEnemy(ENEMY_TYPES::GREENBOMB, position.x - 20, position.y , COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
 	/*counterGreenBomb++;
 	PlayerPosition = App->player->position;
 	if (counterGreenBomb>=70) {

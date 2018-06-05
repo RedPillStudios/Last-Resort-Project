@@ -20,7 +20,7 @@ Humans::Humans(int x, int y): Enemy(x, y){
 
 	Enemy::sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
 
-	HumanAnimation.loop = false;
+	HumanAnimation.loop = true;
 	HumanAnimation.speed = 0.09f;
 	
 	

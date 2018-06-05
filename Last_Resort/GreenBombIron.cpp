@@ -5,6 +5,7 @@
 #include "ModuleEnemies.h"
 #include "ModuleParticles.h"
 #include "ModulePlayer.h"
+#include "Iron_Craw.h"
 
 
 GreenBombIron::GreenBombIron(int x, int y):Enemy( x, y)
@@ -33,11 +34,31 @@ GreenBombIron::GreenBombIron(int x, int y):Enemy( x, y)
 
 void GreenBombIron::Move() 
 {
-	PlayerPosition = App->player->position;
 	position.x++;
+	counter++;
+	counter2++;
 
-	position.x += 0.015*(PlayerPosition.x - position.x);
-	position.y += 0.015*(PlayerPosition.y - position.y);
+	if (position.y < App->MiniBoss->position.y) {
+	
+		if(counter<40)
+		position.y-=0.1f;
+		down_ = true;
+
+	}
+	else if (position.y > App->MiniBoss->position.y) {
+
+		if(counter<40)
+			position.y+=0.1f;
+		up_ = true;
+	}
+
+	if (counter>=50 && (up_ || down_)) {
+		PlayerPosition = App->player->position;
+		position.x++;
+
+		position.x += 0.015*(PlayerPosition.x - position.x);
+		position.y += 0.015*(PlayerPosition.y - position.y);
+	}
 
 }
 
