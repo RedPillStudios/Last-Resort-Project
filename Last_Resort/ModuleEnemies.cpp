@@ -187,9 +187,11 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 
 					if(App->scene1background->randomPositionCars==1)
 						App->powerup->AddPowerUp(POWERUP_TYPES::LASER,enemies[i]->position.x,enemies[i]->position.y);
-					else if (App->scene1background->randomColorCars == 2) {
+					else if (App->scene1background->randomColorCars == 2) 
 						App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, enemies[i]->position.x, enemies[i]->position.y);
-					}
+					else if (App->scene1background->randomColorCars == 3)
+						App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, enemies[i]->position.x, enemies[i]->position.y);
+					
 				}
 
 				if(c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT)

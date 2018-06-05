@@ -17,8 +17,9 @@ enum Shoots
 	BASICLASERSHOOT,
 	LASERSHOOT,
 	MISSILES,
-	LASERSHOOTAREA
-	
+	LASERSHOOTAREA,
+	MISSILES2,
+	BOMBSHOOT
 };
 
 class ModulePlayer : public Module
@@ -63,7 +64,7 @@ public:
 	int ShootTimer1;
 	int ShootTimer2;
 	int ShootTimer3;
-	int ShootTimer4;
+
 
 public:
 	
@@ -96,20 +97,16 @@ public:
 			int position_min_limit = 0;
 		}
 public:
+
 	//shoot selector here
 	int WeaponType = 0;
+	void ShootSelector(uint shoot);
 
-	void ShootSelector(uint shoot) {
-		if (shoot == BASICSHOOT) {
-			WeaponType = 1;
-		}
-		else if (shoot == LASERSHOOT) {
-			WeaponType = 2;
-		}
-		else if (shoot == MISSILES) {
-			WeaponType = 3;
-		}
-	};
+	//POWERUP Levels
+	bool Lvl0 = true;
+	bool Lvl1 = false;
+	bool Lvl2 = false;
+	bool Lvl3 = false;
 };
 
 #endif

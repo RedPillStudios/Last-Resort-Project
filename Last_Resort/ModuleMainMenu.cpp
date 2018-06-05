@@ -29,6 +29,9 @@ ModuleMainMenu::~ModuleMainMenu()
 
 bool ModuleMainMenu::Start() {
 
+	if (App->fonts->IsEnabled() == false)
+		App->fonts->Enable();
+
 	if (App->menu->IsEnabled()) {
 
 			App->player->Disable();

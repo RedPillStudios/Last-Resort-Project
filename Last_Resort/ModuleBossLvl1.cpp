@@ -336,7 +336,6 @@ void ModuleBossLvl1::Shooting() {
 		App->particles->AddParticle(App->particles->BossShoot, position.x , position.y + 74, COLLIDER_ENEMY_SHOT, 500);
 		App->particles->AddParticle(App->particles->BossShootExplosion, position.x - 10, position.y + 59, COLLIDER_NONE, 500);
 		//App->particles->AddParticle(App->particles->BossCoolDown, position.x - 15, position.y + 60, COLLIDER_NONE, 280);
-		
 	}
 	
 	

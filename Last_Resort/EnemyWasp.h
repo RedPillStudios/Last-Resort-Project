@@ -4,7 +4,6 @@
 #include "Enemy.h"
 #include "Animation.h"
 
-struct SDL_Texture;
 
 class EnemyWasp : public Enemy {
 

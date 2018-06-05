@@ -88,6 +88,9 @@ public:
 	Particle LaserBeamArea3; 
 	Particle Red_ThrowBall_pl1;
 
+	Particle HipopotamoBomba;
+	Particle HipopotamoBomba2;
+
 
 	Particle BeeShot;
 	Particle TankBigShoot;

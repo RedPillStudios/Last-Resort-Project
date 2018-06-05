@@ -23,8 +23,8 @@ struct Font {
 
 struct rank {
 
-	char name[4] = "NON";
-	int score = 0;
+	char name[3];
+	int score;
 };
 
 class ModuleUI : public Module {
@@ -69,6 +69,9 @@ public:
 	char score_text2[10];
 	uint ScoreP2;
 
+	//Score for Ranking
+	uint Score_Ranking;
+
 	//Top Score
 	char top_score[10];
 	uint TopScore;
@@ -90,9 +93,26 @@ public:
 
 	//RANKING
 	FILE *Ranking;
+	uint a = 0;
 	struct rank ranking[9];
-	int countFile(FILE *pFile, char *path);
+	char name1;
+	char name2;
+	char name3;
+	bool cpressed = false;
+	bool c2pressed = false;
+	bool c3pressed = false;
+	bool ccompleted = false;
+	char NewName[4] = "RCK";
+	char New[4];
+//	int countFile(FILE *pFile, char *path);
 	void ChangeRanking(FILE *pFile, char *path, int Score);
+	uint counterRanking;
+	char *abecedary = "ABCDEFGHIJKLMN0PQRSTUVWXYZ";
+	char *abecedary2 = "ABCDEFGHIJKLMN0PQRSTUVWXYZ";
+	char *abecedary3 = "ABCDEFGHIJKLMN0PQRSTUVWXYZ";
+	int selector = 0;
+	int selector2 = 0;
+	int selector3 = 0;
 	
 
 private:

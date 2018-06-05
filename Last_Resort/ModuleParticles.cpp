@@ -9,6 +9,7 @@
 #include "ModuleSceneLvl1.h"
 #include "SDL/include/SDL_timer.h"
 #include <cstdlib>
+#include <math.h>
 
 ModuleParticles::ModuleParticles() {
 
@@ -30,15 +31,40 @@ bool ModuleParticles::Start() {
 	particle0 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
 	Particle1 = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
 	Particle2 = App->textures->Load("Images/Particles/BossWeapons&parts_EnemyShip&structure_Multiple-effects-and-explosions_Sprites.png");
-	Particle3= App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
+	Particle3 = App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
 	Particle4 = App->textures->Load("Images/Player/Charge_Ball.png");
 	Particle5 = App->textures->Load("Images/Particles/Explosion.png");
-  Particle6 = App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
+	Particle6 = App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
 
 	ImpactExplosionSound = App->sound->LoadChunk("Audio/General/007_Enemy_Explosion_Standard.wav");
 	ImpactExplosionSound2 = App->sound->LoadChunk("Audio/General/Explosion2.wav");
+
 	Mix_VolumeChunk(ImpactExplosionSound,MIX_MAX_VOLUME/2.5f);
 	Mix_VolumeChunk(ImpactExplosionSound2, MIX_MAX_VOLUME / 2);
+
+	//BOOOOOOOOOOOOOOOOOOOOOOOOOOOMBAAAA un movimiento muy sexy: se-xy, un movimiento muy sensual: sen-sual
+	HipopotamoBomba.Anim.PushBack({ 0, 306, 16, 6 });
+	HipopotamoBomba.Anim.PushBack({ 17, 303, 15, 10 });
+	HipopotamoBomba.Anim.PushBack({ 34, 301, 10, 15 });
+
+	HipopotamoBomba.Anim.loop = false;
+	HipopotamoBomba.Anim.speed = 0.1f;
+	HipopotamoBomba.Sprites = Particle1;
+	HipopotamoBomba.Life = 1200;
+	HipopotamoBomba.Speed.y = 2.5f;
+	HipopotamoBomba.Speed.x = (HipopotamoBomba.Position.x ^ 2);
+
+	HipopotamoBomba2.Anim.PushBack({ 0, 306, 16, 6 });
+	HipopotamoBomba2.Anim.PushBack({ 45, 302, 15, 10 });
+	HipopotamoBomba2.Anim.PushBack({ 62, 301, 11, 15 });
+
+	HipopotamoBomba2.Anim.loop = false;
+	HipopotamoBomba2.Anim.speed = 0.1f;
+	HipopotamoBomba2.Sprites = Particle1;
+	HipopotamoBomba2.Life = 1200;
+	HipopotamoBomba2.Speed.y = -(2.5f);
+	HipopotamoBomba2.Speed.x = (HipopotamoBomba2.Position.x ^ 2);
+
 
 	ShootExplosion.Anim.PushBack({ 82, 239, 12, 12 });
 	ShootExplosion.Anim.PushBack({ 94, 241, 11, 9 });
@@ -69,10 +95,11 @@ bool ModuleParticles::Start() {
 
 	
 	MissilePower.Anim.speed = 0.3f;
-	MissilePower.Speed.x = 4;
 	MissilePower.Anim.loop = true;
+	MissilePower.Speed.x = 4;
 	MissilePower.Life = 3000;
 	MissilePower.Sprites = particle0;
+
 	////pattern2
 	//MissilePowerPatter2.Anim.PushBack({ 14,237,30,16 });
 	//MissilePowerPatter2.Anim.PushBack({ 0,290,74,6 });
@@ -95,7 +122,7 @@ bool ModuleParticles::Start() {
 
 	//___________________________
 
-	LaserBeam.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeam.Sprites = Particle1; //App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
 	LaserBeam.Anim.PushBack({ 23,296,66,3 });
 	LaserBeam.Anim.loop = true;
 	LaserBeam.Anim.speed = 0.1;
@@ -396,7 +423,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 
 		// DON'T DESTROY LASERBEAM WHEN COLLIDES
 		
-		if (active[i] != nullptr && active[i]->collider == c1 && c1->type == COLLIDER_PLAYER_LASERBEAM_SHOT) {
+		if (active[i] != nullptr && active[i]->collider == c1 && (c1->type == COLLIDER_PLAYER_LASERBEAM_SHOT || c1->type == COLLIDER_PLAYER_LASERBEAM_SHOT2)) {
 
 			if (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_WALL)
 				AddParticle(ImpactExplosion, active[i]->Position.x, active[i]->Position.y);
@@ -419,7 +446,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 			break;
 		}
 		// Always destroy particles that collide AND AREN`T LASSER BEAM
-		if (active[i] != nullptr && active[i]->collider == c1 && c1->type != COLLIDER_PLAYER_LASERBEAM_SHOT) {
+		if (active[i] != nullptr && active[i]->collider == c1 && (c1->type != COLLIDER_PLAYER_LASERBEAM_SHOT || c1->type != COLLIDER_PLAYER_LASERBEAM_SHOT2)) {
 			
 			if (c2->type == COLLIDER_ENEMY || c2->type == COLLIDER_WALL)
 					AddParticle(ImpactExplosion,active[i]->Position.x, active[i]->Position.y);
