@@ -191,10 +191,10 @@ update_status Iron_Craw::Update() {
 	if (!dead) {
 		
 		Move();
-	/*	if (launchBombs) {
+		if (launchBombs) {
 			bombs();
 			launchBombs = false;
-		}*/
+		}
 	}
 
 
@@ -347,8 +347,10 @@ void Iron_Craw::Move() {
 void Iron_Craw::bombs() {
 	
 	
-	/*App->enemies->AddEnemy(ENEMY_TYPES::HUMAN, position.x, position.y, false);*/
-
+	App->enemies->AddEnemy(ENEMY_TYPES::GREENBOMB, position.x+20, position.y+20,COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
+	App->enemies->AddEnemy(ENEMY_TYPES::GREENBOMB, position.x - 20, position.y + 20, COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
+	App->enemies->AddEnemy(ENEMY_TYPES::GREENBOMB, position.x + 20, position.y - 20, COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
+	App->enemies->AddEnemy(ENEMY_TYPES::GREENBOMB, position.x - 20, position.y -20, COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
 	/*counterGreenBomb++;
 	PlayerPosition = App->player->position;
 	if (counterGreenBomb>=70) {
@@ -403,6 +405,5 @@ void Iron_Craw::OnCollision(Collider *c1, Collider *c2) {
 		}
 
 	}
-
 
 }

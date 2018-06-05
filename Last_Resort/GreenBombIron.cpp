@@ -36,7 +36,8 @@ void GreenBombIron::Move()
 	PlayerPosition = App->player->position;
 	position.x++;
 
-	position.x += 0.02*(PlayerPosition.x - position.x);
-	position.y += 0.02*(PlayerPosition.y - position.y);
+	position.x += 0.015*(PlayerPosition.x - position.x);
+	position.y += 0.015*(PlayerPosition.y - position.y);
 
 }
+
