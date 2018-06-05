@@ -599,7 +599,7 @@ update_status ModuleHouPlayer1::Update() {
 		
 		}
 
-		if (ShootingDelay > 60) {
+		if (ShootingDelay > 1) {
 
 			App->particles->HOU_Shot.Speed.x = (7 * cos(HOU_Direction*PI / 180));
 			App->particles->HOU_Shot.Speed.y = (7 * sin(HOU_Direction*PI / 180));

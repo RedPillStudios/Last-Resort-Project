@@ -68,7 +68,7 @@ public:
 	iPoint PlayerPos;
 	iPoint Player2Pos;
 public:
-	uint life;
+	uint life = 35;
 	float UpDatePos = 0;
 	float Trote = -0.5;
 	uint TroteDelay;
@@ -90,7 +90,7 @@ public:
 	float Angle2;
 	int TimerShoot = 0;
 	int TimerShoot2 = 0;
-	int BossLife = 80;
+	//int BossLife = 80;
 	int counter_Flicker=0;
 	int counter_Life = 0;
 public:

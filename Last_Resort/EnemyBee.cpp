@@ -68,7 +68,7 @@ Enemy_Bee::Enemy_Bee(int x, int y, bool powerUp) : Enemy(x, y)
 	Front.speed = 0.05f;
 	Front.loop = true;
 	animation = &Front;
-	life = 5;
+	life = 10;
 	score = 300;
 
 	collider = App->collision->AddCollider({ 0, 0, 48, 45 }, COLLIDER_TYPE::COLLIDER_ENEMY, (Module*)App->enemies);

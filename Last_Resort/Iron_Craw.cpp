@@ -100,7 +100,7 @@ bool Iron_Craw::Start() {
 		position = { 1100,-10.0 };
 	}
 	else if (App->scene1background->IronCraw1 == true && App->scene1background->IronCraw2 == true) {
-		position = { 8000,-10 };
+		/*position = { 7600,-10 };*/
 	}
 
   
@@ -218,11 +218,14 @@ update_status Iron_Craw::Update() {
 					App->particles->AddParticle(App->particles->EnemyExplosion, position.x - 35, position.y + 10);
 					App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, position.y + 20);
 					App->particles->AddParticle(App->particles->EnemyExplosion, position.x, position.y + 15);
+					App->particles->AddParticle(App->particles->EnemyExplosion, position.x+10, position.y + 20);
+					App->particles->AddParticle(App->particles->EnemyExplosion, position.x - 10, position.y- 20);
 
 					App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, RArmPosition);
 					App->particles->AddParticle(App->particles->FogExplosion, position.x - 35, LArmPosition - 20);
 					App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, RArmPosition + 10);
 
+					Mix_PlayChannel(-1, App->particles->ImpactExplosionSound,0);
 
 					armsOut = false;
 				}
@@ -270,7 +273,7 @@ update_status Iron_Craw::Update() {
 					App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, LArmPosition - 20);
 					App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, LArmPosition + 10);
 				}
-
+				Mix_PlayChannel(-1, App->particles->ImpactExplosionSound, 0);
 
 				armsOut2 = false;
 			}
@@ -340,7 +343,7 @@ update_status Iron_Craw::Update() {
 				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 98, (int)position.y - 33);
 				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 30);
 				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 81, (int)position.y - 44);
-
+				Mix_PlayChannel(-1, App->particles->ImpactExplosionSound, 0);
 				ExplosionDead = false;
 				disablingIronCraw = true;
 			}

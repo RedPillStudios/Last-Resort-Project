@@ -364,6 +364,8 @@ update_status ModuleTank::Update() {
 				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x, (int)TankPosition.y + 15);
 				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x + 15, (int)TankPosition.y);
 
+				Mix_PlayChannel(-1, App->particles->ImpactExplosionSound, 0);
+
 				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x + 33, (int)TankPosition.y + 22);
 				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x + 21, (int)TankPosition.y - 28);
 				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x + 55, (int)TankPosition.y - 3);
@@ -374,17 +376,9 @@ update_status ModuleTank::Update() {
 				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x + 35, (int)TankPosition.y - 23);
 				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x, (int)TankPosition.y + 40);
 				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x + 70, (int)TankPosition.y - 30);
+			
+				Mix_PlayChannel(-1, App->particles->ImpactExplosionSound2, 0);
 
-				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x + 69, (int)TankPosition.y + 22);
-				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x + 90, (int)TankPosition.y - 28);
-				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x + 80, (int)TankPosition.y - 3);
-				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x + 97, (int)TankPosition.y - 44);
-				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x + 110, (int)TankPosition.y);
-				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x, (int)TankPosition.y + 5);
-				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x + 120, (int)TankPosition.y + 44);
-				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x + 105, (int)TankPosition.y - 23);
-				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x, (int)TankPosition.y + 40);
-				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x + 85, (int)TankPosition.y - 30);
 			}
 			else if (count2 == 20 || count2 == 40 || count2 == 60 || count2 == 70 || count2 == 90) {
 				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x +50, (int)TankPosition.y);
@@ -408,6 +402,7 @@ update_status ModuleTank::Update() {
 				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x + 35-12, (int)TankPosition.y - 23+3);
 				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x+30, (int)TankPosition.y + 40-8);
 				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x + 70+12, (int)TankPosition.y - 30+12);
+				Mix_PlayChannel(-1, App->particles->ImpactExplosionSound, 0);
 
 				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x + 90, (int)TankPosition.y + 12);
 				App->particles->AddParticle(App->particles->EnemyExplosion, (int)TankPosition.x + 69, (int)TankPosition.y - 58);
@@ -433,14 +428,14 @@ void ModuleTank::OnCollision(Collider *c1, Collider *c2) {
 
 	if ((c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT || c1->type == COLLIDER_HOU||c2->type == COLLIDER_HOU) && (c1->type == COLLIDER_ENEMY || c2->type == COLLIDER_ENEMY || c1->type == COLLIDER_ENEMY || c2->type == COLLIDER_ENEMY)) {
 		if (counter_Life % 6 == 0) {
-			--BossLife;
+			--life;
 		}
 		hit = true;
-		LOG("BOSS LIFE    - 1");
-		if (BossLife < 25 && count == 0) {
+		LOG("BOSS LIFE   %i - 1",life);
+		if (life < 25 && count == 0) {
 			DestroyTurret = true;
 		}
-		if (BossLife <= 0 && count2 ==0) {
+		if (life <= 0 && count2 ==0) {
 			App->fonts->ScoreP1 += 2000;
 			App->fonts->ScoreP2 += 2000;
 			Dead = true;
