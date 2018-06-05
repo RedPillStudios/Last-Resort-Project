@@ -64,6 +64,7 @@ bool ModuleGameOver::Start() {
 		}
 		Score = false;
 		
+		SubstractCoins = true;
 	
 	return true;
 }
@@ -114,9 +115,16 @@ update_status ModuleGameOver::Update() {
 	}
 	
 
-	if (App->input->keyboard[SDL_SCANCODE_SPACE]) 
+	if (App->input->keyboard[SDL_SCANCODE_SPACE]) {
+
+		if (App->fonts->coins > 0 && SubstractCoins == true) {
+
+			App->fonts->coins--;
+			SubstractCoins = false;
+		}
 		App->fade->FadeToBlack(App->gameover, App->menu, 1.0f);
-	
+
+	}
 	
 	return UPDATE_CONTINUE;
 }
