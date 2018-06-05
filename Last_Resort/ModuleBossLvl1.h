@@ -101,6 +101,7 @@ public:
 	uint BossTrote = 1;
 	uint TearShoot = 1;
 	uint EnemyAddController = 0;
+	uint PeeLimit = 0;
 	int BossTroteDelay;
 	int TearShootDelay;
 	int Time1 = 0;
@@ -111,6 +112,7 @@ public:
 	int Time6 = 0;
 	int Time7 = 0;
 	int Time8 = 0;
+	int Time9 = 0;
 	int Restartcontroller = 0;
 	int Restartcontroller2 = 0;
 	int Restartcontroller3 = 0;
@@ -118,6 +120,7 @@ public:
 	int Restartcontroller5 = 0;
 	int Restartcontroller6 = 0;
 	int Restartcontroller7 = 0;
+	int Restartcontroller8 = 0;
 	int ShootCounter = 0;
 	int cicle = 2;
 	int MaleTears;

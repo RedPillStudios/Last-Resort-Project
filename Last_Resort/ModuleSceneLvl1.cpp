@@ -72,7 +72,7 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	YellowLight.PushBack({ 157,0,38,143 });//
 	YellowLight.PushBack({ 132,0,25,143 });//
 	YellowLight.loop = true;
-	YellowLight.speed = 0.05f;
+	YellowLight.speed = 0.03f;
 
 	Streetlight.PushBack({ 0,0,53,69 });
 	Streetlight.PushBack({ 53,0,53,69 });
