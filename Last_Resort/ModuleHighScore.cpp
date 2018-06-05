@@ -77,8 +77,13 @@ update_status ModuleHighScore::Update() {
 	App->render->Blit(Background_HighScoreImage, 0, 0, &Background, 0);
 	App->render->Blit(HighScore, 0, 0, &Background, 0);
 	if (App->fonts->ccompleted == true) {
-		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
-			App->fade->FadeToBlack(App->HighScore, App->menu, 1.0f);
+
+		App->fonts->BlitRanking(App->fonts->ranking);
+
+		if (RankBlitted == true) {
+			if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
+				App->fade->FadeToBlack(App->HighScore, App->menu, 1.0f);
+			}
 		}
 	}
 	

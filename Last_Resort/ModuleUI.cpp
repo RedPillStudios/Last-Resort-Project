@@ -477,3 +477,23 @@ void ModuleUI::ChangeRanking(FILE *pFile, char *path, int Score) {
 		}
 	}
 }
+
+void ModuleUI::BlitRanking(struct rank array[9]) {
+
+	char NameScore[10];
+	int BlitY = 50;
+
+	for (int i = 0; i < 9; i++) {
+
+		sprintf(NameScore, "%7d", ranking[i].score);
+
+		BlitText(125, BlitY, font, NameScore);
+		BlitText(215, BlitY, font, ranking[i].name);
+		BlitY += 16;
+	}
+
+	BlitText(215, 194, font, "RCK");
+	BlitText(133, 194, font, "0VER9000");
+
+	App->HighScore->RankBlitted = true;
+}

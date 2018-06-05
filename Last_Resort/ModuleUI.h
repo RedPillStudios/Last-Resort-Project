@@ -138,6 +138,8 @@ public:
 	int selector3 = 0;
 	
 
+	void BlitRanking(struct rank array[9]);
+
 private:
 
 	Font fonts[MAX_FONTS];
