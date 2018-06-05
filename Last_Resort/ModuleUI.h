@@ -111,7 +111,7 @@ public:
 	char coins_text[10];
 
 	//Checkpoints
-	bool Checkpoint1 = false;
+	//bool Checkpoint1 = false;
 
 	//RANKING
 	FILE *Ranking;

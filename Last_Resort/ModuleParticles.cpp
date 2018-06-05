@@ -63,7 +63,7 @@ bool ModuleParticles::Start() {
 	HipopotamoBomba2.Anim.loop = false;
 	HipopotamoBomba2.Anim.speed = 0.1f;
 	HipopotamoBomba2.Sprites = Particle1;
-	HipopotamoBomba2.Life = 1200;
+	HipopotamoBomba2.Life = 1800;
 	HipopotamoBomba2.Speed.y = -(2.5f);
 	HipopotamoBomba2.Speed.x = (HipopotamoBomba2.Position.x ^ 2);
 

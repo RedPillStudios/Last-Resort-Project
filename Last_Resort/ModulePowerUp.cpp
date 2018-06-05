@@ -252,8 +252,8 @@ void ModulePowerUp::OnCollision(Collider *c1, Collider *c2) {
 						}
 						else if (PowerUps[i]->type == POWERUP_TYPES::BOMB) {
 							App->player->WeaponType = 6;
-							App->player->Lvl2 == true;
-							App->player->Lvl3 = false;
+							/*App->player->Lvl2 == true;
+							App->player->Lvl3 = false;*/
 						}
 						
 					}
@@ -339,8 +339,7 @@ void ModulePowerUp::OnCollision(Collider *c1, Collider *c2) {
 						else if (PowerUps[i]->type == POWERUP_TYPES::BOMB) {
 
 							App->player2->WeaponTypeP2 = 6;
-							App->player2->Lvl3 = true;
-							App->player2->Lvl2 = false;
+
 						}
 					}
 

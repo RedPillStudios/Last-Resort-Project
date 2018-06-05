@@ -205,7 +205,7 @@ update_status ModuleUI::Update() {
 			BlitText(13, 16, font, "P1");
 			BlitText(29, 11, font, "_");
 			BlitText(29, 15, font, "_");
-
+			
 			App->render->Blit(UI_Main_Menu, 13, 24, &App->player->UI_ship, 0.0f, false); //Mini_UI_Ships->Player1
 
 			//P1 Life
@@ -280,7 +280,7 @@ update_status ModuleUI::Update() {
 		}
 	}
 
-	if (Checkpoint1 == true && App->gameover->IsEnabled()) {
+	/*if (Checkpoint1 == true && App->gameover->IsEnabled()) {
 
 		if (App->input->keyboard[SDL_SCANCODE_B] == KEY_STATE::KEY_DOWN) {
 
@@ -288,11 +288,16 @@ update_status ModuleUI::Update() {
 			P1Life = 3;
 			P2Life = 3;
 		}
-	}
+	}*/
 
 	
 	if (((App->gameover->IsEnabled() == true) || (App->stageclear->IsEnabled() == true)) && counterRanking == 0) {
 
+	/*	if (Checkpoint1 == true) {
+			BlitText(SCREEN_WIDTH / 2 - 10, SCREEN_HEIGHT - 10, font, "B");
+			BlitText(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 10, font, "FOR");
+			BlitText(SCREEN_WIDTH / 2 + 24, SCREEN_HEIGHT - 10, font, "CONTINUE");
+		}*/
 		counterRanking++;
 		uint MaxScore = ScoreP1 + ScoreP2;
 		ChangeRanking(Ranking, "Images/Ranking.txt", MaxScore);

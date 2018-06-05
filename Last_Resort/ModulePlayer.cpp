@@ -297,7 +297,7 @@ update_status ModulePlayer::Update() {
 						ShootTimer2 = SDL_GetTicks();
 						
 					}
-					if (WeaponType == 4 && ShootTimer2 < SDL_GetTicks() - 1500) {
+					if (WeaponType == 4 && ShootTimer2 < SDL_GetTicks() - 1800) {
 
 						App->particles->AddParticle(App->particles->MissilePower, position.x - 10, position.y + 10, COLLIDER_PLAYER_SHOT, 200);
 						App->particles->AddParticle(App->particles->MissilePower, position.x - 10, position.y - 10, COLLIDER_PLAYER_SHOT, 200);
