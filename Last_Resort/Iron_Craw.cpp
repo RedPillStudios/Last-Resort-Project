@@ -96,12 +96,12 @@ Iron_Craw::~Iron_Craw()
 
 bool Iron_Craw::Start() {
 
-	if (App->scene1background->IronCraw2 == false)
-		SpawnPos = 1200;
-	else
-		SpawnPos = 8000;
-
-	position = {(SpawnPos),-10.0};
+	if (App->scene1background->IronCraw1 == true&&App->scene1background->IronCraw2==false) {
+		position = { 1100,-10.0 };
+	}
+	else if (App->scene1background->IronCraw1 == true && App->scene1background->IronCraw2 == true) {
+		position = { 7200,-10 };
+	}
 
   
 	Mini_Boss= App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
@@ -231,9 +231,9 @@ update_status Iron_Craw::Update() {
 			}
 
 			if (life < 7)
-				position.x--;
+ 				position.x--;
 
-			if (counterGreenBomb >= 500 && counterGreenBomb <= 510) {
+			if (counterGreenBomb >= 300) {
 				launchBombs = true;
 				counterGreenBomb = 0;
 			}
@@ -285,10 +285,9 @@ update_status Iron_Craw::Update() {
 			if (life <= 0) {
 
 				dead = true;
-				position.x++;
+				
 
 				body->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
-				position.x++;
 				position.y++;
 
 				if (dyingParticles) {
@@ -353,11 +352,18 @@ update_status Iron_Craw::Update() {
 	
 	}
 	
+	if (RArmPosition >= SCREEN_HEIGHT + 20) {
+		Rarmfalling = false;
+	}
+	if (LArmPosition >= SCREEN_HEIGHT + 200) {
+		Rarmfalling = false;
+	}
 	App->render->Blit(Mini_Boss, position.x - 9, position.y + 18, &blueCircle.GetCurrentFrame());
 	App->render->Blit(Mini_Boss, position.x + 20, position.y + 18, &blueCircle.GetCurrentFrame());
 	App->render->Blit(Mini_Boss, position.x - 3, position.y + 33, &leg1.GetCurrentFrame());
 	App->render->Blit(Mini_Boss, position.x + 27, position.y + 33, &leg2.GetCurrentFrame());
 	App->render->Blit(Mini_Boss, position.x, position.y, &Current_AnimationBody->GetCurrentFrame());
+	
 	App->render->Blit(Mini_Boss, position.x + 38, RArmPosition, &Right_Arm.GetCurrentFrame());
 	App->render->Blit(Mini_Boss, position.x - 44, LArmPosition, &Left_Arm.GetCurrentFrame());
 
@@ -479,9 +485,10 @@ void Iron_Craw::bombs() {
 
 void Iron_Craw::OnCollision(Collider *c1, Collider *c2) {
 
-	if ((c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT || c1->type == COLLIDER_PLAYER_SHOT2 || c2->type == COLLIDER_PLAYER_SHOT2)) {
-
-		--life;
+	if ((c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT || c1->type == COLLIDER_PLAYER_SHOT2 || c2->type == COLLIDER_PLAYER_SHOT2 ||c1->type==COLLIDER_HOU||c2->type==COLLIDER_HOU)) {
+		if (!Rarmfalling && !LArmfallinf) {
+			--life;
+		}
 		hit = true;
 		if (life <= 0) {
 			App->fonts->ScoreP1 +=1000;

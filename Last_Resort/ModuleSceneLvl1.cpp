@@ -587,9 +587,13 @@ update_status ModuleSceneLvl1::Update() {
 
 	//Iron Spawn
 
-	if (App->scene1background->position_max_limit >= 1300 && !IronCraw2 && spawned==false) {
+	if (position_max_limit >= 1300&& IronCraw1==false) {
+		IronCraw1 = true;
 		App->MiniBoss->Enable();
-		spawned = true;
+	}
+	if (position_max_limit > 7400 && IronCraw1 == true && IronCraw2 == false) {
+		IronCraw2 = true;
+		App->MiniBoss->Enable();
 	}
 
 	// iron craw disable
