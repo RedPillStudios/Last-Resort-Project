@@ -15,16 +15,29 @@
 #include "ModuleStageClear.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleSound.h"
+#include "Module_Hou_Player1.h"
+#include "Module_Hou_Player2.h"
 
 #include <iostream>
 #include <string.h>
 #include <cstdio>
 
-ModuleUI::ModuleUI() : Module() {}
+ModuleUI::ModuleUI(){
+
+	Bar.PushBack({0,0,96,8});
+	Charge1.PushBack({ 0,10,2,5 });
+	Charge2.PushBack({ 0,10,2,5 });
+
+}
 
 ModuleUI::~ModuleUI() {}
 
 bool ModuleUI::Start() {
+	Charge_Controller = { 0,10,0,5 };
+	Pos_Bar1.x = 30;
+	Pos_Bar2.y = 90;
+
+	Bar_Texture = App->textures->Load("Images/Player/HOU_Charger_Sprite.png");
 
 	UI_Main_Menu = App->textures->Load("Images/Stage_Clear/All_Stage_Clears.png");
 
@@ -32,8 +45,9 @@ bool ModuleUI::Start() {
 	font = LoadFont("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
 	Insert_Coin = App->sound->LoadChunk("Audio/Main_Menu/Insert_Coin.wav");
 
-	/*Ranking = fopen("Images/Ranking.txt", "r");
 
+	Ranking = fopen("Images/Ranking.txt", "r");
+	
 	if (Ranking != NULL) {
 
 		for (int i = 0; i < 9; i++) {
@@ -43,12 +57,16 @@ bool ModuleUI::Start() {
 			fscanf(Ranking, "%c", &ranking[i].name[2]);
 			fscanf(Ranking, "%d", &ranking[i].score);
 		}
-
-		fclose(Ranking);
-	}*/
+	}
+	name1 = abecedary[selector];
+	name2 = abecedary2[selector2];
+	name3 = abecedary3[selector3];
+	TopScore = ranking[0].score;
+	fclose(Ranking);
 
 	coins = 0;
 	return true;
+	Current_Bar = &Bar;
 }
 
 
@@ -69,11 +87,100 @@ update_status ModuleUI::Update() {
 		Mix_PlayChannel(-1, Insert_Coin, 0);
 	}
 
+	if (!ccompleted) {
+		if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_DOWN) {
+
+			if (cpressed == false && c2pressed == false && c3pressed == false) {
+
+				name1 = abecedary[selector];
+				selector++;
+				if (selector > 25)
+					selector = 0;
+			}
+			if (cpressed == true && c2pressed == false && c3pressed == false) {
+
+				name2 = abecedary[selector2];
+				selector2++;
+				if (selector2 > 25)
+					selector2 = 0;
+			}
+			if (cpressed == true && c2pressed == true && c3pressed == false) {
+
+				name3 = abecedary[selector3];
+				selector3++;
+				if (selector3 > 25)
+					selector3 = 0;
+			}
+		}
+		if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_DOWN) {
+
+			if (cpressed == false && c2pressed == false && c3pressed == false) {
+				name1 = abecedary[selector];
+				--selector;
+				if (selector < 0)
+					selector = 25;
+			}
+			if (cpressed == true && c2pressed == false && c3pressed == false) {
+
+				name2 = abecedary2[selector2];
+				--selector2;
+				if (selector2 < 0)
+					selector2 = 25;
+			}
+			if (cpressed == true && c2pressed == true && c3pressed == false) {
+
+				name3 = abecedary3[selector3];
+				--selector3;
+				if (selector3 < 0)
+					selector3 = 25;
+			}
+		}
+
+		if (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN) {
+
+			if (cpressed == false && cpressed == false && c3pressed == false) {
+
+				NewName[0] = name1;
+				cpressed = true;
+			}
+			else if (cpressed == true && c2pressed == false && c3pressed == false) {
+
+				NewName[1] = name2;
+				c2pressed = true;
+			}
+			else if (c2pressed == true && cpressed == true && c3pressed == false) {
+
+				NewName[2] = name3;
+				c3pressed = true;
+				for (int i = 0; i < 3; ++i) {
+
+					New[i] = NewName[i];
+				}
+			}
+		}
+	}
+
+	BlitText((SCREEN_WIDTH / 2) + 130, (SCREEN_HEIGHT / 2), font, &name1);
+	/*BlitText((SCREEN_WIDTH / 2) + 10, (SCREEN_HEIGHT / 2), font, &c2);
+	BlitText((SCREEN_WIDTH / 2) + 20, (SCREEN_HEIGHT / 2), font, &c3);*/
+
+	
 		sprintf_s(coins_text, "%7d", coins);
 		BlitText((SCREEN_WIDTH - 104), (SCREEN_HEIGHT - 10), font, "CREDITS");
 		BlitText((SCREEN_WIDTH - 75), (SCREEN_HEIGHT - 10), font, coins_text);
 
 	if (App->scene1background->IsEnabled()) {
+
+		App->render->Blit(Bar_Texture, 30, SCREEN_HEIGHT - 20, &Bar.GetCurrentFrame(),false);
+		if (App->HOU_Player1->charging == true) { 
+			if (Charge_Controller.w <= 4060) {
+				Charge_Controller.w += 70;
+			}
+			App->render->Blit(Bar_Texture, 54, SCREEN_HEIGHT - 19, &Charge_Controller, false);
+		}
+		else{
+			Charge_Controller.w = 0;
+		}
 
 		if (Spawned) {
 
@@ -152,7 +259,6 @@ update_status ModuleUI::Update() {
 			App->fonts->BlitText((SCREEN_WIDTH / 2) - 32, SCREEN_HEIGHT - 10, font, "B0SS");
 			App->fonts->BlitText((SCREEN_WIDTH / 2), SCREEN_HEIGHT - 10, font, "1LIFE");
 		}
-
 	}
 
 	if (Checkpoint1 == true && App->gameover->IsEnabled()) {
@@ -165,9 +271,25 @@ update_status ModuleUI::Update() {
 		}
 	}
 
-	//if ((App->gameover->IsEnabled() || App->stageclear->IsEnabled()))
-	//	ChangeRanking(Ranking, "Images/Ranking.txt", TopScore);
+	
+	if (((App->gameover->IsEnabled() == true) || (App->stageclear->IsEnabled() == true)) && counterRanking == 0) {
 
+		counterRanking++;
+		uint MaxScore = ScoreP1 + ScoreP2;
+		ChangeRanking(Ranking, "Images/Ranking.txt", MaxScore);
+
+		TopScore = ranking[0].score;
+
+		selector = 0;
+		selector2 = 0;
+		selector3 = 0;
+
+		c2pressed = false;
+		c3pressed = false;
+		cpressed = false;
+
+	}
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -261,26 +383,27 @@ void ModuleUI::BlitText(int x, int y, int font_id, const char* text) const
 	}
 }
 
-int ModuleUI::countFile(FILE *pFile, char *path) {
-
-	int counter = 0;
-	pFile = fopen(path, "r");
-
-	if (pFile == NULL) { LOG("error opening file");	}
-	else {
-
-		LOG("Reading file, path: %s", path);
-		while (fgetc(pFile) != EOF) { ++counter; }
-
-		if (feof(pFile)) { LOG("End-of-File reached."); }
-		else { LOG("End-of-File was not reached."); }
-
-		return counter;
-	}
-}
+//int ModuleUI::countFile(FILE *pFile, char *path) {
+//
+//	int counter = 0;
+//	pFile = fopen(path, "r");
+//
+//	if (pFile == NULL) { LOG("error opening file");	}
+//	else {
+//
+//		LOG("Reading file, path: %s", path);
+//		while (fgetc(pFile) != EOF) { ++counter; }
+//
+//		if (feof(pFile)) { LOG("End-of-File reached."); }
+//		else { LOG("End-of-File was not reached."); }
+//
+//		return counter;
+//	}
+//}
 
 void ModuleUI::ChangeRanking(FILE *pFile, char *path, int Score) {
 
+	int j = 5;
 	for (int i = 0; i < 9; i++) {
 
 		//Changing Array ranking
@@ -292,30 +415,30 @@ void ModuleUI::ChangeRanking(FILE *pFile, char *path, int Score) {
 				ranking[j + 1].name[0] = ranking[j].name[0];
 				ranking[j + 1].name[1] = ranking[j].name[1];
 				ranking[j + 1].name[2] = ranking[j].name[2];
-			}
-		}
 
-			char NewName[] = "NEY";
+			}
+
 			/*BlitText((SCREEN_WIDTH - 75), 24, font, "NAME");
 			scanf_s("%s", &NewName);*/
-			
+			ranking[i].name[0] = New[0];
+			ranking[i].name[1] = New[1];
+			ranking[i].name[2] = New[2];
 			ranking[i].score = Score;
-			ranking[i].name[0] = NewName[0];
-			ranking[i].name[1] = NewName[1];
-			ranking[i].name[2] = NewName[2];
+			
+			Ranking = fopen("Images/Ranking.txt", "w+");
+
+			if (Ranking != NULL) {
+
+				for (int i = 0; i < 9; i++) {
+
+					fprintf_s(Ranking, "%s", ranking[i].name);
+					fprintf_s(Ranking, "%d", ranking[i].score);
+				}
+
+				fclose(Ranking);
+			}
+
 			break;
-	}
-
-	pFile = fopen(path, "w+");
-
-	if (pFile != NULL) {
-
-		for (int i = 0; i < 9; i++) {
-
-			fprintf_s(pFile, "%s", ranking[i].name);
-			fprintf_s(pFile, "%d", ranking[i].score);
 		}
-
-		fclose(pFile);
 	}
 }

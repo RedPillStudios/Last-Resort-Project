@@ -17,8 +17,9 @@ enum Shoots
 	BASICLASERSHOOT,
 	LASERSHOOT,
 	MISSILES,
-	LASERSHOOTAREA
-	
+	LASERSHOOTAREA,
+	MISSILES2,
+	BOMBSHOOT
 };
 
 class ModulePlayer : public Module
@@ -45,6 +46,8 @@ public:
 	SDL_Rect UI_ship;
 
 	SDL_Texture* graphicsp1 = nullptr;
+	SDL_Texture* Entry_God = nullptr;
+	SDL_Texture* Normal = nullptr;
 
 	Animation Up;
 	Animation Down;
@@ -64,6 +67,8 @@ public:
 	int ShootTimer2;
 	int ShootTimer3;
 	int ShootTimer4;
+	int counterApearing;
+	bool flickering;
 
 public:
 	
@@ -96,20 +101,16 @@ public:
 			int position_min_limit = 0;
 		}
 public:
+
 	//shoot selector here
 	int WeaponType = 0;
+	void ShootSelector(uint shoot);
 
-	void ShootSelector(uint shoot) {
-		if (shoot == BASICSHOOT) {
-			WeaponType = 1;
-		}
-		else if (shoot == LASERSHOOT) {
-			WeaponType = 2;
-		}
-		else if (shoot == MISSILES) {
-			WeaponType = 3;
-		}
-	};
+	//POWERUP Levels
+	bool Lvl0 = true;
+	bool Lvl1 = false;
+	bool Lvl2 = false;
+	bool Lvl3 = false;
 };
 
 #endif

@@ -14,6 +14,10 @@ private:
 
 public:
 
+
+	virtual void OnCollision(Collider *collider) override;
+	
+	
 	int angle;
 	double radians;
 	int counter;
@@ -40,14 +44,17 @@ public:
 
 	iPoint PlayerPosition;
 
-
-
+	SDL_Texture* Normal;
+	SDL_Texture* Damaged;
+	bool hit;
+	int counter2;
 
 
 
 
 	Enemy_Bee(int x, int y, bool powerUp);
 	void Move();
+
 
 };
 

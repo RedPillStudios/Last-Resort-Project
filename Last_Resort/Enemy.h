@@ -34,6 +34,7 @@ public:
 	uint score;
 	bool PowerUp;
 	fPoint toGo;
+	bool hit;
 
 public:
 

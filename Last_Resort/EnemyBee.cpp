@@ -5,11 +5,12 @@
 #include "ModuleEnemies.h"
 #include "ModuleParticles.h"
 #include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include <math.h>
 
 Enemy_Bee::Enemy_Bee(int x, int y, bool powerUp) : Enemy(x, y)
 {
-
+	counter2 = 0;
 	Front.PushBack({0 ,0,48,45 });
 	Front.PushBack({ 48 ,0,48,45 });
 
@@ -59,7 +60,10 @@ Enemy_Bee::Enemy_Bee(int x, int y, bool powerUp) : Enemy(x, y)
 	Front_Right.PushBack({ 144,225,48,45 });
 	Front_Right.PushBack({192,225,48,45 });
 
-	Enemy::sprites = App->textures->Load("Images/General/Hunter_Sprite.png");
+	
+	Normal = App->textures->Load("Images/General/Hunter_Sprite.png");
+	Damaged = App->textures->Load("Images/General/Hunter_Sprite_Damage.png");
+	sprites = Normal;
 
 	Front.speed = 0.05f;
 	Front.loop = true;
@@ -74,6 +78,28 @@ Enemy_Bee::Enemy_Bee(int x, int y, bool powerUp) : Enemy(x, y)
 }
 
 void Enemy_Bee::Move() {
+
+	if (hit == true) {
+		counter2++;
+		if (counter2 % 2 == 0) {
+			sprites = Damaged;
+		}
+		else {
+			sprites = Normal;
+		}
+		if (counter2 >= 30) {
+			sprites = Normal;
+			counter2 = 0;
+			hit = false;
+		}
+	}
+
+	if (App->player->Dead == false) {
+		PlayerPosition = App->player->position;
+	}
+	else {
+		PlayerPosition = App->player2->positionp2;
+	}
 
 	radians = atan2((position.y-PlayerPosition.y), (position.x-PlayerPosition.x));
 	radians2 = atan2((PlayerPosition.y+2-position.y), (PlayerPosition.x+6-position.x));
@@ -157,7 +183,7 @@ void Enemy_Bee::Move() {
 		counter = 0;
 	}
 
-	PlayerPosition = App->player->position;
+	
 	position.x++;
 	position.x += 0.02*(PlayerPosition.x - position.x);
 	position.y += 0.02*(PlayerPosition.y - position.y);
@@ -166,3 +192,6 @@ void Enemy_Bee::Move() {
 
 }
 
+ void Enemy_Bee:: OnCollision(Collider *collider) {
+	hit = true;
+}

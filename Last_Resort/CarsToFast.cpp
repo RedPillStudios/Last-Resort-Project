@@ -38,6 +38,16 @@ CarsToFast::CarsToFast(int x, int y,ENEMY_TYPES type_): Enemy(x,y){
 	CarBlue.PushBack({ 63,212,21,11 });
 	CarBlue.speed = 0.09f;
 
+	int counterRed_x = 0;
+	int counterRed_y = 148;
+	for (int i = 0; i < 14; i++) {
+		CarRed_Destruct.PushBack({ counterRed_x,counterRed_y,31,18 });
+		counterRed_x += 31;
+		if (counterRed_x >= 31 * 8) {
+			counterRed_y += 14;
+			counterRed_x = 0;
+		}
+	}
 	Enemy::sprites = App->textures->Load("Images/General/Car_Sprites.png");
 
 
@@ -65,3 +75,9 @@ void CarsToFast::Move() {
 
 
 }
+void CarsToFast::OnCollision(Collider *collider) {
+
+	if (animation == &CarRed) {
+		animation = &CarBlue_destruct;
+	}
+ }

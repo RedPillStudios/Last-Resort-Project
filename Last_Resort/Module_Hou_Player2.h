@@ -26,14 +26,15 @@ public:
 	update_status Update();
 	bool CleanUp();
 
-
 public:
 
 	float HOU_Direction;
+	float HOU_Direction_Angle;
 	float HOU_Speed = 5;
 	iPoint shipCenter;
 	iPoint HOU_position;
 	iPoint HOU_LastPosition;
+	iPoint FixedPosition;
 	int HOU_Charge;
 
 	bool Throw = false;
@@ -105,7 +106,7 @@ public:
 
 	Animation Redball_charging;
 
-
+	int particlesTimmer;
 
 
 

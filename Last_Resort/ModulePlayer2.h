@@ -16,7 +16,9 @@ enum ShootsP2
 	BASICLASERSHOOTP2,
 	LASERSHOOTP2,
 	MISSILESP2,
-	LASERSHOOTAREAP2
+	LASERSHOOTAREAP2,
+	MISSILES2P2,
+	BOMBSHOOTP2
 
 };
 
@@ -73,7 +75,8 @@ public:
 	bool shooted = false;
 
 	Mix_Chunk*Shot_Sound = nullptr;
-
+	Mix_Chunk*MissilePower_Sound = nullptr;
+	Mix_Chunk*LasserBeam_Sound = nullptr;
 
 public:
 
@@ -95,18 +98,13 @@ public:
 
 	//shoot selector here
 	int WeaponTypeP2 = 0;
+	void ShootSelector(uint shoot);
 
-	void ShootSelector(uint shoot) {
-		if (shoot == BASICSHOOTP2) {
-			WeaponTypeP2 = 0;
-		}
-		else if (shoot == LASERSHOOTP2) {
-			WeaponTypeP2 = 2;
-		}
-		else if (shoot == MISSILESP2) {
-			WeaponTypeP2 = 3;
-		}
-	};
+	//POWERUP Levels
+	bool Lvl0 = true;
+	bool Lvl1 = false;
+	bool Lvl2 = false;
+	bool Lvl3 = false;
 };
 
 #endif

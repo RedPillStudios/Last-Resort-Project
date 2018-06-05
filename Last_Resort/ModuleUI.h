@@ -2,6 +2,9 @@
 #define ModuleUI_H
 
 #include "Module.h"
+#include "Animation.h"
+#include "Globals.h"
+#include "p2Point.h"
 #include "SDL/include/SDL_pixels.h"
 
 #include "SDL_mixer/include/SDL_mixer.h"
@@ -18,13 +21,14 @@ struct Font {
 
 	char table[MAX_FONT_CHARS];
 	SDL_Texture* graphic = nullptr;
+
 	uint rows, len, char_w, char_h, row_chars;
 };
 
 struct rank {
 
-	char name[4] = "NON";
-	int score = 0;
+	char name[3];
+	int score;
 };
 
 class ModuleUI : public Module {
@@ -38,6 +42,7 @@ public:
 	update_status Update();
 	bool CleanUp();
 
+
 public:
 
 	int LoadFont(const char* texture_path, const char *characters, uint rows = 1);
@@ -50,9 +55,26 @@ public:
 
 	//Scores & UI
 	//uint TopScoreP1(uint Score1, uint TopScore);
+	SDL_Texture* Bar_Texture = nullptr;
+	Animation Bar;
+	iPoint Pos_Bar1;
+	iPoint Pos_Bar2;
+	iPoint PosCharge1;
+	iPoint PosCharge2;
+	int WidhtCharge1;
+	int WidthCharge2;
+	Animation*Current_Bar;
+	SDL_Rect Charge_Controller;
+
+	Animation*Current_Charge1;
+	Animation*Current_Charge2;
+	Animation Charge1;
+	Animation Charge2;
 
 	bool Spawned;
 	bool TimeCounter = true;
+	int Chargebar;
+
 	uint AppearTime;
 	uint current_time = SDL_GetTicks();
 
@@ -68,6 +90,9 @@ public:
 	//P2 Score
 	char score_text2[10];
 	uint ScoreP2;
+
+	//Score for Ranking
+	uint Score_Ranking;
 
 	//Top Score
 	char top_score[10];
@@ -90,9 +115,26 @@ public:
 
 	//RANKING
 	FILE *Ranking;
+	uint a = 0;
 	struct rank ranking[9];
-	int countFile(FILE *pFile, char *path);
+	char name1;
+	char name2;
+	char name3;
+	bool cpressed = false;
+	bool c2pressed = false;
+	bool c3pressed = false;
+	bool ccompleted = false;
+	char NewName[4] = "RCK";
+	char New[4];
+//	int countFile(FILE *pFile, char *path);
 	void ChangeRanking(FILE *pFile, char *path, int Score);
+	uint counterRanking;
+	char *abecedary = "ABCDEFGHIJKLMN0PQRSTUVWXYZ";
+	char *abecedary2 = "ABCDEFGHIJKLMN0PQRSTUVWXYZ";
+	char *abecedary3 = "ABCDEFGHIJKLMN0PQRSTUVWXYZ";
+	int selector = 0;
+	int selector2 = 0;
+	int selector3 = 0;
 	
 
 private:
