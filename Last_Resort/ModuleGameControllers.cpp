@@ -60,6 +60,7 @@ update_status  ModuleGameControllers::PreUpdate()
 					controller_player1_A_pressed = SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_A);
 				/*	controller_player1_RightShoulder_pressed = SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER);*/
 					controller_player1_Start_pressed = SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_START);
+					 controller_player1_B_pressed = SDL_GameControllerGetButton(Controller_player1, SDL_CONTROLLER_BUTTON_B); ;
 
 					Controller_player1_Connected = true;
 				}
@@ -92,9 +93,10 @@ update_status  ModuleGameControllers::PreUpdate()
 					//Assign the boolean value to the  bools defined  
 
 					controller_player2_A_pressed = SDL_GameControllerGetButton(Controller_player2, SDL_CONTROLLER_BUTTON_A);
+
 				/*	controller_player2_RightShoulder_pressed = SDL_GameControllerGetButton(Controller_player2, SDL_CONTROLLER_BUTTON_RIGHTSHOULDER);*/
 					controller_player2_Start_pressed = SDL_GameControllerGetButton(Controller_player2, SDL_CONTROLLER_BUTTON_START);
-
+					controller_player2_B_pressed = SDL_GameControllerGetButton(Controller_player2, SDL_CONTROLLER_BUTTON_B);
 					Controller_player2_Connected = true;
 					break;
 
@@ -148,6 +150,23 @@ update_status  ModuleGameControllers::PreUpdate()
 	
 	}
 
+	if (controller_player1_Start_pressed == true && App->input->keyboard[SDL_SCANCODE_C] == KEY_STATE::KEY_IDLE) {
+
+		App->input->keyboard[SDL_SCANCODE_C] = KEY_STATE::KEY_DOWN;
+	}
+
+	else if (controller_player1_Start_pressed==true)
+	App->input->keyboard[SDL_SCANCODE_C] = KEY_STATE::KEY_REPEAT;
+	
+	if (controller_player1_B_pressed == true && App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_IDLE) {
+
+		App->input->keyboard[SDL_SCANCODE_J] = KEY_STATE::KEY_DOWN;
+	}
+
+	else if (controller_player1_B_pressed == true)
+		App->input->keyboard[SDL_SCANCODE_J] = KEY_STATE::KEY_REPEAT;
+
+	
 	//Check player two axes
 
 	if (Controller_player2_LAxisX > DEATHZONE) {
@@ -185,7 +204,23 @@ update_status  ModuleGameControllers::PreUpdate()
 		App->input->keyboard[SDL_SCANCODE_RCTRL] = KEY_STATE::KEY_REPEAT;
 
 	}
+	
+	if (controller_player2_Start_pressed == true && App->input->keyboard[SDL_SCANCODE_C] == KEY_STATE::KEY_IDLE) {
 
+		App->input->keyboard[SDL_SCANCODE_C] = KEY_STATE::KEY_DOWN;
+	}
+
+	else if (controller_player2_Start_pressed == true)
+		App->input->keyboard[SDL_SCANCODE_C] = KEY_STATE::KEY_REPEAT;
+	
+
+	if (controller_player2_B_pressed == true && App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_IDLE) {
+
+		App->input->keyboard[SDL_SCANCODE_J] = KEY_STATE::KEY_DOWN;
+	}
+
+	else if (controller_player2_B_pressed == true)
+		App->input->keyboard[SDL_SCANCODE_J] = KEY_STATE::KEY_REPEAT;
 	
 	return update_status::UPDATE_CONTINUE;
 }
