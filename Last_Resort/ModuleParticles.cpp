@@ -34,7 +34,7 @@ bool ModuleParticles::Start() {
 	Particle3 = App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
 	Particle4 = App->textures->Load("Images/Player/Charge_Ball.png");
 	Particle5 = App->textures->Load("Images/Particles/Explosion.png");
-	Particle6 = App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
+//	Particle6 = App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
 
 
 	ImpactExplosionSound = App->sound->LoadChunk("Audio/General/007_Enemy_Explosion_Standard.wav");
