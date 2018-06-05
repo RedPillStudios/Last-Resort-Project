@@ -105,14 +105,14 @@ bool Iron_Craw::Start() {
 
   
 	Mini_Boss= App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
-
+	Damaged = App->textures->Load("Images/Bosses/First_Mini_Boss_Damage_Sprite.png");
 
 	body = App->collision->AddCollider({(int)position.x, (int)position.y , 42, 59 }, COLLIDER_ENEMY,this);
 	LArm= App->collision->AddCollider({ (int)position.x-40,(int)position.y , 39, 62 }, COLLIDER_ENEMY,this);
 	RArm = App->collision->AddCollider({ (int)position.x +38, (int)position.y , 39, 62 }, COLLIDER_ENEMY,this);
 
 	Current_AnimationBody =&FirstIdle;
-
+	actual = Mini_Boss;
 	PlayerPosition = App->player->position;
 
 	LArmPosition = position.y;
@@ -142,7 +142,33 @@ update_status Iron_Craw::Update() {
 		
 	}
 
+	if (hit == true) {
+		counter_Flicker++;
+		if (counter_Flicker % 3 == 0) {
+			actual = Damaged;
+		}
+		else {
+			actual = Mini_Boss;
+		}
+		if (counter_Flicker >= 30) {
+			actual = Mini_Boss;
+			counter_Flicker = 0;
+			hit = false;
+		}
+	}
+
+	if (!dead ) {
+		body->SetPos(position.x, position.y);
+	
+		if (armsOut) {
+			RArm->SetPos(position.x + 38, position.y);
+		}
+		else {
+			RArm->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
+	
+		}
 	if (SpawnFInished) {
+
 
 		if (!dead) {
 			body->SetPos(position.x, position.y);
@@ -328,7 +354,7 @@ update_status Iron_Craw::Update() {
 	
 
 	}
-	
+
 	App->render->Blit(Mini_Boss, position.x - 9, position.y + 18, &blueCircle.GetCurrentFrame());
 	App->render->Blit(Mini_Boss, position.x + 20, position.y + 18, &blueCircle.GetCurrentFrame());
 	App->render->Blit(Mini_Boss, position.x - 3, position.y + 33, &leg1.GetCurrentFrame());
@@ -336,8 +362,6 @@ update_status Iron_Craw::Update() {
 	App->render->Blit(Mini_Boss, position.x, position.y, &Current_AnimationBody->GetCurrentFrame());
 	App->render->Blit(Mini_Boss, position.x + 38, RArmPosition, &Right_Arm.GetCurrentFrame());
 	App->render->Blit(Mini_Boss, position.x - 44, LArmPosition, &Left_Arm.GetCurrentFrame());
-
-
 
 	return UPDATE_CONTINUE;
 }
@@ -361,6 +385,7 @@ bool Iron_Craw::CleanUp() {
 	}
 
 	App->textures->Unload(Mini_Boss);
+	App->textures->Unload(Damaged);
 
 	Current_AnimationBody = nullptr;
 
@@ -398,11 +423,6 @@ void Iron_Craw::spawn() {
 			
 		}
 	}
-
-		
-	
-		
-
 }
 
 
@@ -443,13 +463,8 @@ void Iron_Craw::Move() {
 				moving_Down = true;
 				counterIron = 0;
 			}
-		
 		}
-
-
 	}
-
-
 }
 
 void Iron_Craw::bombs() {
@@ -458,11 +473,6 @@ void Iron_Craw::bombs() {
 	App->enemies->AddEnemy(ENEMY_TYPES::GREENBOMB, position.x - 20, position.y + 20, COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
 	App->enemies->AddEnemy(ENEMY_TYPES::GREENBOMB, position.x + 20, position.y , COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
 	App->enemies->AddEnemy(ENEMY_TYPES::GREENBOMB, position.x - 20, position.y , COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
-	
-
-
-	
-
 
 }
 
@@ -471,6 +481,7 @@ void Iron_Craw::OnCollision(Collider *c1, Collider *c2) {
 	if ((c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT || c1->type == COLLIDER_PLAYER_SHOT2 || c2->type == COLLIDER_PLAYER_SHOT2)) {
 
 		--life;
+		hit = true;
 		if (life <= 0) {
 			App->fonts->ScoreP1 +=1000;
 			App->fonts->ScoreP2 += 1000;

@@ -22,6 +22,7 @@
 #include "Iron_Craw.h"
 #include "Module_Hou_Player1.h"
 #include "Module_Hou_Player2.h"
+#include "ModuleHighScore.h"
 
 #include <time.h>
 
@@ -47,12 +48,14 @@ Application::Application()
 	modules[i++] = player2 = new ModulePlayer2();
     modules[i++] = MiniBoss = new Iron_Craw();
 	modules[i++] = powerup = new ModulePowerUp();
-	modules[i++] = fade = new ModuleFadeToBlack();
 	modules[i++] = BossTank = new ModuleTank();
 	modules[i++] = particles = new ModuleParticles();
 	modules[i++] = collision = new ModuleCollision();
+	modules[i++] = HighScore = new ModuleHighScore();
 	modules[i++] = fonts = new ModuleUI();
 	modules[i++] = Boss = new ModuleBossLvl1();
+	modules[i++] = fade = new ModuleFadeToBlack();
+
 }	
 
 Application::~Application()
@@ -80,6 +83,7 @@ bool Application::Init()
 	MiniBoss->Disable();
 	App->fonts->Enable();
 	App->BossTank->Disable();
+	App->HighScore->Disable();
 
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)

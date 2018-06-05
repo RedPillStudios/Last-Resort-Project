@@ -104,7 +104,10 @@ bool ModulePlayer2::Start() {
 	LOG("Loading player2 textures");
 	Appear2.Reset();
 	//textures
-	graphicsp2 = App->textures->Load("Images/Player/Player2_Spirtes.png"); // arcade version
+	Normal = App->textures->Load("Images/Player/Player2_Spirtes.png"); // arcade version
+	graphicsp2 = Normal;
+	Entry_God = App->textures->Load("Images/Player/Shipp2_Black.png");
+		
 																		   //collider
 	Ship2Collider = App->collision->AddCollider({ 64,0,32,12 }, COLLIDER_PLAYER2, this);
 	//sound
@@ -126,14 +129,19 @@ bool ModulePlayer2::Start() {
 	DestroyShip.Reset();
 	current_animation2 = &Appear2;
 
+	 Lvl0 = true;
+	 Lvl1 = false;
+	 Lvl2 = false;
+	 Lvl3 = false;
+
 	return true;
 }
 
 bool ModulePlayer2::CleanUp() {
 
 	LOG("Cleaning Up Player 2 Module")
-		App->textures->Unload(graphicsp2);
-
+		App->textures->Unload(Normal);
+		App->textures->Unload(Entry_God);
 	if (current_animation2 != nullptr)
 		current_animation2 = nullptr;
 
@@ -160,6 +168,7 @@ update_status ModulePlayer2::Update() {
 		if (Appear2.Finished()) {
 			positionp2.x = App->scene1background->position_min_limit + 32;
 			current_animation2 = &Standard;
+			flickering = true;
 		}
 	}
 
@@ -169,6 +178,21 @@ update_status ModulePlayer2::Update() {
 
 
 	if (!Dead&& current_animation2 != &Appear2) {
+
+		if (flickering == true) {
+			counterApearing++;
+			if (counterApearing % 3 == 0) {
+				graphicsp2 = Entry_God;
+			}
+			else if (counterApearing % 2 == 0) {
+				graphicsp2 = Normal;
+			}
+			if (counterApearing >= 80) {
+				graphicsp2 = Normal;
+				counterApearing = 0;
+				flickering = false;
+			}
+		}
 		//Movement Up
 		if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT) {
 			current_animation2 = &Up;
@@ -294,10 +318,9 @@ update_status ModulePlayer2::Update() {
 
 void ModulePlayer2::OnCollision(Collider *c1, Collider *c2) {
 
-	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER2) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER2) && !ToBeDeleted) {
+	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL || c1->type == COLLIDER_TYPE::COLLIDER_ENEMY_SHOT) && c2->type == COLLIDER_PLAYER2) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL || c2->type == COLLIDER_TYPE::COLLIDER_ENEMY_SHOT) && c1->type == COLLIDER_PLAYER2) && !ToBeDeleted) {
 
-		if (!GOD) {
-
+		if (!(App->fonts->GOD) && !flickering) {
 			LOG("TE QUITO UN COIN MAMASITA");
 			Dead = true;
 			current_animation2 = &DestroyShip;

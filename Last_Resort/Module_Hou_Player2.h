@@ -36,6 +36,7 @@ public:
 	iPoint HOU_LastPosition;
 	iPoint FixedPosition;
 	int HOU_Charge;
+	int Damage;
 
 	bool Throw = false;
 	bool Throwing = false;

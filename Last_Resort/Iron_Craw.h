@@ -42,6 +42,9 @@ public:
 public:
 
 	SDL_Texture*Mini_Boss;
+	SDL_Texture* Damaged;
+	SDL_Texture* actual;
+
 
 	Animation idle;
 	Animation idle_Damage;
@@ -78,12 +81,15 @@ float RArmPosition;
 	int MoveTiming;
 	int MoveTiming2;
 	int angleBomb;
+	int counter_Flicker;
+
 	float SpawnPos;
 	
 
-
 	double radians;
 
+
+	bool hit=false;
 	bool Rarmfalling;
 	bool LArmfallinf;
 	bool dead = false;

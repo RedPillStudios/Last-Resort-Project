@@ -349,6 +349,40 @@ bool ModuleParticles::Start() {
 	Red_ThrowBall_pl1.Sprites = Particle4;
 	Red_ThrowBall_pl1.Speed.x = 0;
 	Red_ThrowBall_pl1.Speed.x = 0;
+
+	Blue_ThrowBall_pl1.Anim.PushBack({ 251,0,32,32 });
+	Blue_ThrowBall_pl1.Anim.PushBack({ 283,0,32,32 });
+	Blue_ThrowBall_pl1.Anim.PushBack({ 315,0,32,32 });
+	Blue_ThrowBall_pl1.Anim.PushBack({ 347,0,32,32 });
+	Blue_ThrowBall_pl1.Anim.loop = true;
+
+	Blue_ThrowBall_pl1.Anim.speed = 0.2f;
+	Blue_ThrowBall_pl1.Sprites = Particle4;
+	Blue_ThrowBall_pl1.Speed.x = 0;
+	Blue_ThrowBall_pl1.Speed.x = 0;
+
+	Blue_ThrowBall_pl2.Anim.PushBack({ 251,0,32,32 });
+	Blue_ThrowBall_pl2.Anim.PushBack({ 283,0,32,32 });
+	Blue_ThrowBall_pl2.Anim.PushBack({ 315,0,32,32 });
+	Blue_ThrowBall_pl2.Anim.PushBack({ 347,0,32,32 });
+	Blue_ThrowBall_pl2.Anim.loop = true;
+
+	Blue_ThrowBall_pl2.Anim.speed = 0.2f;
+	Blue_ThrowBall_pl2.Sprites = Particle4;
+	Blue_ThrowBall_pl2.Speed.x = 0;
+	Blue_ThrowBall_pl2.Speed.x = 0;
+
+	Red_ThrowBall_pl2.Anim.PushBack({ 0,0,32,32 });
+	Red_ThrowBall_pl2.Anim.PushBack({ 32,0,32,32 });
+	Red_ThrowBall_pl2.Anim.PushBack({ 64,0,32,32 });
+	Red_ThrowBall_pl2.Anim.PushBack({ 96,0,32,32 });
+	Red_ThrowBall_pl2.Anim.loop = true;
+
+	Red_ThrowBall_pl2.Anim.speed = 0.2f;
+	Red_ThrowBall_pl2.Sprites = Particle4;
+	Red_ThrowBall_pl2.Speed.x = 0;
+	Red_ThrowBall_pl2.Speed.x = 0;
+
 	return true;
 
 }

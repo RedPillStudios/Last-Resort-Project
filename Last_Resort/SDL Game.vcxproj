@@ -14,7 +14,7 @@
     <ProjectGuid>{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}</ProjectGuid>
     <RootNamespace>SDLGame</RootNamespace>
     <ProjectName>Last Resort</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -92,6 +92,7 @@
     <ClInclude Include="ModuleBossLvl1.h" />
     <ClInclude Include="ModuleCollision.h" />
     <ClInclude Include="ModuleEnemies.h" />
+    <ClInclude Include="ModuleHighScore.h" />
     <ClInclude Include="ModuleTank.h" />
     <ClInclude Include="ModuleUI.h" />
     <ClInclude Include="ModuleGameControllers.h" />
@@ -132,6 +133,7 @@
     <ClCompile Include="ModuleBossLvl1.cpp" />
     <ClCompile Include="ModuleCollision.cpp" />
     <ClCompile Include="ModuleEnemies.cpp" />
+    <ClCompile Include="ModuleHighScore.cpp" />
     <ClCompile Include="ModuleTank.cpp" />
     <ClCompile Include="ModuleUI.cpp" />
     <ClCompile Include="ModuleGameControllers.cpp" />

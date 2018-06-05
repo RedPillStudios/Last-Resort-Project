@@ -109,6 +109,8 @@
     <ClCompile Include="ModuleTank.cpp">
       <Filter>Modules\Enemies\Tank</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleHighScore.cpp">
+      <Filter>Modules\Scenes</Filter>
     <ClCompile Include="BossLamella.cpp">
       <Filter>Modules\Enemies\BossLamella</Filter>
     </ClCompile>
@@ -231,6 +233,8 @@
     <ClInclude Include="ModuleTank.h">
       <Filter>Modules\Enemies\Tank</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleHighScore.h">
+      <Filter>Modules\Scenes</Filter>
     <ClInclude Include="BossLamella.h">
       <Filter>Modules\Enemies\BossLamella</Filter>
     </ClInclude>

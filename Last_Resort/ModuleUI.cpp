@@ -17,6 +17,7 @@
 #include "ModuleSound.h"
 #include "Module_Hou_Player1.h"
 #include "Module_Hou_Player2.h"
+#include "ModuleHighScore.h"
 
 #include <iostream>
 #include <string.h>
@@ -81,88 +82,99 @@ bool ModuleUI::CleanUp() {
 
 update_status ModuleUI::Update() {
 
+	if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {
+		if (GOD == false) {
+			GOD = true;
+		}
+		else if(GOD=true)
+			GOD = false;
+	}
 
 	if (App->input->keyboard[SDL_SCANCODE_C] == KEY_STATE::KEY_DOWN && coins < 100) {
 		coins++;
 		Mix_PlayChannel(-1, Insert_Coin, 0);
 	}
+	if (App->HighScore->IsEnabled() == true) {
+		if (!ccompleted) {
+			if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_DOWN) {
 
-	if (!ccompleted) {
-		if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_DOWN) {
+				if (cpressed == false && c2pressed == false && c3pressed == false) {
 
-			if (cpressed == false && c2pressed == false && c3pressed == false) {
+					name1 = abecedary[selector];
+					selector++;
+					if (selector > 25)
+						selector = 0;
+				}
+				if (cpressed == true && c2pressed == false && c3pressed == false) {
 
-				name1 = abecedary[selector];
-				selector++;
-				if (selector > 25)
-					selector = 0;
-			}
-			if (cpressed == true && c2pressed == false && c3pressed == false) {
+					name2 = abecedary[selector2];
+					selector2++;
+					if (selector2 > 25)
+						selector2 = 0;
+				}
+				if (cpressed == true && c2pressed == true && c3pressed == false) {
 
-				name2 = abecedary[selector2];
-				selector2++;
-				if (selector2 > 25)
-					selector2 = 0;
-			}
-			if (cpressed == true && c2pressed == true && c3pressed == false) {
-
-				name3 = abecedary[selector3];
-				selector3++;
-				if (selector3 > 25)
-					selector3 = 0;
-			}
-		}
-		if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_DOWN) {
-
-			if (cpressed == false && c2pressed == false && c3pressed == false) {
-				name1 = abecedary[selector];
-				--selector;
-				if (selector < 0)
-					selector = 25;
-			}
-			if (cpressed == true && c2pressed == false && c3pressed == false) {
-
-				name2 = abecedary2[selector2];
-				--selector2;
-				if (selector2 < 0)
-					selector2 = 25;
-			}
-			if (cpressed == true && c2pressed == true && c3pressed == false) {
-
-				name3 = abecedary3[selector3];
-				--selector3;
-				if (selector3 < 0)
-					selector3 = 25;
-			}
-		}
-
-		if (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN) {
-
-			if (cpressed == false && cpressed == false && c3pressed == false) {
-
-				NewName[0] = name1;
-				cpressed = true;
-			}
-			else if (cpressed == true && c2pressed == false && c3pressed == false) {
-
-				NewName[1] = name2;
-				c2pressed = true;
-			}
-			else if (c2pressed == true && cpressed == true && c3pressed == false) {
-
-				NewName[2] = name3;
-				c3pressed = true;
-				for (int i = 0; i < 3; ++i) {
-
-					New[i] = NewName[i];
+					name3 = abecedary[selector3];
+					selector3++;
+					if (selector3 > 25)
+						selector3 = 0;
 				}
 			}
-		}
-	}
+			if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_DOWN) {
 
-	BlitText((SCREEN_WIDTH / 2) + 130, (SCREEN_HEIGHT / 2), font, &name1);
-	/*BlitText((SCREEN_WIDTH / 2) + 10, (SCREEN_HEIGHT / 2), font, &c2);
-	BlitText((SCREEN_WIDTH / 2) + 20, (SCREEN_HEIGHT / 2), font, &c3);*/
+				if (cpressed == false && c2pressed == false && c3pressed == false) {
+					name1 = abecedary[selector];
+					--selector;
+					if (selector < 0)
+						selector = 25;
+				}
+				if (cpressed == true && c2pressed == false && c3pressed == false) {
+
+					name2 = abecedary2[selector2];
+					--selector2;
+					if (selector2 < 0)
+						selector2 = 25;
+				}
+				if (cpressed == true && c2pressed == true && c3pressed == false) {
+
+					name3 = abecedary3[selector3];
+					--selector3;
+					if (selector3 < 0)
+						selector3 = 25;
+				}
+			}
+
+			if (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN) {
+
+				if (cpressed == false && cpressed == false && c3pressed == false) {
+
+					NewName[0] = name1;
+					cpressed = true;
+				}
+				else if (cpressed == true && c2pressed == false && c3pressed == false) {
+
+					NewName[1] = name2;
+					c2pressed = true;
+				}
+				else if (c2pressed == true && cpressed == true && c3pressed == false) {
+
+					NewName[2] = name3;
+					c3pressed = true;
+					
+					for (int i = 0; i < 3; ++i) {
+
+						New[i] = NewName[i];
+					}
+					ccompleted = true;
+				}
+			}
+			
+		}
+
+		BlitText(215, 50, font, &name1);
+		/*BlitText((SCREEN_WIDTH / 2) + 10, (SCREEN_HEIGHT / 2), font, &c2);
+		BlitText((SCREEN_WIDTH / 2) + 20, (SCREEN_HEIGHT / 2), font, &c3);*/
+	}
 
 	
 		sprintf_s(coins_text, "%7d", coins);
@@ -267,7 +279,7 @@ update_status ModuleUI::Update() {
 		BlitText((SCREEN_WIDTH / 2) - 9, 16, font, top_score);
 
 		//GOD MODE
-		if (App->player->GOD || App->player2->GOD) {
+		if (GOD) {
 
 			App->fonts->BlitText(13, SCREEN_HEIGHT - 10, App->fonts->font, "G0D");
 			App->fonts->BlitText(39, SCREEN_HEIGHT - 10, App->fonts->font, "M0DE");

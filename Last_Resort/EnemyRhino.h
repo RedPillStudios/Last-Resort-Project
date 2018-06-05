@@ -20,6 +20,7 @@ public:
 	virtual void OnCollision(Collider *collider) override;
 	Enemy_Rhino(int x, int y,bool powerUp, ENEMY_TYPES type_);
 	void Move();
+
 	SDL_Texture* Damaged;
 	SDL_Texture* Normal;
 	

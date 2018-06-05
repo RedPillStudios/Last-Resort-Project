@@ -43,18 +43,23 @@ public:
 	bool Player2Activated = false;
 	bool ToBeDeleted = false;
 	bool GOD = false;
+	bool flickering;
 public:
 	//Timer
 	int ShootTimer1;
 	int ShootTimer2;
 	int ShootTimer3;
 	int ShootTimer4;
+	int counterApearing;
+
 public:
 
 	SDL_Rect Ship2;
 	SDL_Rect UI_ship2;
 
 	SDL_Texture* graphicsp2 = nullptr;
+	SDL_Texture* Entry_God = nullptr;
+	SDL_Texture* Normal = nullptr;
 
 	Animation Up;
 	Animation Down;
