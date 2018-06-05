@@ -13,12 +13,13 @@ class Enemy {
 
 protected:
 
-	Animation *animation = nullptr;
+
 	Collider *collider = nullptr;
 
 
 public:
 
+	Animation *animation = nullptr;
 	fPoint position;
 	SDL_Texture *sprites;
 
@@ -26,7 +27,6 @@ public:
 	virtual ~Enemy();
 
 	const Collider* GetCollider() const;
-
 
 	ENEMY_TYPES type;
 	bool reached;

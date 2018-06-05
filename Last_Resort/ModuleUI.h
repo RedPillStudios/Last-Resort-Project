@@ -65,6 +65,7 @@ public:
 	int WidthCharge2;
 	Animation*Current_Bar;
 	SDL_Rect Charge_Controller;
+	SDL_Rect Charge_ControllerP2;
 
 	Animation*Current_Charge1;
 	Animation*Current_Charge2;
@@ -118,6 +119,7 @@ public:
 	FILE *Ranking;
 	uint a = 0;
 	struct rank ranking[9];
+	int counter;
 	char name1;
 	char name2;
 	char name3;

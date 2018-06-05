@@ -175,6 +175,9 @@ bool ModuleSceneLvl1::Start()
 	//WASP->Wave1{
 	//troop1
  //Wasps
+	App->powerup->AddPowerUp(POWERUP_TYPES::SPEED, 300, 75);
+	App->powerup->AddPowerUp(POWERUP_TYPES::SPEED, 500, 75);
+	App->powerup->AddPowerUp(POWERUP_TYPES::SPEED, 600, 75);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60,false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 540, 75);
@@ -499,7 +502,7 @@ update_status ModuleSceneLvl1::Update() {
 	if (position_max_limit<= 7160) {
 		randomPositionCars = rand() % 2 + 1;
 
-		if ((posCars % 40 == 0) || posCars % 60 == 0) {
+		if ((posCars % 100 == 0) || posCars % 90 == 0) {
 			if (randomPositionCars == 1) {
 				App->enemies->AddEnemy(ENEMY_TYPES::CARS, posCars, 195);
 			}

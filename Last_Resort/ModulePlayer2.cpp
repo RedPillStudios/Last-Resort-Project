@@ -90,6 +90,9 @@ bool ModulePlayer2::Start() {
 	positionp2.x = App->scene1background->position_min_limit + 20;
 	positionp2.y = SCREEN_WIDTH / 2;
 
+
+	speed = 2;
+
 	if (IsEnabled()) {
 		if (App->fonts->IsEnabled() == false)
 			App->fonts->Enable();
@@ -161,7 +164,7 @@ update_status ModulePlayer2::Update() {
 
 	positionp2.x += 1;
 
-	int speed = 2;
+
 
 	if (current_animation2 == &Appear2) {
 		positionp2.x = App->scene1background->position_min_limit + 2;

@@ -63,6 +63,7 @@ public:
 	Collider *Ship1Collider;
 
 	//Timer
+	float speed;
 	int ShootTimer1;
 	int ShootTimer2;
 	int ShootTimer3;
