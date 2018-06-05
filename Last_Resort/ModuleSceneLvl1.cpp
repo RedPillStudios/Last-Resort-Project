@@ -157,7 +157,7 @@ bool ModuleSceneLvl1::Start()
 	/*	App->Boss->Enable();*/
 		App->collision->Enable();
 		App->particles->Enable();
-	
+		/*App->MiniBoss->Enable();*/
 		App->BossTank->Enable();
 
 	}
@@ -587,7 +587,7 @@ update_status ModuleSceneLvl1::Update() {
 
 	//Iron Spawn
 
-	if (App->scene1background->position_max_limit >= 1500 && !IronCraw2 && spawned==false) {
+	if (App->scene1background->position_max_limit >= 1300 && !IronCraw2 && spawned==false) {
 		App->MiniBoss->Enable();
 		spawned = true;
 	}

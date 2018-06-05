@@ -97,7 +97,7 @@ Iron_Craw::~Iron_Craw()
 bool Iron_Craw::Start() {
 
 	if (App->scene1background->IronCraw2 == false)
-		SpawnPos = 1300;
+		SpawnPos = 1200;
 	else
 		SpawnPos = 8000;
 
@@ -346,12 +346,13 @@ update_status Iron_Craw::Update() {
 				disablingIronCraw = true;
 			}
 
-
+		
 
 		}
 
 	
 	}
+	
 	App->render->Blit(Mini_Boss, position.x - 9, position.y + 18, &blueCircle.GetCurrentFrame());
 	App->render->Blit(Mini_Boss, position.x + 20, position.y + 18, &blueCircle.GetCurrentFrame());
 	App->render->Blit(Mini_Boss, position.x - 3, position.y + 33, &leg1.GetCurrentFrame());
@@ -386,8 +387,8 @@ bool Iron_Craw::CleanUp() {
 
 	Current_AnimationBody = nullptr;
 	
-	if(!disablingIronCraw)
-		disablingIronCraw = true;
+	//if(!disablingIronCraw)
+	//	disablingIronCraw = true;
 
 	return true;
 }
