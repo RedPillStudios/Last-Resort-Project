@@ -45,7 +45,7 @@ Application::Application()
 	modules[i++] = HOU_Player1 = new ModuleHouPlayer1();
 	modules[i++] = player = new ModulePlayer();
 	modules[i++] = player2 = new ModulePlayer2();
-  modules[i++] = MiniBoss = new Iron_Craw();
+    modules[i++] = MiniBoss = new Iron_Craw();
 	modules[i++] = powerup = new ModulePowerUp();
 	modules[i++] = fade = new ModuleFadeToBlack();
 	modules[i++] = BossTank = new ModuleTank();
@@ -77,9 +77,9 @@ bool Application::Init()
 	powerup->Disable();
 	player2->Disable();
 	App->Boss->Disable();
-	App->fonts->Disable();
 	MiniBoss->Disable();
 	App->fonts->Enable();
+	App->BossTank->Disable();
 
 
 	for(int i = 0; i < NUM_MODULES && ret == true; ++i)

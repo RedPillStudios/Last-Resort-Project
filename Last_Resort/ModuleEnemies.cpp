@@ -19,7 +19,7 @@
 #include "ModuleUI.h"
 #include "Humans.h"
 #include "GreenBombIron.h"
-
+#include "Enemy_Tears.h"
 
 #define SPAWN_MARGIN 50
 
@@ -171,6 +171,11 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 			break;
 		case ENEMY_TYPES::GREENBOMB:
 			enemies[i] = new GreenBombIron(info.x, info.y);
+      break;
+		case ENEMY_TYPES::BOSS_TEARS:
+		enemies[i] = new Enemy_BossTears(info.x, info.y, info.PowerUp);
+		break;
+        
 		}
 	}
 }
@@ -191,9 +196,11 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 
 					if(App->scene1background->randomPositionCars==1)
 						App->powerup->AddPowerUp(POWERUP_TYPES::LASER,enemies[i]->position.x,enemies[i]->position.y);
-					else if (App->scene1background->randomColorCars == 2) {
+					else if (App->scene1background->randomColorCars == 2) 
 						App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, enemies[i]->position.x, enemies[i]->position.y);
-					}
+					else if (App->scene1background->randomColorCars == 3)
+						App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, enemies[i]->position.x, enemies[i]->position.y);
+					
 				}
 
 				if(c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT)

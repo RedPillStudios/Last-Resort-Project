@@ -6,6 +6,7 @@
 
 //Include here Enemies modules
 
+
 #define MAX_ENEMIES 1000
 
 enum ENEMY_TYPES {
@@ -18,7 +19,8 @@ enum ENEMY_TYPES {
 	ENEMY_BEE,
 	CARS,
 	HUMAN,
-	GREENBOMB
+	GREENBOMB,
+	BOSS_TEARS
 };
 
 class Enemy;

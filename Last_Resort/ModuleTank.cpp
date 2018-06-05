@@ -76,7 +76,7 @@ ModuleTank::~ModuleTank() {}
 
 bool ModuleTank::Start() {
 	//Spawn pos
-	TankPosition = { (3400.0), 157.0 };
+	TankPosition = { (3330.0), 157.0 };
 
 	//anim declarated
 	CorriendoAlTroteAnim = &CorriendoAlTrote;
@@ -112,13 +112,13 @@ bool ModuleTank::CleanUp() {
 
 	//VAMO A ASEGURARNO Q NO AI MEMORILIKS
 	App->textures->Unload(BossTank);
-
-	TankCollider1->to_delete = true;
-	TankCollider2->to_delete = true;
-	TankCollider3->to_delete = true;
-	TankCollider4->to_delete = true;
-	TankCollider5->to_delete = true;
-
+	if (TankCollider1 != nullptr && TankCollider2 != nullptr && TankCollider3 != nullptr && TankCollider4 != nullptr && TankCollider5 != nullptr) {
+		TankCollider1->to_delete = true;
+		TankCollider2->to_delete = true;
+		TankCollider3->to_delete = true;
+		TankCollider4->to_delete = true;
+		TankCollider5->to_delete = true;
+	}
 	CleanUpDone = true;
 	return true;
 }
@@ -163,9 +163,9 @@ update_status ModuleTank::Update() {
 		TankPosition.x += 0.5;
 		App->render->Blit(BossTank, TankPosition.x , TankPosition.y + Trote, &WaitingPosAnim->GetCurrentFrame()); // tanque
 		if (!DestroyTurret) {
-			App->render->Blit(BossTank, TankPosition.x + 47, TankPosition.y - 3 + Trote, &BigTurretPos1Anim->GetCurrentFrame()); // torreta grande
+			//App->render->Blit(BossTank, TankPosition.x + 47, TankPosition.y - 3 + Trote, &BigTurretPos1Anim->GetCurrentFrame()); // torreta grande
 		}
-		App->render->Blit(BossTank, TankPosition.x + 83, TankPosition.y + 3 + Trote, &LittleTurretPos1Anim->GetCurrentFrame()); // torreta pequeña
+		//App->render->Blit(BossTank, TankPosition.x + 83, TankPosition.y + 3 + Trote, &LittleTurretPos1Anim->GetCurrentFrame()); // torreta pequeña
 		if (TankPosition.x <= App->scene1background->position_min_limit + 100) {
 			//App->render->Blit(BossTank, Position.x + 13, Position.y + 22 + Trote, &LidoaTankEngineAnim->GetCurrentFrame());
 		}
@@ -174,7 +174,7 @@ update_status ModuleTank::Update() {
 	if (TankPosition.x <= App->scene1background->position_min_limit + 20 && !LimitReached ) {
 		ReachPos1 = true;
 	}
-	if (TankPosition.x > 3600) {
+	if (TankPosition.x > 10600) {
 		LimitReached = true;
 	}
 	if (ReachPos1) {
@@ -301,7 +301,7 @@ update_status ModuleTank::Update() {
 		
 		if ((ReachPos1 || ReachPos2) && !LimitReached && !AngleNotValid) {
 			if(!DestroyTurret){
-				if (TimerShoot >= 75) {
+				if (TimerShoot >= 100) {
 					App->particles->TankBigShoot.Speed.x = 3 * (cos(Angle1*PI / 180));
 					//App->particles->TankBigShoot.Speed.x = 0.05 * ((PlayerPos.y + 3 - TankPosition.y - 3)/ tan(Angle1 * PI / 180.0));// x=y/tan of angle1
 					App->particles->TankBigShoot.Speed.x++;

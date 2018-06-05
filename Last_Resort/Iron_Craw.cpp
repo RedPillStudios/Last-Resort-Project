@@ -99,7 +99,7 @@ Iron_Craw::~Iron_Craw()
 bool Iron_Craw::Start() {
 
 	position = {(150),55 };
-
+  
 	Mini_Boss= App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
 
 

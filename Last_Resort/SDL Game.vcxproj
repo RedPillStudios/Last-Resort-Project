@@ -81,6 +81,7 @@
     <ClInclude Include="EnemyRhino.h" />
     <ClInclude Include="EnemyWasp.h" />
     <ClInclude Include="EnemyZicZac.h" />
+    <ClInclude Include="Enemy_Tears.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="GreenBombIron.h" />
     <ClInclude Include="Humans.h" />
@@ -120,6 +121,7 @@
     <ClCompile Include="EnemyRhino.cpp" />
     <ClCompile Include="EnemyWasp.cpp" />
     <ClCompile Include="EnemyZicZac.cpp" />
+    <ClCompile Include="Enemy_Tears.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="GreenBombIron.cpp" />
     <ClCompile Include="Humans.cpp" />

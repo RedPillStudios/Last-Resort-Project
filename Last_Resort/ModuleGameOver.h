@@ -35,6 +35,8 @@ public:
 	char SumScore_text[10];
 	int fontend;
 
+	bool SubstractCoins = true;
+
 	Mix_Music *GameOver = nullptr;
 };
 

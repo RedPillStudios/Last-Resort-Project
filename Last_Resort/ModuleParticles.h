@@ -79,6 +79,7 @@ public:
 	Particle MissilePower;
 	Particle MissilePowerPatter2;
 	Particle FogExplosion;
+	Particle MaleTears;
 
 	Particle LaserBeam;
 	Particle LaserBeamExplosion;
@@ -86,6 +87,9 @@ public:
 	Particle LaserBeamArea2;
 	Particle LaserBeamArea3; 
 	Particle Red_ThrowBall_pl1;
+
+	Particle HipopotamoBomba;
+	Particle HipopotamoBomba2;
 
 
 	Particle BeeShot;

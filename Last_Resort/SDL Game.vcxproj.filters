@@ -105,6 +105,8 @@
     </ClCompile>
     <ClCompile Include="GreenBombIron.cpp">
       <Filter>Modules\Enemies\GreenBomb</Filter>
+    <ClCompile Include="Enemy_Tears.cpp">
+      <Filter>Modules\Enemies\ENEMY_BOSSTEARS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +223,8 @@
     </ClInclude>
     <ClInclude Include="GreenBombIron.h">
       <Filter>Modules\Enemies\GreenBomb</Filter>
+    <ClInclude Include="Enemy_Tears.h">
+      <Filter>Modules\Enemies\ENEMY_BOSSTEARS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -286,6 +290,8 @@
     </Filter>
     <Filter Include="Modules\Enemies\GreenBomb">
       <UniqueIdentifier>{cebd11db-18f3-4276-af3f-0d8e15348678}</UniqueIdentifier>
+    <Filter Include="Modules\Enemies\ENEMY_BOSSTEARS">
+      <UniqueIdentifier>{f00171fe-ce91-4810-849a-48489843d1db}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
