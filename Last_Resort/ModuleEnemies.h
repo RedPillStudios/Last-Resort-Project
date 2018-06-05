@@ -51,8 +51,9 @@ public:
 	bool CleanUp(); 
 
 	void OnCollision(Collider *c1, Collider *c2);
-	bool AddEnemy(ENEMY_TYPES type, int x, int y, bool PowerUp);
+	bool AddEnemy(ENEMY_TYPES type, int x, int y, bool PowerUp=false);
 	bool SpawnEnemyCheat = false;
+	int counter_Damage = 0;
 
 private:
 

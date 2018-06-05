@@ -3,7 +3,7 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleCollision.h"
-#include "ModulePlayer.h"
+#include "ModulePlayer2.h"
 #include "ModuleEnemies.h"
 #include "ModuleParticles.h"
 #include "ModuleInput.h"
@@ -372,8 +372,11 @@ ModuleHouPlayer2::~ModuleHouPlayer2() {}
 
 bool ModuleHouPlayer2::Start() {
 
+	//HOU_position_x = App->player->position.x;
+	//HOU_position_y = App->player->position.y;
+
 	LOG("Loading PowerUps");
-	if (App->player->IsEnabled() == true && App->HOU_Player2->IsEnabled() == false)
+	if (App->player2->IsEnabled() == true && App->HOU_Player2->IsEnabled() == false)
 		App->HOU_Player2->Enable();
 
 	ChargeHOUSound = App->sound->LoadChunk("Audio/General/Charging_shot.wav");
@@ -386,6 +389,7 @@ bool ModuleHouPlayer2::Start() {
 
 	HOU_activated = false;
 	fixed = false;
+	Damage = 1;
 
 	colliderHUB = App->collision->AddCollider({ -2000,-200,22,16 }, COLLIDER_HOU, this);
 
@@ -416,14 +420,22 @@ bool ModuleHouPlayer2::CleanUp() {
 update_status ModuleHouPlayer2::Update() {
 
 
-	shipCenter.x = App->player->position.x + 10;
-	shipCenter.y = App->player->position.y;
+	shipCenter.x = App->player2->positionp2.x + 10;
+	shipCenter.y = App->player2->positionp2.y;
 
 	if (HOU_activated) {
 		if (HOU_Direction >= 360) {
 			HOU_Direction = 0;
 		}
-		if (HOU_Charge > 20 && App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP&&Throwing == false) {
+		if (HOU_Charge > 20 && App->input->keyboard[SDL_SCANCODE_RCTRL] == KEY_STATE::KEY_UP&&Throwing == false) {
+			if (HOU_Charge > 30 && HOU_Charge <60) {
+				Damage = 3;
+			}
+			else if (HOU_Charge >= 61) {
+				Damage = 5;
+			}
+
+
 			Throwing = true;
 			Throw = true;
 		}
@@ -551,7 +563,7 @@ update_status ModuleHouPlayer2::Update() {
 		//Render HOU
 		if (Throwing) {
 			charging = false;
-			Animation* Sup = current_animation;
+
 			if (Blue) {
 				current_animation = &Blue_Throw_Ball;
 
@@ -561,7 +573,7 @@ update_status ModuleHouPlayer2::Update() {
 			}
 			if (Throw == true) {
 				throwHOU();
-				if (HOU_position.x + 17 >= App->scene1background->position_max_limit || HOU_position.y + 17 >= SCREEN_HEIGHT || HOU_position.x <= App->scene1background->position_min_limit || HOU_position.y <= 0) {
+				if (HOU_position.x + 17 >= App->scene1background->position_max_limit + 40 || HOU_position.y + 17 >= SCREEN_HEIGHT + 30 || HOU_position.x <= App->scene1background->position_min_limit - 30 || HOU_position.y <= -30) {
 					HOUreachPosition = true;
 					Throw = false;
 				}
@@ -575,17 +587,18 @@ update_status ModuleHouPlayer2::Update() {
 				HOU_position.x = HOU_position.x + 0.05*(shipCenter.x - HOU_position.x);
 				HOU_position.y = HOU_position.y + 0.05*(shipCenter.y - HOU_position.y);
 				if ((HOU_position.x < shipCenter.x + 30 && HOU_position.x > shipCenter.x - 30) && (HOU_position.y<shipCenter.y + 30 && HOU_position.y>shipCenter.y - 30)) {
-					current_animation = Sup;
 
 					HOUreachPosition = false;
 					HOU_Charge = 0;
 					Throwing = false;
+					Damage = 1;
 				}
 			}
+
 		}
 
-		App->particles->HOU_Shot.Speed.x = (7 * cos(HOU_Direction*PI / 180));
-		App->particles->HOU_Shot.Speed.y = (7 * sin(HOU_Direction*PI / 180));
+		App->particles->HOU_Shot_p2.Speed.x = (7 * cos(HOU_Direction*PI / 180));
+		App->particles->HOU_Shot_p2.Speed.y = (7 * sin(HOU_Direction*PI / 180));
 
 		colliderHUB->SetPos(HOU_position.x, HOU_position.y);
 
@@ -613,13 +626,23 @@ void ModuleHouPlayer2::throwHOU() {
 		HOU_position.x += (10 * cos(HOU_Direction_Angle*PI / 180));
 		HOU_position.y += (10 * sin(HOU_Direction_Angle*PI / 180));
 	}
-	App->particles->Red_ThrowBall_pl1.Speed.x = (1 * cos(HOU_Direction*PI / 180));
-	App->particles->Red_ThrowBall_pl1.Speed.x++;
-	App->particles->Red_ThrowBall_pl1.Speed.y = (1 * sin(HOU_Direction*PI / 180));
+	if (Red == true) {
+		App->particles->Red_ThrowBall_pl2.Speed.x = (1 * cos(HOU_Direction*PI / 180));
+		App->particles->Red_ThrowBall_pl2.Speed.x++;
+		App->particles->Red_ThrowBall_pl2.Speed.y = (1 * sin(HOU_Direction*PI / 180));
+	}
+	else if (Blue == true) {
+		App->particles->Blue_ThrowBall_pl2.Speed.x = (1 * cos(HOU_Direction*PI / 180));
+		App->particles->Blue_ThrowBall_pl2.Speed.x++;
+		App->particles->Blue_ThrowBall_pl2.Speed.y = (1 * sin(HOU_Direction*PI / 180));
+	}
 
 
 	if (particlesTimmer >= 3) {
-		App->particles->AddParticle(App->particles->Red_ThrowBall_pl1, HOU_position.x, HOU_position.y, COLLIDER_NONE);
+		if (Red == true)
+			App->particles->AddParticle(App->particles->Red_ThrowBall_pl2, HOU_position.x, HOU_position.y, COLLIDER_NONE);
+		else if (Blue == true)
+			App->particles->AddParticle(App->particles->Blue_ThrowBall_pl2, HOU_position.x, HOU_position.y, COLLIDER_NONE);
 		particlesTimmer = 0;
 	}
 
@@ -631,7 +654,7 @@ void ModuleHouPlayer2::returnHOU() {
 }
 void ModuleHouPlayer2::Hou_Movement() {
 
-	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
+	if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT) {
 
 
 		if (HOU_Direction <= 270 && HOU_Direction > 90) {
@@ -646,7 +669,7 @@ void ModuleHouPlayer2::Hou_Movement() {
 
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) {
+	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT) {
 
 		if (HOU_Direction <= 180 && HOU_Direction > 0) {
 			HOU_Direction -= HOU_Speed;
@@ -657,7 +680,7 @@ void ModuleHouPlayer2::Hou_Movement() {
 
 
 	}
-	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) {
+	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT) {
 
 		if (HOU_Direction < 270 && HOU_Direction >= 90) {
 			HOU_Direction += HOU_Speed;
@@ -675,7 +698,7 @@ void ModuleHouPlayer2::Hou_Movement() {
 
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
+	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT) {
 
 		if (HOU_Direction > 180) {
 			HOU_Direction -= HOU_Speed;
@@ -693,7 +716,7 @@ void ModuleHouPlayer2::Hou_Movement() {
 			}
 		}
 	}
-	if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN) {
+	if (App->input->keyboard[SDL_SCANCODE_KP_0] == KEY_STATE::KEY_DOWN) {
 		if (fixed == false)
 			fixed = true;
 		else if (fixed == true) {
@@ -703,12 +726,12 @@ void ModuleHouPlayer2::Hou_Movement() {
 	}
 
 	if (!Throwing) {
-		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
-			App->particles->AddParticle(App->particles->HOU_Shot, HOU_position.x + 9, HOU_position.y, COLLIDER_PLAYER_SHOT);
+		if (App->input->keyboard[SDL_SCANCODE_RCTRL] == KEY_STATE::KEY_DOWN) {
+			App->particles->AddParticle(App->particles->HOU_Shot_p2, HOU_position.x + 9, HOU_position.y, COLLIDER_PLAYER_SHOT);
 
 			Charging_Sound_HOU = true;
 		}
-		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_REPEAT) {
+		if (App->input->keyboard[SDL_SCANCODE_RCTRL] == KEY_STATE::KEY_REPEAT) {
 			HOU_Charge++;
 			if (HOU_Charge > 8) {
 				charging = true;
@@ -856,7 +879,7 @@ void ModuleHouPlayer2::Hou_Movement() {
 		}
 
 
-		else if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP) {
+		else if (App->input->keyboard[SDL_SCANCODE_RCTRL] == KEY_STATE::KEY_UP) {
 			HOU_Charge = 0;
 			charging = false;
 			Mix_FadeOutChannel(2, 400); //fading out channel

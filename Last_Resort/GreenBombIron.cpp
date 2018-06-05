@@ -8,9 +8,9 @@
 #include "Iron_Craw.h"
 
 
-GreenBombIron::GreenBombIron(int x, int y):Enemy( x, y)
+GreenBombIron::GreenBombIron(int x, int y,ENEMY_TYPES type_):Enemy( x, y)
 {
-	
+	type = type_;
 	GreenBombAnim.PushBack({ 235,0,18,17 });
 	GreenBombAnim.PushBack({ 235,19,17,17 });
 	GreenBombAnim.PushBack({ 236,37,17,17 });

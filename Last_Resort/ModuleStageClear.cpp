@@ -13,6 +13,7 @@
 #include "ModuleParticles.h"
 #include "ModulePlayer2.h"
 #include "ModuleUI.h"
+#include "ModuleHighScore.h"
 
 
 #include <stdio.h>
@@ -88,7 +89,7 @@ update_status ModuleStageClear::Update() {
 	App->fonts->BlitText((SCREEN_WIDTH / 2) + 48, (SCREEN_HEIGHT / 2) + 14, fontend, SumScore_text);
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE]) 
-		App->fade->FadeToBlack(App->stageclear, App->menu, 3.0f);
+		App->fade->FadeToBlack(App->stageclear, App->HighScore, 3.0f);
 	
 
 	return UPDATE_CONTINUE;

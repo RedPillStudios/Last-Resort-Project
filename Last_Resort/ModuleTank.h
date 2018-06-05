@@ -61,6 +61,8 @@ public:
 	
 public:
 	SDL_Texture * BossTank = nullptr;
+	SDL_Texture* Normal;
+	SDL_Texture* Damaged;
 public:
 	fPoint TankPosition;
 	iPoint PlayerPos;
@@ -89,6 +91,8 @@ public:
 	int TimerShoot = 0;
 	int TimerShoot2 = 0;
 	int BossLife = 80;
+	int counter_Flicker=0;
+	int counter_Life = 0;
 public:
 	bool Movement = false;
 	bool TroteInPos = false;
@@ -100,6 +104,7 @@ public:
 	bool CleanUpDone = false;
 	bool DestroyTurret = false;
 	bool DestroyTank = false;
+	bool hit = false;
 public:
 	Collider * TankCollider1 = nullptr;
 	Collider * TankCollider2 = nullptr;

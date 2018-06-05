@@ -12,6 +12,7 @@
 #include "ModuleSceneLvl1.h"
 #include "ModuleStageClear.h"
 #include "ModuleUI.h"
+#include "ModuleHighScore.h"
 
 #include <stdio.h>
 
@@ -122,7 +123,7 @@ update_status ModuleGameOver::Update() {
 			App->fonts->coins--;
 			SubstractCoins = false;
 		}
-		App->fade->FadeToBlack(App->gameover, App->menu, 1.0f);
+		App->fade->FadeToBlack(App->gameover, App->HighScore, 1.0f);
 
 	}
 	

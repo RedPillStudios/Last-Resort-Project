@@ -71,6 +71,7 @@ public:
 	Animation Charge1;
 	Animation Charge2;
 
+	bool GOD;
 	bool Spawned;
 	bool TimeCounter = true;
 	int Chargebar;
