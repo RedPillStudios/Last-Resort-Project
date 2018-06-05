@@ -33,6 +33,10 @@ public:
 	int timeFadeInt = SDL_GetTicks();
 
 	bool IronCraw2 = false;
+	bool IronCraw1 = false;
+	bool spawned = false;
+	bool counterfordisable = false;
+
 
 public:
 	

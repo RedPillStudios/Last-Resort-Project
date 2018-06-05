@@ -98,7 +98,7 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	minispaceships.PushBack({ 55,0,9,4 });
 	minispaceships.PushBack({ 66,0,9,4 });
 	minispaceships.PushBack({ 77,0,9,4 });
-	minispaceships.speed = 0.1;
+	minispaceships.speed = 0.01;
 	minispaceships.loop = true;
 
 	//srand(2);
@@ -154,27 +154,30 @@ bool ModuleSceneLvl1::Start()
 	if (IsEnabled()) {
 		App->enemies->Enable();
 		App->powerup->Enable();
-	/*	App->Boss->Enable();*/
+		App->Boss->Enable();
 		App->collision->Enable();
 		App->particles->Enable();
-		//App->MiniBoss->Enable();
-		//App->BossTank->Enable();
+		App->BossTank->Enable();
 
 	}
 	if (App->player->IsEnabled() == false && App->fonts->P1Life > 0) {
 		App->player->Enable();
 		App->player->resetPosition();
 	}
-	//if (App->player2->IsEnabled() == false && App->fonts->P2Life > 0) {
-	//	App->player2->Enable();
-	//	App->player2->resetPosition2();
-	//}
-
+	/*if (App->player2->IsEnabled() == false && App->fonts->P2Life > 0) {
+		App->player2->Enable();
+		App->player2->resetPosition2();
+	}
+*/
 
 	//Enemies
 	//WASP->Wave1{
 	//troop1
  //Wasps
+	App->powerup->AddPowerUp(POWERUP_TYPES::SPEED, 300, 75);
+	App->powerup->AddPowerUp(POWERUP_TYPES::SPEED, 500, 75);
+	App->powerup->AddPowerUp(POWERUP_TYPES::SPEED, 600, 75);
+  
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60,false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 540, 75);
@@ -196,7 +199,8 @@ bool ModuleSceneLvl1::Start()
 	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
 	/* App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
 	// App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::BOSSLAMELLA, 300, 60, false);
+	/*App->enemies->AddEnemy(ENEMY_TYPES::BOSSLAMELLA, 300, 60, false);*/
+
 
 	//App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 790, 20);
 
@@ -230,7 +234,29 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1195, 145, true);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1235, 145);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1275, 145);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1315, 145, true);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1315, 145, true); //
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1355, 145);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1395, 145);
+
+
+
+	//Rhino->Wave1
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2425, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2470, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2515, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2560, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2605, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2650, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2695, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2740, 75, true);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2785, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2830, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2875, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2920, 75);//
+
+
+
+
 
 //	App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 1315, 145);
 	// }
@@ -270,55 +296,52 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3980, 55);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 4020, 55);
 
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7640, 50);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7640, 130);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7650, 150);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7660, 160);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8000, 165);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8040, 160);
 
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8080, 160, true);
+
+	//LAST TROOPP
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8000, 50);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8040, 130);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8080, 155);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8120, 170);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8160, 180);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 9000, 160);
 
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8150, 50);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 9040, 160,true);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 9080, 140);
 
-	//Rhino->Wave1
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2425,75);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2470, 75);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2515, 75);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2560, 75);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2605, 75);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2650, 75);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2695, 75);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2740, 75, true);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2785, 75);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2830, 75);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2875, 75);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 2920, 75);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 9120, 50);
+
+	
 
 	//Wave2
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5890, 77);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5930, 77);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5970, 77);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6010, 77);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6050, 77);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6090, 77);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6130, 77);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5945, 77);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5985, 77);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6025, 77);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6065, 77);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6105, 77);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6145, 77);
 
-	// //wave3
-	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 5860, 60);		WE HAVE TO LOCATE THEM
-	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6960, 60, true);
-	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 7060, 60);
-	//App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 7160, 60);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6515, 60);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6555, 60);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6595, 60);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_RHINO, 6635, 60);
+
+	
+	//HRETANNK
+
+
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 6840, 80, false);
+	 App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 7300, 80, false);
+	
 
 	//ZICZAC
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,3560, 145, true);
-	//App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3560, 145);
-	App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 3610, 145);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, 7560, 60, true);
-  
-	//App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 7560, 60);
-	//App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 7610, 60);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,3560, 50, true);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, 8000, 60, true);
+		
+	App->enemies->AddEnemy(ENEMY_TYPES::BOSSLAMELLA, 11000, 60);
+	App->enemies->AddEnemy(ENEMY_TYPES::BOSSLAMELLA, 12000, 60);
+	App->enemies->AddEnemy(ENEMY_TYPES::BOSSLAMELLA, 13000, 60);
 
 	return true;
 }
@@ -346,12 +369,10 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->collision->Disable();
 	App->particles->Disable();
 	App->enemies->Disable();
-
-	if (App->Boss->IsEnabled())
-		App->MiniBoss->Disable();
-		App->Boss->Disable();
-
-	App->Boss->BossMoves = false;
+	App->BossTank->Disable();
+	App->MiniBoss->Disable();
+	App->Boss->Disable();
+	//App->Boss->BossMoves = false;
 
 	return true;
 }
@@ -456,26 +477,26 @@ update_status ModuleSceneLvl1::Update() {
 
 	App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
 
-	App->render->Blit(Minispaceship_texture, -10 + xxx, yyy + 5, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, 0 + xxx, yyy + 5, &minispaceships.GetCurrentFrame(), 0.3f);
 	App->render->Blit(Minispaceship_texture, -20 + xxx, yyy + 10, &minispaceships.GetCurrentFrame(), 0.3f);
-	App->render->Blit(Minispaceship_texture, -30 + xxx, yyy + 15, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, 0 + xxx, yyy + 15, &minispaceships.GetCurrentFrame(), 0.3f);
 
-	App->render->Blit(Minispaceship_texture, -290 + xxx, yyy + 40, &minispaceships.GetCurrentFrame(), 0.3f);
-	App->render->Blit(Minispaceship_texture, -300 + xxx, yyy + 45, &minispaceships.GetCurrentFrame(), 0.3f);
-	App->render->Blit(Minispaceship_texture, -310 + xxx, yyy + 50, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -280 + xxx, yyy + 20, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -300 + xxx, yyy + 20, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -320 + xxx, yyy + 20, &minispaceships.GetCurrentFrame(), 0.3f);
 
 
-	App->render->Blit(Minispaceship_texture, -630 + xxx, yyy + 40, &minispaceships.GetCurrentFrame(), 0.3f);
-	App->render->Blit(Minispaceship_texture, -650 + xxx, yyy + 45, &minispaceships.GetCurrentFrame(), 0.3f);
-	App->render->Blit(Minispaceship_texture, -640 + xxx, yyy + 50, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -630 + xxx, yyy + 30, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -650 + xxx, yyy + 35, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -670 + xxx, yyy + 30, &minispaceships.GetCurrentFrame(), 0.3f);
 
-	App->render->Blit(Minispaceship_texture, -1190 + xxx, yyy + 5, &minispaceships.GetCurrentFrame(), 0.3f);
-	App->render->Blit(Minispaceship_texture, -1210 + xxx, yyy + 10, &minispaceships.GetCurrentFrame(), 0.3f);
-	App->render->Blit(Minispaceship_texture, - 1200+ xxx, yyy + 15, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -1190 + xxx, yyy + 25, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -1210 + xxx, yyy + 25, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, - 1170+ xxx, yyy + 25, &minispaceships.GetCurrentFrame(), 0.3f);
 
 	App->render->Blit(Minispaceship_texture, -1630 + xxx, yyy + 40, &minispaceships.GetCurrentFrame(), 0.3f);
 	App->render->Blit(Minispaceship_texture, -1650 + xxx, yyy + 45, &minispaceships.GetCurrentFrame(), 0.3f);
-	App->render->Blit(Minispaceship_texture, -1640 + xxx, yyy + 50, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -1640 + xxx, yyy + 40, &minispaceships.GetCurrentFrame(), 0.3f);
 
 	//lights
 	App->render->Blit(Laser_Sprites, 400, 0, &YellowLight.GetCurrentFrame(), 0.3f);
@@ -499,7 +520,7 @@ update_status ModuleSceneLvl1::Update() {
 	if (position_max_limit<= 7160) {
 		randomPositionCars = rand() % 2 + 1;
 
-		if ((posCars % 40 == 0) || posCars % 60 == 0) {
+		if ((posCars % 100 == 0) || posCars % 90 == 0) {
 			if (randomPositionCars == 1) {
 				App->enemies->AddEnemy(ENEMY_TYPES::CARS, posCars, 195);
 			}
@@ -563,6 +584,19 @@ update_status ModuleSceneLvl1::Update() {
 		App->BossTank->Disable();
 		LOG(" Tank disabled");
 	}
+
+
+	//Iron Spawn
+
+	if (position_max_limit >= 1300&& IronCraw1==false) {
+		IronCraw1 = true;
+		App->MiniBoss->Enable();
+	}
+	if (position_max_limit > 7400 && IronCraw1 == true && IronCraw2 == false) {
+		IronCraw2 = true;
+		App->MiniBoss->Enable();
+	}
+
 	// iron craw disable
 
 	if (App->player->IsEnabled() == false && App->player2->IsEnabled() == false) {
@@ -571,8 +605,17 @@ update_status ModuleSceneLvl1::Update() {
 	if (App->MiniBoss->disablingIronCraw == true && App->MiniBoss->IsEnabled()) {
 		App->MiniBoss->Disable();
 		LOG(" Iron disabled");
-		
+	}
 
+	if (App->MiniBoss->position.x < App->scene1background->position_min_limit && App->MiniBoss->disablingIronCraw == false)
+		App->MiniBoss->Disable();
+  
+  
+	//FINAL BOSS DISABLE NeedToDisableBoss = true;
+	if (App->Boss->NeedToDisableBoss == true && counterfordisable == false) {
+		App->Boss->Disable();
+		counterfordisable = true;
+		App->Boss->dead = true;
 	}
 
 	////second Iron Spawn

@@ -240,6 +240,29 @@ bool ModuleParticles::Start() {
 	FogExplosion.Anim.speed = 0.3f;
 	FogExplosion.Speed.y =1;
 
+
+	FogExplosionCars.Sprites = Particle5;
+	FogExplosionCars.Anim.PushBack({ 29,0,14,16 });
+	FogExplosionCars.Anim.PushBack({ 45,0,16,16 });
+	FogExplosionCars.Anim.PushBack({ 63,0,15,14 });
+	FogExplosionCars.Anim.PushBack({ 80,0,21,16 });
+	FogExplosionCars.Anim.PushBack({ 103,0,21,24 });
+	FogExplosionCars.Anim.PushBack({ 0,26,27,29 });
+	FogExplosionCars.Anim.PushBack({ 29,26,28,31 });
+	FogExplosionCars.Anim.PushBack({ 61,26,30,32 });
+	FogExplosionCars.Anim.PushBack({ 95,26,31,32 });
+	FogExplosionCars.Anim.PushBack({ 0,60,31,32 });
+	FogExplosionCars.Anim.PushBack({ 34,60,31,31 });
+	FogExplosionCars.Anim.PushBack({ 67,74,31,16 });
+	FogExplosionCars.Anim.PushBack({ 0,94,31,16 });
+	FogExplosionCars.Anim.PushBack({ 35,98,17,11 });
+
+	FogExplosionCars.Anim.loop = false;
+	FogExplosionCars.Anim.speed = 0.3f;
+	FogExplosionCars.Speed.x++;
+	FogExplosionCars.Speed.y--;
+
+
 	HOU_Shot.Anim.PushBack({ 117,250,13,13 });
 	MaleTears.Sprites = Particle3;
 	MaleTears.Anim.PushBack({ 5,344,1,1});

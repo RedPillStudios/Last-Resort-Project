@@ -22,6 +22,8 @@
 #include "Enemy_Tears.h"
 #include "Module_Hou_Player1.h"
 #include "BossLamella.h"
+#include "Fire_Speed.h"
+#include "FireSpeedp2.h"
 
 #include <time.h>
 #include <iostream>
@@ -49,12 +51,15 @@ bool ModuleEnemies::CleanUp() {
 	LOG("Cleaning Up Enemies Module");
 
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
-
+		
 		queue[i].type = NO_TYPE;
 		queue[i].x = 0;
 		queue[i].y = 0;
 
 		if (enemies[i] != nullptr) {
+			if (enemies[i]->type == CARS) {
+			App->particles->AddParticle(App->particles->FogExplosion, enemies[i]->position.x ,enemies[i]->position.y, COLLIDER_NONE);
+		}
 			App->textures->Unload(enemies[i]->sprites);
 			delete enemies[i];
 			enemies[i] = nullptr;
@@ -101,6 +106,13 @@ update_status ModuleEnemies::PostUpdate() {
 		
 		if (enemies[i] != nullptr) {
 			
+			if (enemies[i]->touched) {
+				delete enemies[i];
+				App->textures->Unload(enemies[i]->sprites);
+				enemies[i] = nullptr;
+				break;
+			}
+
 			if ((enemies[i]->position.x * SCREEN_SIZE) < (App->render->camera.x - 200) || (enemies[i]->position.x * SCREEN_SIZE) > (App->render->camera.x + (App->render->camera.w * SCREEN_SIZE) + SPAWN_MARGIN + 20)) {
 				LOG("DeSpawning enemy at %d", enemies[i]->position.x * SCREEN_SIZE);
 			
@@ -189,6 +201,13 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		case ENEMY_TYPES::BOSSLAMELLA:
 		enemies[i] = new EnemyBossLamella(info.x, info.y, info.PowerUp);
 		break;
+
+		case ENEMY_TYPES::PSPEEDP1:
+			enemies[i] = new FireSpeed(info.x, info.y);
+			break;
+		case ENEMY_TYPES::PSPEEDP2:
+			enemies[i] = new FireSpeedp2(info.x, info.y);
+			break;
         
 		}
 	}
@@ -206,7 +225,7 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 					enemies[i]->life -= App->HOU_Player1->Damage;	
 				}
 			}
-
+			
 			if (enemies[i]->life <= 0) {
 				
 				if (enemies[i]->PowerUp == true) {
@@ -230,6 +249,9 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 						App->enemies->AddEnemy(ENEMY_TYPES::HUMAN, enemies[i]->position.x, enemies[i]->position.y, false);
 					}
 				}
+				if (enemies[i]->type == CARS) {
+					App->particles->AddParticle(App->particles->FogExplosionCars, enemies[i]->position.x, enemies[i]->position.y, COLLIDER_NONE);
+				}
 
 				if (enemies[i]->type == ENEMY_TYPES::ENEMY_RHINO) {
 					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 8, enemies[i]->position.y - 2, COLLIDER_NONE, 0);
@@ -241,13 +263,11 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 19, enemies[i]->position.y + 8, COLLIDER_NONE, 350);
 					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 12, enemies[i]->position.y - 3, COLLIDER_NONE, 360);
 				}
-
 				App->textures->Unload(enemies[i]->sprites);
-				if (enemies[i]->type != ENEMY_TYPES::CARS) {
 					delete enemies[i];
 					enemies[i] = nullptr;
 					break;
-				}
+				
 			}
 			else {
 				enemies[i]->OnCollision(c2);

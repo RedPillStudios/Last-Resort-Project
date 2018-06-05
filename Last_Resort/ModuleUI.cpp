@@ -35,6 +35,7 @@ ModuleUI::~ModuleUI() {}
 
 bool ModuleUI::Start() {
 	Charge_Controller = { 0,10,0,5 };
+	Charge_ControllerP2 = { 0,10,0,5 };
 	Pos_Bar1.x = 30;
 	Pos_Bar2.y = 90;
 
@@ -90,12 +91,15 @@ update_status ModuleUI::Update() {
 			GOD = false;
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_C] == KEY_STATE::KEY_DOWN && coins < 100) {
+	if (App->input->keyboard[SDL_SCANCODE_C] == KEY_STATE::KEY_DOWN && coins < 99) {
 		coins++;
 		Mix_PlayChannel(-1, Insert_Coin, 0);
 	}
 	if (App->HighScore->IsEnabled() == true) {
+
+		
 		if (!ccompleted) {
+
 			if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_DOWN) {
 
 				if (cpressed == false && c2pressed == false && c3pressed == false) {
@@ -160,18 +164,19 @@ update_status ModuleUI::Update() {
 
 					NewName[2] = name3;
 					c3pressed = true;
+					ccompleted = true;
 					
 					for (int i = 0; i < 3; ++i) {
 
 						New[i] = NewName[i];
 					}
-					ccompleted = true;
 				}
 			}
-			
+
+			BlitText(215, 50, font, &name1);
 		}
 
-		BlitText(215, 50, font, &name1);
+		
 		/*BlitText((SCREEN_WIDTH / 2) + 10, (SCREEN_HEIGHT / 2), font, &c2);
 		BlitText((SCREEN_WIDTH / 2) + 20, (SCREEN_HEIGHT / 2), font, &c3);*/
 	}
@@ -193,6 +198,19 @@ update_status ModuleUI::Update() {
 		else{
 			Charge_Controller.w = 0;
 		}
+		if (App->player2->IsEnabled() == true) {
+			App->render->Blit(Bar_Texture, SCREEN_WIDTH-120, SCREEN_HEIGHT - 20, &Bar.GetCurrentFrame(), false);
+			if (App->HOU_Player2->charging == true) {
+				if (Charge_ControllerP2.w <= 4060) {
+					Charge_ControllerP2.w += 70;
+				}
+				App->render->Blit(Bar_Texture, SCREEN_WIDTH - 120+24, SCREEN_HEIGHT - 19, &Charge_ControllerP2, false);
+			}
+			else {
+				Charge_ControllerP2.w = 0;
+			}
+		}
+
 
 		if (Spawned) {
 
@@ -255,13 +273,18 @@ update_status ModuleUI::Update() {
 			BlitText((SCREEN_WIDTH - 78), 16, font, "P2");
 		}
 		else {
-
-			BlitText((SCREEN_WIDTH - 20), 16, font, "P2");
-			BlitText((SCREEN_WIDTH - 48), 16, font, "F0R");
-			BlitText((SCREEN_WIDTH - 58), 16, font, "P");
-			BlitText((SCREEN_WIDTH - 100), 16, font, "PRESS");
+			if (counter >= 30) {
+				BlitText((SCREEN_WIDTH - 20), 16, font, "P2");
+				BlitText((SCREEN_WIDTH - 48), 16, font, "F0R");
+				BlitText((SCREEN_WIDTH - 58), 16, font, "P");
+				BlitText((SCREEN_WIDTH - 100), 16, font, "PRESS");
+			}
+			if (counter >= 50) {
+				counter = 0;
+			}
+		
 		}
-
+		counter++;
 		//TOP Score
 		if (App->scene1background->IsEnabled() == true) {
 
@@ -310,7 +333,7 @@ update_status ModuleUI::Update() {
 			BlitText(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 10, font, "FOR");
 			BlitText(SCREEN_WIDTH / 2 + 24, SCREEN_HEIGHT - 10, font, "CONTINUE");
 		}*/
-		counterRanking++;
+		
 		uint MaxScore = ScoreP1 + ScoreP2;
 		ChangeRanking(Ranking, "Images/Ranking.txt", MaxScore);
 
@@ -323,6 +346,7 @@ update_status ModuleUI::Update() {
 		c2pressed = false;
 		c3pressed = false;
 		cpressed = false;
+		counterRanking++;
 
 	}
 	
@@ -444,7 +468,7 @@ void ModuleUI::ChangeRanking(FILE *pFile, char *path, int Score) {
 		//Changing Array ranking
 		if (Score >= ranking[i].score) {
 
-			for (int j = 8; j >= i; j--) {
+			for (int j = 7; j >= i; j--) {
 
 				ranking[j + 1].score = ranking[j].score;
 				ranking[j + 1].name[0] = ranking[j].name[0];
@@ -476,4 +500,24 @@ void ModuleUI::ChangeRanking(FILE *pFile, char *path, int Score) {
 			break;
 		}
 	}
+}
+
+void ModuleUI::BlitRanking(struct rank array[9]) {
+
+	char NameScore[10];
+	int BlitY = 50;
+
+	for (int i = 0; i < 9; i++) {
+
+		sprintf(NameScore, "%7d", ranking[i].score);
+
+		BlitText(125, BlitY, font, NameScore);
+		BlitText(215, BlitY, font, ranking[i].name);
+		BlitY += 16;
+	}
+
+	BlitText(215, 194, font, "RCK");
+	BlitText(133, 194, font, "0VER9000");
+
+	App->HighScore->RankBlitted = true;
 }

@@ -16,7 +16,6 @@
 ModuleHouPlayer1::ModuleHouPlayer1() {
 
 	int counter = 0;
-
 	//BLUE BALL
 	for (uint i = 0; i <= 7; ++i) {
 		Blue_HOU_Front_Up_Up.PushBack({ 261,counter,17,23 });
@@ -372,6 +371,8 @@ ModuleHouPlayer1::~ModuleHouPlayer1() {}
 
 bool ModuleHouPlayer1::Start() {
 
+	ShootingDelay = 0;
+
 	//HOU_position_x = App->player->position.x;
 	//HOU_position_y = App->player->position.y;
 
@@ -419,6 +420,7 @@ bool ModuleHouPlayer1::CleanUp() {
 
 update_status ModuleHouPlayer1::Update() {
 
+	ShootingDelay++;
 
 	shipCenter.x = App->player->position.x + 10;
 	shipCenter.y = App->player->position.y;
@@ -597,9 +599,12 @@ update_status ModuleHouPlayer1::Update() {
 		
 		}
 
-		App->particles->HOU_Shot.Speed.x = (7 * cos(HOU_Direction*PI / 180));
-		App->particles->HOU_Shot.Speed.y = (7 * sin(HOU_Direction*PI / 180));
+		if (ShootingDelay > 60) {
 
+			App->particles->HOU_Shot.Speed.x = (7 * cos(HOU_Direction*PI / 180));
+			App->particles->HOU_Shot.Speed.y = (7 * sin(HOU_Direction*PI / 180));
+			ShootingDelay = 0;
+		}
 		colliderHUB->SetPos(HOU_position.x, HOU_position.y);
 
 		App->render->Blit(HOU_Texture, HOU_position.x, HOU_position.y, &current_animation->GetCurrentFrame());

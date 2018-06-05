@@ -30,10 +30,10 @@ Enemy_BossTears::Enemy_BossTears(int x, int y, bool powerUp) : Enemy(x, y){
 	fly.PushBack({ 56,349,14,12 });
 
 	
-	Enemy::sprites = App->textures->Load("Images/General/Common_enemies_Sprite.png");
+	Enemy::sprites = App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
 
-	fly.speed = 0.04f;
-	fly.loop = true;
+	fly.speed = 0.3f;
+	fly.loop = false;
 	animation = &fly;
 	life = 5;
 	score = 300;

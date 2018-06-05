@@ -65,6 +65,7 @@ public:
 	int WidthCharge2;
 	Animation*Current_Bar;
 	SDL_Rect Charge_Controller;
+	SDL_Rect Charge_ControllerP2;
 
 	Animation*Current_Charge1;
 	Animation*Current_Charge2;
@@ -118,6 +119,7 @@ public:
 	FILE *Ranking;
 	uint a = 0;
 	struct rank ranking[9];
+	int counter;
 	char name1;
 	char name2;
 	char name3;
@@ -129,7 +131,9 @@ public:
 	char New[4];
 //	int countFile(FILE *pFile, char *path);
 	void ChangeRanking(FILE *pFile, char *path, int Score);
+
 	uint counterRanking;
+
 	char *abecedary = "ABCDEFGHIJKLMN0PQRSTUVWXYZ";
 	char *abecedary2 = "ABCDEFGHIJKLMN0PQRSTUVWXYZ";
 	char *abecedary3 = "ABCDEFGHIJKLMN0PQRSTUVWXYZ";
@@ -137,6 +141,9 @@ public:
 	int selector2 = 0;
 	int selector3 = 0;
 	
+
+	void BlitRanking(struct rank array[9]);
+	void WriteName();
 
 private:
 

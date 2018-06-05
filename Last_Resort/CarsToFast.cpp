@@ -77,7 +77,5 @@ void CarsToFast::Move() {
 }
 void CarsToFast::OnCollision(Collider *collider) {
 
-	if (animation == &CarRed) {
-		animation = &CarBlue_destruct;
-	}
+	App->particles->AddParticle(App->particles->FogExplosion, position.x, position.y, COLLIDER_NONE);
  }

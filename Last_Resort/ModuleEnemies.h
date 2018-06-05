@@ -21,7 +21,9 @@ enum ENEMY_TYPES {
 	HUMAN,
 	GREENBOMB,
 	BOSS_TEARS,
-	BOSSLAMELLA
+	BOSSLAMELLA,
+	PSPEEDP1,
+	PSPEEDP2
 };
 
 class Enemy;
@@ -32,6 +34,7 @@ struct EnemyInfo {
 	int x, y;
 	bool PowerUp;
 	fPoint toGo;
+
 };
 
 

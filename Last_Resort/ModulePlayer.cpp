@@ -132,6 +132,8 @@ bool ModulePlayer::Start() {
 	//Player1Activated = false;
 	current_animation = &Appear;
 
+	speed = 2;
+
 	WeaponType = 0;
 	Lvl0 = true;
 	Lvl1 = false;
@@ -170,7 +172,7 @@ update_status ModulePlayer::Update() {
 	
 	position.x += 1;
 
-	int speed = 2;
+
 
 	if (current_animation == &Appear) {
 		Ship1Collider->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
@@ -368,8 +370,8 @@ update_status ModulePlayer::Update() {
 
 void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 
-	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL|| c1->type == COLLIDER_TYPE::COLLIDER_ENEMY_SHOT) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL || c2->type == COLLIDER_TYPE::COLLIDER_ENEMY_SHOT) && c1->type == COLLIDER_PLAYER )&&!ToBeDeleted) {
-
+	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL|| c1->type == COLLIDER_TYPE::COLLIDER_ENEMY_SHOT || c1->type == COLLIDER_TYPE::COLLIDER_BOSS_SHOOT) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL || c2->type == COLLIDER_TYPE::COLLIDER_ENEMY_SHOT || c2->type == COLLIDER_TYPE::COLLIDER_BOSS_SHOOT) && c1->type == COLLIDER_PLAYER )&&!ToBeDeleted) {
+		LOG("enter");
 			if (!(App->fonts->GOD)&&!flickering) {
 
 				LOG("P1LIFE MINUS ONE");

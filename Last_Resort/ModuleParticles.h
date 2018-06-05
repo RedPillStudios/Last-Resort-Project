@@ -78,7 +78,8 @@ public:
 	Particle HOU_Shot_p2;
 	Particle MissilePower;
 	Particle MissilePowerPatter2;
-	Particle FogExplosion;
+	Particle FogExplosion; 
+	Particle FogExplosionCars;
 	Particle MaleTears;
 	Particle GreenBombAnimDestr;
 
