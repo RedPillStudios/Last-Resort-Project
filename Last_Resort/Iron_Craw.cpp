@@ -9,6 +9,7 @@
 #include "ModuleInput.h"
 #include "ModuleUI.h"
 #include "Moduleplayer.h"
+#include "Enemy.h"
 
 
 #include "SDL/include/SDL_timer.h"
@@ -121,6 +122,7 @@ bool Iron_Craw::Start() {
 	moving_Down = true;
 	LArmfallinf = false;
 	Rarmfalling = false;
+	launchBombs = true;
 
 	return true;
 }
@@ -168,7 +170,8 @@ update_status Iron_Craw::Update() {
 		Current_AnimationBody = &idle_Damage;
 
 	if (life <= 10 && life>5) {
-	
+		position.x--;
+
 		Rarmfalling = true;
 		if (armsOut) {
 			App->particles->AddParticle(App->particles->EnemyExplosion, position.x + 35, position.y);
@@ -188,7 +191,10 @@ update_status Iron_Craw::Update() {
 	if (!dead) {
 		
 		Move();
-		bombs();
+	/*	if (launchBombs) {
+			bombs();
+			launchBombs = false;
+		}*/
 	}
 
 
@@ -199,7 +205,7 @@ update_status Iron_Craw::Update() {
 
 
 	if (life <= 5 && life>0) {
-		
+		position.x--;
 		LArmfallinf = true;
 		if (armsOut2) {
 			App->particles->AddParticle(App->particles->EnemyExplosion, position.x - 40, position.y);
@@ -223,8 +229,10 @@ update_status Iron_Craw::Update() {
 
 	if (life<=0) {
 	
+		dead = true;
+
 		body->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
-		
+		position.x++;
 		position.y++;
 		
 		if (dyingParticles) {
@@ -240,7 +248,7 @@ update_status Iron_Craw::Update() {
 	
 
 
-			dead = true;
+		
 		
 		
 	}
@@ -337,7 +345,11 @@ void Iron_Craw::Move() {
 }
 
 void Iron_Craw::bombs() {
-	counterGreenBomb++;
+	
+	
+	/*App->enemies->AddEnemy(ENEMY_TYPES::HUMAN, position.x, position.y, false);*/
+
+	/*counterGreenBomb++;
 	PlayerPosition = App->player->position;
 	if (counterGreenBomb>=70) {
 
@@ -358,7 +370,7 @@ void Iron_Craw::bombs() {
 
 	App->particles->GreenBomb.Speed.x = 3 * (cos(angleBomb*PI / 180));
 	App->particles->GreenBomb.Speed.x++;
-	App->particles->GreenBomb.Speed.y = 3 * (sin(angleBomb*PI / 180));
+	App->particles->GreenBomb.Speed.y = 3 * (sin(angleBomb*PI / 180));*/
 
 
 	

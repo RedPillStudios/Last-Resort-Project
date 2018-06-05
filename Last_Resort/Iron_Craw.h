@@ -92,6 +92,7 @@ public:
 	bool dyingParticles = true;
 	bool moving_Down;
 	bool moving_Up ;
+	bool launchBombs;
 
 	void bombs();
 	void Move();

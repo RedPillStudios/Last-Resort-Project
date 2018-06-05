@@ -17,7 +17,8 @@ enum ENEMY_TYPES {
 	ENEMY_LAMELLA,
 	ENEMY_BEE,
 	CARS,
-	HUMAN
+	HUMAN,
+	GREENBOMB
 };
 
 class Enemy;

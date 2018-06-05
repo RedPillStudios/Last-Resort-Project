@@ -33,7 +33,7 @@ bool ModuleParticles::Start() {
 	Particle3= App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
 	Particle4 = App->textures->Load("Images/Player/Charge_Ball.png");
 	Particle5 = App->textures->Load("Images/Particles/Explosion.png");
-  Particle6 = App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
+ 
 
 	ImpactExplosionSound = App->sound->LoadChunk("Audio/General/007_Enemy_Explosion_Standard.wav");
 	ImpactExplosionSound2 = App->sound->LoadChunk("Audio/General/Explosion2.wav");
@@ -95,14 +95,13 @@ bool ModuleParticles::Start() {
 
 	//___________________________
 
-	LaserBeam.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
-	LaserBeam.Anim.PushBack({ 23,296,66,3 });
+	LaserBeam.Sprites = Particle1;
 	LaserBeam.Anim.loop = true;
 	LaserBeam.Anim.speed = 0.1;
 	LaserBeam.Speed.x = 8;
 	LaserBeam.Life = 1000;
 
-	LaserBeamExplosion.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeamExplosion.Sprites = Particle1;
 	LaserBeamExplosion.Anim.PushBack({ 0,317,13,13 });
 	LaserBeamExplosion.Anim.PushBack({ 0,334,27,9 });
 	LaserBeamExplosion.Anim.PushBack({ 0,348,30,7 });
@@ -114,7 +113,7 @@ bool ModuleParticles::Start() {
 	LaserBeamExplosion.Anim.speed = 0.3;
 	LaserBeamExplosion.Speed.x = 1;
 
-	LaserBeamArea1.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeamArea1.Sprites = Particle1;
 	LaserBeamArea1.Anim.PushBack({ 48,264 - 10,4,8 + 21 });  //264
 	LaserBeamArea1.Anim.PushBack({ 57,261 - 5,6,15 + 15 });  //261
 	LaserBeamArea1.Anim.PushBack({ 66,254,11,31 });  //254
@@ -122,7 +121,7 @@ bool ModuleParticles::Start() {
 	LaserBeamArea1.Anim.speed = 0.3f;
 	LaserBeamArea1.Speed.x = 2;
 
-	LaserBeamArea2.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeamArea2.Sprites = Particle1;
 	LaserBeamArea2.Anim.PushBack({ 65,337,16,47 });
 	LaserBeamArea2.Anim.PushBack({ 85,337,20,47 });
 	LaserBeamArea2.Anim.PushBack({ 106,337,20,47 });
@@ -134,7 +133,7 @@ bool ModuleParticles::Start() {
 	LaserBeamArea2.Speed.x = 2.0f;
 	LaserBeamArea2.Life = 300;
 
-	LaserBeamArea3.Sprites = App->textures->Load("Images/Particles/Ship_Ball_Sprite.png");
+	LaserBeamArea3.Sprites = Particle1;
 	LaserBeamArea3.Anim.PushBack({ 66,254,47,31 });
 	LaserBeamArea3.Anim.loop = false;
 	LaserBeamArea3.Anim.speed = 0.1;
@@ -177,20 +176,8 @@ bool ModuleParticles::Start() {
 	BossShootExplosion.Anim.PushBack({ 384, 255, 64, 56 });
 	BossShootExplosion.Anim.speed = 0.15f;
 
-	GreenBomb.Sprites = Particle6;
-	GreenBomb.Anim.PushBack({235,0,18,17});
-	GreenBomb.Anim.PushBack({235,19,17,17});
-	GreenBomb.Anim.PushBack({236,37,17,17});
-	GreenBomb.Anim.PushBack({235,55,18,17});
-	GreenBomb.Anim.PushBack({ 236,72,17,18});
-	GreenBomb.Anim.PushBack({236,91,17,18});
-	GreenBomb.Anim.PushBack({234,109,18,17});
-	GreenBomb.Anim.PushBack({235,129,18,16});
-	GreenBomb.Anim.loop = true;
-	GreenBomb.Speed.x = 0;
-	GreenBomb.Speed.y = 0;
-	GreenBomb.Anim.speed = 0.2f;
-	GreenBomb.Life = 5000;
+	
+
 
 	FogExplosion.Sprites = Particle5;
 	FogExplosion.Anim.PushBack({29,0,14,16 });

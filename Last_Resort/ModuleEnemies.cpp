@@ -18,6 +18,8 @@
 #include "ModulePowerUp.h"
 #include "ModuleUI.h"
 #include "Humans.h"
+#include "GreenBombIron.h"
+
 
 #define SPAWN_MARGIN 50
 
@@ -167,6 +169,8 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		case ENEMY_TYPES::HUMAN:
 			enemies[i] = new Humans(info.x,info.y);
 			break;
+		case ENEMY_TYPES::GREENBOMB:
+			enemies[i] = new GreenBombIron(info.x, info.y);
 		}
 	}
 }

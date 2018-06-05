@@ -103,6 +103,9 @@
     <ClCompile Include="Humans.cpp">
       <Filter>Modules\Enemies\Human</Filter>
     </ClCompile>
+    <ClCompile Include="GreenBombIron.cpp">
+      <Filter>Modules\Enemies\GreenBomb</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -216,6 +219,9 @@
     <ClInclude Include="Humans.h">
       <Filter>Modules\Enemies\Human</Filter>
     </ClInclude>
+    <ClInclude Include="GreenBombIron.h">
+      <Filter>Modules\Enemies\GreenBomb</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -277,6 +283,9 @@
     </Filter>
     <Filter Include="Modules\Enemies\Human">
       <UniqueIdentifier>{777a0938-04c2-4e83-a67c-7ed84cd690da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\GreenBomb">
+      <UniqueIdentifier>{cebd11db-18f3-4276-af3f-0d8e15348678}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
