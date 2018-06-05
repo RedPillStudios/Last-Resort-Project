@@ -76,6 +76,8 @@ public:
 	//Texture and position
 	SDL_Texture *Boss = nullptr;
 	SDL_Texture *AppearText = nullptr;
+	SDL_Texture *Damaged = nullptr;
+	SDL_Texture *Normal = nullptr;
 
 	iPoint position;
 	
@@ -99,6 +101,7 @@ public:
 	bool Backward = false;
 	bool EndCharge = false;
 	bool NeedToDisableBoss = false;
+	bool hit = false;
 
 public:
 	uint life;
@@ -135,6 +138,7 @@ public:
 	int cicle = 2;
 	int MaleTears;
 	int randnum = 0;
+	int counter_Flicker = 0;
 public:
 
 	

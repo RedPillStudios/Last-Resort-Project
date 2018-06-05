@@ -132,7 +132,7 @@ ModuleBossLvl1::~ModuleBossLvl1() {}
 
 bool ModuleBossLvl1::Start() {
 
-	position = { (9200), 55 };
+	position = { (400), 55 };
 	//position = { (300), 55 };
 
 	current_head = &AnimMouth;
@@ -142,6 +142,8 @@ bool ModuleBossLvl1::Start() {
 
 	Boss = App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
 	AppearText = App->textures->Load("Images/Bosses/Boss_Stage1_Apearing_Sprites.png");
+	Damaged = App->textures->Load("Images/Bosses/Boss_Stage1_Damage_Sprites.png");
+	Normal = Boss;
 	//Add Colliders
 	Bot = App->collision->AddCollider({ position.x + 10, position.y + 95, 48, 18 }, COLLIDER_ENEMY);
 	Eye = App->collision->AddCollider({ position.x + 20,position.y + 79, 25, 25 }, COLLIDER_ENEMY, this);
@@ -174,11 +176,28 @@ bool ModuleBossLvl1::CleanUp() {
 	current_head = nullptr;
 
 	App->textures->Unload(Boss);
+	App->textures->Unload(Damaged);
 	App->textures->Unload(AppearText);
 	return true;
 }
 
 update_status ModuleBossLvl1::Update() {
+
+
+	if (hit == true) {
+		counter_Flicker++;
+		if (counter_Flicker % 3 == 0) {
+  			Boss = Damaged;
+		}
+		else {
+			Boss = Normal;
+		}
+		if (counter_Flicker >= 30) {
+			Boss = Normal;
+			counter_Flicker = 0;
+			hit = false;
+		}
+	}
 
 	//srand(time(NULL));
 	
@@ -394,6 +413,7 @@ void ModuleBossLvl1::OnCollision(Collider *c1, Collider *c2) {
 	}*/
 	if (current_eye == &AnimOpenEye && (c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT || c1->type == COLLIDER_PLAYER_SHOT2 || c2->type == COLLIDER_PLAYER_SHOT2) ) {
  		--life;
+		hit = true;
 		LOG("BOSS LIFE IS: %i", life);
 		//HERE GOES THE WHITE SHIT
 		if (life <= 0) {
