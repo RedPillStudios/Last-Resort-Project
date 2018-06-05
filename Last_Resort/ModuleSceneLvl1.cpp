@@ -100,7 +100,7 @@ bool ModuleSceneLvl1::Start()
 
 	App->fonts->counterRanking = 0;
 
-	/*if (App->fonts->Checkpoint1 == false) {
+	if (App->fonts->Checkpoint1 == false) {
 
 		position_max_limit = SCREEN_WIDTH;
 		position_min_limit = 0;
@@ -112,7 +112,7 @@ bool ModuleSceneLvl1::Start()
 		App->render->camera.x = 9510;
 		App->scene1background->position_max_limit = 3500;
 		App->scene1background->position_min_limit = 3170;
-	}*/
+	}
 
 	//order of position in the game
 	graphics_Crater_Boss_Zone = App->textures->Load("Images/Background_Lvl1/Boss_Static_Background.png");
@@ -229,16 +229,16 @@ bool ModuleSceneLvl1::Start()
 	//}
 
 	//WASP->Wave3{
-	//if(App->fonts->Checkpoint1 == false){
+	if(App->fonts->Checkpoint1 == false){
 
-	//	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3200, 112, false);
-	//	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3240, 145, false);
-	//	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3265, 112, false);
-	//	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3280, 90, false);
-	//	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3320, 75, false);
-	//	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3310, 145, true);
-	//	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3310, 145);
-	//}
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3200, 112, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3240, 145, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3265, 112, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3280, 90, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3320, 75, false);
+		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3310, 145, true);
+		App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3310, 145);
+	}
 
 	//WASP->wave4
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3700, 145, false);
@@ -433,7 +433,6 @@ update_status ModuleSceneLvl1::Update() {
 	App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
 
 	//lights
-
 	App->render->Blit(Laser_Sprites, 400, 0, &YellowLight.GetCurrentFrame(), 0.3f);
 	App->render->Blit(Laser_Sprites, 196, -17, &Bluelight.GetCurrentFrame(), 0.3f);
 	App->render->Blit(Laser_Sprites, 710, -17, &Bluelight.GetCurrentFrame(), 0.3f);
@@ -441,7 +440,6 @@ update_status ModuleSceneLvl1::Update() {
 	App->render->Blit(Laser_Sprites, 855, -15, &Bluelight.GetCurrentFrame(), 0.3f);
 
 	//background
-
 	App->render->Blit(graphics_SecondPlaneBackground, 0, 30, NULL, 0.3f);
 	App->render->Blit(graphics_FirstPlaneBackGround, 0, 0, NULL, 0.5f); // FIRST PLANE BACKGROUND
 	StreetlightCreator();
@@ -514,8 +512,8 @@ update_status ModuleSceneLvl1::Update() {
 	}
 
 	//Checkpoints
-	/*if (position_max_limit == 3500)
-		App->fonts->Checkpoint1 = true;*/
+	if (position_max_limit == 3500)
+		App->fonts->Checkpoint1 = true;
 
 	return UPDATE_CONTINUE;
 }

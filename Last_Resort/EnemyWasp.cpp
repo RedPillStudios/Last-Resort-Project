@@ -5,6 +5,7 @@
 #include "ModuleEnemies.h"
 #include "ModuleParticles.h"
 
+struct SDL_Texture;
 
 EnemyWasp::EnemyWasp(int x, int y,bool powerUp) : Enemy(x, y) {
 

@@ -63,7 +63,7 @@ bool ModuleGameOver::Start() {
 			App->scene1background->Disable();
 		}
 		Score = false;
-
+		
 	
 	return true;
 }
@@ -71,7 +71,7 @@ bool ModuleGameOver::Start() {
 bool ModuleGameOver::CleanUp() {
 
 	LOG("Unloading Game Over Screen");
-	
+	//App->fonts->Disable();
 	App->textures->Unload(graphics_GameOverImage);
 	App->fonts->UnLoadFont(fontend);
 

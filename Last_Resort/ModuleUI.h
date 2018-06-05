@@ -24,7 +24,7 @@ struct Font {
 struct rank {
 
 	char name[3];
-	int score = 0;
+	int score;
 };
 
 class ModuleUI : public Module {
@@ -89,12 +89,13 @@ public:
 	char coins_text[10];
 
 	//Checkpoints
-	//bool Checkpoint1 = false;
+	bool Checkpoint1 = false;
 
 	//RANKING
 	FILE *Ranking;
 	struct rank ranking[9];
-	int countFile(FILE *pFile, char *path);
+	struct rank support[9];
+//	int countFile(FILE *pFile, char *path);
 	void ChangeRanking(FILE *pFile, char *path, int Score);
 	uint counterRanking;
 	

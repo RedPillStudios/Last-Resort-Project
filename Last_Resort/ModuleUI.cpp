@@ -32,8 +32,9 @@ bool ModuleUI::Start() {
 	font = LoadFont("Images/Fonts/Font_score.png", "0123456789ABCDEFGHIJKLMNPQRSTUVWXYZ_.,[]&$", 2);
 	Insert_Coin = App->sound->LoadChunk("Audio/Main_Menu/Insert_Coin.wav");
 
-	/*Ranking = fopen("Images/Ranking.txt", "r");
 
+	Ranking = fopen("Images/Ranking.txt", "r");
+	
 	if (Ranking != NULL) {
 
 		for (int i = 0; i < 9; i++) {
@@ -43,11 +44,9 @@ bool ModuleUI::Start() {
 			fscanf(Ranking, "%c", &ranking[i].name[2]);
 			fscanf(Ranking, "%d", &ranking[i].score);
 		}
-
-		
 	}
-
-	fclose(Ranking);*/
+	TopScore = ranking[0].score;
+	fclose(Ranking);
 
 	coins = 0;
 	return true;
@@ -156,7 +155,7 @@ update_status ModuleUI::Update() {
 		}
 	}
 
-	/*if (Checkpoint1 == true && App->gameover->IsEnabled()) {
+	if (Checkpoint1 == true && App->gameover->IsEnabled()) {
 
 		if (App->input->keyboard[SDL_SCANCODE_P] == KEY_STATE::KEY_DOWN) {
 
@@ -164,15 +163,31 @@ update_status ModuleUI::Update() {
 			P1Life = 3;
 			P2Life = 3;
 		}
-	}*/
+	}
 
 	
-	/*if (((App->gameover->IsEnabled() == true) || (App->stageclear->IsEnabled() == true)) && counterRanking == 0) {
+	if (((App->gameover->IsEnabled() == true) || (App->stageclear->IsEnabled() == true)) && counterRanking == 0) {
 
+		counterRanking++;
 		uint MaxScore = ScoreP1 + ScoreP2;
 		ChangeRanking(Ranking, "Images/Ranking.txt", MaxScore);
-		counterRanking++;
-	}*/
+		Ranking = fopen("Images/Ranking.txt", "r");
+
+		if (Ranking != NULL) {
+
+			
+			for (int i = 0; i < 9; i++) {
+
+				fscanf(Ranking, "%c", &ranking[i].name[0]);
+				fscanf(Ranking, "%c", &ranking[i].name[1]);
+				fscanf(Ranking, "%c", &ranking[i].name[2]);
+				fscanf(Ranking, "%d", &ranking[i].score);
+			}
+		}
+		TopScore = ranking[0].score;
+		fclose(Ranking);
+
+	}
 	
 
 	return UPDATE_CONTINUE;
@@ -268,30 +283,38 @@ void ModuleUI::BlitText(int x, int y, int font_id, const char* text) const
 	}
 }
 
-int ModuleUI::countFile(FILE *pFile, char *path) {
-
-	int counter = 0;
-	pFile = fopen(path, "r");
-
-	if (pFile == NULL) { LOG("error opening file");	}
-	else {
-
-		LOG("Reading file, path: %s", path);
-		while (fgetc(pFile) != EOF) { ++counter; }
-
-		if (feof(pFile)) { LOG("End-of-File reached."); }
-		else { LOG("End-of-File was not reached."); }
-
-		return counter;
-	}
-}
+//int ModuleUI::countFile(FILE *pFile, char *path) {
+//
+//	int counter = 0;
+//	pFile = fopen(path, "r");
+//
+//	if (pFile == NULL) { LOG("error opening file");	}
+//	else {
+//
+//		LOG("Reading file, path: %s", path);
+//		while (fgetc(pFile) != EOF) { ++counter; }
+//
+//		if (feof(pFile)) { LOG("End-of-File reached."); }
+//		else { LOG("End-of-File was not reached."); }
+//
+//		return counter;
+//	}
+//}
 
 void ModuleUI::ChangeRanking(FILE *pFile, char *path, int Score) {
 
 	for (int i = 0; i < 9; i++) {
 
+		support[i].name[0] = ranking[i].name[0];
+		support[i].name[1] = ranking[i].name[1];
+		support[i].name[2] = ranking[i].name[2];
+		support[i].score = ranking[i].score;
+	}
+
+	for (int i = 0; i < 9; i++) {
+
 		//Changing Array ranking
-		if (TopScore >= ranking[i].score) {
+		if (Score >= ranking[i].score) {
 
 			for (int j = 8; j >= i; j--) {
 
@@ -301,16 +324,16 @@ void ModuleUI::ChangeRanking(FILE *pFile, char *path, int Score) {
 				ranking[j + 1].name[2] = ranking[j].name[2];
 
 			}
+			
+			char NewName[] = "RCK";
 
-			char NewName[] = "NEY";
 			/*BlitText((SCREEN_WIDTH - 75), 24, font, "NAME");
 			scanf_s("%s", &NewName);*/
-
-			ranking[i].score = TopScore;
 			ranking[i].name[0] = NewName[0];
 			ranking[i].name[1] = NewName[1];
 			ranking[i].name[2] = NewName[2];
-
+			ranking[i].score = Score;
+			
 			Ranking = fopen("Images/Ranking.txt", "w+");
 
 			if (Ranking != NULL) {
