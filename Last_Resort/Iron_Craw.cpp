@@ -157,212 +157,207 @@ update_status Iron_Craw::Update() {
 		}
 	}
 
-	if (!dead ) {
+	if (!dead) {
 		body->SetPos(position.x, position.y);
-	
+
 		if (armsOut) {
 			RArm->SetPos(position.x + 38, position.y);
 		}
 		else {
 			RArm->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
-	
-		}
-	if (SpawnFInished) {
-
-
-		if (!dead) {
-			body->SetPos(position.x, position.y);
-
-			if (armsOut) {
-				RArm->SetPos(position.x + 38, position.y);
-			}
-			else {
-				RArm->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
-
-			}
-
-
-			if (armsOut2) {
-				LArm->SetPos(position.x - 40, position.y);
-			}
-			else {
-
-				LArm->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
-
-			}
-			position.x++;
-
-
-			//App->render->Blit(Mini_Boss, position.x - 9, position.y + 18, &blueCircle.GetCurrentFrame());
-			//App->render->Blit(Mini_Boss, position.x + 20, position.y + 18, &blueCircle.GetCurrentFrame());
-			//App->render->Blit(Mini_Boss, position.x - 3, position.y + 37, &leg1.GetCurrentFrame());
-			//App->render->Blit(Mini_Boss, position.x + 27, position.y + 37, &leg2.GetCurrentFrame());
-			//App->render->Blit(Mini_Boss, position.x, position.y, &Current_AnimationBody->GetCurrentFrame());
-			//App->render->Blit(Mini_Boss, position.x + 38, RArmPosition, &Right_Arm.GetCurrentFrame());
-			//App->render->Blit(Mini_Boss, position.x - 44,LArmPosition, &Left_Arm.GetCurrentFrame());
 
 		}
+		if (SpawnFInished) {
 
 
-		if (life < 40 && life>30)
-			Current_AnimationBody = &idle;
+			if (!dead) {
+				body->SetPos(position.x, position.y);
 
-		if (life < 30)
-			Current_AnimationBody = &idle_Damage;
+				if (armsOut) {
+					RArm->SetPos(position.x + 38, position.y);
+				}
+				else {
+					RArm->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
 
-		if (life <= 15 && life > 10) {
-
-			Rarmfalling = true;
-			if (armsOut) {
-				App->particles->AddParticle(App->particles->EnemyExplosion, position.x + 35, position.y);
-				App->particles->AddParticle(App->particles->EnemyExplosion, position.x - 35, position.y + 10);
-				App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, position.y + 20);
-				App->particles->AddParticle(App->particles->EnemyExplosion, position.x, position.y + 15);
-
-				App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, RArmPosition);
-				App->particles->AddParticle(App->particles->FogExplosion, position.x - 35, LArmPosition - 20);
-				App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, RArmPosition + 10);
+				}
 
 
-				armsOut = false;
-			}
+				if (armsOut2) {
+					LArm->SetPos(position.x - 40, position.y);
+				}
+				else {
+
+					LArm->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
+
+				}
+				position.x++;
 
 
-		}
-
-		if (life < 7)
-			position.x--;
-
-		if (counterGreenBomb >= 500 && counterGreenBomb <= 510) {
-			launchBombs = true;
-			counterGreenBomb = 0;
-		}
-
-
-		if (!dead) {
-
-			Move();
-			if (launchBombs) {
-				bombs();
-				launchBombs = false;
-			}
-		}
-
-
-
-		if (Rarmfalling) {
-			RArmPosition++;
-
-		}
-
-
-		if (life <= 5 && life > 0) {
-
-			LArmfallinf = true;
-			if (armsOut2) {
-				App->particles->AddParticle(App->particles->EnemyExplosion, position.x - 40, position.y);
-				App->particles->AddParticle(App->particles->EnemyExplosion, position.x + 40, position.y - 10);
-				App->particles->AddParticle(App->particles->EnemyExplosion, position.x + 40, position.y + 10);
-
-				App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, position.y - 10);
-
-				App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, LArmPosition);
-				App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, LArmPosition-20);
-				App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, LArmPosition + 10);
-			}
-
-
-			armsOut2 = false;
-		}
-
-
-		if (LArmfallinf) {
-			LArmPosition++;
-
-
-		}
-
-		if (life <= 0) {
-
-			dead = true;
-			position.x++;
-
-			body->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
-			position.x++;
-			position.y++;
-
-			if (dyingParticles) {
-
-				App->particles->AddParticle(App->particles->FogExplosion, position.x + 30, position.y + 10);
-				App->particles->AddParticle(App->particles->FogExplosion, position.x - 30, position.y + 10);
-				App->particles->AddParticle(App->particles->FogExplosion, position.x, position.y);
-
-
-				dyingParticles = false;
+				//App->render->Blit(Mini_Boss, position.x - 9, position.y + 18, &blueCircle.GetCurrentFrame());
+				//App->render->Blit(Mini_Boss, position.x + 20, position.y + 18, &blueCircle.GetCurrentFrame());
+				//App->render->Blit(Mini_Boss, position.x - 3, position.y + 37, &leg1.GetCurrentFrame());
+				//App->render->Blit(Mini_Boss, position.x + 27, position.y + 37, &leg2.GetCurrentFrame());
+				//App->render->Blit(Mini_Boss, position.x, position.y, &Current_AnimationBody->GetCurrentFrame());
+				//App->render->Blit(Mini_Boss, position.x + 38, RArmPosition, &Right_Arm.GetCurrentFrame());
+				//App->render->Blit(Mini_Boss, position.x - 44,LArmPosition, &Left_Arm.GetCurrentFrame());
 
 			}
 
 
+			if (life < 40 && life>30)
+				Current_AnimationBody = &idle;
 
+			if (life < 30)
+				Current_AnimationBody = &idle_Damage;
+
+			if (life <= 15 && life > 10) {
+
+				Rarmfalling = true;
+				if (armsOut) {
+					App->particles->AddParticle(App->particles->EnemyExplosion, position.x + 35, position.y);
+					App->particles->AddParticle(App->particles->EnemyExplosion, position.x - 35, position.y + 10);
+					App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, position.y + 20);
+					App->particles->AddParticle(App->particles->EnemyExplosion, position.x, position.y + 15);
+
+					App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, RArmPosition);
+					App->particles->AddParticle(App->particles->FogExplosion, position.x - 35, LArmPosition - 20);
+					App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, RArmPosition + 10);
+
+
+					armsOut = false;
+				}
+
+
+			}
+
+			if (life < 7)
+				position.x--;
+
+			if (counterGreenBomb >= 500 && counterGreenBomb <= 510) {
+				launchBombs = true;
+				counterGreenBomb = 0;
+			}
+
+
+			if (!dead) {
+
+				Move();
+				if (launchBombs) {
+					bombs();
+					launchBombs = false;
+				}
+			}
+
+
+
+			if (Rarmfalling) {
+				RArmPosition++;
+
+			}
+
+
+			if (life <= 5 && life > 0) {
+
+				LArmfallinf = true;
+				if (armsOut2) {
+					App->particles->AddParticle(App->particles->EnemyExplosion, position.x - 40, position.y);
+					App->particles->AddParticle(App->particles->EnemyExplosion, position.x + 40, position.y - 10);
+					App->particles->AddParticle(App->particles->EnemyExplosion, position.x + 40, position.y + 10);
+
+					App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, position.y - 10);
+
+					App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, LArmPosition);
+					App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, LArmPosition - 20);
+					App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, LArmPosition + 10);
+				}
+
+
+				armsOut2 = false;
+			}
+
+
+			if (LArmfallinf) {
+				LArmPosition++;
+
+
+			}
+
+			if (life <= 0) {
+
+				dead = true;
+				position.x++;
+
+				body->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
+				position.x++;
+				position.y++;
+
+				if (dyingParticles) {
+
+					App->particles->AddParticle(App->particles->FogExplosion, position.x + 30, position.y + 10);
+					App->particles->AddParticle(App->particles->FogExplosion, position.x - 30, position.y + 10);
+					App->particles->AddParticle(App->particles->FogExplosion, position.x, position.y);
+
+
+					dyingParticles = false;
+
+				}
+
+			}
+			counterGreenBomb++;
+
+			if (dead &&  ExplosionDead && position.y >= 200) {
+
+
+
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 50, (int)position.y);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + -2);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + -14, (int)position.y);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 33);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 22, (int)position.y);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 5);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 44, (int)position.y + -2);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 43, (int)position.y + 33);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 15);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 1, (int)position.y - 10);
+
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 33 + 4, (int)position.y + 22 + 5);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 21 - 10, (int)position.y - 28 - 15);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 55 - 15, (int)position.y - 3);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y - 44 + 20);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 66 + 7, (int)position.y);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 5 + 5);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 40 - 5, (int)position.y + 44 - 12);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 35 - 12, (int)position.y - 23 + 3);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 30, (int)position.y + 40 - 8);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 70 + 12, (int)position.y - 30 + 12);
+
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 90, (int)position.y + 12);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 69, (int)position.y - 58);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 97, (int)position.y - 2);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 80, (int)position.y - 54);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 120, (int)position.y);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 12);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 110, (int)position.y + 24);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 98, (int)position.y - 33);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 30);
+				App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 81, (int)position.y - 44);
+
+				ExplosionDead = false;
+				disablingIronCraw = true;
+			}
 
 
 
 		}
-		counterGreenBomb++;
 
-		if (dead &&  ExplosionDead && position.y>=200) {
-
-
-
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 50, (int)position.y);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + -2);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + -14, (int)position.y);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 33);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 22, (int)position.y);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 5);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 44, (int)position.y + -2);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 43, (int)position.y + 33);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 15);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 1, (int)position.y - 10);
-
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 33 + 4, (int)position.y + 22 + 5);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 21 - 10, (int)position.y - 28 - 15);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 55 - 15, (int)position.y - 3);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y - 44 + 20);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 66 + 7, (int)position.y);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 5 + 5);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 40 - 5, (int)position.y + 44 - 12);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 35 - 12, (int)position.y - 23 + 3);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 30, (int)position.y + 40 - 8);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 70 + 12, (int)position.y - 30 + 12);
-
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 90, (int)position.y + 12);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 69, (int)position.y - 58);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 97, (int)position.y - 2);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 80, (int)position.y - 54);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 120, (int)position.y);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 12);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 110, (int)position.y + 24);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 98, (int)position.y - 33);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 30);
-			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 81, (int)position.y - 44);
-
-			ExplosionDead = false;
-			disablingIronCraw = true;
-		}
-	
-	
-
+		App->render->Blit(Mini_Boss, position.x - 9, position.y + 18, &blueCircle.GetCurrentFrame());
+		App->render->Blit(Mini_Boss, position.x + 20, position.y + 18, &blueCircle.GetCurrentFrame());
+		App->render->Blit(Mini_Boss, position.x - 3, position.y + 33, &leg1.GetCurrentFrame());
+		App->render->Blit(Mini_Boss, position.x + 27, position.y + 33, &leg2.GetCurrentFrame());
+		App->render->Blit(Mini_Boss, position.x, position.y, &Current_AnimationBody->GetCurrentFrame());
+		App->render->Blit(Mini_Boss, position.x + 38, RArmPosition, &Right_Arm.GetCurrentFrame());
+		App->render->Blit(Mini_Boss, position.x - 44, LArmPosition, &Left_Arm.GetCurrentFrame());
 	}
-
-	App->render->Blit(Mini_Boss, position.x - 9, position.y + 18, &blueCircle.GetCurrentFrame());
-	App->render->Blit(Mini_Boss, position.x + 20, position.y + 18, &blueCircle.GetCurrentFrame());
-	App->render->Blit(Mini_Boss, position.x - 3, position.y + 33, &leg1.GetCurrentFrame());
-	App->render->Blit(Mini_Boss, position.x + 27, position.y + 33, &leg2.GetCurrentFrame());
-	App->render->Blit(Mini_Boss, position.x, position.y, &Current_AnimationBody->GetCurrentFrame());
-	App->render->Blit(Mini_Boss, position.x + 38, RArmPosition, &Right_Arm.GetCurrentFrame());
-	App->render->Blit(Mini_Boss, position.x - 44, LArmPosition, &Left_Arm.GetCurrentFrame());
-
 	return UPDATE_CONTINUE;
 }
 

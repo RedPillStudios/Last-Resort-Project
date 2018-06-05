@@ -579,7 +579,6 @@ update_status ModuleSceneLvl1::Update() {
 	//if (App->scene1background->position_max_limit >= 7700) {
 	//	IronCraw2 = true;
 	//	App->MiniBoss->Enable();
-	}
 
 	//Fade if boss is dead
 	if(App->Boss->dead){
