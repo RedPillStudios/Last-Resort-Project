@@ -20,6 +20,8 @@ See the version 1.0 of the game fully made by RedPill Studios!
 src="https://www.youtube.com/watch?v=MTFyO2adm9g&feature=youtu.be" frameborder="0" allowfullscreen>
 </iframe>
 
+If the video doesn't works, see it on YouTube [here](https://www.youtube.com/watch?v=MTFyO2adm9g&feature=youtu.be).
+
 </body>
 </html>
 
