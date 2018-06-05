@@ -109,7 +109,11 @@ bool ModulePlayer::Start() {
 
 	LOG("Loading player 1 textures");
 	//textures
-	graphicsp1 = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
+	
+	counterApearing = 0;
+	Normal = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
+	Entry_God = App->textures->Load("Images/Player/Ship_Black.png");
+	graphicsp1 = Normal;
 
 	//audio
 	Shot_Sound = App->sound->LoadChunk("Audio/Shot_Sound.wav");
@@ -119,6 +123,7 @@ bool ModulePlayer::Start() {
 	//Colliders
 	Ship1Collider = App->collision->AddCollider({ position.x, position.y,32,12 }, COLLIDER_PLAYER, this);
 
+	flickering = false;
 
 	//bools
 	ToBeDeleted = false;
@@ -166,15 +171,32 @@ update_status ModulePlayer::Update() {
 		Ship1Collider->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
 		position.x=App->scene1background->position_min_limit+2;
 		
+
+
 		if (Appear.Finished() && current_animation!=&Standard) {
 			position.x = App->scene1background->position_min_limit + 32;
+			flickering = true;
 			current_animation = &Standard;
 			Ship1Collider->changeCollider(COLLIDER_TYPE::COLLIDER_PLAYER);
 		}
 	}
-		if (current_animation != &DestroyShip && Appear.Finished()&& (current_animation != &Up ))
-			current_animation = &Standard;
+	if (current_animation != &DestroyShip && Appear.Finished())
+		current_animation = &Standard;
 		
+		if (flickering == true) {
+			counterApearing++;
+			if (counterApearing % 3 == 0) {
+				graphicsp1 = Entry_God;
+			}
+			else if (counterApearing% 2==0) {
+				graphicsp1 = Normal;
+			}
+			if (counterApearing >= 80) {
+				graphicsp1 = Normal;
+				counterApearing = 0;
+				flickering = false;
+			}
+		}
 
 		if (!Dead&& current_animation != &Appear) {
 			//Movement Up
@@ -321,7 +343,7 @@ void ModulePlayer::OnCollision(Collider *c1, Collider *c2) {
 
 	if (((c1->type == COLLIDER_TYPE::COLLIDER_ENEMY || c1->type == COLLIDER_TYPE::COLLIDER_WALL) && c2->type == COLLIDER_PLAYER) || ((c2->type == COLLIDER_TYPE::COLLIDER_ENEMY || c2->type == COLLIDER_TYPE::COLLIDER_WALL) && c1->type == COLLIDER_PLAYER)&&!ToBeDeleted) {
 
-			if (!GOD) {
+			if (!GOD&&!flickering) {
 
 				LOG("P1LIFE MINUS ONE");
 				Dead = true;

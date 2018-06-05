@@ -45,6 +45,8 @@ public:
 	SDL_Rect UI_ship;
 
 	SDL_Texture* graphicsp1 = nullptr;
+	SDL_Texture* Entry_God = nullptr;
+	SDL_Texture* Normal = nullptr;
 
 	Animation Up;
 	Animation Down;
@@ -64,6 +66,8 @@ public:
 	int ShootTimer2;
 	int ShootTimer3;
 	int ShootTimer4;
+	int counterApearing;
+	bool flickering;
 
 public:
 	

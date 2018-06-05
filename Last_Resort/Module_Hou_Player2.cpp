@@ -3,10 +3,10 @@
 #include "ModuleTextures.h"
 #include "ModuleRender.h"
 #include "ModuleCollision.h"
+#include "ModulePlayer.h"
 #include "ModuleEnemies.h"
 #include "ModuleParticles.h"
 #include "ModuleInput.h"
-#include "ModulePlayer2.h"
 #include "Module_Hou_Player2.h"
 #include <math.h>
 
@@ -362,21 +362,22 @@ ModuleHouPlayer2::ModuleHouPlayer2() {
 	}
 	Redball_charging.speed = 0.3;
 
+
+
+
+
 }
 
 ModuleHouPlayer2::~ModuleHouPlayer2() {}
 
 bool ModuleHouPlayer2::Start() {
 
-	//HOU_position_x = App->player->position.x;
-	//HOU_position_y = App->player->position.y;
-
 	LOG("Loading PowerUps");
-	if (App->player2->IsEnabled() == true && App->HOU_Player2->IsEnabled() == false)
+	if (App->player->IsEnabled() == true && App->HOU_Player2->IsEnabled() == false)
 		App->HOU_Player2->Enable();
 
 	ChargeHOUSound = App->sound->LoadChunk("Audio/General/Charging_shot.wav");
-	ReleasedChargeHOUSound = App->sound->LoadChunk("Audio/General/Releasing_charged_shot.wav");
+	ReleasedChargeHOUSound = App->sound->LoadChunk("Audio/General/Releasing_Charged_shot.wav");
 
 	HOU_Texture = App->textures->Load("Images/Player/Ship&Ball_Sprite.png");
 	Charge_texture = App->textures->Load("Images/Player/Charge_Ball.png");
@@ -415,25 +416,17 @@ bool ModuleHouPlayer2::CleanUp() {
 update_status ModuleHouPlayer2::Update() {
 
 
-	shipCenter.x = App->player2->positionp2.x + 10;
-	shipCenter.y = App->player2->positionp2.y;
-
+	shipCenter.x = App->player->position.x + 10;
+	shipCenter.y = App->player->position.y;
 
 	if (HOU_activated) {
 		if (HOU_Direction >= 360) {
 			HOU_Direction = 0;
 		}
-		if (HOU_Charge > 40 && App->input->keyboard[SDL_SCANCODE_M] == KEY_STATE::KEY_UP&&Throwing == false) {
+		if (HOU_Charge > 20 && App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP&&Throwing == false) {
 			Throwing = true;
 			Throw = true;
 		}
-
-		if (charging) {
-
-
-
-		}
-
 		if (!Throwing) {
 
 			Hou_Movement();
@@ -542,16 +535,26 @@ update_status ModuleHouPlayer2::Update() {
 
 
 			//Settinng Grpah position HOU
+			if (!fixed) {
+				HOU_position.x = shipCenter.x + 40 * cos(HOU_Direction*PI / 180);
+				HOU_position.y = shipCenter.y + 30 * sin(HOU_Direction*PI / 180);
+				HOU_Direction_Angle = HOU_Direction;
+			}
+			else if (fixed) {
+				HOU_position.x = shipCenter.x + 40 * cos(HOU_Direction_Angle*PI / 180);
+				HOU_position.y = shipCenter.y + 30 * sin(HOU_Direction_Angle*PI / 180);
 
-			HOU_position.x = shipCenter.x + 40 * cos(HOU_Direction*PI / 180);
-			HOU_position.y = shipCenter.y + 30 * sin(HOU_Direction*PI / 180);
+			}
+			FixedPosition = HOU_position;
 
 		}
 		//Render HOU
 		if (Throwing) {
+			charging = false;
 			Animation* Sup = current_animation;
 			if (Blue) {
 				current_animation = &Blue_Throw_Ball;
+
 			}
 			else {
 				current_animation = &Red_Throw_Ball;
@@ -563,6 +566,7 @@ update_status ModuleHouPlayer2::Update() {
 					Throw = false;
 				}
 			}
+
 			HOU_LastPosition.x = shipCenter.x + 40 * cos(HOU_Direction*PI / 180);
 			HOU_LastPosition.y = shipCenter.y + 30 * sin(HOU_Direction*PI / 180);
 
@@ -580,8 +584,8 @@ update_status ModuleHouPlayer2::Update() {
 			}
 		}
 
-		App->particles->HOU_Shot_p2.Speed.x = (7 * cos(HOU_Direction*PI / 180));
-		App->particles->HOU_Shot_p2.Speed.y = (7 * sin(HOU_Direction*PI / 180));
+		App->particles->HOU_Shot.Speed.x = (7 * cos(HOU_Direction*PI / 180));
+		App->particles->HOU_Shot.Speed.y = (7 * sin(HOU_Direction*PI / 180));
 
 		colliderHUB->SetPos(HOU_position.x, HOU_position.y);
 
@@ -599,10 +603,25 @@ void ModuleHouPlayer2::OnCollision(Collider *c1, Collider *c2) {
 void ModuleHouPlayer2::throwHOU() {
 	Mix_FadeOutChannel(2, 400);//fading out channel
 	Mix_PlayChannel(-1, ReleasedChargeHOUSound, 0);//releasing sound
-
+	particlesTimmer++;
 	HOU_position.x++;
-	HOU_position.x += (10 * cos(HOU_Direction*PI / 180));
-	HOU_position.y += (10 * sin(HOU_Direction*PI / 180));
+	if (!fixed) {
+		HOU_position.x += (10 * cos(HOU_Direction*PI / 180));
+		HOU_position.y += (10 * sin(HOU_Direction*PI / 180));
+	}
+	else if (fixed) {
+		HOU_position.x += (10 * cos(HOU_Direction_Angle*PI / 180));
+		HOU_position.y += (10 * sin(HOU_Direction_Angle*PI / 180));
+	}
+	App->particles->Red_ThrowBall_pl1.Speed.x = (1 * cos(HOU_Direction*PI / 180));
+	App->particles->Red_ThrowBall_pl1.Speed.x++;
+	App->particles->Red_ThrowBall_pl1.Speed.y = (1 * sin(HOU_Direction*PI / 180));
+
+
+	if (particlesTimmer >= 3) {
+		App->particles->AddParticle(App->particles->Red_ThrowBall_pl1, HOU_position.x, HOU_position.y, COLLIDER_NONE);
+		particlesTimmer = 0;
+	}
 
 }
 
@@ -612,7 +631,8 @@ void ModuleHouPlayer2::returnHOU() {
 }
 void ModuleHouPlayer2::Hou_Movement() {
 
-	if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_REPEAT) {
+	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
+
 
 		if (HOU_Direction <= 270 && HOU_Direction > 90) {
 			HOU_Direction -= HOU_Speed;
@@ -626,15 +646,18 @@ void ModuleHouPlayer2::Hou_Movement() {
 
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_LEFT] == KEY_STATE::KEY_REPEAT) {
+	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) {
+
 		if (HOU_Direction <= 180 && HOU_Direction > 0) {
 			HOU_Direction -= HOU_Speed;
 		}
 		if (HOU_Direction > 180 && HOU_Direction != 0) {
 			HOU_Direction += HOU_Speed;
 		}
+
+
 	}
-	if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_REPEAT) {
+	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) {
 
 		if (HOU_Direction < 270 && HOU_Direction >= 90) {
 			HOU_Direction += HOU_Speed;
@@ -648,26 +671,46 @@ void ModuleHouPlayer2::Hou_Movement() {
 		if (HOU_Direction < 360 && HOU_Direction >270) {
 			HOU_Direction -= HOU_Speed;
 		}
+
+
 	}
 
-	if (App->input->keyboard[SDL_SCANCODE_RIGHT] == KEY_STATE::KEY_REPEAT) {
+	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
+
 		if (HOU_Direction > 180) {
 			HOU_Direction -= HOU_Speed;
 		}
 		if (HOU_Direction < 180) {
 			HOU_Direction += HOU_Speed;
 		}
+
+		else {
+			if (HOU_Direction > 180) {
+				HOU_Direction -= HOU_Speed;
+			}
+			if (HOU_Direction < 180) {
+				HOU_Direction += HOU_Speed;
+			}
+		}
+	}
+	if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN) {
+		if (fixed == false)
+			fixed = true;
+		else if (fixed == true) {
+			fixed = false;
+			HOU_Direction = HOU_Direction_Angle;
+		}
 	}
 
 	if (!Throwing) {
-		if (App->input->keyboard[SDL_SCANCODE_M] == KEY_STATE::KEY_DOWN) {
-			App->particles->AddParticle(App->particles->HOU_Shot_p2, HOU_position.x + 9, HOU_position.y, COLLIDER_PLAYER_SHOT2);
+		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_DOWN) {
+			App->particles->AddParticle(App->particles->HOU_Shot, HOU_position.x + 9, HOU_position.y, COLLIDER_PLAYER_SHOT);
 
 			Charging_Sound_HOU = true;
 		}
-		if (App->input->keyboard[SDL_SCANCODE_M] == KEY_STATE::KEY_REPEAT) {
+		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_REPEAT) {
 			HOU_Charge++;
-			if (HOU_Charge > 9) {
+			if (HOU_Charge > 8) {
 				charging = true;
 				//BLUE CHARGING BALL
 				if (current_animation == &Blue_HOU_Front) {
@@ -722,7 +765,7 @@ void ModuleHouPlayer2::Hou_Movement() {
 				if (current_animation == &Blue_HOU_Back_Down) {
 					App->render->Blit(Charge_texture, HOU_position.x - 9, HOU_position.y - 15, &blueball_charging.GetCurrentFrame());
 				}
-				Blue_HOU_Back_Down_Up;
+
 				if (current_animation == &Blue_HOU_Back_Down_Up) {
 					App->render->Blit(Charge_texture, HOU_position.x - 8, HOU_position.y - 15, &blueball_charging.GetCurrentFrame());
 				}
@@ -734,6 +777,8 @@ void ModuleHouPlayer2::Hou_Movement() {
 				if (current_animation == &Blue_HOU_UP) {
 					App->render->Blit(Charge_texture, HOU_position.x - 14, HOU_position.y - 9, &blueball_charging.GetCurrentFrame());
 				}
+
+
 				//RED CHARGING BALL
 				if (current_animation == &Red_HOU_Front) {
 					App->render->Blit(Charge_texture, HOU_position.x - 14, HOU_position.y - 15, &Redball_charging.GetCurrentFrame());
@@ -811,9 +856,9 @@ void ModuleHouPlayer2::Hou_Movement() {
 		}
 
 
-		if (App->input->keyboard[SDL_SCANCODE_M] == KEY_STATE::KEY_UP) {
-
+		else if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP) {
 			HOU_Charge = 0;
+			charging = false;
 			Mix_FadeOutChannel(2, 400); //fading out channel
 
 		}

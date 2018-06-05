@@ -29,12 +29,14 @@ public:
 public:
 
 	float HOU_Direction;
+	float HOU_Direction_Angle;
 	float HOU_Speed = 5;
 	iPoint shipCenter;
 	iPoint HOU_position;
 	iPoint HOU_LastPosition;
+	iPoint FixedPosition;
 	int HOU_Charge;
-
+	
 	bool Throw = false;
 	bool Throwing = false;
 	bool ReturnPosition = true;

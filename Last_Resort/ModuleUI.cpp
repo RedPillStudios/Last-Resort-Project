@@ -15,16 +15,29 @@
 #include "ModuleStageClear.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleSound.h"
+#include "Module_Hou_Player1.h"
+#include "Module_Hou_Player2.h"
 
 #include <iostream>
 #include <string.h>
 #include <cstdio>
 
-ModuleUI::ModuleUI() : Module() {}
+ModuleUI::ModuleUI(){
+
+	Bar.PushBack({0,0,96,8});
+	Charge1.PushBack({ 0,10,2,5 });
+	Charge2.PushBack({ 0,10,2,5 });
+
+}
 
 ModuleUI::~ModuleUI() {}
 
 bool ModuleUI::Start() {
+	Charge_Controller = { 0,10,0,5 };
+	Pos_Bar1.x = 30;
+	Pos_Bar2.y = 90;
+
+	Bar_Texture = App->textures->Load("Images/Player/HOU_Charger_Sprite.png");
 
 	UI_Main_Menu = App->textures->Load("Images/Stage_Clear/All_Stage_Clears.png");
 
@@ -49,6 +62,7 @@ bool ModuleUI::Start() {
 
 	coins = 0;
 	return true;
+	Current_Bar = &Bar;
 }
 
 
@@ -74,6 +88,17 @@ update_status ModuleUI::Update() {
 		BlitText((SCREEN_WIDTH - 75), (SCREEN_HEIGHT - 10), font, coins_text);
 
 	if (App->scene1background->IsEnabled()) {
+
+		App->render->Blit(Bar_Texture, 30, SCREEN_HEIGHT - 20, &Bar.GetCurrentFrame(),false);
+		if (App->HOU_Player1->charging == true) { 
+			if (Charge_Controller.w <= 4060) {
+				Charge_Controller.w += 70;
+			}
+			App->render->Blit(Bar_Texture, 54, SCREEN_HEIGHT - 19, &Charge_Controller, false);
+		}
+		else{
+			Charge_Controller.w = 0;
+		}
 
 		if (Spawned) {
 
