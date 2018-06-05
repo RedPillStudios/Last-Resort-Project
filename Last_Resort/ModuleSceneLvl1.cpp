@@ -155,8 +155,9 @@ bool ModuleSceneLvl1::Start()
 		App->Boss->Enable();
 		App->collision->Enable();
 		App->particles->Enable();
-		App->MiniBoss->Enable();
+    App->MiniBoss->Enable();
 		App->BossTank->Enable();
+
 	}
 	if (App->player->IsEnabled() == false && App->fonts->P1Life > 0) {
 		App->player->Enable();

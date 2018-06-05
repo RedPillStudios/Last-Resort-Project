@@ -100,6 +100,11 @@
     <ClCompile Include="ModuleTextures.cpp">
       <Filter>Modules\Base\Screen</Filter>
     </ClCompile>
+    <ClCompile Include="Humans.cpp">
+      <Filter>Modules\Enemies\Human</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenBombIron.cpp">
+      <Filter>Modules\Enemies\GreenBomb</Filter>
     <ClCompile Include="Enemy_Tears.cpp">
       <Filter>Modules\Enemies\ENEMY_BOSSTEARS</Filter>
     </ClCompile>
@@ -213,6 +218,11 @@
     <ClInclude Include="ModuleTextures.h">
       <Filter>Modules\Base\Screen</Filter>
     </ClInclude>
+    <ClInclude Include="Humans.h">
+      <Filter>Modules\Enemies\Human</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenBombIron.h">
+      <Filter>Modules\Enemies\GreenBomb</Filter>
     <ClInclude Include="Enemy_Tears.h">
       <Filter>Modules\Enemies\ENEMY_BOSSTEARS</Filter>
     </ClInclude>
@@ -275,6 +285,11 @@
     <Filter Include="Modules\Base\Controllers">
       <UniqueIdentifier>{8219d022-a29b-460f-88ee-81c6b439fd53}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Modules\Enemies\Human">
+      <UniqueIdentifier>{777a0938-04c2-4e83-a67c-7ed84cd690da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\GreenBomb">
+      <UniqueIdentifier>{cebd11db-18f3-4276-af3f-0d8e15348678}</UniqueIdentifier>
     <Filter Include="Modules\Enemies\ENEMY_BOSSTEARS">
       <UniqueIdentifier>{f00171fe-ce91-4810-849a-48489843d1db}</UniqueIdentifier>
     </Filter>
