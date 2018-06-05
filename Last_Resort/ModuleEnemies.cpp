@@ -17,7 +17,7 @@
 #include "ModulePlayer2.h"
 #include "ModulePowerUp.h"
 #include "ModuleUI.h"
-
+#include "Enemy_Tears.h"
 #define SPAWN_MARGIN 50
 
 ModuleEnemies::ModuleEnemies() {
@@ -162,6 +162,10 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 
 		case ENEMY_TYPES::ENEMY_BEE:
 		enemies[i] = new Enemy_Bee(info.x, info.y,info.PowerUp);
+		break;
+
+		case ENEMY_TYPES::BOSS_TEARS:
+		enemies[i] = new Enemy_BossTears(info.x, info.y, info.PowerUp);
 		break;
 		}
 	}

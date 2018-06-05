@@ -17,7 +17,8 @@ enum ENEMY_TYPES {
 	ENEMY_ZICZAC,
 	ENEMY_LAMELLA,
 	ENEMY_BEE,
-	CARS
+	CARS,
+	BOSS_TEARS
 };
 
 class Enemy;

@@ -42,6 +42,7 @@ public:
 	SDL_Texture* graphics_Crater_Boss_Zone = nullptr;
 	SDL_Texture* Laser_Sprites = nullptr;
 	SDL_Texture* graphics_Streetlight = nullptr;
+	Animation minispaceships ;
 
 	SDL_Rect ThirdPlaneBackground;
 	SDL_Rect SecondPlaneBackground;
@@ -52,10 +53,13 @@ public:
 	Animation YellowLight;
 	Animation Streetlight;
 	Animation Streetlight2;
+	SDL_Texture* Minispaceship_texture = nullptr;
 
 	int posCars = 0;
 	int randomPositionCars = 0;
 	int randomColorCars = 0;
+	int xxx = 1;
+	int yyy = 1;
 
 	bool switchMusic = false;
 

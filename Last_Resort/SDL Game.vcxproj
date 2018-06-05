@@ -81,6 +81,7 @@
     <ClInclude Include="EnemyRhino.h" />
     <ClInclude Include="EnemyWasp.h" />
     <ClInclude Include="EnemyZicZac.h" />
+    <ClInclude Include="Enemy_Tears.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Iron_Craw.h" />
     <ClInclude Include="MemLeaks.h" />
@@ -118,6 +119,7 @@
     <ClCompile Include="EnemyRhino.cpp" />
     <ClCompile Include="EnemyWasp.cpp" />
     <ClCompile Include="EnemyZicZac.cpp" />
+    <ClCompile Include="Enemy_Tears.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="Iron_Craw.cpp" />
     <ClCompile Include="Main.cpp" />

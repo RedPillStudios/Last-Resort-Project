@@ -79,6 +79,7 @@ public:
 	Particle MissilePower;
 	Particle MissilePowerPatter2;
 	Particle FogExplosion;
+	Particle MaleTears;
 
 	Particle LaserBeam;
 	Particle LaserBeamExplosion;
