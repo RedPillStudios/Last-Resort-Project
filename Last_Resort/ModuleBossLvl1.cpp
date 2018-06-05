@@ -86,7 +86,7 @@ ModuleBossLvl1::~ModuleBossLvl1() {}
 bool ModuleBossLvl1::Start() {
 
 	//position = { (9000), 55 };
-	position = { (9000), 55 };
+	position = { (300), 55 };
 	current_head = &AnimMouth;
 	current_eye = &AnimClosedEye;
 
@@ -244,23 +244,52 @@ update_status ModuleBossLvl1::Update() {
 				 Time7 = SDL_GetTicks() + Time1 - 400;
 			 }*/
 			 if (current_eye->Finished() == true ) {
-				 if (TearShootDelay < SDL_GetTicks() - 400) {
+				 if (TearShootDelay < SDL_GetTicks() - 400) { //delay
 					 TearShoot = TearShoot * -1;
 					 TearShootDelay = SDL_GetTicks();
 				 }
 				 current_head = &AnimOpenMouth;
-				 if (TearShoot == -1) {
+				 if (Restartcontroller8 == 0 && PeeLimit < 8) {
+					 Time8 = SDL_GetTicks()+600;
+					 Restartcontroller8 = 1;
+					 EnemyAddController = 0;
+					 PeeLimit++;
+				 }
+				 if (SDL_GetTicks() >= Time8 /*TearShoot == -1*/) {
 					 LluviaDorada();
 					 
-					 LluviaDorada();
-					 EnemyAddController = 0;
-					 LluviaDorada();
-					 EnemyAddController = 0;
-					 LluviaDorada();
+					 Restartcontroller8 = 0;
+				
 					 TearShoot == 1;
 					 //EnemyAddController--;
 				 } 
 			 }
+		 }
+		 if (PeeLimit >= 7) {
+			 Stage = Stage1;
+			 EyeBool = true;
+			 TimeCounter = true;
+			 Shooted = false;
+			 Forward = false;
+			 Backward = false;
+			 EndCharge = false;
+			 Time2 = 0;
+			 Time3 = 0;
+			 Time4 = 0;
+			 Time5 = 0;
+			 Time6 = 0;
+			 Restartcontroller = 0;
+			 Restartcontroller2 = 0;
+			 Restartcontroller3 = 0;
+			 Restartcontroller4 = 0;
+			 Restartcontroller5 = 0;
+			 ShootCounter = 0;
+			 AnimOpenEye.Reset();
+			 AnimCloseEye.Reset();
+			 current_head = &AnimCloseMouth;
+			 cicle++;
+			 PeeLimit = 0;
+
 		 }
 	 }
 
@@ -356,8 +385,8 @@ void ModuleBossLvl1::Charge() {
 }
 void ModuleBossLvl1::LluviaDorada() {
 	
-	randnum = rand() % 50;
-	if (Stage = Stage3) {
+	randnum = rand() % 1;
+	if (Stage == Stage3) {
 		if (EnemyAddController == 0) {
 			App->enemies->AddEnemy(ENEMY_TYPES::BOSS_TEARS, position.x+randnum, position.y, false);
 			EnemyAddController++;
