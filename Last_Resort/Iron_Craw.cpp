@@ -89,8 +89,6 @@ Iron_Craw::Iron_Craw()
 }
 
 
-
-
 Iron_Craw::~Iron_Craw()
 {
 }
@@ -98,13 +96,13 @@ Iron_Craw::~Iron_Craw()
 
 bool Iron_Craw::Start() {
 
-	
 	if (App->scene1background->IronCraw2==false)
 		SpawnPos = 200;
 	else
 		SpawnPos = 7700;
 
 	position = {(SpawnPos),-10.0};
+
   
 	Mini_Boss= App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
 
@@ -451,15 +449,10 @@ void Iron_Craw::Move() {
 
 	}
 
-	
 
 }
 
 void Iron_Craw::bombs() {
-	
-
-	
-
 	
 	App->enemies->AddEnemy(ENEMY_TYPES::GREENBOMB, position.x+20, position.y+20,COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
 	App->enemies->AddEnemy(ENEMY_TYPES::GREENBOMB, position.x - 20, position.y + 20, COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
@@ -472,8 +465,6 @@ void Iron_Craw::bombs() {
 
 
 }
-	
-
 
 void Iron_Craw::OnCollision(Collider *c1, Collider *c2) {
 

@@ -20,6 +20,7 @@ ModuleParticles::ModuleParticles() {
 	}
 
 
+//	srand(2);
 
 }
 
@@ -55,7 +56,7 @@ bool ModuleParticles::Start() {
 	HipopotamoBomba.Anim.speed = 0.1f;
 	HipopotamoBomba.Sprites = Particle1;
 	HipopotamoBomba.Life = 1200;
-	HipopotamoBomba.Speed.y = 2.5f;
+	HipopotamoBomba.Speed.y = 3;
 	HipopotamoBomba.Speed.x = (HipopotamoBomba.Position.x ^ 2);
 
 	HipopotamoBomba2.Anim.PushBack({ 0, 306, 16, 6 });
@@ -65,7 +66,7 @@ bool ModuleParticles::Start() {
 	HipopotamoBomba2.Anim.loop = false;
 	HipopotamoBomba2.Anim.speed = 0.1f;
 	HipopotamoBomba2.Sprites = Particle1;
-	HipopotamoBomba2.Life = 1200;
+	HipopotamoBomba2.Life = 1800;
 	HipopotamoBomba2.Speed.y = -(2.5f);
 	HipopotamoBomba2.Speed.x = (HipopotamoBomba2.Position.x ^ 2);
 

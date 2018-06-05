@@ -87,7 +87,7 @@ update_status ModuleStageClear::Update() {
 	App->fonts->BlitText((SCREEN_WIDTH / 2) + 4, (SCREEN_HEIGHT / 2) + 14, fontend, "SUM");
 	App->fonts->BlitText((SCREEN_WIDTH / 2) + 48, (SCREEN_HEIGHT / 2) + 14, fontend, SumScore_text);
 
-	if (App->input->keyboard[SDL_SCANCODE_SPACE]) 
+	if (App->input->keyboard[SDL_SCANCODE_SPACE])
 		App->fade->FadeToBlack(App->stageclear, App->menu, 3.0f);
 	
 

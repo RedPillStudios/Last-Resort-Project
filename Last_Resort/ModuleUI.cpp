@@ -198,19 +198,26 @@ update_status ModuleUI::Update() {
 			}
 		}
 
-		//P1 Score
-		sprintf_s(score_text, "%7d", ScoreP1);
-		BlitText(40, 16, font, score_text);
-		BlitText(13, 16, font, "P1");
-		BlitText(29, 11, font, "_");
-		BlitText(29, 15, font, "_");
+		if (P1Life > 0) {
+			//P1 Score
+			sprintf_s(score_text, "%7d", ScoreP1);
+			BlitText(40, 16, font, score_text);
+			BlitText(13, 16, font, "P1");
+			BlitText(29, 11, font, "_");
+			BlitText(29, 15, font, "_");
+			
+			App->render->Blit(UI_Main_Menu, 13, 24, &App->player->UI_ship, 0.0f, false); //Mini_UI_Ships->Player1
 
-		App->render->Blit(UI_Main_Menu, 13, 24, &App->player->UI_ship, 0.0f, false); //Mini_UI_Ships->Player1
+			//P1 Life
+			sprintf_s(life_text, "%7d", P1Life);
+			BlitText(30, 24, font, "X0");
+			BlitText(-2, 24, font, life_text);
+		}
+		else {
 
-		//P1 Life
-		sprintf_s(life_text, "%7d", P1Life);
-		BlitText(30, 24, font, "X0");
-		BlitText(-2, 24, font, life_text);
+			BlitText(40, 16, font, "DEAD");
+			BlitText(13, 16, font, "P1");
+		}
 
 		/*if (App->player2->Dead == true && App->player2->IsEnabled() == false) {
 			App->fonts->BlitText((SCREEN_WIDTH - 76), 16, font, "INSERT");
@@ -218,18 +225,30 @@ update_status ModuleUI::Update() {
 		}*/
 
 		//P2 Score
-		sprintf_s(score_text2, "%7d", ScoreP2);
-		BlitText((SCREEN_WIDTH - 65), 16, font, score_text2);
-		BlitText((SCREEN_WIDTH - 76), 11, font, "_");
-		BlitText((SCREEN_WIDTH - 76), 15, font, "_");
-		BlitText((SCREEN_WIDTH - 92), 16, font, "P2");
+		if (App->player2->IsEnabled() == true) {
+			sprintf_s(score_text2, "%7d", ScoreP2);
+			BlitText((SCREEN_WIDTH - 65), 16, font, score_text2);
+			BlitText((SCREEN_WIDTH - 76), 11, font, "_");
+			BlitText((SCREEN_WIDTH - 76), 15, font, "_");
+			BlitText((SCREEN_WIDTH - 92), 16, font, "P2");
+			sprintf_s(life2_text, "%7d", P2Life);
+			BlitText((SCREEN_WIDTH - 75), 24, font, "X0");
+			BlitText((SCREEN_WIDTH - 107), 24, font, life2_text);
 
-		App->render->Blit(UI_Main_Menu, 237, 24, &App->player2->UI_ship2, 0.0f, false); //Mini_UI_Ships->Player2
+			App->render->Blit(UI_Main_Menu, 237, 24, &App->player2->UI_ship2, 0.0f, false); //Mini_UI_Ships->Player2
+		}
+		else if (P2Life <= 0) {
 
-		//P2 Life
-		sprintf_s(life2_text, "%7d", P2Life);
-		BlitText((SCREEN_WIDTH - 75), 24, font, "X0");
-		BlitText((SCREEN_WIDTH - 107), 24, font, life2_text);
+			BlitText((SCREEN_WIDTH - 58), 16, font, "DEAD");
+			BlitText((SCREEN_WIDTH - 78), 16, font, "P2");
+		}
+		else {
+
+			BlitText((SCREEN_WIDTH - 20), 16, font, "P2");
+			BlitText((SCREEN_WIDTH - 48), 16, font, "F0R");
+			BlitText((SCREEN_WIDTH - 58), 16, font, "P");
+			BlitText((SCREEN_WIDTH - 100), 16, font, "PRESS");
+		}
 
 		//TOP Score
 		if (App->scene1background->IsEnabled() == true) {
@@ -261,19 +280,24 @@ update_status ModuleUI::Update() {
 		}
 	}
 
-	if (Checkpoint1 == true && App->gameover->IsEnabled()) {
+	/*if (Checkpoint1 == true && App->gameover->IsEnabled()) {
 
-		if (App->input->keyboard[SDL_SCANCODE_P] == KEY_STATE::KEY_DOWN) {
+		if (App->input->keyboard[SDL_SCANCODE_B] == KEY_STATE::KEY_DOWN) {
 
 			App->fade->FadeToBlack(App->gameover, App->scene1background);
 			P1Life = 3;
 			P2Life = 3;
 		}
-	}
+	}*/
 
 	
 	if (((App->gameover->IsEnabled() == true) || (App->stageclear->IsEnabled() == true)) && counterRanking == 0) {
 
+	/*	if (Checkpoint1 == true) {
+			BlitText(SCREEN_WIDTH / 2 - 10, SCREEN_HEIGHT - 10, font, "B");
+			BlitText(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 10, font, "FOR");
+			BlitText(SCREEN_WIDTH / 2 + 24, SCREEN_HEIGHT - 10, font, "CONTINUE");
+		}*/
 		counterRanking++;
 		uint MaxScore = ScoreP1 + ScoreP2;
 		ChangeRanking(Ranking, "Images/Ranking.txt", MaxScore);

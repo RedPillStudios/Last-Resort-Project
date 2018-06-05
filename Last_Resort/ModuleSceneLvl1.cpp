@@ -100,7 +100,9 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	minispaceships.PushBack({ 77,0,9,4 });
 	minispaceships.speed = 0.1;
 	minispaceships.loop = true;
-	
+
+	//srand(2);
+
 
 }
 
@@ -114,19 +116,19 @@ bool ModuleSceneLvl1::Start()
 
 	App->fonts->counterRanking = 0;
 
-	if (App->fonts->Checkpoint1 == false) {
+	//if (App->fonts->Checkpoint1 == false) {
 
 		position_max_limit = SCREEN_WIDTH;
 		position_min_limit = 0;
 		App->render->camera.x = 0;
 		posCars = 0;
-	}
-	else if (App->fonts->Checkpoint1 == true) {
+	//}
+	/*else if (App->fonts->Checkpoint1 == true) {
 
 		App->render->camera.x = 9510;
 		App->scene1background->position_max_limit = 3500;
 		App->scene1background->position_min_limit = 3170;
-	}
+	}*/
 
 	//order of position in the game
 	graphics_Crater_Boss_Zone = App->textures->Load("Images/Background_Lvl1/Boss_Static_Background.png");
@@ -172,19 +174,22 @@ bool ModuleSceneLvl1::Start()
 	//Enemies
 	//WASP->Wave1{
 	//troop1
-	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 200, 150);
-	App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 250, 150);
+	/*App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 200, 150);
+	App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 250, 150);*/
 
   //Bees
 	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
 	/* App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
+	// App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);
+	App->enemies->AddEnemy(ENEMY_TYPES::BOSSLAMELLA, 300, 60, false);
+
   
  //Wasps
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60,false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 540, 75, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 580, 60, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 580, 145, true);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 580, 145, false);
 
 	//troop2
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 630, 20, false);
@@ -192,9 +197,9 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 670, 20, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 710, 20, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 750, 20, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 790, 20, true);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 790, 20, false);
 
-	App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 790, 20);
+	//App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 790, 20);
 
 	//troop3
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 795, 145, false);
@@ -210,10 +215,10 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1035, 115, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1035, 85, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1095, 95, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1075, 65, true);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1075, 65, false);
   
-	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 1075, 65);
-	App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 1025, 65);
+	/*App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 1075, 65);
+	App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 1025, 65);*/
 
 	//troop5
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1155, 20, false);
@@ -226,26 +231,26 @@ bool ModuleSceneLvl1::Start()
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1195, 145, true);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1235, 145, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1275, 145, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1315, 145, true);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1315, 145, false);
 
-	App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 1315, 145);
+//	App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 1315, 145);
 	// }
 
 	//WASP->Wave2{
 	//troop1
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1900, 30, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1940, 60, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1980, 90, false);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 1980, 90, true);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2020, 120, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2060, 150, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2100, 150, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2140, 150, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2180, 150, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2220, 150, true);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 2220, 150, false);
 	//}
 
 	//WASP->Wave3{
-	if(App->fonts->Checkpoint1 == false){
+	//if(App->fonts->Checkpoint1 == false){
 
 		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3200, 112, false);
 		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3240, 145, false);
@@ -253,14 +258,14 @@ bool ModuleSceneLvl1::Start()
 		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3280, 90, false);
 		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3320, 75, false);
 		App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3310, 145, true);
-		App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3310, 145);
-	}
+		//App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3310, 145);
+//	}
 
 	//WASP->wave4
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3700, 145, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3740, 115, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3780, 85, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3820, 55, true);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3820, 55, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3860, 55, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3900, 55, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 3940, 55, false);
@@ -269,7 +274,7 @@ bool ModuleSceneLvl1::Start()
 
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7640, 50, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7640, 130, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7650, 150, false);
+	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7650, 150, true);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 7660, 160, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8000, 165, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 8040, 160, false);
@@ -309,12 +314,12 @@ bool ModuleSceneLvl1::Start()
 
 	//ZICZAC
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC,3560, 145, true);
-	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3560, 145);
+	//App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3560, 145);
 	App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 3610, 145);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, 7560, 60, true);
   
-	App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 7560, 60);
-	App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 7610, 60);
+	//App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 7560, 60);
+	//App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 7610, 60);
 
 	return true;
 }
@@ -587,8 +592,8 @@ update_status ModuleSceneLvl1::Update() {
 	}
 
 	//Checkpoints
-	if (position_max_limit == 3500)
-		App->fonts->Checkpoint1 = true;
+	/*if (position_max_limit == 3500 && App->fonts->coins > 0)
+		App->fonts->Checkpoint1 = true;*/
 
 	return UPDATE_CONTINUE;
 }
