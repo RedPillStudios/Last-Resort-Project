@@ -44,6 +44,8 @@ public:
 	bool charging;
 	bool Red = false;
 	bool Blue = false;
+
+	int ShootingDelay;
 	
 	int Damage;
 
