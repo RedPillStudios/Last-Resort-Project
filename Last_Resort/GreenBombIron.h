@@ -12,6 +12,7 @@ class GreenBombIron :public Enemy
 public:
 	GreenBombIron(int x, int y);
 	void Move();
+	void OnCollision(Collider *c1, Collider *c2);
 
 	iPoint PlayerPosition;
 	int counter = 0;
@@ -21,6 +22,7 @@ public:
 
 private:
 	Animation GreenBombAnim;
+	
 
 
 };

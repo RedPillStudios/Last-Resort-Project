@@ -194,48 +194,48 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 
 					 if (App->scene1background->randomPositionCars == 1)
 						 App->powerup->AddPowerUp(POWERUP_TYPES::LASER, enemies[i]->position.x, enemies[i]->position.y);
-					 else if (App->scene1background->randomColorCars == 2) {
+					 else if (App->scene1background->randomColorCars == 2) 
 						 App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, enemies[i]->position.x, enemies[i]->position.y);
-					 }
+					 
+					 if (App->scene1background->randomPositionCars == 1)
+						 App->powerup->AddPowerUp(POWERUP_TYPES::LASER, enemies[i]->position.x, enemies[i]->position.y);
+					 else if (App->scene1background->randomColorCars == 2)
+						 App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, enemies[i]->position.x, enemies[i]->position.y);
+					 else if (App->scene1background->randomColorCars == 3)
+						 App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, enemies[i]->position.x, enemies[i]->position.y);
 				 }
 
-					if(App->scene1background->randomPositionCars==1)
-						App->powerup->AddPowerUp(POWERUP_TYPES::LASER,enemies[i]->position.x,enemies[i]->position.y);
-					else if (App->scene1background->randomColorCars == 2) 
-						App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, enemies[i]->position.x, enemies[i]->position.y);
-					else if (App->scene1background->randomColorCars == 3)
-						App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, enemies[i]->position.x, enemies[i]->position.y);
-					
-				}
+			
 
-				if(c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT)
-					App->fonts->ScoreP1 += enemies[i]->score;
-				else if (c1->type == COLLIDER_PLAYER_SHOT2 || c2->type == COLLIDER_PLAYER_SHOT2)
-					App->fonts->ScoreP2 += enemies[i]->score;
+				 if (c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT)
+					 App->fonts->ScoreP1 += enemies[i]->score;
+				 else if (c1->type == COLLIDER_PLAYER_SHOT2 || c2->type == COLLIDER_PLAYER_SHOT2)
+					 App->fonts->ScoreP2 += enemies[i]->score;
 
-				if (enemies[i]->type != ENEMY_TYPES::CARS) {
- 					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 8, enemies[i]->position.y - 2, COLLIDER_NONE, 0);
-					//App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 8, enemies[i]->position.y + 3, COLLIDER_NONE, 200);
-					App->enemies->AddEnemy(ENEMY_TYPES::HUMAN, enemies[i]->position.x, enemies[i]->position.y,false);
-				}
-    
-				if (enemies[i]->type == ENEMY_TYPES::ENEMY_RHINO) {
-					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 8, enemies[i]->position.y - 2, COLLIDER_NONE, 0);
-					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 13, enemies[i]->position.y - 21, COLLIDER_NONE, 100);
-					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x -19, enemies[i]->position.y + 14, COLLIDER_NONE, 150);
-					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 1, enemies[i]->position.y +13, COLLIDER_NONE, 200);
-					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 12, enemies[i]->position.y -3, COLLIDER_NONE, 250);
-					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 6, enemies[i]->position.y  -16, COLLIDER_NONE, 300);
-					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 19, enemies[i]->position.y + 8, COLLIDER_NONE, 350);
-					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 12, enemies[i]->position.y - 3, COLLIDER_NONE, 360);
-				}
+				 if (enemies[i]->type != ENEMY_TYPES::CARS) {
+					 App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 8, enemies[i]->position.y - 2, COLLIDER_NONE, 0);
+					 //App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 8, enemies[i]->position.y + 3, COLLIDER_NONE, 200);
+					 App->enemies->AddEnemy(ENEMY_TYPES::HUMAN, enemies[i]->position.x, enemies[i]->position.y, false);
+				 }
 
-				App->textures->Unload(enemies[i]->sprites);
-				if (enemies[i]->type != ENEMY_TYPES::CARS) {
-					delete enemies[i];
-					enemies[i] = nullptr;
-					break;
-				}
+				 if (enemies[i]->type == ENEMY_TYPES::ENEMY_RHINO) {
+					 App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 8, enemies[i]->position.y - 2, COLLIDER_NONE, 0);
+					 App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 13, enemies[i]->position.y - 21, COLLIDER_NONE, 100);
+					 App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 19, enemies[i]->position.y + 14, COLLIDER_NONE, 150);
+					 App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 1, enemies[i]->position.y + 13, COLLIDER_NONE, 200);
+					 App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 12, enemies[i]->position.y - 3, COLLIDER_NONE, 250);
+					 App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 6, enemies[i]->position.y - 16, COLLIDER_NONE, 300);
+					 App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 19, enemies[i]->position.y + 8, COLLIDER_NONE, 350);
+					 App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 12, enemies[i]->position.y - 3, COLLIDER_NONE, 360);
+				 }
+
+				 App->textures->Unload(enemies[i]->sprites);
+				 if (enemies[i]->type != ENEMY_TYPES::CARS) {
+					 delete enemies[i];
+					 enemies[i] = nullptr;
+					 break;
+				 }
+			 }
 				else {
 					enemies[i]->OnCollision(c2);
 				}

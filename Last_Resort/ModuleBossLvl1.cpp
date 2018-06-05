@@ -129,7 +129,7 @@ bool ModuleBossLvl1::CleanUp() {
 
 update_status ModuleBossLvl1::Update() {
 
-	srand(time(NULL));
+	
 
 	Bot->SetPos(position.x + 10, position.y + 95);
 	Eye->SetPos(position.x + 20, position.y + 79);
@@ -225,7 +225,7 @@ update_status ModuleBossLvl1::Update() {
 			 }
 		 }
 	 }
-	 srand(time(NULL));
+	
 	 //__________________________________________________________________________________________________________________________________________
 	 //LLUVIA DORADA
 	 if (cicle % 3 == 0 ) {

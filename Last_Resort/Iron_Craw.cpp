@@ -98,14 +98,16 @@ Iron_Craw::~Iron_Craw()
 
 bool Iron_Craw::Start() {
 
-	position = {(150),55 };
+	
+
+	position = {(150.0),55.0};
   
 	Mini_Boss= App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
 
 
-	body = App->collision->AddCollider({ position.x, position.y , 42, 59 }, COLLIDER_ENEMY,this);
-	LArm= App->collision->AddCollider({ position.x-40, position.y , 39, 62 }, COLLIDER_ENEMY,this);
-	RArm = App->collision->AddCollider({ position.x +38, position.y , 39, 62 }, COLLIDER_ENEMY,this);
+	body = App->collision->AddCollider({(int)position.x, (int)position.y , 42, 59 }, COLLIDER_ENEMY,this);
+	LArm= App->collision->AddCollider({ (int)position.x-40,(int)position.y , 39, 62 }, COLLIDER_ENEMY,this);
+	RArm = App->collision->AddCollider({ (int)position.x +38, (int)position.y , 39, 62 }, COLLIDER_ENEMY,this);
 
 	Current_AnimationBody =&FirstIdle;
 
@@ -116,146 +118,162 @@ bool Iron_Craw::Start() {
 
 	dead = false;
 	life =50;
+	
 
 	armsOut = true;
 	armsOut2 = true;
 	moving_Down = true;
+	EnemyAppear = true;
 	LArmfallinf = false;
 	Rarmfalling = false;
-	launchBombs = true;
+	launchBombs =false;
+	spawnMovementDown = false;
+
 
 	return true;
 }
 
 update_status Iron_Craw::Update() {
-
-	if (!dead ) {
-		body->SetPos(position.x, position.y);
-	
-		if (armsOut) {
-			RArm->SetPos(position.x + 38, position.y);
-		}
-		else {
-			RArm->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
-	
-		}
-
-
-		if (armsOut2) {
-			LArm->SetPos(position.x - 40, position.y);
-		}
-		else {
-
-			LArm->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
-			
-		}
-		position.x++;
-		
-
-		//App->render->Blit(Mini_Boss, position.x - 9, position.y + 18, &blueCircle.GetCurrentFrame());
-		//App->render->Blit(Mini_Boss, position.x + 20, position.y + 18, &blueCircle.GetCurrentFrame());
-		//App->render->Blit(Mini_Boss, position.x - 3, position.y + 37, &leg1.GetCurrentFrame());
-		//App->render->Blit(Mini_Boss, position.x + 27, position.y + 37, &leg2.GetCurrentFrame());
-		//App->render->Blit(Mini_Boss, position.x, position.y, &Current_AnimationBody->GetCurrentFrame());
-		//App->render->Blit(Mini_Boss, position.x + 38, RArmPosition, &Right_Arm.GetCurrentFrame());
-		//App->render->Blit(Mini_Boss, position.x - 44,LArmPosition, &Left_Arm.GetCurrentFrame());
-
-	}
-
-
-	if (life < 40 && life>30)
-		Current_AnimationBody = &idle;
-
-	if (life < 30)
-		Current_AnimationBody = &idle_Damage;
-
-	if (life <= 10 && life>5) {
-		position.x--;
-
-		Rarmfalling = true;
-		if (armsOut) {
-			App->particles->AddParticle(App->particles->EnemyExplosion, position.x + 35, position.y);
-			App->particles->AddParticle(App->particles->EnemyExplosion, position.x - 35, position.y+10);
-			App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, position.y + 10);
-			
-			App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, RArmPosition);
-			App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, RArmPosition + 10);
-
-
-			armsOut = false;
-		}
-		
-	
-	}
-	
-	if (counterGreenBomb >= 100 && counterGreenBomb <= 101) {
-		launchBombs = true;
-		counterGreenBomb = 0;
-	}
-
-	if (!dead) {
-		
-		Move();
-		if (launchBombs) {
-			bombs();
-			launchBombs = false;
-		}
-	}
-
-
-	if (Rarmfalling) {
-		RArmPosition++;
+	if (EnemyAppear) {
+		spawn();
 		
 	}
 
+	if (SpawnFInished) {
 
-	if (life <= 5 && life>0) {
-		position.x--;
-		LArmfallinf = true;
-		if (armsOut2) {
-			App->particles->AddParticle(App->particles->EnemyExplosion, position.x - 40, position.y);
-			App->particles->AddParticle(App->particles->EnemyExplosion, position.x + 40, position.y - 10);
-			App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, position.y - 10);
-		
-			App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, LArmPosition);
-			App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, LArmPosition + 10);
+		if (!dead) {
+			body->SetPos(position.x, position.y);
+
+			if (armsOut) {
+				RArm->SetPos(position.x + 38, position.y);
+			}
+			else {
+				RArm->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
+
+			}
+
+
+			if (armsOut2) {
+				LArm->SetPos(position.x - 40, position.y);
+			}
+			else {
+
+				LArm->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
+
+			}
+			position.x++;
+
+
+			//App->render->Blit(Mini_Boss, position.x - 9, position.y + 18, &blueCircle.GetCurrentFrame());
+			//App->render->Blit(Mini_Boss, position.x + 20, position.y + 18, &blueCircle.GetCurrentFrame());
+			//App->render->Blit(Mini_Boss, position.x - 3, position.y + 37, &leg1.GetCurrentFrame());
+			//App->render->Blit(Mini_Boss, position.x + 27, position.y + 37, &leg2.GetCurrentFrame());
+			//App->render->Blit(Mini_Boss, position.x, position.y, &Current_AnimationBody->GetCurrentFrame());
+			//App->render->Blit(Mini_Boss, position.x + 38, RArmPosition, &Right_Arm.GetCurrentFrame());
+			//App->render->Blit(Mini_Boss, position.x - 44,LArmPosition, &Left_Arm.GetCurrentFrame());
+
 		}
+
+
+		if (life < 40 && life>30)
+			Current_AnimationBody = &idle;
+
+		if (life < 30)
+			Current_AnimationBody = &idle_Damage;
+
+		if (life <= 15 && life > 10) {
+
+			Rarmfalling = true;
+			if (armsOut) {
+				App->particles->AddParticle(App->particles->EnemyExplosion, position.x + 35, position.y);
+				App->particles->AddParticle(App->particles->EnemyExplosion, position.x - 35, position.y + 10);
+				App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, position.y + 10);
+
+				App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, RArmPosition);
+				App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, RArmPosition + 10);
+
+
+				armsOut = false;
+			}
+
+
+		}
+
+		if (life < 7)
+			position.x--;
+
+		if (counterGreenBomb >= 500 && counterGreenBomb <= 510) {
+			launchBombs = true;
+			counterGreenBomb = 0;
+		}
+
+
+		if (!dead) {
+
+			Move();
+			if (launchBombs) {
+				bombs();
+				launchBombs = false;
+			}
+		}
+
+
+
+		if (Rarmfalling) {
+			RArmPosition++;
+
+		}
+
+
+		if (life <= 5 && life > 0) {
+
+			LArmfallinf = true;
+			if (armsOut2) {
+				App->particles->AddParticle(App->particles->EnemyExplosion, position.x - 40, position.y);
+				App->particles->AddParticle(App->particles->EnemyExplosion, position.x + 40, position.y - 10);
+				App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, position.y - 10);
+
+				App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, LArmPosition);
+				App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, LArmPosition + 10);
+			}
 
 
 			armsOut2 = false;
 		}
-		
 
-	if (LArmfallinf) {
-		LArmPosition++;
-	
-		
-	}
 
-	if (life<=0) {
-	
-		dead = true;
+		if (LArmfallinf) {
+			LArmPosition++;
 
-		body->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
-		position.x++;
-		position.y++;
-		
-		if (dyingParticles) {
-			
-			App->particles->AddParticle(App->particles->FogExplosion, position.x+30,position.y+10);
-			App->particles->AddParticle(App->particles->FogExplosion, position.x - 30, position.y + 10);
-			App->particles->AddParticle(App->particles->FogExplosion, position.x , position.y);
-			
-
-			dyingParticles = false;
 
 		}
-	
+
+		if (life <= 0) {
+
+			dead = true;
+
+			body->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
+			position.x++;
+			position.y++;
+
+			if (dyingParticles) {
+
+				App->particles->AddParticle(App->particles->FogExplosion, position.x + 30, position.y + 10);
+				App->particles->AddParticle(App->particles->FogExplosion, position.x - 30, position.y + 10);
+				App->particles->AddParticle(App->particles->FogExplosion, position.x, position.y);
 
 
-		
-		
-		
+				dyingParticles = false;
+
+			}
+
+
+
+
+
+
+		}
+		counterGreenBomb++;
 	}
 	App->render->Blit(Mini_Boss, position.x - 9, position.y + 18, &blueCircle.GetCurrentFrame());
 	App->render->Blit(Mini_Boss, position.x + 20, position.y + 18, &blueCircle.GetCurrentFrame());
@@ -264,10 +282,6 @@ update_status Iron_Craw::Update() {
 	App->render->Blit(Mini_Boss, position.x, position.y, &Current_AnimationBody->GetCurrentFrame());
 	App->render->Blit(Mini_Boss, position.x + 38, RArmPosition, &Right_Arm.GetCurrentFrame());
 	App->render->Blit(Mini_Boss, position.x - 44, LArmPosition, &Left_Arm.GetCurrentFrame());
-
-
-	counterGreenBomb++;
-
 
 
 
@@ -300,7 +314,42 @@ bool Iron_Craw::CleanUp() {
 }
 
 
+void Iron_Craw::spawn() {
 
+	position.x++;
+
+	body->SetPos(position.x, position.y);
+	RArm->SetPos(position.x + 38, position.y);
+	LArm->SetPos(position.x - 40, position.y);
+
+	if (spawnMovementDown == false ) {
+		position.y -= 0.3f;
+		RArmPosition -= 0.3f;
+		LArmPosition -= 0.3f;
+	}
+	if (position.y <= MAX_HEIGHT_MINIBOSS) {
+		spawnMovementDown = true;
+
+	}
+
+	if (spawnMovementDown == true) {
+        position.y += 0.3f;
+		RArmPosition += 0.3f;
+		LArmPosition += 0.3f;
+		
+		if (position.y <=55) {
+			spawnMovementDown = false;
+			SpawnFInished = true;
+			EnemyAppear = false;
+			
+		}
+	}
+
+		
+	
+		
+
+}
 
 
 void Iron_Craw::Move() {
@@ -360,28 +409,7 @@ void Iron_Craw::bombs() {
 	App->enemies->AddEnemy(ENEMY_TYPES::GREENBOMB, position.x - 20, position.y + 20, COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
 	App->enemies->AddEnemy(ENEMY_TYPES::GREENBOMB, position.x + 20, position.y , COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
 	App->enemies->AddEnemy(ENEMY_TYPES::GREENBOMB, position.x - 20, position.y , COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
-	/*counterGreenBomb++;
-	PlayerPosition = App->player->position;
-	if (counterGreenBomb>=70) {
-
 	
-	
-		
-		App->particles->AddParticle(App->particles->GreenBomb, position.x + 20, position.y-20, COLLIDER_TYPE::COLLIDER_ENEMY_SHOT);
-
-	
-
-
-		counterGreenBomb = 0;
-	}
-	
-	angleBomb = radians * (180 / PI);
-	radians = atan2((PlayerPosition.y - position.y), (PlayerPosition.x - position.x));
-
-
-	App->particles->GreenBomb.Speed.x = 3 * (cos(angleBomb*PI / 180));
-	App->particles->GreenBomb.Speed.x++;
-	App->particles->GreenBomb.Speed.y = 3 * (sin(angleBomb*PI / 180));*/
 
 
 	
@@ -389,17 +417,6 @@ void Iron_Craw::bombs() {
 
 }
 	
-
-	
-
-
-
-
-
-
-
-
-
 
 
 void Iron_Craw::OnCollision(Collider *c1, Collider *c2) {

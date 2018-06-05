@@ -21,6 +21,8 @@ GreenBombIron::GreenBombIron(int x, int y):Enemy( x, y)
 	GreenBombAnim.PushBack({ 235,129,18,16 });
 	GreenBombAnim.loop = true;
 
+
+
 	Enemy::sprites = App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
 
 	life = 1;
@@ -34,18 +36,18 @@ GreenBombIron::GreenBombIron(int x, int y):Enemy( x, y)
 
 void GreenBombIron::Move() 
 {
-	position.x++;
+
 	counter++;
 	counter2++;
 
-	if (position.y < App->MiniBoss->position.y) {
+	if (position.y < App->MiniBoss->position.y+30) {
 	
 		if(counter<40)
 		position.y-=0.1f;
 		down_ = true;
 
 	}
-	else if (position.y > App->MiniBoss->position.y) {
+	else if (position.y > App->MiniBoss->position.y-30) {
 
 		if(counter<40)
 			position.y+=0.1f;

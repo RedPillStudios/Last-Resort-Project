@@ -100,7 +100,7 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	minispaceships.PushBack({ 77,0,9,4 });
 	minispaceships.speed = 0.1;
 	minispaceships.loop = true;
-	srand(2);
+	
 
 }
 
@@ -152,7 +152,7 @@ bool ModuleSceneLvl1::Start()
 	if (IsEnabled()) {
 		App->enemies->Enable();
 		App->powerup->Enable();
-		App->Boss->Enable();
+	/*	App->Boss->Enable();*/
 		App->collision->Enable();
 		App->particles->Enable();
     App->MiniBoss->Enable();
@@ -177,7 +177,7 @@ bool ModuleSceneLvl1::Start()
 
   //Bees
 	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
-	 App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);
+	/* App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
   
  //Wasps
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60,false);
