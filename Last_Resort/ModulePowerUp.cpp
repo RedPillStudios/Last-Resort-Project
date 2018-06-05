@@ -249,11 +249,11 @@ void ModulePowerUp::OnCollision(Collider *c1, Collider *c2) {
 							App->player->Lvl2 = false;
 						}
 						else if (PowerUps[i]->type == POWERUP_TYPES::BOMB) {
-
 							App->player->WeaponType = 6;
-							App->player->Lvl3 = true;
-							App->player->Lvl2 = false;
+							App->player->Lvl2 == true;
+							App->player->Lvl3 = false;
 						}
+						
 					}
 				
 					//LVL3 --> LVL3 Missile or LVL3 Laser ACTIVATED
@@ -263,9 +263,11 @@ void ModulePowerUp::OnCollision(Collider *c1, Collider *c2) {
 							App->player->WeaponType = 4;
 						else if (PowerUps[i]->type == POWERUP_TYPES::LASER)
 							App->player->WeaponType = 5;
-						else if (PowerUps[i]->type == POWERUP_TYPES::BOMB)
+						else if (PowerUps[i]->type == POWERUP_TYPES::BOMB) {
 							App->player->WeaponType = 6;
-
+							App->player->Lvl2 == true;
+							App->player->Lvl3 = false;
+						}
 					}
 				}
 

@@ -13,7 +13,6 @@
 
 CarsToFast::CarsToFast(int x, int y,ENEMY_TYPES type_): Enemy(x,y){
 	
-
 	type = type_;
 
 	randomColorCars = rand() % 3 + 1;
@@ -31,7 +30,6 @@ CarsToFast::CarsToFast(int x, int y,ENEMY_TYPES type_): Enemy(x,y){
 	CarYellow.PushBack({ 63,198,21,11 });
 	CarYellow.speed = 0.09f;
 
-
 	CarBlue.PushBack({ 0,212,21,11 });
 	CarBlue.PushBack({ 21,212,21,11 });
 	CarBlue.PushBack({ 42,212,21,11 });
@@ -41,8 +39,10 @@ CarsToFast::CarsToFast(int x, int y,ENEMY_TYPES type_): Enemy(x,y){
 	int counterRed_x = 0;
 	int counterRed_y = 148;
 	for (int i = 0; i < 14; i++) {
+		
 		CarRed_Destruct.PushBack({ counterRed_x,counterRed_y,31,18 });
 		counterRed_x += 31;
+		
 		if (counterRed_x >= 31 * 8) {
 			counterRed_y += 14;
 			counterRed_x = 0;

@@ -38,6 +38,7 @@ class ModuleEnemies : public Module {
 
 public:
 
+
 	ModuleEnemies();
 	~ModuleEnemies();
 	SDL_Texture *sprites;
@@ -53,6 +54,12 @@ public:
 	void OnCollision(Collider *c1, Collider *c2);
 	bool AddEnemy(ENEMY_TYPES type, int x, int y, bool PowerUp);
 	bool SpawnEnemyCheat = false;
+
+	int randomPowerUps = 0;
+
+	bool miss = false;
+	bool las = false;
+	bool bo = false;
 
 private:
 
