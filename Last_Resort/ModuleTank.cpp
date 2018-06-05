@@ -436,7 +436,7 @@ void ModuleTank::OnCollision(Collider *c1, Collider *c2) {
 			--BossLife;
 		}
 		hit = true;
-		LOG("BOSS LIFE    - 1");
+		LOG("BOSS LIFE   %i",BossLife);
 		if (BossLife < 25 && count == 0) {
 			DestroyTurret = true;
 		}

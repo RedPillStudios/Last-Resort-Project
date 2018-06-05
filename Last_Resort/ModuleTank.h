@@ -90,7 +90,7 @@ public:
 	float Angle2;
 	int TimerShoot = 0;
 	int TimerShoot2 = 0;
-	int BossLife = 80;
+	int BossLife = 50;
 	int counter_Flicker=0;
 	int counter_Life = 0;
 public:
