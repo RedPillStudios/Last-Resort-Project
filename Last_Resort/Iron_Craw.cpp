@@ -100,7 +100,7 @@ bool Iron_Craw::Start() {
 
 	
 
-	position = {(150.0),55.0};
+	position = {(200.0),-10.0};
   
 	Mini_Boss= App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
 
@@ -124,6 +124,7 @@ bool Iron_Craw::Start() {
 	armsOut2 = true;
 	moving_Down = true;
 	EnemyAppear = true;
+	ExplosionDead = true;
 	LArmfallinf = false;
 	Rarmfalling = false;
 	launchBombs =false;
@@ -187,9 +188,11 @@ update_status Iron_Craw::Update() {
 			if (armsOut) {
 				App->particles->AddParticle(App->particles->EnemyExplosion, position.x + 35, position.y);
 				App->particles->AddParticle(App->particles->EnemyExplosion, position.x - 35, position.y + 10);
-				App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, position.y + 10);
+				App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, position.y + 20);
+				App->particles->AddParticle(App->particles->EnemyExplosion, position.x, position.y + 15);
 
 				App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, RArmPosition);
+				App->particles->AddParticle(App->particles->FogExplosion, position.x - 35, LArmPosition - 20);
 				App->particles->AddParticle(App->particles->FogExplosion, position.x + 35, RArmPosition + 10);
 
 
@@ -231,9 +234,12 @@ update_status Iron_Craw::Update() {
 			if (armsOut2) {
 				App->particles->AddParticle(App->particles->EnemyExplosion, position.x - 40, position.y);
 				App->particles->AddParticle(App->particles->EnemyExplosion, position.x + 40, position.y - 10);
+				App->particles->AddParticle(App->particles->EnemyExplosion, position.x + 40, position.y + 10);
+
 				App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, position.y - 10);
 
 				App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, LArmPosition);
+				App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, LArmPosition-20);
 				App->particles->AddParticle(App->particles->FogExplosion, position.x - 40, LArmPosition + 10);
 			}
 
@@ -251,6 +257,7 @@ update_status Iron_Craw::Update() {
 		if (life <= 0) {
 
 			dead = true;
+			position.x++;
 
 			body->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);
 			position.x++;
@@ -274,7 +281,50 @@ update_status Iron_Craw::Update() {
 
 		}
 		counterGreenBomb++;
+
+		if (dead &&  ExplosionDead && position.y>=200) {
+
+
+
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 50, (int)position.y);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + -2);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + -14, (int)position.y);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 33);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 22, (int)position.y);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 5);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 44, (int)position.y + -2);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 43, (int)position.y + 33);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 15);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 1, (int)position.y - 10);
+
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 33 + 4, (int)position.y + 22 + 5);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 21 - 10, (int)position.y - 28 - 15);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 55 - 15, (int)position.y - 3);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y - 44 + 20);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 66 + 7, (int)position.y);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 5 + 5);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 40 - 5, (int)position.y + 44 - 12);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 35 - 12, (int)position.y - 23 + 3);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 30, (int)position.y + 40 - 8);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 70 + 12, (int)position.y - 30 + 12);
+
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 90, (int)position.y + 12);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 69, (int)position.y - 58);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 97, (int)position.y - 2);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 80, (int)position.y - 54);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 120, (int)position.y);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 12);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 110, (int)position.y + 24);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 98, (int)position.y - 33);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 30);
+			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 81, (int)position.y - 44);
+
+			ExplosionDead = false;
+		}
+
+
 	}
+	
 	App->render->Blit(Mini_Boss, position.x - 9, position.y + 18, &blueCircle.GetCurrentFrame());
 	App->render->Blit(Mini_Boss, position.x + 20, position.y + 18, &blueCircle.GetCurrentFrame());
 	App->render->Blit(Mini_Boss, position.x - 3, position.y + 33, &leg1.GetCurrentFrame());
@@ -322,20 +372,20 @@ void Iron_Craw::spawn() {
 	RArm->SetPos(position.x + 38, position.y);
 	LArm->SetPos(position.x - 40, position.y);
 
-	if (spawnMovementDown == false ) {
-		position.y -= 0.3f;
-		RArmPosition -= 0.3f;
-		LArmPosition -= 0.3f;
-	}
-	if (position.y <= MAX_HEIGHT_MINIBOSS) {
+	//if (spawnMovementDown == false ) {
+	//	position.y -= 0.5f;
+	//	RArmPosition -= 0.5f;
+	//	LArmPosition -= 0.5f;
+	//}
+	if (position.y <=30) {
 		spawnMovementDown = true;
 
 	}
 
 	if (spawnMovementDown == true) {
-        position.y += 0.3f;
-		RArmPosition += 0.3f;
-		LArmPosition += 0.3f;
+        position.y += 0.5f;
+		RArmPosition += 0.5f;
+		LArmPosition += 0.5f;
 		
 		if (position.y <=55) {
 			spawnMovementDown = false;
@@ -431,5 +481,8 @@ void Iron_Craw::OnCollision(Collider *c1, Collider *c2) {
 		}
 
 	}
+
+
+
 
 }

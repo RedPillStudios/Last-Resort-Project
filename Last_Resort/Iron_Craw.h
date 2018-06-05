@@ -97,6 +97,7 @@ float RArmPosition;
 	bool SpawnFInished=false;
 	bool spawnMovementDown;
 	bool EnemyAppear;
+	bool ExplosionDead;
 
 	void bombs();
 	void Move();
