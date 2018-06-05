@@ -84,6 +84,18 @@ powerUp_Bomb::powerUp_Bomb(int x, int y) : powerUp(x, y) {
 	type = POWERUP_TYPES::BOMB;
 };
 
+powerUp_Speed::powerUp_Speed(int x, int y) : powerUp(x, y) {
+
+	powerUp::sprite = App->textures->Load("Images/General/PowerUps_Sprite.png");
+	Speed.PushBack({0,64,18,21 });
+	collider = App->collision->AddCollider({ 500,120,19,21 }, COLLIDER_TYPE::COLLIDER_POWER_UP, (Module*)App->powerup);
+	animation = &Speed;
+	type = POWERUP_TYPES::SPEED;
+
+};
+
+
+
 void powerUp_Bomb::Update() {
 
 	timing++;
@@ -183,251 +195,269 @@ void ModulePowerUp::OnCollision(Collider *c1, Collider *c2) {
 
 	for (uint i = 0; i < MAX_POWERUP; ++i) {
 
-		if (c2->type == COLLIDER_PLAYER||c2->type==COLLIDER_PLAYER2) {
+		if (c2->type == COLLIDER_PLAYER || c2->type == COLLIDER_PLAYER2) {
 
 			Mix_PlayChannel(-1, PickUpWeapon, 0);
 
 			if (PowerUps[i] != nullptr && PowerUps[i]->GetCollider() == c1) {
 
 				PowerUps[i]->OnCollision(c2);
+				if (PowerUps[i]->type != SPEED) {
+					if (c2->type == COLLIDER_PLAYER) {
 
-				if (c2->type == COLLIDER_PLAYER) {
+						//LVL 0 (HAVING NOTHING) --> HOU ACTIVATED
+						if (App->player->Lvl0) {
 
-					//LVL 0 (HAVING NOTHING) --> HOU ACTIVATED
-					if (App->player->Lvl0) {
+							App->HOU_Player1->HOU_activated = true;
 
-						App->HOU_Player1->HOU_activated = true;
+							if (PowerUps[i]->ColorBlue == true) {
+								App->HOU_Player1->Blue = true;
+								App->HOU_Player1->Red = false;
+							}
 
-						if (PowerUps[i]->ColorBlue == true) {
-							App->HOU_Player1->Blue = true;
-							App->HOU_Player1->Red = false;
+							else if (PowerUps[i]->ColorRed == true) {
+
+								App->HOU_Player1->Blue = false;
+								App->HOU_Player1->Red = true;
+							}
+
+							App->player->Lvl0 = false;
+							App->player->Lvl1 = true;
 						}
 
-						else if (PowerUps[i]->ColorRed == true) {
+						//LVL 1 (HAVING HOU) --> LVL2 Missiles OR LVL2 Bomb OR LVL2 Laser ACTIVATED
+						else if (App->player->Lvl1) {
 
-							App->HOU_Player1->Blue = false;
-							App->HOU_Player1->Red = true;
+							if (PowerUps[i]->ColorBlue == true) {
+								App->HOU_Player1->Blue = true;
+								App->HOU_Player1->Red = false;
+							}
+
+							else if (PowerUps[i]->ColorRed == true) {
+
+								App->HOU_Player1->Blue = false;
+								App->HOU_Player1->Red = true;
+							}
+
+							if (PowerUps[i]->type == POWERUP_TYPES::MISILES) {
+								App->player->WeaponType = 3;
+								App->player->Lvl2 = true;
+								App->player->Lvl1 = false;
+							}
+							else if (PowerUps[i]->type == POWERUP_TYPES::LASER) {
+
+								App->player->WeaponType = 2;
+								App->player->Lvl2 = true;
+								App->player->Lvl1 = false;
+							}
+							else if (PowerUps[i]->type == POWERUP_TYPES::BOMB) {
+
+								App->player->WeaponType = 6;
+								App->player->Lvl2 = true;
+								App->player->Lvl1 = false;
+							}
 						}
 
-						App->player->Lvl0 = false;
-						App->player->Lvl1 = true;
+						//LVL2 --> LVL3 Laser OR LVL3 Missiles ACTIVATED
+						else if (App->player->Lvl2) {
+
+
+							if (PowerUps[i]->ColorBlue == true) {
+								App->HOU_Player1->Blue = true;
+								App->HOU_Player1->Red = false;
+							}
+
+							else if (PowerUps[i]->ColorRed == true) {
+
+								App->HOU_Player1->Blue = false;
+								App->HOU_Player1->Red = true;
+							}
+
+							if (PowerUps[i]->type == POWERUP_TYPES::LASER) {
+
+								App->player->WeaponType = 5;
+								App->player->Lvl3 = true;
+								App->player->Lvl2 = false;
+							}
+							else if (PowerUps[i]->type == POWERUP_TYPES::MISILES) {
+
+								App->player->WeaponType = 4;
+								App->player->Lvl3 = true;
+								App->player->Lvl2 = false;
+							}
+							else if (PowerUps[i]->type == POWERUP_TYPES::BOMB) {
+								App->player->WeaponType = 6;
+								/*App->player->Lvl2 == true;
+								App->player->Lvl3 = false;*/
+							}
+
+						}
+
+						//LVL3 --> LVL3 Missile or LVL3 Laser ACTIVATED
+						else if (App->player->Lvl3) {
+
+							if (PowerUps[i]->ColorBlue == true) {
+								App->HOU_Player1->Blue = true;
+								App->HOU_Player1->Red = false;
+							}
+
+							else if (PowerUps[i]->ColorRed == true) {
+
+								App->HOU_Player1->Blue = false;
+								App->HOU_Player1->Red = true;
+							}
+
+							if (PowerUps[i]->type == POWERUP_TYPES::MISILES)
+								App->player->WeaponType = 4;
+							else if (PowerUps[i]->type == POWERUP_TYPES::LASER)
+								App->player->WeaponType = 5;
+							else if (PowerUps[i]->type == POWERUP_TYPES::BOMB) {
+								App->player->WeaponType = 6;
+								App->player->Lvl2 == true;
+								App->player->Lvl3 = false;
+							}
+						}
+						/*	if (PowerUps[i]->type == POWERUP_TYPES::SPEED) {
+								App->player->speed += 0.3;
+								App->enemies->AddEnemy(ENEMY_TYPES::PSPEEDP1, App->player->position.x, App->player->position.y);
+							}*/
 					}
 
-					//LVL 1 (HAVING HOU) --> LVL2 Missiles OR LVL2 Bomb OR LVL2 Laser ACTIVATED
-					else if (App->player->Lvl1) {
+					//PLAYER 2
+					if (c2->type == COLLIDER_PLAYER2) {
 
-						if (PowerUps[i]->ColorBlue == true) {
-							App->HOU_Player1->Blue = true;
-							App->HOU_Player1->Red = false;
+						Mix_PlayChannel(-1, PickUpWeapon, 0);
+						//LVL 0 (HAVING NOTHING) --> HOU ACTIVATED
+						if (App->player2->Lvl0) {
+
+							App->HOU_Player2->HOU_activated = true;
+
+							if (PowerUps[i]->ColorBlue == true) {
+								App->HOU_Player2->Blue = true;
+								App->HOU_Player2->Red = false;
+							}
+
+							else if (PowerUps[i]->ColorRed == true) {
+
+								App->HOU_Player2->Blue = false;
+								App->HOU_Player2->Red = true;
+							}
+
+							App->player2->Lvl0 = false;
+							App->player2->Lvl1 = true;
 						}
 
-						else if (PowerUps[i]->ColorRed == true) {
+						//LVL 1 (HAVING HOU) --> LVL2 Missiles OR LVL2 Bomb OR LVL2 Laser ACTIVATED
+						else if (App->player2->Lvl1) {
 
-							App->HOU_Player1->Blue = false;
-							App->HOU_Player1->Red = true;
+							if (PowerUps[i]->ColorBlue == true) {
+								App->HOU_Player2->Blue = true;
+								App->HOU_Player2->Red = false;
+							}
+
+							else if (PowerUps[i]->ColorRed == true) {
+
+								App->HOU_Player2->Blue = false;
+								App->HOU_Player2->Red = true;
+							}
+
+							if (PowerUps[i]->type == POWERUP_TYPES::MISILES) {
+								App->player2->WeaponTypeP2 = 3;
+								App->player2->Lvl2 = true;
+								App->player2->Lvl1 = false;
+							}
+
+							else if (PowerUps[i]->type == POWERUP_TYPES::LASER) {
+
+								App->player2->WeaponTypeP2 = 2;
+								App->player2->Lvl2 = true;
+								App->player2->Lvl1 = false;
+							}
+							else if (PowerUps[i]->type == POWERUP_TYPES::BOMB) {
+
+								App->player2->WeaponTypeP2 = 6;
+								App->player2->Lvl2 = true;
+								App->player2->Lvl1 = false;
+							}
 						}
 
-						if (PowerUps[i]->type == POWERUP_TYPES::MISILES) {
-							App->player->WeaponType = 3;
-							App->player->Lvl2 = true;
-							App->player->Lvl1 = false;
-						}
-						else if (PowerUps[i]->type == POWERUP_TYPES::LASER) {
+						//LVL2 --> LVL3 Laser OR LVL3 Missiles ACTIVATED
+						else if (App->player2->Lvl2) {
 
-							App->player->WeaponType = 2;
-							App->player->Lvl2 = true;
-							App->player->Lvl1 = false;
-						}
-						else if (PowerUps[i]->type == POWERUP_TYPES::BOMB) {
+							if (PowerUps[i]->ColorBlue == true) {
+								App->HOU_Player2->Blue = true;
+								App->HOU_Player2->Red = false;
+							}
 
-							App->player->WeaponType = 6;
-							App->player->Lvl2 = true;
-							App->player->Lvl1 = false;
+							else if (PowerUps[i]->ColorRed == true) {
+
+								App->HOU_Player2->Blue = false;
+								App->HOU_Player2->Red = true;
+							}
+
+							if (PowerUps[i]->type == POWERUP_TYPES::LASER) {
+
+								App->player2->WeaponTypeP2 = 5;
+								App->player2->Lvl3 = true;
+								App->player2->Lvl2 = false;
+							}
+
+							else if (PowerUps[i]->type == POWERUP_TYPES::MISILES) {
+
+								App->player2->WeaponTypeP2 = 4;
+								App->player2->Lvl3 = true;
+								App->player2->Lvl2 = false;
+							}
+							else if (PowerUps[i]->type == POWERUP_TYPES::BOMB) {
+
+								App->player2->WeaponTypeP2 = 6;
+
+							}
 						}
+
+						//LVL3 LASER --> LVL2 Missile ACTIVATED
+						else if (App->player2->Lvl3) {
+
+							if (PowerUps[i]->ColorBlue == true) {
+								App->HOU_Player2->Blue = true;
+								App->HOU_Player2->Red = false;
+							}
+
+							else if (PowerUps[i]->ColorRed == true) {
+
+								App->HOU_Player2->Blue = false;
+								App->HOU_Player2->Red = true;
+							}
+
+							if (PowerUps[i]->type == POWERUP_TYPES::MISILES)
+								App->player2->WeaponTypeP2 = 4;
+							else if (PowerUps[i]->type == POWERUP_TYPES::LASER)
+								App->player2->WeaponTypeP2 = 5;
+							else if (PowerUps[i]->type == POWERUP_TYPES::BOMB)
+								App->player2->WeaponTypeP2 = 6;
+
+						}
+						/*	if (PowerUps[i]->type == POWERUP_TYPES::SPEED) {
+								App->player2->speed += 0.3;
+								App->enemies->AddEnemy(ENEMY_TYPES::PSPEEDP2, App->player2->positionp2.x, App->player2->positionp2.y);
+							}*/
 					}
 
-					//LVL2 --> LVL3 Laser OR LVL3 Missiles ACTIVATED
-					else if (App->player->Lvl2) {
-
-
-						if (PowerUps[i]->ColorBlue == true) {
-							App->HOU_Player1->Blue = true;
-							App->HOU_Player1->Red = false;
-						}
-
-						else if (PowerUps[i]->ColorRed == true) {
-
-							App->HOU_Player1->Blue = false;
-							App->HOU_Player1->Red = true;
-						}
-
-						if (PowerUps[i]->type == POWERUP_TYPES::LASER) {
-
-							App->player->WeaponType = 5;
-							App->player->Lvl3 = true;
-							App->player->Lvl2 = false;
-						}
-						else if(PowerUps[i]->type == POWERUP_TYPES::MISILES) {
-
-							App->player->WeaponType = 4;
-							App->player->Lvl3 = true;
-							App->player->Lvl2 = false;
-						}
-						else if (PowerUps[i]->type == POWERUP_TYPES::BOMB) {
-							App->player->WeaponType = 6;
-							/*App->player->Lvl2 == true;
-							App->player->Lvl3 = false;*/
-						}
-						
+				}
+				else if (PowerUps[i]->type == POWERUP_TYPES::SPEED) {
+					if (c2->type == COLLIDER_PLAYER) {
+						App->player2->speed += 0.3;
+						App->enemies->AddEnemy(ENEMY_TYPES::PSPEEDP1, App->player->position.x, App->player->position.y);
 					}
-				
-					//LVL3 --> LVL3 Missile or LVL3 Laser ACTIVATED
-					else if (App->player->Lvl3) {
-
-						if (PowerUps[i]->ColorBlue == true) {
-							App->HOU_Player1->Blue = true;
-							App->HOU_Player1->Red = false;
-						}
-
-						else if (PowerUps[i]->ColorRed == true) {
-
-							App->HOU_Player1->Blue = false;
-							App->HOU_Player1->Red = true;
-						}
-
-						if (PowerUps[i]->type == POWERUP_TYPES::MISILES)
-							App->player->WeaponType = 4;
-						else if (PowerUps[i]->type == POWERUP_TYPES::LASER)
-							App->player->WeaponType = 5;
-						else if (PowerUps[i]->type == POWERUP_TYPES::BOMB) {
-							App->player->WeaponType = 6;
-							App->player->Lvl2 == true;
-							App->player->Lvl3 = false;
-						}
+					if (c2->type == COLLIDER_PLAYER2) {
+						App->player2->speed += 0.3;
+						App->enemies->AddEnemy(ENEMY_TYPES::PSPEEDP2, App->player2->positionp2.x, App->player2->positionp2.y);
 					}
 				}
-
-				//PLAYER 2
-				if (c2->type == COLLIDER_PLAYER2) {
-
-					Mix_PlayChannel(-1, PickUpWeapon, 0);
-					//LVL 0 (HAVING NOTHING) --> HOU ACTIVATED
-					if (App->player2->Lvl0) {
-
-						App->HOU_Player2->HOU_activated = true;
-
-						if (PowerUps[i]->ColorBlue == true) {
-							App->HOU_Player2->Blue = true;
-							App->HOU_Player2->Red = false;
-						}
-
-						else if (PowerUps[i]->ColorRed == true) {
-
-							App->HOU_Player2->Blue = false;
-							App->HOU_Player2->Red = true;
-						}
-
-						App->player2->Lvl0 = false;
-						App->player2->Lvl1 = true;
-					}
-
-					//LVL 1 (HAVING HOU) --> LVL2 Missiles OR LVL2 Bomb OR LVL2 Laser ACTIVATED
-					else if (App->player2->Lvl1) {
-
-						if (PowerUps[i]->ColorBlue == true) {
-							App->HOU_Player2->Blue = true;
-							App->HOU_Player2->Red = false;
-						}
-
-						else if (PowerUps[i]->ColorRed == true) {
-
-							App->HOU_Player2->Blue = false;
-							App->HOU_Player2->Red = true;
-						}
-
-						if (PowerUps[i]->type == POWERUP_TYPES::MISILES) {
-							App->player2->WeaponTypeP2 = 3;
-							App->player2->Lvl2 = true;
-							App->player2->Lvl1 = false;
-						}
-
-						else if (PowerUps[i]->type == POWERUP_TYPES::LASER) {
-
-							App->player2->WeaponTypeP2 = 2;
-							App->player2->Lvl2 = true;
-							App->player2->Lvl1 = false;
-						}
-						else if (PowerUps[i]->type == POWERUP_TYPES::BOMB) {
-
-							App->player2->WeaponTypeP2 = 6;
-							App->player2->Lvl2 = true;
-							App->player2->Lvl1 = false;
-						}
-					}
-
-					//LVL2 --> LVL3 Laser OR LVL3 Missiles ACTIVATED
-					else if (App->player2->Lvl2) {
-
-						if (PowerUps[i]->ColorBlue == true) {
-							App->HOU_Player2->Blue = true;
-							App->HOU_Player2->Red = false;
-						}
-
-						else if (PowerUps[i]->ColorRed == true) {
-
-							App->HOU_Player2->Blue = false;
-							App->HOU_Player2->Red = true;
-						}
-
-						if (PowerUps[i]->type == POWERUP_TYPES::LASER) {
-
-							App->player2->WeaponTypeP2 = 5;
-							App->player2->Lvl3 = true;
-							App->player2->Lvl2 = false;
-						}
-
-						else if (PowerUps[i]->type == POWERUP_TYPES::MISILES) {
-
-							App->player2->WeaponTypeP2 = 4;
-							App->player2->Lvl3 = true;
-							App->player2->Lvl2 = false;
-						}
-						else if (PowerUps[i]->type == POWERUP_TYPES::BOMB) {
-
-							App->player2->WeaponTypeP2 = 6;
-
-						}
-					}
-
-					//LVL3 LASER --> LVL2 Missile ACTIVATED
-					else if (App->player2->Lvl3) {
-
-						if (PowerUps[i]->ColorBlue == true) {
-							App->HOU_Player2->Blue = true;
-							App->HOU_Player2->Red = false;
-						}
-
-						else if (PowerUps[i]->ColorRed == true) {
-
-							App->HOU_Player2->Blue = false;
-							App->HOU_Player2->Red = true;
-						}
-
-						if (PowerUps[i]->type == POWERUP_TYPES::MISILES)
-							App->player2->WeaponTypeP2 = 4;
-						else if (PowerUps[i]->type == POWERUP_TYPES::LASER)
-							App->player2->WeaponTypeP2 = 5;
-						else if (PowerUps[i]->type == POWERUP_TYPES::BOMB)
-							App->player2->WeaponTypeP2 = 6;
-						
-					}
-				}
-
 				delete PowerUps[i];
 				PowerUps[i] = nullptr;
 				break;
 			}
-
 		}
 	}
 }
@@ -469,6 +499,9 @@ void ModulePowerUp::spawnPowerUp(const PowerUpInfo &info)
 			break;
 		case POWERUP_TYPES::BOMB:
 			PowerUps[i] = new powerUp_Bomb(info.x, info.y);
+			break;
+		case POWERUP_TYPES::SPEED:
+			PowerUps[i] = new powerUp_Speed(info.x, info.y);
 			break;
 		}
 	}

@@ -121,6 +121,21 @@ public:
 
 };
 
+class powerUp_Speed : public powerUp {
+
+public:
+
+	powerUp_Speed(int x, int y);
+	~powerUp_Speed() {};
+
+	void OnCollision(Collider *c1) {};
+	Animation Speed;
+	fPoint position;
+
+	void Update() {};
+	int timing;
+
+};
 
 
 

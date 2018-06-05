@@ -35,6 +35,7 @@ ModuleUI::~ModuleUI() {}
 
 bool ModuleUI::Start() {
 	Charge_Controller = { 0,10,0,5 };
+	Charge_ControllerP2 = { 0,10,0,5 };
 	Pos_Bar1.x = 30;
 	Pos_Bar2.y = 90;
 
@@ -197,6 +198,19 @@ update_status ModuleUI::Update() {
 		else{
 			Charge_Controller.w = 0;
 		}
+		if (App->player2->IsEnabled() == true) {
+			App->render->Blit(Bar_Texture, SCREEN_WIDTH-120, SCREEN_HEIGHT - 20, &Bar.GetCurrentFrame(), false);
+			if (App->HOU_Player2->charging == true) {
+				if (Charge_ControllerP2.w <= 4060) {
+					Charge_ControllerP2.w += 70;
+				}
+				App->render->Blit(Bar_Texture, SCREEN_WIDTH - 120+24, SCREEN_HEIGHT - 19, &Charge_ControllerP2, false);
+			}
+			else {
+				Charge_ControllerP2.w = 0;
+			}
+		}
+
 
 		if (Spawned) {
 
@@ -259,13 +273,18 @@ update_status ModuleUI::Update() {
 			BlitText((SCREEN_WIDTH - 78), 16, font, "P2");
 		}
 		else {
-
-			BlitText((SCREEN_WIDTH - 20), 16, font, "P2");
-			BlitText((SCREEN_WIDTH - 48), 16, font, "F0R");
-			BlitText((SCREEN_WIDTH - 58), 16, font, "P");
-			BlitText((SCREEN_WIDTH - 100), 16, font, "PRESS");
+			if (counter >= 30) {
+				BlitText((SCREEN_WIDTH - 20), 16, font, "P2");
+				BlitText((SCREEN_WIDTH - 48), 16, font, "F0R");
+				BlitText((SCREEN_WIDTH - 58), 16, font, "P");
+				BlitText((SCREEN_WIDTH - 100), 16, font, "PRESS");
+			}
+			if (counter >= 50) {
+				counter = 0;
+			}
+		
 		}
-
+		counter++;
 		//TOP Score
 		if (App->scene1background->IsEnabled() == true) {
 

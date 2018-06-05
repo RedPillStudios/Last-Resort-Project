@@ -132,6 +132,8 @@ bool ModulePlayer::Start() {
 	//Player1Activated = false;
 	current_animation = &Appear;
 
+	speed = 2;
+
 	WeaponType = 0;
 	Lvl0 = true;
 	Lvl1 = false;
@@ -170,7 +172,7 @@ update_status ModulePlayer::Update() {
 	
 	position.x += 1;
 
-	int speed = 2;
+
 
 	if (current_animation == &Appear) {
 		Ship1Collider->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);

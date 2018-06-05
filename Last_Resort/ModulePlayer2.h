@@ -75,7 +75,7 @@ public:
 	Collider *Ship2Collider;
 
 public:
-
+	float speed;
 	bool startAnim = true;
 	bool shooted = false;
 
