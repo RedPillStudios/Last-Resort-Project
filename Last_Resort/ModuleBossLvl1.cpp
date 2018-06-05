@@ -413,7 +413,7 @@ update_status ModuleBossLvl1::Update() {
 		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 30, (int)position.y + 40 - 8);
 		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 70 + 12, (int)position.y - 30 + 12);
 
-		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 12, (int)position.y + 12);
+		/* App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 12, (int)position.y + 12);
 		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 24, (int)position.y - 58);
 		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 34, (int)position.y - 2);
 		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 80, (int)position.y - 54);
@@ -422,7 +422,7 @@ update_status ModuleBossLvl1::Update() {
 		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 10, (int)position.y + 24);
 		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 98, (int)position.y - 33);
 		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 30);
-		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 45, (int)position.y - 44);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 45, (int)position.y - 44);*/
 		 activate = true;
 		
 

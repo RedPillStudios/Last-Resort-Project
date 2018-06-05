@@ -100,7 +100,7 @@ bool Iron_Craw::Start() {
 		position = { 1100,-10.0 };
 	}
 	else if (App->scene1background->IronCraw1 == true && App->scene1background->IronCraw2 == true) {
-		position = { 7200,-10 };
+		position = { 8000,-10 };
 	}
 
   

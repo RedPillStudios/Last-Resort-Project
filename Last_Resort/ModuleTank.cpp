@@ -110,7 +110,7 @@ bool ModuleTank::Start() {
 		
 		
 	//colliders
-	life = 50;
+	life = 40;
 	
 	return true;
 }
