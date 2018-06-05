@@ -100,7 +100,9 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	minispaceships.PushBack({ 77,0,9,4 });
 	minispaceships.speed = 0.1;
 	minispaceships.loop = true;
+
 	//srand(2);
+
 
 }
 
@@ -152,7 +154,7 @@ bool ModuleSceneLvl1::Start()
 	if (IsEnabled()) {
 		App->enemies->Enable();
 		App->powerup->Enable();
-		App->Boss->Enable();
+	/*	App->Boss->Enable();*/
 		App->collision->Enable();
 		App->particles->Enable();
     App->MiniBoss->Enable();
@@ -177,8 +179,10 @@ bool ModuleSceneLvl1::Start()
 
   //Bees
 	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
+	/* App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
 	// App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);
 	App->enemies->AddEnemy(ENEMY_TYPES::BOSSLAMELLA, 300, 60, false);
+
   
  //Wasps
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60,false);
@@ -556,8 +560,26 @@ update_status ModuleSceneLvl1::Update() {
 	if (App->player->IsEnabled() == false && App->player2->IsEnabled() == false) {
 		App->BossTank->DestroyTank == true;
 	}
-	if (App->BossTank->DestroyTank == true) {
+	if (App->BossTank->DestroyTank == true && App->BossTank->IsEnabled() == true) {
 		App->BossTank->Disable();
+		LOG(" Tank disabled");
+	}
+	// iron craw disable
+
+	if (App->player->IsEnabled() == false && App->player2->IsEnabled() == false) {
+		App->MiniBoss->disablingIronCraw == true;
+	}
+	if (App->MiniBoss->disablingIronCraw == true && App->MiniBoss->IsEnabled()) {
+		App->MiniBoss->Disable();
+		LOG(" Iron disabled");
+		
+
+	}
+
+	////second Iron Spawn
+	//if (App->scene1background->position_max_limit >= 7700) {
+	//	IronCraw2 = true;
+	//	App->MiniBoss->Enable();
 	}
 
 	//Fade if boss is dead

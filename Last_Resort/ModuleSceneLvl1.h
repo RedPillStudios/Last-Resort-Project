@@ -32,6 +32,8 @@ public:
 	int position_min_limit = 0;
 	int timeFadeInt = SDL_GetTicks();
 
+	bool IronCraw2 = false;
+
 public:
 	
 	SDL_Texture* graphics = nullptr; 
