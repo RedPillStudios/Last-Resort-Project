@@ -19,7 +19,54 @@
 #include <time.h> 
 
 ModuleBossLvl1::ModuleBossLvl1() {
+	//APPEAR0 AJJAJAJJAJAJA SLAVA STALIN
+	AppearAnim0.PushBack({64,48,45,18});
+	AppearAnim0.PushBack({118,40,59,26});
+	AppearAnim0.PushBack({177,24,59,42});
+	AppearAnim0.PushBack({236,8,59,58});
+	AppearAnim0.PushBack({0,75,59,58});
+	AppearAnim0.PushBack({59,75,59,58});
+	AppearAnim0.PushBack({118,66,59,67});
+	AppearAnim0.PushBack({177,66,59,67});
+	AppearAnim0.PushBack({239,66,56,68});
+	AppearAnim0.loop = false;
+	AppearAnim0.speed = 0.2;
 
+
+
+
+
+
+
+	//APPEAR JAJAJAJA WE ARE GOING TO DIE
+	AppearAnim.PushBack({5,10,59,67});
+	AppearAnim.PushBack({74,8,58,70});
+	AppearAnim.PushBack({148,6,61,74});
+	AppearAnim.PushBack({220,5,65,78});
+	AppearAnim.PushBack({292,3,68,82});
+	AppearAnim.PushBack({366,1,71,85});
+	AppearAnim.PushBack({439,0,73,88});
+	
+	//first row
+	AppearAnim.PushBack({5,92,77,94});
+	AppearAnim.PushBack({90,92,79,97});
+	AppearAnim.PushBack({177,90,82,100});
+	AppearAnim.PushBack({262,90,85,103});
+	AppearAnim.PushBack({348,88,87,106});
+	//second row
+	AppearAnim.PushBack({5,199,90,110});
+	AppearAnim.PushBack({104,199,92,113});//9 or 4? in the 109
+	AppearAnim.PushBack({203,198,95,116});
+	AppearAnim.PushBack({301,196,98,119});
+	AppearAnim.PushBack({400,194,100,122});
+	//third row
+	AppearAnim.PushBack({4,320,103,126});
+	//AppearAnim.PushBack({111,119,106,129}); esta esta JODIDA
+	AppearAnim.PushBack({218,316,109,133});
+	AppearAnim.PushBack({327,316,109,134});
+	AppearAnim.loop = false;
+	AppearAnim.speed = 0.2;
+	//________________________________________________
 	//Eye
 	AnimOpenEye.PushBack({ 340, 34, 45, 34 });
 	AnimOpenEye.PushBack({ 385, 34, 45, 34 });
@@ -85,20 +132,22 @@ ModuleBossLvl1::~ModuleBossLvl1() {}
 
 bool ModuleBossLvl1::Start() {
 
-	position = { (9000), 55 };
+	position = { (9200), 55 };
 	//position = { (300), 55 };
 
 	current_head = &AnimMouth;
 	current_eye = &AnimClosedEye;
+	currentAppear = &AppearAnim;
+	currentAppear0 = &AppearAnim0;
 
 	Boss = App->textures->Load("Images/Bosses/Boss_Stage1_Sprites.png");
-
+	AppearText = App->textures->Load("Images/Bosses/Boss_Stage1_Apearing_Sprites.png");
 	//Add Colliders
 	Bot = App->collision->AddCollider({ position.x + 10, position.y + 95, 48, 18 }, COLLIDER_ENEMY);
-	Eye = App->collision->AddCollider({ position.x + 20,position.y + 79, 25, 16 }, COLLIDER_ENEMY, this);
-	Head = App->collision->AddCollider({ position.x + 8, position.y - 20, 48, 44 }, COLLIDER_ENEMY);
-	Left_Arm = App->collision->AddCollider({ position.x - 14, position.y + 8, 22, 72 }, COLLIDER_ENEMY);
-	Body = App->collision->AddCollider({ position.x, position.y, 95, 77}, COLLIDER_ENEMY);
+	Eye = App->collision->AddCollider({ position.x + 20,position.y + 79, 25, 25 }, COLLIDER_ENEMY, this);
+	Head = App->collision->AddCollider({ position.x + 8, position.y - 20, 48, 44 }, COLLIDER_WALL);
+	Left_Arm = App->collision->AddCollider({ position.x - 14, position.y + 8, 22, 72 }, COLLIDER_WALL);
+	Body = App->collision->AddCollider({ position.x, position.y, 95, 77}, COLLIDER_WALL);
 
 	dead = false;
 	life = 50;
@@ -125,25 +174,45 @@ bool ModuleBossLvl1::CleanUp() {
 	current_head = nullptr;
 
 	App->textures->Unload(Boss);
+	App->textures->Unload(AppearText);
 	return true;
 }
 
 update_status ModuleBossLvl1::Update() {
 
 	//srand(time(NULL));
+	
+	Bot->SetPos(position.x + 20+ positionXcorrector, position.y + 95);
+	Eye->SetPos(position.x + 19+ positionXcorrector, position.y + 79);
+	Head->SetPos(position.x + 8+ positionXcorrector, position.y - 20);
+	Left_Arm->SetPos(position.x - 14+ positionXcorrector, position.y + 8);
+	Body->SetPos(position.x+ positionXcorrector, position.y);
 
-	Bot->SetPos(position.x + 10, position.y + 95);
-	Eye->SetPos(position.x + 20, position.y + 79);
-	Head->SetPos(position.x + 8, position.y - 20);
-	Left_Arm->SetPos(position.x - 14, position.y + 8);
-	Body->SetPos(position.x, position.y);
 
-	App->render->Blit(Boss, position.x + 10, position.y + 79 + BossTrote, &current_eye->GetCurrentFrame());
-	App->render->Blit(Boss, position.x + 8, position.y - 20 + BossTrote, &current_head->GetCurrentFrame());
-	App->render->Blit(Boss, position.x - 14, position.y + 8 + BossTrote, &AnimArm.GetCurrentFrame());
-	App->render->Blit(Boss, position.x + 6, position.y + 48 + BossTrote, &AnimPotbelly.GetCurrentFrame());
-	App->render->Blit(Boss, position.x, position.y + BossTrote, &AnimBody.GetCurrentFrame());
 
+	 //APPEAR SYSTEM
+	
+	//App->render->Blit(Boss, position.x, position.y, &AppearAnim0.GetCurrentFrame()); // primer appear
+	//if (currentAppear0->Finished() == true&& Controller1 == 0) { // delay 
+	//	Timer1 = SDL_GetTicks()+600;
+	//	Controller1 = 1;
+	//}
+	//if (SDL_GetTicks() >= Timer1) { //si el delay esta, borrar la primera appear
+	//	App->render->Blit(AppearText, position.x - 14 + positionXcorrector, position.y - 21, &currentAppear->GetCurrentFrame());
+	//	currentAppear0 = nullptr;
+	if(App->Boss->position.x <= App->scene1background->position_min_limit + 205)
+	App->render->Blit(AppearText, position.x - 14 + positionXcorrector, position.y - 21, &currentAppear->GetCurrentFrame());
+		if (currentAppear->Finished() == true) {
+			App->render->Blit(Boss, position.x + 10 + positionXcorrector, position.y + 79 + BossTrote, &current_eye->GetCurrentFrame());
+			App->render->Blit(Boss, position.x + 8 + positionXcorrector, position.y - 20 + BossTrote, &current_head->GetCurrentFrame());
+			App->render->Blit(Boss, position.x - 14 + positionXcorrector, position.y + 8 + BossTrote, &AnimArm.GetCurrentFrame());
+			App->render->Blit(Boss, position.x + 6 + positionXcorrector, position.y + 48 + BossTrote, &AnimPotbelly.GetCurrentFrame());
+			App->render->Blit(Boss, position.x + positionXcorrector, position.y + BossTrote, &AnimBody.GetCurrentFrame());
+			App->textures->Unload(AppearText);
+		}
+	
+	
+	
 	//BOSS APPEAR AND MOVEMENT
 	 if (position.x <= App->scene1background->position_min_limit + 200 ) {  //controla si el boss ha llagdo a su posicion
 		ReachPos = true;
@@ -296,10 +365,10 @@ update_status ModuleBossLvl1::Update() {
 
 
 	 //TECLA TEST PARA REINICIAR EL OJO
-	 if (App->input->keyboard[SDL_SCANCODE_K]) {
+	 /*if (App->input->keyboard[SDL_SCANCODE_K]) {
 		 EyeBool = true;
 	 }
-	
+	*/
 	
 	
 
@@ -314,13 +383,24 @@ void ModuleBossLvl1::OnCollision(Collider *c1, Collider *c2) {
 
  	//beAttacked = true; //GUYS THIS IS TO MADE THE BOSS ALLWAYS ATTACKABLE JUST FOR DEBUGGING, THIS MUST BE DELETED FOR THE GAME (could be a great debug functionality)
 
-	if (beAttacked && (c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT || c1->type == COLLIDER_PLAYER_SHOT2 || c2->type == COLLIDER_PLAYER_SHOT2)) {
+	/*if (beAttacked && (c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT || c1->type == COLLIDER_PLAYER_SHOT2 || c2->type == COLLIDER_PLAYER_SHOT2)) {
 
 			--life;
 			if (life <= 0) {
 					App->fonts->ScoreP1 += 5000;
 					App->fonts->ScoreP2 += 5000;
  					dead = true;
+		}
+	}*/
+	if (current_eye == &AnimOpenEye && (c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT || c1->type == COLLIDER_PLAYER_SHOT2 || c2->type == COLLIDER_PLAYER_SHOT2) ) {
+ 		--life;
+		LOG("BOSS LIFE IS: %i", life);
+		//HERE GOES THE WHITE SHIT
+		if (life <= 0) {
+			App->fonts->ScoreP1 += 5000;
+			App->fonts->ScoreP2 += 5000;
+			dead = true;
+			NeedToDisableBoss = true;
 		}
 	}
 }
@@ -329,12 +409,12 @@ void ModuleBossLvl1::Shooting() {
 
 	if (current_eye == &AnimOpenEye && current_eye->Finished() && Stage == Stage1)
 	{
-		App->particles->AddParticle(App->particles->BossShoot, position.x , position.y + 74, COLLIDER_ENEMY_SHOT);
+		App->particles->AddParticle(App->particles->BossShoot, position.x , position.y + 74, COLLIDER_WALL);
 		App->particles->AddParticle(App->particles->BossShootExplosion, position.x - 10, position.y + 59);
 		//App->particles->AddParticle(App->particles->BossCoolDown, position.x - 15, position.y + 60, COLLIDER_NONE, 280);
 		
 
-		App->particles->AddParticle(App->particles->BossShoot, position.x , position.y + 74, COLLIDER_ENEMY_SHOT, 500);
+		App->particles->AddParticle(App->particles->BossShoot, position.x , position.y + 74, COLLIDER_WALL, 700);
 		App->particles->AddParticle(App->particles->BossShootExplosion, position.x - 10, position.y + 59, COLLIDER_NONE, 500);
 		//App->particles->AddParticle(App->particles->BossCoolDown, position.x - 15, position.y + 60, COLLIDER_NONE, 280);
 	}
@@ -346,7 +426,7 @@ void ModuleBossLvl1::Charge() {
 
 	uint speed = 6;
 	if (!EndCharge && Stage == Stage2) {
-		if (position.x >= App->scene1background->position_min_limit + 60 && Backward == false) {
+		if (position.x >= App->scene1background->position_min_limit + 100 && Backward == false) {
 			Forward = true;
 		}
 		else if (position.x <= App->scene1background->position_min_limit + 60) {
@@ -360,7 +440,7 @@ void ModuleBossLvl1::Charge() {
 			position.x += 1.5;
 		}
 	}
-	if (Backward && position.x >= App->scene1background->position_min_limit + 200){
+	if (Backward && position.x >= App->scene1background->position_min_limit + 200 ){
 		 EyeBool = true;
 		 TimeCounter = true;
 		 Shooted = false;

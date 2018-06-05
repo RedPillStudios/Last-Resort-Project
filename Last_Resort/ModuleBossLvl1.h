@@ -50,6 +50,9 @@ public:
 	Collider *Head = nullptr;
 	Collider *Left_Arm = nullptr;
 	Collider *Body = nullptr;
+	//Appear
+	Animation AppearAnim0;
+	Animation AppearAnim;
 
 	//Eye
 	Animation AnimOpenEye;
@@ -68,9 +71,12 @@ public:
 
 	Animation *current_eye = nullptr;
 	Animation *current_head = nullptr;
-
+	Animation *currentAppear = nullptr;
+	Animation *currentAppear0 = nullptr;
 	//Texture and position
 	SDL_Texture *Boss = nullptr;
+	SDL_Texture *AppearText = nullptr;
+
 	iPoint position;
 	
 public:
@@ -92,6 +98,7 @@ public:
 	bool Forward = false;
 	bool Backward = false;
 	bool EndCharge = false;
+	bool NeedToDisableBoss = false;
 
 public:
 	uint life;
@@ -102,8 +109,10 @@ public:
 	uint TearShoot = 1;
 	uint EnemyAddController = 0;
 	uint PeeLimit = 0;
+	uint positionXcorrector = -30;
 	int BossTroteDelay;
 	int TearShootDelay;
+	int Timer1 = 0;
 	int Time1 = 0;
 	int Time2 = 0;
 	int Time3 = 0;
@@ -122,6 +131,7 @@ public:
 	int Restartcontroller7 = 0;
 	int Restartcontroller8 = 0;
 	int ShootCounter = 0;
+	int Controller1 = 0;
 	int cicle = 2;
 	int MaleTears;
 	int randnum = 0;

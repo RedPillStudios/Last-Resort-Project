@@ -77,7 +77,7 @@ ModuleTank::~ModuleTank() {}
 bool ModuleTank::Start() {
 	//Spawn pos
 	//TankPosition = { (3330.0), 157.0 };
-	TankPosition = { (120), 157.0 };
+	TankPosition = { (3290), 157.0 };
 
 	//anim declarated
 	CorriendoAlTroteAnim = &CorriendoAlTrote;
@@ -430,7 +430,7 @@ update_status ModuleTank::Update() {
 
 void ModuleTank::OnCollision(Collider *c1, Collider *c2) {
 
-	if ((c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT || c1->type == COLLIDER_HOU||c2->type == COLLIDER_HOU)) {
+	if ((c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT || c1->type == COLLIDER_HOU||c2->type == COLLIDER_HOU) && (c1->type == COLLIDER_ENEMY || c2->type == COLLIDER_ENEMY || c1->type == COLLIDER_ENEMY || c2->type == COLLIDER_ENEMY)) {
 		if (counter_Life % 6 == 0) {
 			--BossLife;
 		}
