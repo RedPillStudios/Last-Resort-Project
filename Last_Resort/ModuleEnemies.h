@@ -20,7 +20,8 @@ enum ENEMY_TYPES {
 	CARS,
 	HUMAN,
 	GREENBOMB,
-	BOSS_TEARS
+	BOSS_TEARS,
+	BOSSLAMELLA
 };
 
 class Enemy;

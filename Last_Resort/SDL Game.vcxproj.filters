@@ -109,6 +109,9 @@
     <ClCompile Include="ModuleTank.cpp">
       <Filter>Modules\Enemies\Tank</Filter>
     </ClCompile>
+    <ClCompile Include="BossLamella.cpp">
+      <Filter>Modules\Enemies\BossLamella</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -228,6 +231,9 @@
     <ClInclude Include="ModuleTank.h">
       <Filter>Modules\Enemies\Tank</Filter>
     </ClInclude>
+    <ClInclude Include="BossLamella.h">
+      <Filter>Modules\Enemies\BossLamella</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -283,6 +289,9 @@
     </Filter>
     <Filter Include="Modules\Scenes">
       <UniqueIdentifier>{371909b3-abdb-4fcc-a735-288b18177887}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\BossLamella">
+      <UniqueIdentifier>{d065078a-3f95-43ce-99ae-596cc5df79b4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

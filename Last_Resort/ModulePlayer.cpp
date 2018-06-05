@@ -262,7 +262,7 @@ update_status ModulePlayer::Update() {
 				App->fonts->Spawned = true;
 			}
 			if (App->input->keyboard[SDL_SCANCODE_F9] == KEY_STATE::KEY_DOWN) {
-				App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_LAMELLA, (App->player->position.x) + 200, App->player->position.y, false);
+				App->enemies->AddEnemy(ENEMY_TYPES::BOSSLAMELLA, (App->player->position.x) + 200, App->player->position.y, false);
 				App->fonts->Spawned = true;
 			}
 

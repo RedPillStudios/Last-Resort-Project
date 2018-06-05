@@ -177,7 +177,8 @@ bool ModuleSceneLvl1::Start()
 
   //Bees
 	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
-	 App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);
+	// App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);
+	App->enemies->AddEnemy(ENEMY_TYPES::BOSSLAMELLA, 300, 60, false);
   
  //Wasps
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60,false);

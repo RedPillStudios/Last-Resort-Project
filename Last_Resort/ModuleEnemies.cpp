@@ -20,6 +20,7 @@
 #include "Humans.h"
 #include "GreenBombIron.h"
 #include "Enemy_Tears.h"
+#include "BossLamella.h"
 
 #include <time.h>
 #include <iostream>
@@ -169,14 +170,21 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		case ENEMY_TYPES::ENEMY_BEE:
 		enemies[i] = new Enemy_Bee(info.x, info.y,info.PowerUp);
 		break;
+
 		case ENEMY_TYPES::HUMAN:
-			enemies[i] = new Humans(info.x,info.y);
-			break;
+		enemies[i] = new Humans(info.x,info.y);
+		break;
+
 		case ENEMY_TYPES::GREENBOMB:
-			enemies[i] = new GreenBombIron(info.x, info.y);
-      break;
+		enemies[i] = new GreenBombIron(info.x, info.y);
+		break;
+
 		case ENEMY_TYPES::BOSS_TEARS:
 		enemies[i] = new Enemy_BossTears(info.x, info.y, info.PowerUp);
+		break;
+
+		case ENEMY_TYPES::BOSSLAMELLA:
+		enemies[i] = new EnemyBossLamella(info.x, info.y, info.PowerUp);
 		break;
         
 		}
