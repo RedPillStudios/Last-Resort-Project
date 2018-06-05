@@ -426,17 +426,10 @@ update_status ModuleHouPlayer1::Update() {
 		if (HOU_Direction >= 360) {
 			HOU_Direction = 0;
 		}
-		if (HOU_Charge > 40 && App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP&&Throwing == false) {
+		if (HOU_Charge > 20 && App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP&&Throwing == false) {
 			Throwing = true;
 			Throw = true;
 		}
-
-		if (charging) {
-
-
-
-		}
-
 		if (!Throwing) {
 
 			Hou_Movement();
@@ -545,13 +538,22 @@ update_status ModuleHouPlayer1::Update() {
 
 
 			//Settinng Grpah position HOU
-
-			HOU_position.x = shipCenter.x + 40 * cos(HOU_Direction*PI / 180);
-			HOU_position.y = shipCenter.y + 30 * sin(HOU_Direction*PI / 180);
+			if (!fixed) {
+				HOU_position.x = shipCenter.x + 40 * cos(HOU_Direction*PI / 180);
+				HOU_position.y = shipCenter.y + 30 * sin(HOU_Direction*PI / 180);
+				HOU_Direction_Angle = HOU_Direction;
+			}
+			else if (fixed) {
+				HOU_position.x = shipCenter.x + 40 * cos(HOU_Direction_Angle*PI / 180);
+				HOU_position.y = shipCenter.y + 30 * sin(HOU_Direction_Angle*PI / 180);
+				
+			}
+				FixedPosition = HOU_position;
 
 		}
 		//Render HOU
 		if (Throwing) {
+			charging = false;
 			Animation* Sup = current_animation;
 			if (Blue) {
 				current_animation = &Blue_Throw_Ball;
@@ -567,6 +569,7 @@ update_status ModuleHouPlayer1::Update() {
 					Throw = false;
 				}
 			}
+
 			HOU_LastPosition.x = shipCenter.x + 40 * cos(HOU_Direction*PI / 180);
 			HOU_LastPosition.y = shipCenter.y + 30 * sin(HOU_Direction*PI / 180);
 
@@ -605,8 +608,14 @@ void ModuleHouPlayer1::throwHOU() {
 	Mix_PlayChannel(-1, ReleasedChargeHOUSound, 0);//releasing sound
 	particlesTimmer++;
 	HOU_position.x++;
-	HOU_position.x += (10 * cos(HOU_Direction*PI / 180));
-	HOU_position.y += (10 * sin(HOU_Direction*PI / 180));
+	if (!fixed) {
+		HOU_position.x += (10 * cos(HOU_Direction*PI / 180));
+		HOU_position.y += (10 * sin(HOU_Direction*PI / 180));
+	}
+	else if (fixed) {
+		HOU_position.x += (10 * cos(HOU_Direction_Angle*PI / 180));
+		HOU_position.y += (10 * sin(HOU_Direction_Angle*PI / 180));
+	}
 	App->particles->Red_ThrowBall_pl1.Speed.x = (1 * cos(HOU_Direction*PI / 180));
 	App->particles->Red_ThrowBall_pl1.Speed.x++;
 	App->particles->Red_ThrowBall_pl1.Speed.y = (1 * sin(HOU_Direction*PI / 180));
@@ -627,48 +636,72 @@ void ModuleHouPlayer1::Hou_Movement() {
 
 	if (App->input->keyboard[SDL_SCANCODE_W] == KEY_STATE::KEY_REPEAT) {
 
-		if (HOU_Direction <= 270 && HOU_Direction > 90) {
-			HOU_Direction -= HOU_Speed;
-		}
-		else if (HOU_Direction > 270) {
-			HOU_Direction += HOU_Speed;
-		}
-		if (HOU_Direction >= 0 && HOU_Direction < 90) {
-			HOU_Direction += HOU_Speed;
-		}
 
+			if (HOU_Direction <= 270 && HOU_Direction > 90) {
+				HOU_Direction -= HOU_Speed;
+			}
+			else if (HOU_Direction > 270) {
+				HOU_Direction += HOU_Speed;
+			}
+			if (HOU_Direction >= 0 && HOU_Direction < 90) {
+				HOU_Direction += HOU_Speed;
+			}
+		
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_A] == KEY_STATE::KEY_REPEAT) {
-		if (HOU_Direction <= 180 && HOU_Direction > 0) {
-			HOU_Direction -= HOU_Speed;
-		}
-		if (HOU_Direction > 180 && HOU_Direction != 0) {
-			HOU_Direction += HOU_Speed;
-		}
+
+			if (HOU_Direction <= 180 && HOU_Direction > 0) {
+				HOU_Direction -= HOU_Speed;
+			}
+			if (HOU_Direction > 180 && HOU_Direction != 0) {
+				HOU_Direction += HOU_Speed;
+			}
+		
+
 	}
 	if (App->input->keyboard[SDL_SCANCODE_S] == KEY_STATE::KEY_REPEAT) {
 
-		if (HOU_Direction < 270 && HOU_Direction >= 90) {
-			HOU_Direction += HOU_Speed;
-		}
-		else if (HOU_Direction < 90) {
-			HOU_Direction -= HOU_Speed;
-			if (HOU_Direction <= 0) {
-				HOU_Direction = 359;
+			if (HOU_Direction < 270 && HOU_Direction >= 90) {
+				HOU_Direction += HOU_Speed;
 			}
-		}
-		if (HOU_Direction < 360 && HOU_Direction >270) {
-			HOU_Direction -= HOU_Speed;
-		}
+			else if (HOU_Direction < 90) {
+				HOU_Direction -= HOU_Speed;
+				if (HOU_Direction <= 0) {
+					HOU_Direction = 359;
+				}
+			}
+			if (HOU_Direction < 360 && HOU_Direction >270) {
+				HOU_Direction -= HOU_Speed;
+			}
+		
+
 	}
 
 	if (App->input->keyboard[SDL_SCANCODE_D] == KEY_STATE::KEY_REPEAT) {
-		if (HOU_Direction > 180) {
-			HOU_Direction -= HOU_Speed;
+
+			if (HOU_Direction > 180) {
+				HOU_Direction -= HOU_Speed;
+			}
+			if (HOU_Direction < 180) {
+				HOU_Direction += HOU_Speed;
+			}
+		
+		else {
+			if (HOU_Direction > 180) {
+				HOU_Direction -= HOU_Speed;
+			}
+			if (HOU_Direction < 180) {
+				HOU_Direction += HOU_Speed;
+			}
 		}
-		if (HOU_Direction < 180) {
-			HOU_Direction += HOU_Speed;
+	}
+	if (App->input->keyboard[SDL_SCANCODE_J] == KEY_STATE::KEY_DOWN) {
+		if (fixed == false)
+			fixed = true;
+		else if (fixed == true) {
+			fixed = false;
+			HOU_Direction = HOU_Direction_Angle;
 		}
 	}
 
@@ -680,7 +713,7 @@ void ModuleHouPlayer1::Hou_Movement() {
 		}
 		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_REPEAT) {
 			HOU_Charge++;
-			if (HOU_Charge > 9) {
+			if (HOU_Charge > 8) {
 				charging = true;
 				//BLUE CHARGING BALL
 				if (current_animation == &Blue_HOU_Front){
@@ -734,7 +767,7 @@ void ModuleHouPlayer1::Hou_Movement() {
 				if (current_animation == &Blue_HOU_Back_Down) {
 					App->render->Blit(Charge_texture, HOU_position.x - 9, HOU_position.y - 15, &blueball_charging.GetCurrentFrame());
 				}
-				Blue_HOU_Back_Down_Up;
+		
 				if (current_animation == &Blue_HOU_Back_Down_Up) {
 					App->render->Blit(Charge_texture, HOU_position.x - 8, HOU_position.y - 15, &blueball_charging.GetCurrentFrame());
 				}
@@ -746,6 +779,8 @@ void ModuleHouPlayer1::Hou_Movement() {
 				if (current_animation == &Blue_HOU_UP) {
 					App->render->Blit(Charge_texture, HOU_position.x - 14, HOU_position.y - 9, &blueball_charging.GetCurrentFrame());
 				}
+				
+				
 				//RED CHARGING BALL
 				if (current_animation == &Red_HOU_Front) {
 					App->render->Blit(Charge_texture, HOU_position.x - 14, HOU_position.y - 15, &Redball_charging.GetCurrentFrame());
@@ -823,9 +858,9 @@ void ModuleHouPlayer1::Hou_Movement() {
 		}
 
 
-		if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP) {
-
+		else if (App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP) {
 			HOU_Charge = 0;
+			charging = false;
 			Mix_FadeOutChannel(2, 400); //fading out channel
 
 		}

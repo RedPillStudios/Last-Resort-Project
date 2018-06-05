@@ -101,7 +101,9 @@ public:
 	SDL_Texture *Particle3 = nullptr;
 	SDL_Texture *Particle4 = nullptr;
 	SDL_Texture *Particle5 = nullptr;
-  
+	SDL_Texture *Particle6 = nullptr;
+	SDL_Texture*Explosion_Texture = nullptr;
+
 
 	//Boss Shoot
 	Particle BossShoot;
