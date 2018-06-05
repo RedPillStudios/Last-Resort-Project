@@ -99,8 +99,12 @@ Iron_Craw::~Iron_Craw()
 bool Iron_Craw::Start() {
 
 	
+	if (App->scene1background->IronCraw2==false)
+		SpawnPos = 200;
+	else
+		SpawnPos = 7700;
 
-	position = {(200.0),-10.0};
+	position = {(SpawnPos),-10.0};
   
 	Mini_Boss= App->textures->Load("Images/Bosses/First_Mini_Boss_Sprite.png");
 
@@ -320,8 +324,10 @@ update_status Iron_Craw::Update() {
 			App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 81, (int)position.y - 44);
 
 			ExplosionDead = false;
+			disablingIronCraw = true;
 		}
-
+	
+	
 
 	}
 	

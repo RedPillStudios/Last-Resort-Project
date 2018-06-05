@@ -555,8 +555,26 @@ update_status ModuleSceneLvl1::Update() {
 	if (App->player->IsEnabled() == false && App->player2->IsEnabled() == false) {
 		App->BossTank->DestroyTank == true;
 	}
-	if (App->BossTank->DestroyTank == true) {
+	if (App->BossTank->DestroyTank == true && App->BossTank->IsEnabled() == true) {
 		App->BossTank->Disable();
+		LOG(" Tank disabled");
+	}
+	// iron craw disable
+
+	if (App->player->IsEnabled() == false && App->player2->IsEnabled() == false) {
+		App->MiniBoss->disablingIronCraw == true;
+	}
+	if (App->MiniBoss->disablingIronCraw == true && App->MiniBoss->IsEnabled()) {
+		App->MiniBoss->Disable();
+		LOG(" Iron disabled");
+		
+
+	}
+
+	////second Iron Spawn
+	//if (App->scene1background->position_max_limit >= 7700) {
+	//	IronCraw2 = true;
+	//	App->MiniBoss->Enable();
 	}
 
 	//Fade if boss is dead

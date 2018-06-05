@@ -78,6 +78,7 @@ float RArmPosition;
 	int MoveTiming;
 	int MoveTiming2;
 	int angleBomb;
+	float SpawnPos;
 	
 
 
@@ -98,6 +99,7 @@ float RArmPosition;
 	bool spawnMovementDown;
 	bool EnemyAppear;
 	bool ExplosionDead;
+	bool disablingIronCraw=false;
 
 	void bombs();
 	void Move();
