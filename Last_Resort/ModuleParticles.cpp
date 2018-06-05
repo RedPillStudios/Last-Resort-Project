@@ -156,7 +156,7 @@ bool ModuleParticles::Start() {
 	BossShoot.Anim.PushBack({ 194,260, 63, 32 });
 	BossShoot.Anim.loop = true;
 	BossShoot.Life = 1300;
-	BossShoot.Speed.x = -2;
+	BossShoot.Speed.x = -4;
 	BossShoot.Anim.speed = 0.1f;
 
 	BossCoolDown.Sprites = Particle3;
@@ -209,6 +209,33 @@ bool ModuleParticles::Start() {
 	FogExplosion.Anim.speed = 0.3f;
 
 	HOU_Shot.Anim.PushBack({ 117,250,13,13 });
+	MaleTears.Sprites = Particle3;
+	MaleTears.Anim.PushBack({ 5,344,1,1});
+	MaleTears.Anim.PushBack({ 14,344,2,1 });
+	MaleTears.Anim.PushBack({ 23,344,3,2 }); 
+	MaleTears.Anim.PushBack({ 33,343,4,3});
+	MaleTears.Anim.PushBack({ 43,342,4,4 });
+	MaleTears.Anim.PushBack({ 53,342,4,4 });
+	MaleTears.Anim.PushBack({ 63,342,5,5});
+	MaleTears.Anim.PushBack({ 72,342,6,5 });
+	MaleTears.Anim.PushBack({ 82,342,6,5 });
+	MaleTears.Anim.PushBack({ 92,341,6,6 });
+	MaleTears.Anim.PushBack({ 102,341,7,6 });
+	MaleTears.Anim.PushBack({ 111,341,8,7 });
+	MaleTears.Anim.PushBack({ 120,340,9,9 });
+	MaleTears.Anim.PushBack({ 130,339,10,10 });
+	MaleTears.Anim.PushBack({ 2,350,9,12 });
+	MaleTears.Anim.PushBack({ 15,350,11,13 });
+	MaleTears.Anim.PushBack({ 29,350,11,12 });
+	MaleTears.Anim.PushBack({ 43,350,13,13 });
+	MaleTears.Anim.PushBack({ 56,349,14,12 });
+	MaleTears.Anim.loop = false;
+	MaleTears.Anim.speed = 0.3f;
+	MaleTears.Speed.x = -1;
+	MaleTears.Life = 5000;
+	MaleTears.Speed.y = 2;
+	//MaleTears.Speed.y = 0.01*((3*MaleTears.Position.x ^ 3)+2*(MaleTears.Position.x)+3);
+
 
 	//HOU_Shot.Anim.PushBack({117,263,13,13});
 	HOU_Shot.Anim.speed = 0.2f;
