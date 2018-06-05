@@ -303,7 +303,7 @@ update_status ModuleUI::Update() {
 	}*/
 
 	
-	if (((App->gameover->IsEnabled() == true) || (App->stageclear->IsEnabled() == true)) && counterRanking == 0) {
+	if ((App->HighScore->IsEnabled() == true) && counterRanking == 0 && ccompleted == true) {
 
 	/*	if (Checkpoint1 == true) {
 			BlitText(SCREEN_WIDTH / 2 - 10, SCREEN_HEIGHT - 10, font, "B");
@@ -439,7 +439,6 @@ void ModuleUI::BlitText(int x, int y, int font_id, const char* text) const
 
 void ModuleUI::ChangeRanking(FILE *pFile, char *path, int Score) {
 
-	int j = 5;
 	for (int i = 0; i < 9; i++) {
 
 		//Changing Array ranking
