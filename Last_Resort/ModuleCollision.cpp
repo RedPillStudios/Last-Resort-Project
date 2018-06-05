@@ -30,7 +30,7 @@ ModuleCollision::ModuleCollision()
 
 	matrix[COLLIDER_WALL][COLLIDER_WALL] = false;
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER] = true;
-	matrix[COLLIDER_WALL][COLLIDER_ENEMY] = true;
+	matrix[COLLIDER_WALL][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER_SHOT] = true;
 	matrix[COLLIDER_WALL][COLLIDER_PLAYER_SHOT2] = true;
 	matrix[COLLIDER_WALL][COLLIDER_ENEMY_SHOT] = true;
@@ -59,7 +59,7 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER_LASERBEAM_AREA_SHOT] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER_LASERBEAM_AREA_SHOT2] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_NONE] = false;
-
+	matrix[COLLIDER_PLAYER][COLLIDER_BOSS_SHOOT] = true;
 
 	matrix[COLLIDER_PLAYER2][COLLIDER_WALL] = true;
 	matrix[COLLIDER_PLAYER2][COLLIDER_PLAYER] = false;
@@ -75,6 +75,7 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_PLAYER2][COLLIDER_PLAYER_LASERBEAM_AREA_SHOT] = false;
 	matrix[COLLIDER_PLAYER2][COLLIDER_PLAYER_LASERBEAM_AREA_SHOT2] = false;
 	matrix[COLLIDER_PLAYER2][COLLIDER_NONE] = false;
+	matrix[COLLIDER_PLAYER2][COLLIDER_BOSS_SHOOT] = true;
 
 	matrix[COLLIDER_ENEMY][COLLIDER_WALL] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_PLAYER] = true;
@@ -127,7 +128,7 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_PLAYER_SHOT2][COLLIDER_NONE] = false;
 
 	
-	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_WALL] = true;
+	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_WALL] = false;
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_ENEMY_SHOT][COLLIDER_PLAYER_SHOT] = true;
@@ -172,6 +173,7 @@ ModuleCollision::ModuleCollision()
 	matrix[COLLIDER_HOU][COLLIDER_PLAYER_LASERBEAM_AREA_SHOT] = false;
 	matrix[COLLIDER_HOU][COLLIDER_PLAYER_LASERBEAM_AREA_SHOT2] = false;
 	matrix[COLLIDER_HOU][COLLIDER_NONE] = false;
+	matrix[COLLIDER_HOU][COLLIDER_BOSS_SHOOT];
 
 	matrix[COLLIDER_CAR][COLLIDER_WALL] = false;
 	matrix[COLLIDER_CAR][COLLIDER_ENEMY] = false;
@@ -246,6 +248,9 @@ ModuleCollision::ModuleCollision()
 
 	matrix[COLLIDER_PLAYER_LASERBEAM_AREA_SHOT][COLLIDER_NONE] = false;
 
+	matrix[COLLIDER_BOSS_SHOOT][COLLIDER_PLAYER] = true;
+	matrix[COLLIDER_BOSS_SHOOT][COLLIDER_PLAYER2] = true;
+	matrix[COLLIDER_BOSS_SHOOT][COLLIDER_HOU] = true;
 }
 
 // Destructor
@@ -362,7 +367,8 @@ void ModuleCollision::DebugDraw()
 			App->render->DrawQuad(colliders[i]->rect, 99, 68, 4, alpha);
 		case COLLIDER_PLAYER_LASERBEAM_AREA_SHOT2:
 			App->render->DrawQuad(colliders[i]->rect, 99, 68, 4, alpha);
-
+		case COLLIDER_BOSS_SHOOT:
+			App->render->DrawQuad(colliders[i]->rect, 155, 155, 30, alpha);
 		}
 	}
 }

@@ -50,6 +50,9 @@ public:
 	Collider *Head = nullptr;
 	Collider *Left_Arm = nullptr;
 	Collider *Body = nullptr;
+	//Appear
+	Animation AppearAnim0;
+	Animation AppearAnim;
 
 	//Eye
 	Animation AnimOpenEye;
@@ -68,9 +71,14 @@ public:
 
 	Animation *current_eye = nullptr;
 	Animation *current_head = nullptr;
-
+	Animation *currentAppear = nullptr;
+	Animation *currentAppear0 = nullptr;
 	//Texture and position
 	SDL_Texture *Boss = nullptr;
+	SDL_Texture *AppearText = nullptr;
+	SDL_Texture *Damaged = nullptr;
+	SDL_Texture *Normal = nullptr;
+
 	iPoint position;
 	
 public:
@@ -79,6 +87,7 @@ public:
 	bool beAttacked;
 	void OnCollision(Collider *c1, Collider *c2);
 	bool dead;
+	bool dead1;
 	bool EyeBool = true;
 	bool TimeCounter = true;
 	bool TimeCounter2 = true;
@@ -92,6 +101,9 @@ public:
 	bool Forward = false;
 	bool Backward = false;
 	bool EndCharge = false;
+	bool NeedToDisableBoss = false;
+	bool hit = false;
+	bool activate = false;
 
 public:
 	uint life;
@@ -101,9 +113,12 @@ public:
 	uint BossTrote = 1;
 	uint TearShoot = 1;
 	uint EnemyAddController = 0;
+	int counterrr = 0;
 	uint PeeLimit = 0;
+	uint positionXcorrector = -30;
 	int BossTroteDelay;
 	int TearShootDelay;
+	int Timer1 = 0;
 	int Time1 = 0;
 	int Time2 = 0;
 	int Time3 = 0;
@@ -113,6 +128,7 @@ public:
 	int Time7 = 0;
 	int Time8 = 0;
 	int Time9 = 0;
+	int Timer10 = 0;
 	int Restartcontroller = 0;
 	int Restartcontroller2 = 0;
 	int Restartcontroller3 = 0;
@@ -122,9 +138,12 @@ public:
 	int Restartcontroller7 = 0;
 	int Restartcontroller8 = 0;
 	int ShootCounter = 0;
+	int Controller1 = 0;
+	int controlerENDGAME = 0;
 	int cicle = 2;
 	int MaleTears;
 	int randnum = 0;
+	int counter_Flicker = 0;
 public:
 
 	

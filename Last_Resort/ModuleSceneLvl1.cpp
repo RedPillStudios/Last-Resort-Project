@@ -98,7 +98,7 @@ ModuleSceneLvl1::ModuleSceneLvl1()
 	minispaceships.PushBack({ 55,0,9,4 });
 	minispaceships.PushBack({ 66,0,9,4 });
 	minispaceships.PushBack({ 77,0,9,4 });
-	minispaceships.speed = 0.1;
+	minispaceships.speed = 0.01;
 	minispaceships.loop = true;
 
 	//srand(2);
@@ -154,11 +154,11 @@ bool ModuleSceneLvl1::Start()
 	if (IsEnabled()) {
 		App->enemies->Enable();
 		App->powerup->Enable();
-	/*	App->Boss->Enable();*/
+		App->Boss->Enable();
 		App->collision->Enable();
 		App->particles->Enable();
 		//App->MiniBoss->Enable();
-		//App->BossTank->Enable();
+		App->BossTank->Enable();
 
 	}
 	if (App->player->IsEnabled() == false && App->fonts->P1Life > 0) {
@@ -175,6 +175,7 @@ bool ModuleSceneLvl1::Start()
 	//WASP->Wave1{
 	//troop1
  //Wasps
+
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60,false);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 500, 60);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_WASP, 540, 75);
@@ -196,7 +197,7 @@ bool ModuleSceneLvl1::Start()
 	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
 	/* App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
 	// App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::BOSSLAMELLA, 300, 60, false);
+	
 
 	//App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 790, 20);
 
@@ -316,9 +317,9 @@ bool ModuleSceneLvl1::Start()
 	//App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 3560, 145);
 	App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 3610, 145);
 	App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_ZICZAC, 7560, 60, true);
-  
-	//App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 7560, 60);
-	//App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 7610, 60);
+//  
+//	//App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, 7560, 60);
+//	//App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, 7610, 60);
 
 	return true;
 }
@@ -346,10 +347,12 @@ bool ModuleSceneLvl1::CleanUp() {
 	App->collision->Disable();
 	App->particles->Disable();
 	App->enemies->Disable();
-
-	if (App->Boss->IsEnabled())
+	App->BossTank->Disable();
+	App->MiniBoss->Disable();
+	App->Boss->Disable();
+	/*if (App->Boss->IsEnabled())
 		App->MiniBoss->Disable();
-		App->Boss->Disable();
+		App->Boss->Disable();*/
 
 	App->Boss->BossMoves = false;
 
@@ -456,26 +459,26 @@ update_status ModuleSceneLvl1::Update() {
 
 	App->render->Blit(graphics_ThirdPlaneBackground, 0, 0, NULL, 0.1f);
 
-	App->render->Blit(Minispaceship_texture, -10 + xxx, yyy + 5, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, 0 + xxx, yyy + 5, &minispaceships.GetCurrentFrame(), 0.3f);
 	App->render->Blit(Minispaceship_texture, -20 + xxx, yyy + 10, &minispaceships.GetCurrentFrame(), 0.3f);
-	App->render->Blit(Minispaceship_texture, -30 + xxx, yyy + 15, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, 0 + xxx, yyy + 15, &minispaceships.GetCurrentFrame(), 0.3f);
 
-	App->render->Blit(Minispaceship_texture, -290 + xxx, yyy + 40, &minispaceships.GetCurrentFrame(), 0.3f);
-	App->render->Blit(Minispaceship_texture, -300 + xxx, yyy + 45, &minispaceships.GetCurrentFrame(), 0.3f);
-	App->render->Blit(Minispaceship_texture, -310 + xxx, yyy + 50, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -280 + xxx, yyy + 20, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -300 + xxx, yyy + 20, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -320 + xxx, yyy + 20, &minispaceships.GetCurrentFrame(), 0.3f);
 
 
-	App->render->Blit(Minispaceship_texture, -630 + xxx, yyy + 40, &minispaceships.GetCurrentFrame(), 0.3f);
-	App->render->Blit(Minispaceship_texture, -650 + xxx, yyy + 45, &minispaceships.GetCurrentFrame(), 0.3f);
-	App->render->Blit(Minispaceship_texture, -640 + xxx, yyy + 50, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -630 + xxx, yyy + 30, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -650 + xxx, yyy + 35, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -670 + xxx, yyy + 30, &minispaceships.GetCurrentFrame(), 0.3f);
 
-	App->render->Blit(Minispaceship_texture, -1190 + xxx, yyy + 5, &minispaceships.GetCurrentFrame(), 0.3f);
-	App->render->Blit(Minispaceship_texture, -1210 + xxx, yyy + 10, &minispaceships.GetCurrentFrame(), 0.3f);
-	App->render->Blit(Minispaceship_texture, - 1200+ xxx, yyy + 15, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -1190 + xxx, yyy + 25, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -1210 + xxx, yyy + 25, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, - 1170+ xxx, yyy + 25, &minispaceships.GetCurrentFrame(), 0.3f);
 
 	App->render->Blit(Minispaceship_texture, -1630 + xxx, yyy + 40, &minispaceships.GetCurrentFrame(), 0.3f);
 	App->render->Blit(Minispaceship_texture, -1650 + xxx, yyy + 45, &minispaceships.GetCurrentFrame(), 0.3f);
-	App->render->Blit(Minispaceship_texture, -1640 + xxx, yyy + 50, &minispaceships.GetCurrentFrame(), 0.3f);
+	App->render->Blit(Minispaceship_texture, -1640 + xxx, yyy + 40, &minispaceships.GetCurrentFrame(), 0.3f);
 
 	//lights
 	App->render->Blit(Laser_Sprites, 400, 0, &YellowLight.GetCurrentFrame(), 0.3f);
@@ -571,9 +574,15 @@ update_status ModuleSceneLvl1::Update() {
 	if (App->MiniBoss->disablingIronCraw == true && App->MiniBoss->IsEnabled()) {
 		App->MiniBoss->Disable();
 		LOG(" Iron disabled");
-		
-
 	}
+	// FINAL BOSS DISABLE NeedToDisableBoss = true;
+	if (App->Boss->NeedToDisableBoss == true && counterfordisable == false) {
+		App->Boss->Disable();
+		counterfordisable = true;
+		App->Boss->dead = true;
+	}
+	
+
 
 	////second Iron Spawn
 	//if (App->scene1background->position_max_limit >= 7700) {
