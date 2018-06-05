@@ -11,12 +11,13 @@ During this quadrimester we are going to develop the Last Resort game, an arcade
 The player's objective is to survive through five stages destroying the boss of each one. In order to do that, it controls a cyber jet with different guns and an indestructible robot useful to protect your ship from the different kind of enemies and also to attack them. This robot can be toggled to a stop track position or to rotate around the cyber jet. The ship also can be "upraded" by pick ups with three levels of three types of firepower and faster speed. You can play with a friend cooperatively.
 
 ## Last resort gameplay
+See the version 1.0 of the game fully made by RedPill Studios!
 
 <html>
 <body>
 
 <iframe width="645" height="520"
-src="https://www.youtube.com/embed/g1keTEfqhkE" frameborder="0" allowfullscreen>
+src="https://www.youtube.com/watch?v=MTFyO2adm9g&feature=youtu.be" frameborder="0" allowfullscreen>
 </iframe>
 
 </body>
