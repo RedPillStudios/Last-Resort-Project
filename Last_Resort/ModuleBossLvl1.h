@@ -87,6 +87,7 @@ public:
 	bool beAttacked;
 	void OnCollision(Collider *c1, Collider *c2);
 	bool dead;
+	bool dead1;
 	bool EyeBool = true;
 	bool TimeCounter = true;
 	bool TimeCounter2 = true;
@@ -102,6 +103,7 @@ public:
 	bool EndCharge = false;
 	bool NeedToDisableBoss = false;
 	bool hit = false;
+	bool activate = false;
 
 public:
 	uint life;
@@ -111,6 +113,7 @@ public:
 	uint BossTrote = 1;
 	uint TearShoot = 1;
 	uint EnemyAddController = 0;
+	int counterrr = 0;
 	uint PeeLimit = 0;
 	uint positionXcorrector = -30;
 	int BossTroteDelay;
@@ -125,6 +128,7 @@ public:
 	int Time7 = 0;
 	int Time8 = 0;
 	int Time9 = 0;
+	int Timer10 = 0;
 	int Restartcontroller = 0;
 	int Restartcontroller2 = 0;
 	int Restartcontroller3 = 0;
@@ -135,6 +139,7 @@ public:
 	int Restartcontroller8 = 0;
 	int ShootCounter = 0;
 	int Controller1 = 0;
+	int controlerENDGAME = 0;
 	int cicle = 2;
 	int MaleTears;
 	int randnum = 0;

@@ -197,7 +197,7 @@ bool ModuleSceneLvl1::Start()
 	/*App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
 	/* App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);*/
 	// App->enemies->AddEnemy(ENEMY_TYPES::ENEMY_BEE, 300, 60, false);
-	App->enemies->AddEnemy(ENEMY_TYPES::BOSSLAMELLA, 300, 60, false);
+	
 
 	//App->powerup->AddPowerUp(POWERUP_TYPES::LASER, 790, 20);
 
@@ -579,6 +579,7 @@ update_status ModuleSceneLvl1::Update() {
 	if (App->Boss->NeedToDisableBoss == true && counterfordisable == false) {
 		App->Boss->Disable();
 		counterfordisable = true;
+		App->Boss->dead = true;
 	}
 	
 

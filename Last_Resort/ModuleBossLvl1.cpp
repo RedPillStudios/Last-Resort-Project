@@ -132,7 +132,7 @@ ModuleBossLvl1::~ModuleBossLvl1() {}
 
 bool ModuleBossLvl1::Start() {
 
-	position = { (400), 55 };
+	position = { (9000), 55 };
 	//position = { (300), 55 };
 
 	current_head = &AnimMouth;
@@ -390,9 +390,54 @@ update_status ModuleBossLvl1::Update() {
 	*/
 	
 	
+	 if (dead1) {
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 50, (int)position.y);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + -2);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + -14, (int)position.y);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 33);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 22, (int)position.y);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 5);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 44, (int)position.y + -2);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 43, (int)position.y + 33);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 15);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 1, (int)position.y - 10);
 
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 33 + 4, (int)position.y + 22 + 5);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 21 - 10, (int)position.y - 28 - 15);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 55 - 15, (int)position.y - 3);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y - 44 + 20);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 66 + 7, (int)position.y);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 5 + 5);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 40 - 5, (int)position.y + 44 - 12);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 35 - 12, (int)position.y - 23 + 3);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 30, (int)position.y + 40 - 8);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 70 + 12, (int)position.y - 30 + 12);
+
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 12, (int)position.y + 12);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 24, (int)position.y - 58);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 34, (int)position.y - 2);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 80, (int)position.y - 54);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 10, (int)position.y);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 12);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 10, (int)position.y + 24);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 98, (int)position.y - 33);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x, (int)position.y + 30);
+		 App->particles->AddParticle(App->particles->EnemyExplosion, (int)position.x + 45, (int)position.y - 44);
+		 activate = true;
+		
+
+		
+	 }
 	
-
+	 if (activate) {
+  		 if (controlerENDGAME == 0) {
+			 Timer10 = SDL_GetTicks() + 800;
+			 controlerENDGAME++;
+		 }
+		 if (SDL_GetTicks() > Timer10) {
+			 NeedToDisableBoss = true;
+		 }
+	 }
 	
 
 	return UPDATE_CONTINUE;
@@ -419,8 +464,8 @@ void ModuleBossLvl1::OnCollision(Collider *c1, Collider *c2) {
 		if (life <= 0) {
 			App->fonts->ScoreP1 += 5000;
 			App->fonts->ScoreP2 += 5000;
-			dead = true;
-			NeedToDisableBoss = true;
+			dead1 = true;
+			
 		}
 	}
 }
@@ -481,6 +526,7 @@ void ModuleBossLvl1::Charge() {
 		 AnimOpenEye.Reset();
 		 AnimCloseEye.Reset();
 		 cicle++;
+		 counterrr = 0;
 	}
 	
 }
@@ -490,6 +536,10 @@ void ModuleBossLvl1::LluviaDorada() {
 	if (Stage == Stage3) {
 		if (EnemyAddController == 0) {
 			App->enemies->AddEnemy(ENEMY_TYPES::BOSS_TEARS, position.x+randnum, position.y, false);
+			if (counterrr < 1) {
+				App->enemies->AddEnemy(ENEMY_TYPES::BOSSLAMELLA, position.x + 200, 60, false);
+				counterrr++;
+			}
 			EnemyAddController++;
 		
 		}
