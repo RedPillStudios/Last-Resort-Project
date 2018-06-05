@@ -21,7 +21,8 @@ enum POWERUP_TYPES {
 	BLUE,
 	MISILES,
 	LASER,
-	SPEED
+	SPEED,
+	BOMB
 };
 
 struct PowerUpInfo {
@@ -100,8 +101,27 @@ public:
 
 	int timing;
 
+};
+
+class powerUp_Bomb : public powerUp {
+
+public:
+
+	powerUp_Bomb(int x, int y);
+	~powerUp_Bomb() {};
+
+	void OnCollision(Collider *c1) {};
+	Animation Red;
+	Animation Blue;
+	Animation ChangeColor;
+	fPoint position;
+
+	void Update();
+	int timing;
 
 };
+
+
 
 
 class ModulePowerUp : public Module {
