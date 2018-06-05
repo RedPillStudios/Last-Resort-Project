@@ -85,8 +85,9 @@ ModuleBossLvl1::~ModuleBossLvl1() {}
 
 bool ModuleBossLvl1::Start() {
 
-	//position = { (9000), 55 };
-	position = { (300), 55 };
+	position = { (9000), 55 };
+	//position = { (300), 55 };
+
 	current_head = &AnimMouth;
 	current_eye = &AnimClosedEye;
 
@@ -129,7 +130,7 @@ bool ModuleBossLvl1::CleanUp() {
 
 update_status ModuleBossLvl1::Update() {
 
-	srand(time(NULL));
+	//srand(time(NULL));
 
 	Bot->SetPos(position.x + 10, position.y + 95);
 	Eye->SetPos(position.x + 20, position.y + 79);
@@ -225,7 +226,7 @@ update_status ModuleBossLvl1::Update() {
 			 }
 		 }
 	 }
-	 srand(time(NULL));
+	 //srand(time(NULL));
 	 //__________________________________________________________________________________________________________________________________________
 	 //LLUVIA DORADA
 	 if (cicle % 3 == 0 ) {

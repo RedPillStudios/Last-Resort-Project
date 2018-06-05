@@ -10,8 +10,9 @@ struct SDL_Texture;
 class GreenBombIron :public Enemy
 {
 public:
-	GreenBombIron(int x, int y);
+	GreenBombIron(int x, int y, ENEMY_TYPES type_);
 	void Move();
+	void OnCollision(Collider *c1, Collider *c2);
 
 	iPoint PlayerPosition;
 	int counter = 0;
@@ -21,6 +22,7 @@ public:
 
 private:
 	Animation GreenBombAnim;
+	
 
 
 };

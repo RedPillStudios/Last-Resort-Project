@@ -20,6 +20,11 @@
 #include "Humans.h"
 #include "GreenBombIron.h"
 #include "Enemy_Tears.h"
+#include "Module_Hou_Player1.h"
+#include "BossLamella.h"
+
+#include <time.h>
+#include <iostream>
 
 #define SPAWN_MARGIN 50
 
@@ -83,6 +88,8 @@ update_status ModuleEnemies::Update() {
 	
 	for (uint i = 0; i < MAX_ENEMIES; ++i)
 		if (enemies[i] != nullptr) enemies[i]->Draw(enemies[i]->sprites);
+
+	counter_Damage++;
 
 	return UPDATE_CONTINUE;
 }
@@ -156,7 +163,7 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		break;
 		
 		case ENEMY_TYPES::ENEMY_LAMELLA:
-		enemies[i] = new EnemyLamella(info.x, info.y,info.PowerUp);
+		enemies[i] = new EnemyLamella(info.x, info.y,info.PowerUp,info.type);
 		break;
 		
 		case ENEMY_TYPES::CARS:
@@ -166,14 +173,21 @@ void ModuleEnemies::SpawnEnemy(const EnemyInfo& info)
 		case ENEMY_TYPES::ENEMY_BEE:
 		enemies[i] = new Enemy_Bee(info.x, info.y,info.PowerUp);
 		break;
+
 		case ENEMY_TYPES::HUMAN:
-			enemies[i] = new Humans(info.x,info.y);
-			break;
+		enemies[i] = new Humans(info.x,info.y);
+		break;
+
 		case ENEMY_TYPES::GREENBOMB:
-			enemies[i] = new GreenBombIron(info.x, info.y);
+			enemies[i] = new GreenBombIron(info.x, info.y,info.type);
       break;
+
 		case ENEMY_TYPES::BOSS_TEARS:
 		enemies[i] = new Enemy_BossTears(info.x, info.y, info.PowerUp);
+		break;
+
+		case ENEMY_TYPES::BOSSLAMELLA:
+		enemies[i] = new EnemyBossLamella(info.x, info.y, info.PowerUp);
 		break;
         
 		}
@@ -184,48 +198,46 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 		
 	for (uint i = 0; i < MAX_ENEMIES; ++i) {
 		
-		 if (enemies[i] != nullptr && (enemies[i]->GetCollider() == c1 || enemies[i]->GetCollider() == c2)) {
+		if (enemies[i] != nullptr && (enemies[i]->GetCollider() == c1 || enemies[i]->GetCollider() == c2)) {
+			if (c2->type == COLLIDER_TYPE::COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_TYPE::COLLIDER_PLAYER_SHOT2)
+ 			--(enemies[i]->life);
+			else if (c2->type == COLLIDER_TYPE::COLLIDER_HOU) {
+				if (counter_Damage %5==0) {
+					enemies[i]->life -= App->HOU_Player1->Damage;	
+				}
+			}
 
-			 --(enemies[i]->life);
+			if (enemies[i]->life <= 0) {
+				
+				if (enemies[i]->PowerUp == true) {
 
-			 if (enemies[i]->life <= 0) {
-
-				 if (enemies[i]->PowerUp == true) {
-
-					 if (App->scene1background->randomPositionCars == 1)
-						 App->powerup->AddPowerUp(POWERUP_TYPES::LASER, enemies[i]->position.x, enemies[i]->position.y);
-					 else if (App->scene1background->randomColorCars == 2) {
-						 App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, enemies[i]->position.x, enemies[i]->position.y);
-					 }
-				 }
-
-					if(App->scene1background->randomPositionCars==1)
-						App->powerup->AddPowerUp(POWERUP_TYPES::LASER,enemies[i]->position.x,enemies[i]->position.y);
-					else if (App->scene1background->randomColorCars == 2) 
+					if (App->scene1background->randomPositionCars == 1)
+						App->powerup->AddPowerUp(POWERUP_TYPES::LASER, enemies[i]->position.x, enemies[i]->position.y);
+					else if (App->scene1background->randomColorCars == 2)
 						App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, enemies[i]->position.x, enemies[i]->position.y);
 					else if (App->scene1background->randomColorCars == 3)
 						App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, enemies[i]->position.x, enemies[i]->position.y);
-					
 				}
-
-				if(c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT)
+				if (c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT)
 					App->fonts->ScoreP1 += enemies[i]->score;
 				else if (c1->type == COLLIDER_PLAYER_SHOT2 || c2->type == COLLIDER_PLAYER_SHOT2)
 					App->fonts->ScoreP2 += enemies[i]->score;
 
-				if (enemies[i]->type != ENEMY_TYPES::CARS) {
- 					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 8, enemies[i]->position.y - 2, COLLIDER_NONE, 0);
+				if (enemies[i]->type != ENEMY_TYPES::CARS && enemies[i]->type != ENEMY_TYPES::GREENBOMB) {
+					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 8, enemies[i]->position.y - 2, COLLIDER_NONE, 0);
 					//App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 8, enemies[i]->position.y + 3, COLLIDER_NONE, 200);
-					App->enemies->AddEnemy(ENEMY_TYPES::HUMAN, enemies[i]->position.x, enemies[i]->position.y,false);
+					if (enemies[i]->type != ENEMY_TYPES::ENEMY_LAMELLA) {
+						App->enemies->AddEnemy(ENEMY_TYPES::HUMAN, enemies[i]->position.x, enemies[i]->position.y, false);
+					}
 				}
-    
+
 				if (enemies[i]->type == ENEMY_TYPES::ENEMY_RHINO) {
 					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 8, enemies[i]->position.y - 2, COLLIDER_NONE, 0);
 					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 13, enemies[i]->position.y - 21, COLLIDER_NONE, 100);
-					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x -19, enemies[i]->position.y + 14, COLLIDER_NONE, 150);
-					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 1, enemies[i]->position.y +13, COLLIDER_NONE, 200);
-					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 12, enemies[i]->position.y -3, COLLIDER_NONE, 250);
-					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 6, enemies[i]->position.y  -16, COLLIDER_NONE, 300);
+					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 19, enemies[i]->position.y + 14, COLLIDER_NONE, 150);
+					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 1, enemies[i]->position.y + 13, COLLIDER_NONE, 200);
+					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 12, enemies[i]->position.y - 3, COLLIDER_NONE, 250);
+					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 6, enemies[i]->position.y - 16, COLLIDER_NONE, 300);
 					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x + 19, enemies[i]->position.y + 8, COLLIDER_NONE, 350);
 					App->particles->AddParticle(App->particles->EnemyExplosion, enemies[i]->position.x - 12, enemies[i]->position.y - 3, COLLIDER_NONE, 360);
 				}
@@ -236,12 +248,35 @@ void ModuleEnemies::OnCollision(Collider *c1, Collider *c2) {
 					enemies[i] = nullptr;
 					break;
 				}
-				else {
-					enemies[i]->OnCollision(c2);
-				}
 			}
-			
-		} 
-	}
+			else {
+				enemies[i]->OnCollision(c2);
+			}
+		}
+	}		
+} 
+
+	/*	if (enemies[i]->PowerUp == true) {
+
+					randomPowerUps = rand() % 3 + 1;
+					if (randomPowerUps == 1 && !bo) {
+						App->powerup->AddPowerUp(POWERUP_TYPES::BOMB, enemies[i]->position.x, enemies[i]->position.y);
+						miss = false;
+						bo = true;
+						las = false;
+					}
+					else if (randomPowerUps == 2 && !las) {
+						App->powerup->AddPowerUp(POWERUP_TYPES::LASER, enemies[i]->position.x, enemies[i]->position.y);
+						miss = false;
+						bo = false;
+						las = true;
+					}
+					else if (randomPowerUps == 3 && !miss) {
+						App->powerup->AddPowerUp(POWERUP_TYPES::MISILES, enemies[i]->position.x, enemies[i]->position.y);
+						miss = true;
+						bo = false;
+						las = false;
+					}
+				}*/
 
 

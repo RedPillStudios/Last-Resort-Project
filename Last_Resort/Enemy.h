@@ -30,11 +30,12 @@ public:
 
 	ENEMY_TYPES type;
 	bool reached;
-	uint life;
+	int life;
 	uint score;
 	bool PowerUp;
 	fPoint toGo;
 	bool hit;
+	bool touched;
 
 public:
 

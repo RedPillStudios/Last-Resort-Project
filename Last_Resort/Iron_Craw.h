@@ -42,6 +42,9 @@ public:
 public:
 
 	SDL_Texture*Mini_Boss;
+	SDL_Texture* Damaged;
+	SDL_Texture* actual;
+
 
 	Animation idle;
 	Animation idle_Damage;
@@ -60,7 +63,7 @@ public:
 	Collider*RArm = nullptr;
 
 
-	iPoint position;
+	fPoint position;
 
 public:
 	iPoint PlayerPosition;
@@ -69,8 +72,8 @@ public:
 	uint moving_waiting;
 	
 	int counter = 0;
-	int LArmPosition;
-	int RArmPosition;
+	float LArmPosition;
+float RArmPosition;
 	int YarmsPos;
 	int explosionTiming;
 	int counterIron;
@@ -78,10 +81,15 @@ public:
 	int MoveTiming;
 	int MoveTiming2;
 	int angleBomb;
+	int counter_Flicker;
 
+	float SpawnPos;
+	
 
 	double radians;
 
+
+	bool hit=false;
 	bool Rarmfalling;
 	bool LArmfallinf;
 	bool dead = false;
@@ -93,9 +101,16 @@ public:
 	bool moving_Down;
 	bool moving_Up ;
 	bool launchBombs;
+	bool SpawnFInished=false;
+	bool spawnMovementDown;
+	bool EnemyAppear;
+	bool ExplosionDead;
+	bool disablingIronCraw=false;
 
 	void bombs();
 	void Move();
+	void spawn();
+
 	void OnCollision(Collider *c1, Collider *c2);
 
 

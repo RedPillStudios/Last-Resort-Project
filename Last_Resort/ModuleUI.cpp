@@ -17,6 +17,7 @@
 #include "ModuleSound.h"
 #include "Module_Hou_Player1.h"
 #include "Module_Hou_Player2.h"
+#include "ModuleHighScore.h"
 
 #include <iostream>
 #include <string.h>
@@ -81,88 +82,99 @@ bool ModuleUI::CleanUp() {
 
 update_status ModuleUI::Update() {
 
+	if (App->input->keyboard[SDL_SCANCODE_F5] == KEY_STATE::KEY_DOWN) {
+		if (GOD == false) {
+			GOD = true;
+		}
+		else if(GOD=true)
+			GOD = false;
+	}
 
 	if (App->input->keyboard[SDL_SCANCODE_C] == KEY_STATE::KEY_DOWN && coins < 100) {
 		coins++;
 		Mix_PlayChannel(-1, Insert_Coin, 0);
 	}
+	if (App->HighScore->IsEnabled() == true) {
+		if (!ccompleted) {
+			if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_DOWN) {
 
-	if (!ccompleted) {
-		if (App->input->keyboard[SDL_SCANCODE_UP] == KEY_STATE::KEY_DOWN) {
+				if (cpressed == false && c2pressed == false && c3pressed == false) {
 
-			if (cpressed == false && c2pressed == false && c3pressed == false) {
+					name1 = abecedary[selector];
+					selector++;
+					if (selector > 25)
+						selector = 0;
+				}
+				if (cpressed == true && c2pressed == false && c3pressed == false) {
 
-				name1 = abecedary[selector];
-				selector++;
-				if (selector > 25)
-					selector = 0;
-			}
-			if (cpressed == true && c2pressed == false && c3pressed == false) {
+					name2 = abecedary[selector2];
+					selector2++;
+					if (selector2 > 25)
+						selector2 = 0;
+				}
+				if (cpressed == true && c2pressed == true && c3pressed == false) {
 
-				name2 = abecedary[selector2];
-				selector2++;
-				if (selector2 > 25)
-					selector2 = 0;
-			}
-			if (cpressed == true && c2pressed == true && c3pressed == false) {
-
-				name3 = abecedary[selector3];
-				selector3++;
-				if (selector3 > 25)
-					selector3 = 0;
-			}
-		}
-		if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_DOWN) {
-
-			if (cpressed == false && c2pressed == false && c3pressed == false) {
-				name1 = abecedary[selector];
-				--selector;
-				if (selector < 0)
-					selector = 25;
-			}
-			if (cpressed == true && c2pressed == false && c3pressed == false) {
-
-				name2 = abecedary2[selector2];
-				--selector2;
-				if (selector2 < 0)
-					selector2 = 25;
-			}
-			if (cpressed == true && c2pressed == true && c3pressed == false) {
-
-				name3 = abecedary3[selector3];
-				--selector3;
-				if (selector3 < 0)
-					selector3 = 25;
-			}
-		}
-
-		if (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN) {
-
-			if (cpressed == false && cpressed == false && c3pressed == false) {
-
-				NewName[0] = name1;
-				cpressed = true;
-			}
-			else if (cpressed == true && c2pressed == false && c3pressed == false) {
-
-				NewName[1] = name2;
-				c2pressed = true;
-			}
-			else if (c2pressed == true && cpressed == true && c3pressed == false) {
-
-				NewName[2] = name3;
-				c3pressed = true;
-				for (int i = 0; i < 3; ++i) {
-
-					New[i] = NewName[i];
+					name3 = abecedary[selector3];
+					selector3++;
+					if (selector3 > 25)
+						selector3 = 0;
 				}
 			}
-		}
-	}
+			if (App->input->keyboard[SDL_SCANCODE_DOWN] == KEY_STATE::KEY_DOWN) {
 
-	BlitText((SCREEN_WIDTH / 2) + 130, (SCREEN_HEIGHT / 2), font, &name1);
-	/*BlitText((SCREEN_WIDTH / 2) + 10, (SCREEN_HEIGHT / 2), font, &c2);
-	BlitText((SCREEN_WIDTH / 2) + 20, (SCREEN_HEIGHT / 2), font, &c3);*/
+				if (cpressed == false && c2pressed == false && c3pressed == false) {
+					name1 = abecedary[selector];
+					--selector;
+					if (selector < 0)
+						selector = 25;
+				}
+				if (cpressed == true && c2pressed == false && c3pressed == false) {
+
+					name2 = abecedary2[selector2];
+					--selector2;
+					if (selector2 < 0)
+						selector2 = 25;
+				}
+				if (cpressed == true && c2pressed == true && c3pressed == false) {
+
+					name3 = abecedary3[selector3];
+					--selector3;
+					if (selector3 < 0)
+						selector3 = 25;
+				}
+			}
+
+			if (App->input->keyboard[SDL_SCANCODE_E] == KEY_STATE::KEY_DOWN) {
+
+				if (cpressed == false && cpressed == false && c3pressed == false) {
+
+					NewName[0] = name1;
+					cpressed = true;
+				}
+				else if (cpressed == true && c2pressed == false && c3pressed == false) {
+
+					NewName[1] = name2;
+					c2pressed = true;
+				}
+				else if (c2pressed == true && cpressed == true && c3pressed == false) {
+
+					NewName[2] = name3;
+					c3pressed = true;
+					
+					for (int i = 0; i < 3; ++i) {
+
+						New[i] = NewName[i];
+					}
+					ccompleted = true;
+				}
+			}
+			
+		}
+
+		BlitText(215, 50, font, &name1);
+		/*BlitText((SCREEN_WIDTH / 2) + 10, (SCREEN_HEIGHT / 2), font, &c2);
+		BlitText((SCREEN_WIDTH / 2) + 20, (SCREEN_HEIGHT / 2), font, &c3);*/
+	}
 
 	
 		sprintf_s(coins_text, "%7d", coins);
@@ -198,19 +210,26 @@ update_status ModuleUI::Update() {
 			}
 		}
 
-		//P1 Score
-		sprintf_s(score_text, "%7d", ScoreP1);
-		BlitText(40, 16, font, score_text);
-		BlitText(13, 16, font, "P1");
-		BlitText(29, 11, font, "_");
-		BlitText(29, 15, font, "_");
+		if (P1Life > 0) {
+			//P1 Score
+			sprintf_s(score_text, "%7d", ScoreP1);
+			BlitText(40, 16, font, score_text);
+			BlitText(13, 16, font, "P1");
+			BlitText(29, 11, font, "_");
+			BlitText(29, 15, font, "_");
+			
+			App->render->Blit(UI_Main_Menu, 13, 24, &App->player->UI_ship, 0.0f, false); //Mini_UI_Ships->Player1
 
-		App->render->Blit(UI_Main_Menu, 13, 24, &App->player->UI_ship, 0.0f, false); //Mini_UI_Ships->Player1
+			//P1 Life
+			sprintf_s(life_text, "%7d", P1Life);
+			BlitText(30, 24, font, "X0");
+			BlitText(-2, 24, font, life_text);
+		}
+		else {
 
-		//P1 Life
-		sprintf_s(life_text, "%7d", P1Life);
-		BlitText(30, 24, font, "X0");
-		BlitText(-2, 24, font, life_text);
+			BlitText(40, 16, font, "DEAD");
+			BlitText(13, 16, font, "P1");
+		}
 
 		/*if (App->player2->Dead == true && App->player2->IsEnabled() == false) {
 			App->fonts->BlitText((SCREEN_WIDTH - 76), 16, font, "INSERT");
@@ -218,18 +237,30 @@ update_status ModuleUI::Update() {
 		}*/
 
 		//P2 Score
-		sprintf_s(score_text2, "%7d", ScoreP2);
-		BlitText((SCREEN_WIDTH - 65), 16, font, score_text2);
-		BlitText((SCREEN_WIDTH - 76), 11, font, "_");
-		BlitText((SCREEN_WIDTH - 76), 15, font, "_");
-		BlitText((SCREEN_WIDTH - 92), 16, font, "P2");
+		if (App->player2->IsEnabled() == true) {
+			sprintf_s(score_text2, "%7d", ScoreP2);
+			BlitText((SCREEN_WIDTH - 65), 16, font, score_text2);
+			BlitText((SCREEN_WIDTH - 76), 11, font, "_");
+			BlitText((SCREEN_WIDTH - 76), 15, font, "_");
+			BlitText((SCREEN_WIDTH - 92), 16, font, "P2");
+			sprintf_s(life2_text, "%7d", P2Life);
+			BlitText((SCREEN_WIDTH - 75), 24, font, "X0");
+			BlitText((SCREEN_WIDTH - 107), 24, font, life2_text);
 
-		App->render->Blit(UI_Main_Menu, 237, 24, &App->player2->UI_ship2, 0.0f, false); //Mini_UI_Ships->Player2
+			App->render->Blit(UI_Main_Menu, 237, 24, &App->player2->UI_ship2, 0.0f, false); //Mini_UI_Ships->Player2
+		}
+		else if (P2Life <= 0) {
 
-		//P2 Life
-		sprintf_s(life2_text, "%7d", P2Life);
-		BlitText((SCREEN_WIDTH - 75), 24, font, "X0");
-		BlitText((SCREEN_WIDTH - 107), 24, font, life2_text);
+			BlitText((SCREEN_WIDTH - 58), 16, font, "DEAD");
+			BlitText((SCREEN_WIDTH - 78), 16, font, "P2");
+		}
+		else {
+
+			BlitText((SCREEN_WIDTH - 20), 16, font, "P2");
+			BlitText((SCREEN_WIDTH - 48), 16, font, "F0R");
+			BlitText((SCREEN_WIDTH - 58), 16, font, "P");
+			BlitText((SCREEN_WIDTH - 100), 16, font, "PRESS");
+		}
 
 		//TOP Score
 		if (App->scene1background->IsEnabled() == true) {
@@ -248,7 +279,7 @@ update_status ModuleUI::Update() {
 		BlitText((SCREEN_WIDTH / 2) - 9, 16, font, top_score);
 
 		//GOD MODE
-		if (App->player->GOD || App->player2->GOD) {
+		if (GOD) {
 
 			App->fonts->BlitText(13, SCREEN_HEIGHT - 10, App->fonts->font, "G0D");
 			App->fonts->BlitText(39, SCREEN_HEIGHT - 10, App->fonts->font, "M0DE");
@@ -261,19 +292,24 @@ update_status ModuleUI::Update() {
 		}
 	}
 
-	if (Checkpoint1 == true && App->gameover->IsEnabled()) {
+	/*if (Checkpoint1 == true && App->gameover->IsEnabled()) {
 
-		if (App->input->keyboard[SDL_SCANCODE_P] == KEY_STATE::KEY_DOWN) {
+		if (App->input->keyboard[SDL_SCANCODE_B] == KEY_STATE::KEY_DOWN) {
 
 			App->fade->FadeToBlack(App->gameover, App->scene1background);
 			P1Life = 3;
 			P2Life = 3;
 		}
-	}
+	}*/
 
 	
 	if (((App->gameover->IsEnabled() == true) || (App->stageclear->IsEnabled() == true)) && counterRanking == 0) {
 
+	/*	if (Checkpoint1 == true) {
+			BlitText(SCREEN_WIDTH / 2 - 10, SCREEN_HEIGHT - 10, font, "B");
+			BlitText(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 10, font, "FOR");
+			BlitText(SCREEN_WIDTH / 2 + 24, SCREEN_HEIGHT - 10, font, "CONTINUE");
+		}*/
 		counterRanking++;
 		uint MaxScore = ScoreP1 + ScoreP2;
 		ChangeRanking(Ranking, "Images/Ranking.txt", MaxScore);

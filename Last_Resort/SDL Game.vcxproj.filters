@@ -4,6 +4,15 @@
     <ClCompile Include="Application.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="Globals.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="BossLamella.cpp">
+      <Filter>Modules\Enemies\BossLamella</Filter>
+    </ClCompile>
     <ClCompile Include="CarsToFast.cpp">
       <Filter>Modules\Enemies\Cars</Filter>
     </ClCompile>
@@ -28,25 +37,25 @@
     <ClCompile Include="EnemyZicZac.cpp">
       <Filter>Modules\Enemies\Zig Zag</Filter>
     </ClCompile>
-    <ClCompile Include="Globals.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="GreenBombIron.cpp">
-      <Filter>Modules\Enemies\Iron Craw</Filter>
+      <Filter>Modules\Enemies\IronCraw</Filter>
     </ClCompile>
     <ClCompile Include="Humans.cpp">
       <Filter>Modules\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Iron_Craw.cpp">
-      <Filter>Modules\Enemies\Iron Craw</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Core</Filter>
+      <Filter>Modules\Enemies\IronCraw</Filter>
     </ClCompile>
     <ClCompile Include="Module_Hou_Player1.cpp">
       <Filter>Modules\Player</Filter>
     </ClCompile>
     <ClCompile Include="Module_Hou_Player2.cpp">
+      <Filter>Modules\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ModulePlayer2.cpp">
+      <Filter>Modules\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="ModulePlayer.cpp">
       <Filter>Modules\Player</Filter>
     </ClCompile>
     <ClCompile Include="ModuleBossLvl1.cpp">
@@ -67,20 +76,17 @@
     <ClCompile Include="ModuleGameOver.cpp">
       <Filter>Modules\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleInput.cpp">
-      <Filter>Modules\Base\Controllers</Filter>
+    <ClCompile Include="ModuleHighScore.cpp">
+      <Filter>Modules\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="ModuleMainMenu.cpp">
       <Filter>Modules\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleInput.cpp">
+      <Filter>Modules\Base\Controllers</Filter>
+    </ClCompile>
     <ClCompile Include="ModuleParticles.cpp">
       <Filter>Modules\Physics</Filter>
-    </ClCompile>
-    <ClCompile Include="ModulePlayer.cpp">
-      <Filter>Modules\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="ModulePlayer2.cpp">
-      <Filter>Modules\Player</Filter>
     </ClCompile>
     <ClCompile Include="ModulePowerUp.cpp">
       <Filter>Modules\Physics</Filter>
@@ -88,14 +94,17 @@
     <ClCompile Include="ModuleRender.cpp">
       <Filter>Modules\Base\Screens</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleSound.cpp">
-      <Filter>Modules\Base\Controllers</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleSceneLvl1.cpp">
       <Filter>Modules\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleSound.cpp">
+      <Filter>Modules\Base\Controllers</Filter>
+    </ClCompile>
     <ClCompile Include="ModuleStageClear.cpp">
       <Filter>Modules\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleTank.cpp">
+      <Filter>Modules\Enemies\Tank</Filter>
     </ClCompile>
     <ClCompile Include="ModuleTextures.cpp">
       <Filter>Modules\Base\Controllers</Filter>
@@ -106,9 +115,6 @@
     <ClCompile Include="ModuleWindow.cpp">
       <Filter>Modules\Base\Screens</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleTank.cpp">
-      <Filter>Modules\Enemies\Tank</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -116,6 +122,18 @@
     </ClInclude>
     <ClInclude Include="Application.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Globals.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="MemLeaks.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="p2Point.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="BossLamella.h">
+      <Filter>Modules\Enemies\BossLamella</Filter>
     </ClInclude>
     <ClInclude Include="CarsToFast.h">
       <Filter>Modules\Enemies\Cars</Filter>
@@ -141,20 +159,14 @@
     <ClInclude Include="EnemyZicZac.h">
       <Filter>Modules\Enemies\Zig Zag</Filter>
     </ClInclude>
-    <ClInclude Include="Globals.h">
-      <Filter>Core</Filter>
-    </ClInclude>
     <ClInclude Include="GreenBombIron.h">
-      <Filter>Modules\Enemies\Iron Craw</Filter>
+      <Filter>Modules\Enemies\IronCraw</Filter>
     </ClInclude>
     <ClInclude Include="Humans.h">
       <Filter>Modules\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Iron_Craw.h">
-      <Filter>Modules\Enemies\Iron Craw</Filter>
-    </ClInclude>
-    <ClInclude Include="MemLeaks.h">
-      <Filter>Core</Filter>
+      <Filter>Modules\Enemies\IronCraw</Filter>
     </ClInclude>
     <ClInclude Include="Module.h">
       <Filter>Modules</Filter>
@@ -163,6 +175,12 @@
       <Filter>Modules\Player</Filter>
     </ClInclude>
     <ClInclude Include="Module_Hou_Player2.h">
+      <Filter>Modules\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ModulePlayer2.h">
+      <Filter>Modules\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ModulePlayer.h">
       <Filter>Modules\Player</Filter>
     </ClInclude>
     <ClInclude Include="ModuleBossLvl1.h">
@@ -183,20 +201,17 @@
     <ClInclude Include="ModuleGameOver.h">
       <Filter>Modules\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleInput.h">
-      <Filter>Modules\Base\Controllers</Filter>
+    <ClInclude Include="ModuleHighScore.h">
+      <Filter>Modules\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="ModuleMainMenu.h">
       <Filter>Modules\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleInput.h">
+      <Filter>Modules\Base\Controllers</Filter>
+    </ClInclude>
     <ClInclude Include="ModuleParticles.h">
       <Filter>Modules\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="ModulePlayer.h">
-      <Filter>Modules\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="ModulePlayer2.h">
-      <Filter>Modules\Player</Filter>
     </ClInclude>
     <ClInclude Include="ModulePowerUp.h">
       <Filter>Modules\Physics</Filter>
@@ -204,14 +219,17 @@
     <ClInclude Include="ModuleRender.h">
       <Filter>Modules\Base\Screens</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleSound.h">
-      <Filter>Modules\Base\Controllers</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleSceneLvl1.h">
       <Filter>Modules\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleSound.h">
+      <Filter>Modules\Base\Controllers</Filter>
+    </ClInclude>
     <ClInclude Include="ModuleStageClear.h">
       <Filter>Modules\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleTank.h">
+      <Filter>Modules\Enemies\Tank</Filter>
     </ClInclude>
     <ClInclude Include="ModuleTextures.h">
       <Filter>Modules\Base\Controllers</Filter>
@@ -222,67 +240,64 @@
     <ClInclude Include="ModuleWindow.h">
       <Filter>Modules\Base\Screens</Filter>
     </ClInclude>
-    <ClInclude Include="p2Point.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleTank.h">
-      <Filter>Modules\Enemies\Tank</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
-      <UniqueIdentifier>{27915940-091a-4b9d-a455-ed59344da335}</UniqueIdentifier>
+      <UniqueIdentifier>{603bf0a3-15b6-43a2-8f01-7f11f9e6cfc2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Modules">
-      <UniqueIdentifier>{a9a7efc2-c011-431d-9336-317a6462da78}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Base">
-      <UniqueIdentifier>{43174bb5-76d3-406c-9844-d6c5430faffe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Base\Screens">
-      <UniqueIdentifier>{a64e7702-0acc-404b-8c91-1ff8b6e2ff9f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Base\Controllers">
-      <UniqueIdentifier>{35d3d5db-af91-4aa3-80f7-7f39da3830b4}</UniqueIdentifier>
+      <UniqueIdentifier>{a1628c99-9c7a-4b11-a6f0-85b44017f2de}</UniqueIdentifier>
     </Filter>
     <Filter Include="Modules\Enemies">
-      <UniqueIdentifier>{ebe35c1b-5ae3-449a-a4ef-a5ec4ebe7637}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Enemies\Wasp">
-      <UniqueIdentifier>{958d4e1a-9f85-4bde-a384-d797ca76ad5e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Enemies\Cars">
-      <UniqueIdentifier>{e141ba89-6d4e-441d-9a43-641440e75b28}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Enemies\Lamella">
-      <UniqueIdentifier>{6e1a3dbf-3c6e-455b-a36e-b5ed1f587cd1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Enemies\Bee">
-      <UniqueIdentifier>{32ae335e-0b0e-49de-9132-683176cf85ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Enemies\Iron Craw">
-      <UniqueIdentifier>{b66cb741-3aa9-439c-a34d-d8d752eefad7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Enemies\Boss">
-      <UniqueIdentifier>{f6b30e76-b005-45a8-8154-45de51158cba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Enemies\Tank">
-      <UniqueIdentifier>{8de30f03-e27e-419d-9876-59da749249a6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Enemies\Rhino">
-      <UniqueIdentifier>{c301c687-515e-416b-9ca0-b603c2d2bfe3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Enemies\Zig Zag">
-      <UniqueIdentifier>{ffd79653-2a3c-487f-9fe1-9474f091f086}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Modules\Player">
-      <UniqueIdentifier>{ffc5ca99-9eb4-4955-93cb-abf60183519a}</UniqueIdentifier>
+      <UniqueIdentifier>{e71ad747-d111-4291-a080-965fe4dfb8e7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Modules\Physics">
-      <UniqueIdentifier>{e8db8ebf-8f28-41fb-ac01-93ce76492b74}</UniqueIdentifier>
+      <UniqueIdentifier>{035d7464-a53a-416b-a9d0-8316f105a844}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Player">
+      <UniqueIdentifier>{b4f29b2d-2e55-4288-a3ab-a9842b6d208d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Modules\Scenes">
-      <UniqueIdentifier>{371909b3-abdb-4fcc-a735-288b18177887}</UniqueIdentifier>
+      <UniqueIdentifier>{0c546262-5829-4e89-baac-9384cfd38a1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Base">
+      <UniqueIdentifier>{451e3862-1f37-4c76-a9f3-5a54eb615c10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Base\Controllers">
+      <UniqueIdentifier>{cd939b2b-3c5c-49c8-98ab-9f63677d133c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Base\Screens">
+      <UniqueIdentifier>{71378246-5703-4e89-a134-f88df8f42fcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\Boss">
+      <UniqueIdentifier>{1fee63fc-3798-40bb-afe7-b0e10e01674b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\IronCraw">
+      <UniqueIdentifier>{fb2cb483-6af4-43bb-ae38-102f9aab49e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\Cars">
+      <UniqueIdentifier>{120b63e5-a045-4261-9fb5-f8294efb0a5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\Tank">
+      <UniqueIdentifier>{03c951c4-624c-4182-99af-77ce60fbdf03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\Lamella">
+      <UniqueIdentifier>{5325e630-f26f-4ff6-9779-90399af13af0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\BossLamella">
+      <UniqueIdentifier>{0ffc05dc-eaf0-4f1c-8dce-2c917edc426d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\Wasp">
+      <UniqueIdentifier>{e4ce598d-dc69-4bcb-bfd9-f53d746b14b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\Rhino">
+      <UniqueIdentifier>{752edeb8-b8e3-4b9b-968e-0f36f40be087}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\Bee">
+      <UniqueIdentifier>{67e686a8-68d4-4ced-8faf-4ef3f2add692}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Enemies\Zig Zag">
+      <UniqueIdentifier>{d42eaad7-8077-4750-80c9-a47590545387}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

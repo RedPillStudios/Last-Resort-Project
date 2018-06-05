@@ -11,7 +11,7 @@ class EnemyLamella : public Enemy {
 
 public:
 
-	EnemyLamella(int x, int y, bool powerUp);
+	EnemyLamella(int x, int y, bool powerUp, ENEMY_TYPES type_);
 	void Move();
 
 private:
@@ -19,7 +19,7 @@ private:
 	int StartAttack;
 	int changeCollider;
 
-	COLLIDER_TYPE type;
+	COLLIDER_TYPE typeColl;
 
 	bool reachPosition = false;
 	

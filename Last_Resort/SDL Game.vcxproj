@@ -74,6 +74,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="BossLamella.h" />
     <ClInclude Include="CarsToFast.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyBee.h" />
@@ -91,6 +92,7 @@
     <ClInclude Include="ModuleBossLvl1.h" />
     <ClInclude Include="ModuleCollision.h" />
     <ClInclude Include="ModuleEnemies.h" />
+    <ClInclude Include="ModuleHighScore.h" />
     <ClInclude Include="ModuleTank.h" />
     <ClInclude Include="ModuleUI.h" />
     <ClInclude Include="ModuleGameControllers.h" />
@@ -114,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="BossLamella.cpp" />
     <ClCompile Include="CarsToFast.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyBee.cpp" />
@@ -130,6 +133,7 @@
     <ClCompile Include="ModuleBossLvl1.cpp" />
     <ClCompile Include="ModuleCollision.cpp" />
     <ClCompile Include="ModuleEnemies.cpp" />
+    <ClCompile Include="ModuleHighScore.cpp" />
     <ClCompile Include="ModuleTank.cpp" />
     <ClCompile Include="ModuleUI.cpp" />
     <ClCompile Include="ModuleGameControllers.cpp" />

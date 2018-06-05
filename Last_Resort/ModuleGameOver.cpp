@@ -12,6 +12,7 @@
 #include "ModuleSceneLvl1.h"
 #include "ModuleStageClear.h"
 #include "ModuleUI.h"
+#include "ModuleHighScore.h"
 
 #include <stdio.h>
 
@@ -117,12 +118,13 @@ update_status ModuleGameOver::Update() {
 
 	if (App->input->keyboard[SDL_SCANCODE_SPACE]) {
 
+		//App->fonts->Checkpoint1 = false;
 		if (App->fonts->coins > 0 && SubstractCoins == true) {
 
 			App->fonts->coins--;
 			SubstractCoins = false;
 		}
-		App->fade->FadeToBlack(App->gameover, App->menu, 1.0f);
+		App->fade->FadeToBlack(App->gameover, App->HighScore, 1.0f);
 
 	}
 	

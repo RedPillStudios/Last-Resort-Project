@@ -71,6 +71,7 @@ public:
 	Animation Charge1;
 	Animation Charge2;
 
+	bool GOD;
 	bool Spawned;
 	bool TimeCounter = true;
 	int Chargebar;
@@ -111,7 +112,7 @@ public:
 	char coins_text[10];
 
 	//Checkpoints
-	bool Checkpoint1 = false;
+	//bool Checkpoint1 = false;
 
 	//RANKING
 	FILE *Ranking;

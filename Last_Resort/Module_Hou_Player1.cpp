@@ -389,6 +389,7 @@ bool ModuleHouPlayer1::Start() {
 
 	HOU_activated = false;
 	fixed = false;
+	Damage = 1;
 
 	colliderHUB = App->collision->AddCollider({ -2000,-200,22,16 }, COLLIDER_HOU, this);
 
@@ -427,6 +428,14 @@ update_status ModuleHouPlayer1::Update() {
 			HOU_Direction = 0;
 		}
 		if (HOU_Charge > 20 && App->input->keyboard[SDL_SCANCODE_SPACE] == KEY_STATE::KEY_UP&&Throwing == false) {
+			if (HOU_Charge > 30 && HOU_Charge <60) {
+				Damage = 3;
+			}
+			else if (HOU_Charge >= 61) {
+				Damage = 5;
+			}
+
+
 			Throwing = true;
 			Throw = true;
 		}
@@ -554,7 +563,7 @@ update_status ModuleHouPlayer1::Update() {
 		//Render HOU
 		if (Throwing) {
 			charging = false;
-			Animation* Sup = current_animation;
+
 			if (Blue) {
 				current_animation = &Blue_Throw_Ball;
 
@@ -564,7 +573,7 @@ update_status ModuleHouPlayer1::Update() {
 			}
 			if (Throw == true) {
 				throwHOU();
-				if (HOU_position.x + 17 >= App->scene1background->position_max_limit || HOU_position.y + 17 >= SCREEN_HEIGHT || HOU_position.x <= App->scene1background->position_min_limit || HOU_position.y <= 0) {
+				if (HOU_position.x + 17 >= App->scene1background->position_max_limit+40 || HOU_position.y + 17 >= SCREEN_HEIGHT+30 || HOU_position.x <= App->scene1background->position_min_limit-30 || HOU_position.y <= -30) {
 					HOUreachPosition = true;
 					Throw = false;
 				}
@@ -578,13 +587,14 @@ update_status ModuleHouPlayer1::Update() {
 				HOU_position.x = HOU_position.x + 0.05*(shipCenter.x - HOU_position.x);
 				HOU_position.y = HOU_position.y + 0.05*(shipCenter.y - HOU_position.y);
 				if ((HOU_position.x < shipCenter.x + 30 && HOU_position.x > shipCenter.x - 30) && (HOU_position.y<shipCenter.y + 30 && HOU_position.y>shipCenter.y - 30)) {
-					current_animation = Sup;
 
 					HOUreachPosition = false;
 					HOU_Charge = 0;
 					Throwing = false;
+					Damage = 1;
 				}
 			}
+		
 		}
 
 		App->particles->HOU_Shot.Speed.x = (7 * cos(HOU_Direction*PI / 180));
@@ -616,13 +626,23 @@ void ModuleHouPlayer1::throwHOU() {
 		HOU_position.x += (10 * cos(HOU_Direction_Angle*PI / 180));
 		HOU_position.y += (10 * sin(HOU_Direction_Angle*PI / 180));
 	}
-	App->particles->Red_ThrowBall_pl1.Speed.x = (1 * cos(HOU_Direction*PI / 180));
-	App->particles->Red_ThrowBall_pl1.Speed.x++;
-	App->particles->Red_ThrowBall_pl1.Speed.y = (1 * sin(HOU_Direction*PI / 180));
+	if (Red == true) {
+		App->particles->Red_ThrowBall_pl1.Speed.x = (1 * cos(HOU_Direction*PI / 180));
+		App->particles->Red_ThrowBall_pl1.Speed.x++;
+		App->particles->Red_ThrowBall_pl1.Speed.y = (1 * sin(HOU_Direction*PI / 180));
+	}
+	else if (Blue == true) {
+		App->particles->Blue_ThrowBall_pl1.Speed.x = (1 * cos(HOU_Direction*PI / 180));
+		App->particles->Blue_ThrowBall_pl1.Speed.x++;
+		App->particles->Blue_ThrowBall_pl1.Speed.y = (1 * sin(HOU_Direction*PI / 180));
+	}
 
 
 	if (particlesTimmer >= 3) {
-		App->particles->AddParticle(App->particles->Red_ThrowBall_pl1, HOU_position.x, HOU_position.y, COLLIDER_NONE);
+		if(Red==true)
+			App->particles->AddParticle(App->particles->Red_ThrowBall_pl1, HOU_position.x, HOU_position.y, COLLIDER_NONE);
+		else if (Blue==true)
+			App->particles->AddParticle(App->particles->Blue_ThrowBall_pl1, HOU_position.x, HOU_position.y, COLLIDER_NONE);
 		particlesTimmer = 0;
 	}
 

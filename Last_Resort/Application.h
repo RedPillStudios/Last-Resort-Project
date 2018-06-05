@@ -3,7 +3,7 @@
 
 #include "Globals.h"
 
-#define NUM_MODULES 23
+#define NUM_MODULES 24
 
 
 //Scene 2 is not here!!
@@ -33,6 +33,7 @@ class ModuleTank;
 class Iron_Craw;
 class ModuleHouPlayer1;
 class ModuleHouPlayer2;
+class ModuleHighScore;
 
 class Application
 {
@@ -62,6 +63,7 @@ public:
 	Iron_Craw *MiniBoss;
 	ModuleHouPlayer1 *HOU_Player1;
 	ModuleHouPlayer2 *HOU_Player2;
+	ModuleHighScore *HighScore;
 
 public:
 

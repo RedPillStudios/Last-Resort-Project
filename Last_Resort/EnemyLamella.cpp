@@ -8,7 +8,9 @@
 #include "ModuleRender.h"
 #include "ModulePlayer2.h"
 
-EnemyLamella::EnemyLamella(int x, int y, bool powerUp) : Enemy(x, y) {
+EnemyLamella::EnemyLamella(int x, int y, bool powerUp,ENEMY_TYPES type_) : Enemy(x, y) {
+
+	type = type_;
 
 	int countx = 0;
 	int county = 0;
@@ -68,7 +70,7 @@ EnemyLamella::EnemyLamella(int x, int y, bool powerUp) : Enemy(x, y) {
 	LamellaAnim.speed = 0.3f;
 	LamellaAnim.loop = true;
 	animation = &Apearing;
-	type = COLLIDER_ENEMY;
+	typeColl = COLLIDER_ENEMY;
 	PowerUp = powerUp;
 
 }
@@ -94,12 +96,12 @@ void EnemyLamella::Move(){
 		StartAttack++;
 		changeCollider++;
 		if (changeCollider == 1) {
-			collider = App->collision->AddCollider({ 0,0,32,32 },type, (Module*)App->enemies);
+			collider = App->collision->AddCollider({ 0,0,32,32 },typeColl, (Module*)App->enemies);
 		}
 		animation = &LamellaAnim;
 		if (StartAttack >= 50) {
-			position.x += 0.013*(PlayerPosition.x - position.x);
-			position.y += 0.013*(PlayerPosition.y - position.y);
+			position.x += 0.03*(PlayerPosition.x - position.x);
+			position.y += 0.03*(PlayerPosition.y - position.y);
 			if ((position.x < PlayerPosition.x + 25 && position.x > PlayerPosition.x - 25) && (position.y<PlayerPosition.y + 25 && position.y>PlayerPosition.y - 25)) {
 				animation = &Despawing;
 				collider->changeCollider(COLLIDER_TYPE::COLLIDER_NONE);

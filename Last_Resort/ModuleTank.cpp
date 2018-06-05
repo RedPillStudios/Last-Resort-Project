@@ -76,7 +76,8 @@ ModuleTank::~ModuleTank() {}
 
 bool ModuleTank::Start() {
 	//Spawn pos
-	TankPosition = { (3330.0), 157.0 };
+	//TankPosition = { (3330.0), 157.0 };
+	TankPosition = { (120), 157.0 };
 
 	//anim declarated
 	CorriendoAlTroteAnim = &CorriendoAlTrote;
@@ -101,7 +102,12 @@ bool ModuleTank::Start() {
 	TankCollider5 = App->collision->AddCollider({ (int)TankPosition.x,(int)TankPosition.y,20,20 }, COLLIDER_ENEMY, this);
 
 	//load textures
-	BossTank = App->textures->Load("Images/Bosses/Tank_Stage1_Sprite.png");
+	Normal= App->textures->Load("Images/Bosses/Tank_Stage1_Sprite.png");
+	Damaged = App->textures->Load("Images/Bosses/Tank_Damage_Stage1_Sprite.png");
+	
+	BossTank = Normal;
+		
+		
 	//colliders
 	life = 50;
 	
@@ -125,7 +131,20 @@ bool ModuleTank::CleanUp() {
 
 update_status ModuleTank::Update() {
 
-
+	if (hit == true) {
+		counter_Flicker++;
+		if (counter_Flicker % 3 == 0) {
+			BossTank = Damaged;
+		}
+		else {
+			BossTank = Normal;
+		}
+		if (counter_Flicker >= 30) {
+			BossTank = Normal;
+			counter_Flicker = 0;
+			hit = false;
+		}
+	}
 
 	TimerShoot++;
 	TimerShoot2++;
@@ -174,7 +193,7 @@ update_status ModuleTank::Update() {
 	if (TankPosition.x <= App->scene1background->position_min_limit + 20 && !LimitReached ) {
 		ReachPos1 = true;
 	}
-	if (TankPosition.x > 10600) {
+	if (TankPosition.x > 8200) {
 		LimitReached = true;
 	}
 	if (ReachPos1) {
@@ -405,15 +424,17 @@ update_status ModuleTank::Update() {
 		if (count2 > 95) {
 			DestroyTank = true;
 		}
-	
+		counter_Life++;
 	return UPDATE_CONTINUE;
 }
 
 void ModuleTank::OnCollision(Collider *c1, Collider *c2) {
 
-	if ((c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT )) {
-
-		--BossLife;
+	if ((c1->type == COLLIDER_PLAYER_SHOT || c2->type == COLLIDER_PLAYER_SHOT || c1->type == COLLIDER_HOU||c2->type == COLLIDER_HOU)) {
+		if (counter_Life % 6 == 0) {
+			--BossLife;
+		}
+		hit = true;
 		LOG("BOSS LIFE    - 1");
 		if (BossLife < 25 && count == 0) {
 			DestroyTurret = true;
