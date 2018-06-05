@@ -1,7 +1,7 @@
 #             RedPill Studios
 ###          Project Last Resort
 
-Welcome to the official webpage of Project Last Resort from RedPill Studios!
+Welcome to the official webpage of Project [Last Resort](https://goo.gl/3Z7SMe) from RedPill Studios!
 
 During this quadrimester we are going to develop the Last Resort game, an arcade shoot 'em up and horizontal scrolling shooter developed by [SNK](https://en.wikipedia.org/wiki/SNK) originally for [NEO-GEO](https://es.wikipedia.org/wiki/Neo-Geo) systems.
 
