@@ -1,4 +1,4 @@
-				<img src="Wiki Files/RedPill Logo Redimensioned.png" alt="hi" class="inline"/>
+<img src="Wiki Files/RedPill Logo Redimensioned.png" alt="hi" class="inline"/>
 
 #             RedPill Studios
 
