@@ -13,6 +13,8 @@ The player's objective is to survive through five stages destroying the boss of 
 ## Last resort gameplay
 See the version 1.0 of the game fully made by RedPill Studios!
 
+<video src="https://www.youtube.com/watch?v=l-2NHnRsyV8&feature=youtu.be" align="center" width="645" height="520" controls preload></video>
+
 <html>
 <body>
 
