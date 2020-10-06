@@ -17,7 +17,7 @@ See the version 1.0 of the game fully made by RedPill Studios!
 
 <p align="center">
 If embedded video cannot be seen, or is seen with low quality
-<a href="https://www.youtube.com/watch?v=l-2NHnRsyV8&feature=youtu.be"">open it at Youtube</a> (it will be in a higher quality).<br><br>
+<a href="https://www.youtube.com/watch?v=l-2NHnRsyV8&feature=youtu.be">open it at Youtube</a> (it will be in a higher quality).<br><br>
 </p>
 
 <!--
